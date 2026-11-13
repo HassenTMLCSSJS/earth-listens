@@ -34,6 +34,12 @@ export const EARCONS: Record<EarconId, EarconSpec> = {
   quiz_wrong: { id: 'quiz_wrong', ms: 220, gainDb: -12, freqs: [311.13, 233.08], wave: 'sine' },
   listening: { id: 'listening', ms: 120, gainDb: -12, freqs: [698.46], wave: 'sine' },
   error: { id: 'error', ms: 240, gainDb: -12, freqs: [196, 185], wave: 'square' },
+  fire: { id: 'fire', ms: 90, gainDb: -14, freqs: [1800, 900], wave: 'square' },
+  volcano: { id: 'volcano', ms: 160, gainDb: -14, freqs: [90, 70], wave: 'triangle' },
+  storm: { id: 'storm', ms: 180, gainDb: -14, freqs: [140, 110], wave: 'sine' },
+  ice: { id: 'ice', ms: 120, gainDb: -14, freqs: [1568], wave: 'sine' },
+  flood: { id: 'flood', ms: 140, gainDb: -14, freqs: [220, 196], wave: 'triangle' },
+  event: { id: 'event', ms: 80, gainDb: -14, freqs: [660], wave: 'sine' },
 };
 
 export function crackleSeed(): number {

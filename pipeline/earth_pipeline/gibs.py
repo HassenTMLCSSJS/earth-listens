@@ -46,41 +46,51 @@ def parse_colormap(xml: str) -> tuple[list[Entry], str]:
         mid = None
         estimated = False
         if source:
-            body = source.strip()[1:-1]
-            left, right = body.split(",")
-            lo, hi = _edge(left), _edge(right)
-            estimated = lo is None or hi is None
-            if lo is None and hi is None:
-                mid = None
-            elif lo is None:
-                mid = hi
-            elif hi is None:
-                mid = lo
+            text = source.strip()
+            if text[:1] in "[(" and text[-1:] in "])":
+                text = text[1:-1]
+            if "," in text:
+                left, right = text.split(",", 1)
+                lo, hi = _edge(left), _edge(right)
+                estimated = lo is None or hi is None
+                if lo is None and hi is None:
+                    mid = None
+                elif lo is None:
+                    mid = hi
+                elif hi is None:
+                    mid = lo
+                else:
+                    mid = (lo + hi) / 2
             else:
-                mid = (lo + hi) / 2
+                # Exact bins: "40" (AMSR2) or "[1]" (ISS LIS) after the brackets are removed.
+                mid = _edge(text)
         ref = int(attr("ref") or len(entries))
         entries.append(Entry(rgb=(rgb[0], rgb[1], rgb[2]), ref=ref, mid=mid, estimated=estimated, nodata=nodata))
     return entries, units
 
 
 def decode_image(path: str, entries: list[Entry]) -> tuple[np.ndarray, float, int]:
-    lut = {entry.rgb: entry for entry in entries if entry.mid is not None and not entry.nodata}
+    """Exact colormap lookup. Transparent and nodata pixels stay NaN."""
+    usable = [entry for entry in entries if entry.mid is not None and not entry.nodata]
     image = np.asarray(Image.open(path).convert("RGBA"))
-    height, width, _ = image.shape
-    values = np.full((height, width), np.nan, dtype=np.float32)
-    opaque = 0
+    rgb = image[..., :3]
+    opaque_mask = image[..., 3] != 0
+    opaque = int(opaque_mask.sum())
+    values = np.full(rgb.shape[:2], np.nan, dtype=np.float32)
     hits = 0
-    for y in range(height):
-        for x in range(width):
-            red, green, blue, alpha = (int(channel) for channel in image[y, x])
-            if alpha == 0:
-                continue
-            opaque += 1
-            entry = lut.get((red, green, blue))
-            if entry is None or entry.mid is None:
-                continue
-            hits += 1
-            values[y, x] = entry.mid
+    for entry in usable:
+        red, green, blue = entry.rgb
+        match = (
+            opaque_mask
+            & (rgb[..., 0] == red)
+            & (rgb[..., 1] == green)
+            & (rgb[..., 2] == blue)
+        )
+        count = int(match.sum())
+        if count == 0 or entry.mid is None:
+            continue
+        values[match] = np.float32(entry.mid)
+        hits += count
     rate = 1.0 if opaque == 0 else hits / opaque
     return values, rate, opaque
 
@@ -127,12 +137,20 @@ def check_budget(name: str, nbytes: int) -> None:
 
 
 def wms_url(layer: str, width: int, height: int, fmt: str, when: str | None = None) -> str:
-    time = f"&TIME={when}" if when else ""
-    return (
-        "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap"
-        f"&VERSION=1.3.0&LAYERS={layer}&CRS=EPSG:4326&BBOX=-90,-180,90,180"
-        f"&WIDTH={width}&HEIGHT={height}&FORMAT=image/{fmt}&STYLES={time}"
+    """WMS GetMap. The date is the TIME parameter. STYLES stays empty.
+
+    A previous version interpolated ``&TIME=...`` into the STYLES value
+    (``STYLES={time}``). Query parsers then disagreed about whether the date
+    belonged to STYLES or TIME. TIME is written as its own parameter.
+    """
+    query = (
+        "SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0"
+        f"&LAYERS={layer}&CRS=EPSG:4326&BBOX=-90,-180,90,180"
+        f"&WIDTH={width}&HEIGHT={height}&FORMAT=image/{fmt}&STYLES="
     )
+    if when:
+        query += f"&TIME={when}"
+    return "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?" + query
 
 
 def etopo_sample(lat: float, lon: float, height_m: np.ndarray) -> float:
@@ -168,23 +186,21 @@ def sha256_file(path: str) -> str:
 
 
 def region_mean(values: np.ndarray, bbox: tuple[float, float, float, float]) -> float | None:
+    """Cosine-latitude weighted mean inside bbox (west, south, east, north)."""
     west, south, east, north = bbox
     height, width = values.shape
     x0 = max(0, math.floor((west + 180) / 360 * width))
     x1 = min(width, math.ceil((east + 180) / 360 * width))
     y0 = max(0, math.floor((90 - north) / 180 * height))
     y1 = min(height, math.ceil((90 - south) / 180 * height))
-    num = 0.0
-    den = 0.0
-    for y in range(y0, y1):
-        lat = 90 - (y + 0.5) / height * 180
-        weight = math.cos(math.radians(lat))
-        for x in range(x0, x1):
-            value = float(values[y, x])
-            if not math.isfinite(value):
-                continue
-            num += value * weight
-            den += weight
-    if den == 0:
+    if x1 <= x0 or y1 <= y0:
         return None
-    return num / den
+    block = values[y0:y1, x0:x1]
+    rows = np.arange(y0, y1)
+    latitudes = 90 - (rows + 0.5) / height * 180
+    weights = np.cos(np.radians(latitudes)).astype(np.float64)[:, None]
+    mask = np.isfinite(block)
+    if not mask.any():
+        return None
+    weighted = np.where(mask, block.astype(np.float64), 0.0) * weights
+    return float(weighted.sum() / (weights * mask).sum())

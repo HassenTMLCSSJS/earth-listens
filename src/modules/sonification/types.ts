@@ -11,7 +11,13 @@ export type EarconId =
   | 'quiz_correct'
   | 'quiz_wrong'
   | 'listening'
-  | 'error';
+  | 'error'
+  | 'fire'
+  | 'volcano'
+  | 'storm'
+  | 'ice'
+  | 'flood'
+  | 'event';
 
 export interface NoteEvent {
   t: number;
@@ -70,11 +76,19 @@ export interface ScoreCell {
   frp_mean: number;
 }
 
+export interface ScoreMarker {
+  id: string;
+  category: string;
+  lon: number;
+}
+
 export interface ScoreLayerData {
   series: Partial<Record<RegionId, ScorePoint[]>>;
   annual?: ScorePoint[] | null;
   cells?: ScoreCell[] | null;
   seasonalAmplitude?: ScorePoint[] | null;
+  variables?: Record<string, ScorePoint[]>;
+  markers?: ScoreMarker[];
 }
 
 export interface ScoreInput {

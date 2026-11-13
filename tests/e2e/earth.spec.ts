@@ -18,6 +18,20 @@ async function command(page: Page, text: string) {
   await box.press('Enter');
 }
 
+test('layer views answer in english and arabic', async ({ page }) => {
+  await page.goto('/en/listen?demo=1');
+  const box = page.locator('#command');
+  await box.fill('play forest');
+  await box.press('Enter');
+  await expect(page.getByTestId('layer-legend')).toContainText('Forest');
+  await expect(page.getByTestId('score-events')).not.toHaveText('0');
+  await page.goto('/ar/listen?demo=1');
+  const arabic = page.locator('#command');
+  await arabic.fill('شغّل الأحداث');
+  await arabic.press('Enter');
+  await expect(page.getByTestId('layer-legend')).toContainText('أحداث');
+});
+
 test('demo listen survives a blocked network', async ({ page, context }) => {
   await context.route('**/*', (route) => {
     const url = route.request().url();

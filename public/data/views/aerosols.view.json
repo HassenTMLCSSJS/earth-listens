@@ -2,25 +2,47 @@
   "id": "aerosols",
   "base": "earth-day",
   "baseDim": 0,
-  "night": false,
-  "height": null,
-  "overlay": null,
+  "night": true,
+  "height": {
+    "src": "/textures/earth-height.png",
+    "offset": -10900,
+    "scale": 19700,
+    "exaggeration": 0.012
+  },
+  "overlay": {
+    "kind": "value",
+    "mask": "none",
+    "ramp": {
+      "id": "aod",
+      "src": "/ramps/sequential.png",
+      "domain": [0, 1],
+      "unit": {
+        "en": "AOD",
+        "ar": "AOD"
+      },
+      "kind": "sequential",
+      "source": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/MERRA2_Aerosol_Optical_Depth_Analysis_Monthly.xml"
+    },
+    "opacity": 0.85
+  },
   "cameras": [
     {
-      "id": "sahara",
+      "id": "default",
       "label": {
-        "en": "Saharan dust",
-        "ar": "غبار الصحراء"
+        "en": "Overview",
+        "ar": "نظرة عامة"
       },
-      "lat": 15,
-      "lon": -20,
-      "alt": 2.5
+      "lat": 20,
+      "lon": 10,
+      "alt": 2.2
     }
   ],
   "beforeAfter": null,
   "transitionMs": 900,
   "credit": [
-    "NASA Global Modeling and Assimilation Office (GMAO).",
-    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS)."
-  ]
+    "MERRA-2 AOD via GIBS.",
+    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS).",
+    "SVS 5669 for the species still, when a card is shown."
+  ],
+  "note": "August AOD drives the tone. 2025 has a frame for each month."
 }

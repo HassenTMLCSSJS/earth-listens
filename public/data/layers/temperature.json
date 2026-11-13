@@ -9,15 +9,28 @@
     "en": "°C anomaly vs 1951–1980",
     "ar": "°C anomaly vs 1951–1980"
   },
-  "source": {
-    "name": "NASA GISTEMP v4",
-    "dataset_url": "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv",
-    "eic_page": "https://earth.gov/sealevel/vital-signs/global-temperature/",
-    "retrieved": "2026-11-13",
-    "sha256": "a7b1939db2e7e484c798e925e0f07f8184356c52ac0e7ce264adcd0f25e81253",
-    "citation": "GISTEMP Team, 2026: GISS Surface Temperature Analysis (GISTEMP), version 4. NASA Goddard Institute for Space Studies.",
-    "ack": null
-  },
+  "source": [
+    {
+      "name": "NASA GISTEMP v4",
+      "dataset_url": "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv",
+      "eic_page": "https://earth.gov/sealevel/vital-signs/global-temperature/",
+      "retrieved": "2026-11-13",
+      "sha256": "a7b1939db2e7e484c798e925e0f07f8184356c52ac0e7ce264adcd0f25e81253",
+      "citation": "GISTEMP Team, 2026: GISS Surface Temperature Analysis (GISTEMP), version 4. NASA Goddard Institute for Space Studies.",
+      "ack": null
+    },
+    {
+      "name": "NASA GMAO MERRA-2 2 m air temperature, monthly, via GIBS",
+      "dataset_url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi",
+      "eic_page": "https://nasa-gibs.github.io/gibs-api-docs/available-visualizations/",
+      "retrieved": "2026-11-13",
+      "sha256": "7c83195159e82819c580a2d70172368b82892ac20be10e22e47c10156f3b0be6",
+      "citation": "July field each year 1980–2025, layer MERRA2_2m_Air_Temperature_Monthly. Regional values are cosine-latitude means of the decoded 512×256 GIBS PNG. Missing dates are omitted. Not the GISTEMP annual mean. Confirmed in WMTS capabilities on 2026-11-13.",
+      "ack": "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS).",
+      "gibs_layer": "MERRA2_2m_Air_Temperature_Monthly",
+      "license": "NASA media guidelines; credit required; no implied endorsement"
+    }
+  ],
   "range": {
     "min": 1880,
     "max": 2025
@@ -761,159 +774,285 @@
   "seasonalAmplitude": null,
   "frames": [
     {
-      "t": 1880,
-      "src": "/frames/temperature/1880.webp",
-      "sample": true
+      "t": "1980-07-01",
+      "src": "/frames/temperature/1980-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1980-07-01.json"
     },
     {
-      "t": 1885,
-      "src": "/frames/temperature/1885.webp",
-      "sample": true
+      "t": "1981-07-01",
+      "src": "/frames/temperature/1981-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1981-07-01.json"
     },
     {
-      "t": 1890,
-      "src": "/frames/temperature/1890.webp",
-      "sample": true
+      "t": "1982-07-01",
+      "src": "/frames/temperature/1982-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1982-07-01.json"
     },
     {
-      "t": 1895,
-      "src": "/frames/temperature/1895.webp",
-      "sample": true
+      "t": "1983-07-01",
+      "src": "/frames/temperature/1983-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1983-07-01.json"
     },
     {
-      "t": 1900,
-      "src": "/frames/temperature/1900.webp",
-      "sample": true
+      "t": "1984-07-01",
+      "src": "/frames/temperature/1984-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1984-07-01.json"
     },
     {
-      "t": 1905,
-      "src": "/frames/temperature/1905.webp",
-      "sample": true
+      "t": "1985-07-01",
+      "src": "/frames/temperature/1985-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1985-07-01.json"
     },
     {
-      "t": 1910,
-      "src": "/frames/temperature/1910.webp",
-      "sample": true
+      "t": "1986-07-01",
+      "src": "/frames/temperature/1986-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1986-07-01.json"
     },
     {
-      "t": 1915,
-      "src": "/frames/temperature/1915.webp",
-      "sample": true
+      "t": "1987-07-01",
+      "src": "/frames/temperature/1987-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1987-07-01.json"
     },
     {
-      "t": 1920,
-      "src": "/frames/temperature/1920.webp",
-      "sample": true
+      "t": "1988-07-01",
+      "src": "/frames/temperature/1988-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1988-07-01.json"
     },
     {
-      "t": 1925,
-      "src": "/frames/temperature/1925.webp",
-      "sample": true
+      "t": "1989-07-01",
+      "src": "/frames/temperature/1989-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1989-07-01.json"
     },
     {
-      "t": 1930,
-      "src": "/frames/temperature/1930.webp",
-      "sample": true
+      "t": "1990-07-01",
+      "src": "/frames/temperature/1990-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1990-07-01.json"
     },
     {
-      "t": 1935,
-      "src": "/frames/temperature/1935.webp",
-      "sample": true
+      "t": "1991-07-01",
+      "src": "/frames/temperature/1991-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1991-07-01.json"
     },
     {
-      "t": 1940,
-      "src": "/frames/temperature/1940.webp",
-      "sample": true
+      "t": "1992-07-01",
+      "src": "/frames/temperature/1992-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1992-07-01.json"
     },
     {
-      "t": 1945,
-      "src": "/frames/temperature/1945.webp",
-      "sample": true
+      "t": "1993-07-01",
+      "src": "/frames/temperature/1993-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1993-07-01.json"
     },
     {
-      "t": 1950,
-      "src": "/frames/temperature/1950.webp",
-      "sample": true
+      "t": "1994-07-01",
+      "src": "/frames/temperature/1994-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1994-07-01.json"
     },
     {
-      "t": 1955,
-      "src": "/frames/temperature/1955.webp",
-      "sample": true
+      "t": "1995-07-01",
+      "src": "/frames/temperature/1995-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1995-07-01.json"
     },
     {
-      "t": 1960,
-      "src": "/frames/temperature/1960.webp",
-      "sample": true
+      "t": "1996-07-01",
+      "src": "/frames/temperature/1996-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1996-07-01.json"
     },
     {
-      "t": 1965,
-      "src": "/frames/temperature/1965.webp",
-      "sample": true
+      "t": "1997-07-01",
+      "src": "/frames/temperature/1997-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1997-07-01.json"
     },
     {
-      "t": 1970,
-      "src": "/frames/temperature/1970.webp",
-      "sample": true
+      "t": "1998-07-01",
+      "src": "/frames/temperature/1998-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1998-07-01.json"
     },
     {
-      "t": 1975,
-      "src": "/frames/temperature/1975.webp",
-      "sample": true
+      "t": "1999-07-01",
+      "src": "/frames/temperature/1999-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/1999-07-01.json"
     },
     {
-      "t": 1980,
-      "src": "/frames/temperature/1980.webp",
-      "sample": true
+      "t": "2000-07-01",
+      "src": "/frames/temperature/2000-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2000-07-01.json"
     },
     {
-      "t": 1985,
-      "src": "/frames/temperature/1985.webp",
-      "sample": true
+      "t": "2001-07-01",
+      "src": "/frames/temperature/2001-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2001-07-01.json"
     },
     {
-      "t": 1990,
-      "src": "/frames/temperature/1990.webp",
-      "sample": true
+      "t": "2002-07-01",
+      "src": "/frames/temperature/2002-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2002-07-01.json"
     },
     {
-      "t": 1995,
-      "src": "/frames/temperature/1995.webp",
-      "sample": true
+      "t": "2003-07-01",
+      "src": "/frames/temperature/2003-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2003-07-01.json"
     },
     {
-      "t": 2000,
-      "src": "/frames/temperature/2000.webp",
-      "sample": true
+      "t": "2004-07-01",
+      "src": "/frames/temperature/2004-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2004-07-01.json"
     },
     {
-      "t": 2005,
-      "src": "/frames/temperature/2005.webp",
-      "sample": true
+      "t": "2005-07-01",
+      "src": "/frames/temperature/2005-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2005-07-01.json"
     },
     {
-      "t": 2010,
-      "src": "/frames/temperature/2010.webp",
-      "sample": true
+      "t": "2006-07-01",
+      "src": "/frames/temperature/2006-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2006-07-01.json"
     },
     {
-      "t": 2015,
-      "src": "/frames/temperature/2015.webp",
-      "sample": true
+      "t": "2007-07-01",
+      "src": "/frames/temperature/2007-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2007-07-01.json"
     },
     {
-      "t": 2020,
-      "src": "/frames/temperature/2020.webp",
-      "sample": true
+      "t": "2008-07-01",
+      "src": "/frames/temperature/2008-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2008-07-01.json"
     },
     {
-      "t": 2025,
-      "src": "/frames/temperature/2025.webp",
-      "sample": true
+      "t": "2009-07-01",
+      "src": "/frames/temperature/2009-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2009-07-01.json"
+    },
+    {
+      "t": "2010-07-01",
+      "src": "/frames/temperature/2010-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2010-07-01.json"
+    },
+    {
+      "t": "2011-07-01",
+      "src": "/frames/temperature/2011-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2011-07-01.json"
+    },
+    {
+      "t": "2012-07-01",
+      "src": "/frames/temperature/2012-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2012-07-01.json"
+    },
+    {
+      "t": "2013-07-01",
+      "src": "/frames/temperature/2013-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2013-07-01.json"
+    },
+    {
+      "t": "2014-07-01",
+      "src": "/frames/temperature/2014-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2014-07-01.json"
+    },
+    {
+      "t": "2015-07-01",
+      "src": "/frames/temperature/2015-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2015-07-01.json"
+    },
+    {
+      "t": "2016-07-01",
+      "src": "/frames/temperature/2016-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2016-07-01.json"
+    },
+    {
+      "t": "2017-07-01",
+      "src": "/frames/temperature/2017-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2017-07-01.json"
+    },
+    {
+      "t": "2018-07-01",
+      "src": "/frames/temperature/2018-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2018-07-01.json"
+    },
+    {
+      "t": "2019-07-01",
+      "src": "/frames/temperature/2019-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2019-07-01.json"
+    },
+    {
+      "t": "2020-07-01",
+      "src": "/frames/temperature/2020-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2020-07-01.json"
+    },
+    {
+      "t": "2021-07-01",
+      "src": "/frames/temperature/2021-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2021-07-01.json"
+    },
+    {
+      "t": "2022-07-01",
+      "src": "/frames/temperature/2022-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2022-07-01.json"
+    },
+    {
+      "t": "2023-07-01",
+      "src": "/frames/temperature/2023-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2023-07-01.json"
+    },
+    {
+      "t": "2024-07-01",
+      "src": "/frames/temperature/2024-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2024-07-01.json"
+    },
+    {
+      "t": "2025-07-01",
+      "src": "/frames/temperature/2025-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/temperature/2025-07-01.json"
     }
   ],
   "events": [],
   "description": {
-    "en": "GISTEMP v4 annual global mean surface-temperature anomaly, °C relative to 1951–1980. The source is global only, so no regional series exists. Globe map frames are marked stand-ins, not GISTEMP frames.",
-    "ar": "شذوذ متوسط درجة حرارة سطح الأرض السنوي من GISTEMP v4، بالدرجة المئوية مقارنة بـ 1951–1980. المصدر عالمي فقط، فلا توجد سلسلة إقليمية. إطارات الخريطة على الكرة مولّدة وليست إطارات GISTEMP."
+    "en": "GISTEMP v4 annual global mean anomaly versus 1951–1980. No regional series. Globe maps are MERRA-2 July 2 m air temperature, 1980–2025, decoded from GIBS. There is no map before 1980. A July field is not the annual mean.",
+    "ar": "شذوذ GISTEMP v4 السنوي مقارنة بـ 1951–1980. لا توجد سلسلة إقليمية. خرائط الكرة هي حرارة الهواء على مترين من MERRA-2 لشهر يوليو 1980–2025 من GIBS. لا توجد خريطة قبل 1980. حقل يوليو ليس المتوسط السنوي."
   }
 }

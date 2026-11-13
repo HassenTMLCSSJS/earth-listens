@@ -1,0 +1,14 @@
+{
+  "feed": "openaq",
+  "status": "demo",
+  "dataTime": "2026-11-13",
+  "fetchedAt": "2026-11-13T00:00:00Z",
+  "source": {
+    "name": "OpenAQ",
+    "url": "https://api.openaq.org/v3/",
+    "license": "OpenAQ terms; cite each provider"
+  },
+  "latencyNote": "OPENAQ_API_KEY is not set in this environment. No station values were invented. Cairo model air quality remains Open-Meteo, and the history is GEOS-CF when that file is real.",
+  "snapshotId": "openaq-no-key13",
+  "items": []
+}

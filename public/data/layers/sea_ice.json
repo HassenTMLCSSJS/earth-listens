@@ -9,15 +9,28 @@
     "en": "million km²",
     "ar": "million km²"
   },
-  "source": {
-    "name": "NSIDC Sea Ice Index v4",
-    "dataset_url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_09_extent_v4.0.csv",
-    "eic_page": "https://nsidc.org/data/g02135/versions/4",
-    "retrieved": "2026-11-13",
-    "sha256": "3968dfdbe73b8361712da9136cfeff6dbc9a6d87ab3e75daa30cc254615eab1f",
-    "citation": "Fetterer et al., Sea Ice Index, G02135, version 4. NSIDC: National Snow and Ice Data Center.",
-    "ack": null
-  },
+  "source": [
+    {
+      "name": "NSIDC Sea Ice Index v4",
+      "dataset_url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_09_extent_v4.0.csv",
+      "eic_page": "https://nsidc.org/data/g02135/versions/4",
+      "retrieved": "2026-11-13",
+      "sha256": "3968dfdbe73b8361712da9136cfeff6dbc9a6d87ab3e75daa30cc254615eab1f",
+      "citation": "Fetterer et al., Sea Ice Index, G02135, version 4. NSIDC: National Snow and Ice Data Center.",
+      "ack": null
+    },
+    {
+      "name": "NASA/JAXA AMSR2 sea-ice concentration 12 km, via GIBS",
+      "dataset_url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi",
+      "eic_page": "https://nsidc.org/data/g02135",
+      "retrieved": "2026-11-13",
+      "sha256": "c54e176be7014c0ce5b1dcbaa8faab193112d2884990359236b8847f3f0c0e44",
+      "citation": "AMSRU2_Sea_Ice_Concentration_12km on 15 March and 15 September (1 September 2025, because the layer ends that day). Numbers in the series stay the NSIDC September extent. Regional values are cosine-latitude means of the decoded 512×256 GIBS PNG. Missing dates are omitted.",
+      "ack": "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS).",
+      "gibs_layer": "AMSRU2_Sea_Ice_Concentration_12km",
+      "license": "NASA media guidelines; credit required; no implied endorsement"
+    }
+  ],
   "range": {
     "min": 1979,
     "max": 2026
@@ -271,64 +284,171 @@
   "seasonalAmplitude": null,
   "frames": [
     {
-      "t": 1979,
-      "src": "/frames/sea_ice/1979.webp",
-      "sample": true
+      "t": "2012-09-15",
+      "src": "/frames/sea_ice/2012-09-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2012-09-15.json"
     },
     {
-      "t": 1984,
-      "src": "/frames/sea_ice/1984.webp",
-      "sample": true
+      "t": "2013-03-15",
+      "src": "/frames/sea_ice/2013-03-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2013-03-15.json"
     },
     {
-      "t": 1989,
-      "src": "/frames/sea_ice/1989.webp",
-      "sample": true
+      "t": "2013-09-15",
+      "src": "/frames/sea_ice/2013-09-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2013-09-15.json"
     },
     {
-      "t": 1994,
-      "src": "/frames/sea_ice/1994.webp",
-      "sample": true
+      "t": "2014-03-15",
+      "src": "/frames/sea_ice/2014-03-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2014-03-15.json"
     },
     {
-      "t": 1999,
-      "src": "/frames/sea_ice/1999.webp",
-      "sample": true
+      "t": "2014-09-15",
+      "src": "/frames/sea_ice/2014-09-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2014-09-15.json"
     },
     {
-      "t": 2004,
-      "src": "/frames/sea_ice/2004.webp",
-      "sample": true
+      "t": "2015-03-15",
+      "src": "/frames/sea_ice/2015-03-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2015-03-15.json"
     },
     {
-      "t": 2009,
-      "src": "/frames/sea_ice/2009.webp",
-      "sample": true
+      "t": "2015-09-15",
+      "src": "/frames/sea_ice/2015-09-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2015-09-15.json"
     },
     {
-      "t": 2014,
-      "src": "/frames/sea_ice/2014.webp",
-      "sample": true
+      "t": "2016-03-15",
+      "src": "/frames/sea_ice/2016-03-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2016-03-15.json"
     },
     {
-      "t": 2019,
-      "src": "/frames/sea_ice/2019.webp",
-      "sample": true
+      "t": "2016-09-15",
+      "src": "/frames/sea_ice/2016-09-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2016-09-15.json"
     },
     {
-      "t": 2024,
-      "src": "/frames/sea_ice/2024.webp",
-      "sample": true
+      "t": "2017-03-15",
+      "src": "/frames/sea_ice/2017-03-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2017-03-15.json"
     },
     {
-      "t": 2025,
-      "src": "/frames/sea_ice/2025.webp",
-      "sample": true
+      "t": "2017-09-15",
+      "src": "/frames/sea_ice/2017-09-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2017-09-15.json"
+    },
+    {
+      "t": "2018-03-15",
+      "src": "/frames/sea_ice/2018-03-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2018-03-15.json"
+    },
+    {
+      "t": "2018-09-15",
+      "src": "/frames/sea_ice/2018-09-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2018-09-15.json"
+    },
+    {
+      "t": "2019-03-15",
+      "src": "/frames/sea_ice/2019-03-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2019-03-15.json"
+    },
+    {
+      "t": "2019-09-15",
+      "src": "/frames/sea_ice/2019-09-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2019-09-15.json"
+    },
+    {
+      "t": "2020-03-15",
+      "src": "/frames/sea_ice/2020-03-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2020-03-15.json"
+    },
+    {
+      "t": "2020-09-15",
+      "src": "/frames/sea_ice/2020-09-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2020-09-15.json"
+    },
+    {
+      "t": "2021-03-15",
+      "src": "/frames/sea_ice/2021-03-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2021-03-15.json"
+    },
+    {
+      "t": "2021-09-15",
+      "src": "/frames/sea_ice/2021-09-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2021-09-15.json"
+    },
+    {
+      "t": "2022-03-15",
+      "src": "/frames/sea_ice/2022-03-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2022-03-15.json"
+    },
+    {
+      "t": "2022-09-15",
+      "src": "/frames/sea_ice/2022-09-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2022-09-15.json"
+    },
+    {
+      "t": "2023-03-15",
+      "src": "/frames/sea_ice/2023-03-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2023-03-15.json"
+    },
+    {
+      "t": "2023-09-15",
+      "src": "/frames/sea_ice/2023-09-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2023-09-15.json"
+    },
+    {
+      "t": "2024-03-15",
+      "src": "/frames/sea_ice/2024-03-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2024-03-15.json"
+    },
+    {
+      "t": "2024-09-15",
+      "src": "/frames/sea_ice/2024-09-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2024-09-15.json"
+    },
+    {
+      "t": "2025-03-15",
+      "src": "/frames/sea_ice/2025-03-15.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2025-03-15.json"
+    },
+    {
+      "t": "2025-09-01",
+      "src": "/frames/sea_ice/2025-09-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/sea_ice/2025-09-01.json"
     }
   ],
   "events": [],
   "description": {
-    "en": "NSIDC Sea Ice Index v4 September Arctic extent, 1979–2026, in million km². Arctic only: the September series does not cover other regions. Globe map frames are marked stand-ins.",
-    "ar": "امتداد الجليد البحري في القطب الشمالي لشهر سبتمبر من NSIDC v4، من 1979 إلى 2026، بملايين الكيلومترات المربعة. القطب الشمالي فقط. إطارات الخريطة مولّدة."
+    "en": "NSIDC Sea Ice Index September extent, Arctic only. Concentration maps are AMSR2 via GIBS for March and September, 2012–2025. There is no concentration map before July 2012.",
+    "ar": "امتداد جليد سبتمبر من NSIDC للقطب فقط. خرائط التركيز من AMSR2 عبر GIBS لشهري مارس وسبتمبر 2012–2025. لا توجد خريطة تركيز قبل يوليو 2012."
   }
 }

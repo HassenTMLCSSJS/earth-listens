@@ -353,6 +353,136 @@
       "check": "Bucket earth-listens-assets"
     },
     {
+      "id": "svs-14439",
+      "name": "SVS 14439 Air Pollution Model Runs",
+      "url": "https://svs.gsfc.nasa.gov/14439/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "GEOS-CF CO context. Producer Katie Jepson; visualizer Joseph V. Ardizzone; technical support Aaron E. Lepsch.",
+      "key": "none",
+      "group": "nasa",
+      "check": "Item page not fetched from this environment on 2026-11-13"
+    },
+    {
+      "id": "svs-5151",
+      "name": "SVS 5151 GEOS-CF PM2.5",
+      "url": "https://svs.gsfc.nasa.gov/5151/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Near-surface PM2.5 still. NASA GMAO.",
+      "key": "none",
+      "group": "nasa",
+      "check": "Item page not fetched from this environment on 2026-11-13"
+    },
+    {
+      "id": "svs-5152",
+      "name": "SVS 5152 GEOS-CF ozone",
+      "url": "https://svs.gsfc.nasa.gov/5152/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Near-surface ozone still. NASA GMAO.",
+      "key": "none",
+      "group": "nasa",
+      "check": "Item page not fetched from this environment on 2026-11-13"
+    },
+    {
+      "id": "svs-5153",
+      "name": "SVS 5153 GEOS-CF carbon monoxide",
+      "url": "https://svs.gsfc.nasa.gov/5153/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Near-surface CO still. NASA GMAO; visualizer Joseph V. Ardizzone.",
+      "key": "none",
+      "group": "nasa",
+      "check": "Item page not fetched from this environment on 2026-11-13"
+    },
+    {
+      "id": "svs-5154",
+      "name": "SVS 5154 GEOS-CF nitrogen oxides",
+      "url": "https://svs.gsfc.nasa.gov/5154/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Near-surface NOx still. NASA GMAO.",
+      "key": "none",
+      "group": "nasa",
+      "check": "Item page not fetched from this environment on 2026-11-13"
+    },
+    {
+      "id": "svs-5518",
+      "name": "SVS 5518 Science On a Sphere air quality",
+      "url": "https://svs.gsfc.nasa.gov/5518/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Listed for later. Not used as a texture in this build.",
+      "key": "none",
+      "group": "nasa",
+      "check": "Item page not fetched from this environment on 2026-11-13"
+    },
+    {
+      "id": "svs-5552",
+      "name": "SVS 5552 Science On a Sphere aerosols",
+      "url": "https://svs.gsfc.nasa.gov/5552/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Equirect aerosol still. Not bundled in this build.",
+      "key": "none",
+      "group": "nasa",
+      "check": "Item page not fetched from this environment on 2026-11-13"
+    },
+    {
+      "id": "svs-5572",
+      "name": "SVS 5572 GEOS aerosols",
+      "url": "https://svs.gsfc.nasa.gov/5572/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Aerosol species context. DOI 10.5281/zenodo.16782523.",
+      "key": "none",
+      "group": "nasa",
+      "check": "Item page not fetched from this environment on 2026-11-13"
+    },
+    {
+      "id": "svs-5113",
+      "name": "SVS 5113 VIIRS active fires",
+      "url": "https://svs.gsfc.nasa.gov/5113/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Fire citation already used in ATTRIBUTION. No still is bundled.",
+      "key": "none",
+      "group": "nasa",
+      "check": "Item page not fetched from this environment on 2026-11-13"
+    },
+    {
+      "id": "geos-cf-opendap",
+      "name": "GEOS-CF OPeNDAP",
+      "url": "https://opendap.nccs.nasa.gov/dods/gmao/geos-cf/assim/",
+      "license": "NASA; credit GMAO",
+      "usedFor": "Cairo air-quality history, collection aqc_tavg_1hr_g1440x721_v1. No key.",
+      "key": "none",
+      "group": "nasa",
+      "check": "Cairo pm25_rh35_gcc cell returned 57.632145 on 2026-11-13"
+    },
+    {
+      "id": "gmao-knowland-1446",
+      "name": "Knowland et al., GEOS-CF file specification",
+      "url": "https://gmao.gsfc.nasa.gov/pubs/docs/Knowland1446.pdf",
+      "license": "NASA GMAO",
+      "usedFor": "GMAO Office Note No. 17 (Version 1.3), 12 December 2022. PM2.5 and gas file spec.",
+      "key": "none",
+      "group": "nasa",
+      "check": "PDF not downloaded on 2026-11-13"
+    },
+    {
+      "id": "gmao-lucchesi-1203",
+      "name": "Lucchesi, GEOS FP file specification",
+      "url": "https://gmao.gsfc.nasa.gov/pubs/docs/Lucchesi1203.pdf",
+      "license": "NASA GMAO",
+      "usedFor": "GMAO Office Note No. 4 (Version 1.2), 11 July 2018.",
+      "key": "none",
+      "group": "nasa",
+      "check": "PDF not downloaded on 2026-11-13"
+    },
+    {
+      "id": "gmao-geos-cf",
+      "name": "GMAO GEOS-CF product page",
+      "url": "https://gmao.gsfc.nasa.gov/gmao-products/geos-cf/",
+      "license": "NASA GMAO",
+      "usedFor": "GEOS-CF product citation alongside Knowland.",
+      "key": "none",
+      "group": "nasa",
+      "check": "Page not fetched from this environment on 2026-11-13"
+    },
+    {
       "id": "github-releases",
       "name": "GitHub Releases",
       "url": "https://docs.github.com/en/repositories/releasing-projects-on-github",

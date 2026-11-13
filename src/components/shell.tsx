@@ -93,13 +93,26 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
       useAppStore.setState({ mode: storedMode });
     if (!demoOn && localStorage.getItem('el.introSeen') === '1')
       useAppStore.getState().markIntroSeen(true);
-    // Voice stays in the cache so narration works after the demo goes offline.
-    // Tone is warmed in a worker only for ?demo=1, off the main thread.
-    const jobs: Promise<unknown>[] = [load(), import('@/modules/voice')];
-    if (demoOn && typeof Worker !== 'undefined') {
-      jobs.push(warmTone());
-    }
-    void Promise.all(jobs);
+    // The catalog has to be ready for the first command, including the offline demo.
+    void load();
+    // Voice and Tone wait for idle or the first gesture so Listen and Tutorial
+    // are not blocked on the speech and synthesis chunks.
+    let warmed = false;
+    const warm = () => {
+      if (warmed) return;
+      warmed = true;
+      void import('@/modules/voice');
+      if (demoOn && typeof Worker !== 'undefined') void warmTone();
+    };
+    const schedule = () => {
+      if (typeof window.requestIdleCallback === 'function') {
+        window.requestIdleCallback(() => warm(), { timeout: 4000 });
+      } else window.setTimeout(warm, 1);
+    };
+    if (document.readyState === 'complete') schedule();
+    else window.addEventListener('load', schedule, { once: true });
+    window.addEventListener('pointerdown', warm, { once: true });
+    window.addEventListener('keydown', warm, { once: true });
     if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
       void navigator.serviceWorker.register('/sw.js').catch(() => undefined);
     }

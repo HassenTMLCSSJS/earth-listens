@@ -6,6 +6,7 @@ import { bpmForRate, changeRate, periodForRate, stepSeconds, ticksForRate } from
 import { r6 } from './math/round';
 import { globalSpatial, roundSpatial, spatialize, type Spatial } from './math/spatial';
 import { combineGain, strengthDb, symphonyTrimDb, voiceCountDb } from './math/volume';
+import { biomassLoudness, eventPasses, gestureFor } from './mappings';
 import type {
   EarconId,
   NoteEvent,
@@ -33,6 +34,8 @@ interface Draft {
   flags: { missing: boolean; outOfRange: boolean; record: boolean };
   source: NoteEvent['source'];
   trim: number;
+  stddev?: number | null;
+  biomass?: number | null;
 }
 
 interface AxisPoint {
@@ -120,8 +123,14 @@ function deltaOf(values: readonly (number | null)[], index: number): number | nu
   return cur - prev;
 }
 
+function inWindow(t: number | string, from: number, to: number): boolean {
+  if (typeof t === 'number') return t >= from && t <= to;
+  const year = Number(String(t).slice(0, 4));
+  return Number.isFinite(year) && year >= from && year <= to;
+}
+
 function seriesInRange(points: readonly ScorePoint[], from: number, to: number): ScorePoint[] {
-  return points.filter((point) => typeof point.t === 'number' && point.t >= from && point.t <= to);
+  return points.filter((point) => inWindow(point.t, from, to));
 }
 
 /** No regional fallback: an absent region is silent, not the global series relabelled. */
@@ -301,29 +310,44 @@ function sweepLayers(
     const regional = regionSeries(data, input.region);
     if (!regional) {
       earcons.push({ t: 0, id: 'missing' });
-      continue;
+    } else {
+      const points = seriesInRange(regional, input.time.from, input.time.to);
+      const axis = temperatureLikeAxis(points).map((point) => ({
+        ...point,
+        strong: strongFor(config, point),
+      }));
+      steps = Math.max(steps, axis.length);
+      pushDrafts(
+        drafts,
+        earcons,
+        input,
+        config.id,
+        `${config.id}:${input.region}`,
+        config,
+        axis,
+        config.variables.where.field,
+        config.what.register,
+        0,
+        'sweep',
+        pools,
+        input.region,
+      );
     }
-    const points = seriesInRange(regional, input.time.from, input.time.to);
-    const axis = temperatureLikeAxis(points).map((point) => ({
-      ...point,
-      strong: strongFor(config, point),
-    }));
-    steps = Math.max(steps, axis.length);
-    pushDrafts(
-      drafts,
-      earcons,
-      input,
-      config.id,
-      `${config.id}:${input.region}`,
-      config,
-      axis,
-      config.variables.where.field,
-      config.what.register,
-      0,
-      'sweep',
-      pools,
-      input.region,
-    );
+    if (config.id === 'events' && data.markers && data.markers.length > 0) {
+      const step = stepSeconds(input.speed);
+      const span = Math.max(steps, Math.ceil(data.markers.length / 3 / step), 1);
+      steps = Math.max(steps, span);
+      earcons.push(...eventPasses(data.markers, span * step));
+    }
+    if (config.id === 'forest') {
+      const stddev = data.variables?.stddev?.[0]?.v ?? null;
+      const biomass = data.variables?.biomass?.[0]?.v ?? null;
+      for (const draft of drafts) {
+        if (draft.layerId !== 'forest') continue;
+        draft.stddev = stddev;
+        draft.biomass = biomass;
+      }
+    }
   }
   return steps;
 }
@@ -510,13 +534,27 @@ function finalize(
   }
   const events: NoteEvent[] = drafts.map((draft) => {
     const key = r6(draft.t);
+    const spatial = roundSpatial(draft.spatial);
+    const strengthN =
+      draft.biomass === undefined
+        ? draft.strengthN
+        : draft.strengthN * biomassLoudness(draft.biomass);
+    const gesture = gestureFor({
+      layerId: draft.layerId,
+      value: draft.source.v,
+      strengthN,
+      ticks: draft.ticks,
+      lowpassHz: spatial.lowpassHz,
+      freqHz: draft.freqHz,
+      missing: draft.flags.missing,
+      ...(draft.stddev !== undefined ? { stddev: draft.stddev } : {}),
+    });
     const gain = combineGain(
-      strengthDb(draft.strengthN),
+      strengthDb(gesture.strengthN),
       voiceCountDb(counts.get(key) ?? 1),
       draft.spatial.backDb,
       draft.trim,
     );
-    const spatial = roundSpatial(draft.spatial);
     const event: NoteEvent = {
       t: r6(draft.t),
       dur: r6(draft.dur),
@@ -524,12 +562,12 @@ function finalize(
       voiceId: draft.voiceId,
       midiRaw: r6(draft.midiRaw),
       midi: r6(draft.midi),
-      freqHz: r6(draft.freqHz),
+      freqHz: r6(gesture.freqHz),
       gainDb: r6(gain),
       pan: spatial.pan,
       pos: spatial.pos,
-      lowpassHz: spatial.lowpassHz,
-      ticks: draft.ticks,
+      lowpassHz: r6(gesture.lowpassHz),
+      ticks: gesture.ticks,
       flags: draft.flags,
       source: draft.source,
     };
