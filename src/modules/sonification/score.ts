@@ -124,6 +124,16 @@ function seriesInRange(points: readonly ScorePoint[], from: number, to: number):
   return points.filter((point) => typeof point.t === 'number' && point.t >= from && point.t <= to);
 }
 
+/** No regional fallback: an absent region is silent, not the global series relabelled. */
+function regionSeries(data: ScoreLayerData, region: RegionId): ScorePoint[] | null {
+  return data.series[region] ?? null;
+}
+
+function primarySeries(data: ScoreLayerData): ScorePoint[] {
+  if (data.series.global) return data.series.global;
+  return Object.values(data.series).find((series) => series !== undefined) ?? [];
+}
+
 function temperatureLikeAxis(points: readonly ScorePoint[]): AxisPoint[] {
   const values = points.map((point) => point.v);
   return points.map((point, index) => ({
@@ -288,11 +298,12 @@ function sweepLayers(
       }
       continue;
     }
-    const points = seriesInRange(
-      data.series[input.region] ?? data.series.global ?? [],
-      input.time.from,
-      input.time.to,
-    );
+    const regional = regionSeries(data, input.region);
+    if (!regional) {
+      earcons.push({ t: 0, id: 'missing' });
+      continue;
+    }
+    const points = seriesInRange(regional, input.time.from, input.time.to);
     const axis = temperatureLikeAxis(points).map((point) => ({
       ...point,
       strong: strongFor(config, point),
@@ -333,7 +344,11 @@ function compareScore(
   const pair = input.compare;
   if (!pair) return 0;
   for (const layer of input.layers) {
-    const points = layer.data.series[input.region] ?? layer.data.series.global ?? [];
+    const points = regionSeries(layer.data, input.region);
+    if (!points) {
+      earcons.push({ t: 0, id: 'missing' });
+      continue;
+    }
     const values = points.map((point) => point.v);
     const picks = [pair.a, pair.b].map((year, slot) => {
       const index = points.findIndex((point) => point.t === year);
@@ -378,7 +393,11 @@ function dwellScore(
   earcons: { t: number; id: EarconId }[],
 ): number {
   for (const layer of input.layers) {
-    const points = layer.data.series[input.region] ?? layer.data.series.global ?? [];
+    const points = regionSeries(layer.data, input.region);
+    if (!points) {
+      earcons.push({ t: 0, id: 'missing' });
+      continue;
+    }
     const index = points.findIndex((point) => point.t === input.time.cursor);
     const point = points[index] ?? points[0];
     if (!point) continue;
@@ -432,7 +451,7 @@ function symphonyScore(
   for (let year = from; year <= to; year += 1) years.push(year);
   for (const layer of input.layers) {
     const source =
-      layer.config.id === 'wildfire' ? (layer.data.annual ?? []) : (layer.data.series.global ?? []);
+      layer.config.id === 'wildfire' ? (layer.data.annual ?? []) : primarySeries(layer.data);
     const byYear = new Map<number, ScorePoint>();
     for (const point of source) if (typeof point.t === 'number') byYear.set(point.t, point);
     const values = years.map((year) => byYear.get(year)?.v ?? null);

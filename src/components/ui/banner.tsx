@@ -1,12 +1,26 @@
-import { DEMO_BADGE, SAMPLE_BANNER } from '@/core/demo';
+import { DEMO_BADGE, FRAME_BANNER, SAMPLE_BANNER } from '@/core/demo';
 
-export function Banner({ sample, demo }: { sample: boolean; demo: boolean }) {
-  if (!sample && !demo) return null;
+export function Banner({
+  sample,
+  demo,
+  frameSample = false,
+}: {
+  sample: boolean;
+  demo: boolean;
+  frameSample?: boolean;
+}) {
+  const showFrames = frameSample && !sample;
+  if (!sample && !demo && !showFrames) return null;
   return (
     <div className="flex flex-wrap items-center gap-3 border-b border-white/10 px-4 py-2 text-sm">
       {sample ? (
         <p className="text-focus" role="status">
           {SAMPLE_BANNER}
+        </p>
+      ) : null}
+      {showFrames ? (
+        <p className="text-focus" role="status">
+          {FRAME_BANNER}
         </p>
       ) : null}
       {demo ? (

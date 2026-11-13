@@ -9,6 +9,7 @@ from earth_pipeline.clean import annual_co2, firms_confidence, gistemp_annual, s
 from earth_pipeline.colorbar import build_lut, lookup
 from earth_pipeline.export import export_layer
 from earth_pipeline.fetch import dry_run
+from earth_pipeline.parse import parse_co2_mm, parse_gistemp, parse_nsidc_monthly
 from earth_pipeline.validate import pearson
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -41,6 +42,28 @@ def test_parsers_use_synthetic_headers_only():
     fires = firms_confidence((FIXTURES / "firms.csv").read_text())
     assert len(fires) == 2
     assert all(row["confidence"] in {"n", "h"} for row in fires)
+
+
+def test_recorded_csvs_keep_their_first_and_last_values():
+    recorded = FIXTURES / "recorded"
+    temp = parse_gistemp((recorded / "gistemp-2026-11-13.csv").read_text())
+    assert temp[0]["year"] == 1880
+    assert temp[0]["value"] == pytest.approx(-0.18)
+    assert temp[-2]["year"] == 2025
+    assert temp[-2]["value"] == pytest.approx(1.19)
+    assert temp[-1]["value"] is None
+
+    co2 = parse_co2_mm((recorded / "co2_mm_mlo-2026-11-13.csv").read_text())
+    assert (co2[0]["year"], co2[0]["month"]) == (1958, 3)
+    assert co2[0]["average"] == pytest.approx(315.71)
+    assert (co2[-1]["year"], co2[-1]["month"]) == (2026, 9)
+    assert co2[-1]["average"] == pytest.approx(426.07)
+
+    ice = parse_nsidc_monthly((recorded / "nsidc-sept-2026-11-13.csv").read_text())
+    assert ice[0]["year"] == 1979
+    assert ice[0]["extent"] == pytest.approx(7.05)
+    assert ice[-1]["year"] == 2026
+    assert ice[-1]["extent"] == pytest.approx(4.81)
 
 
 def test_top_cells_and_robust_range():

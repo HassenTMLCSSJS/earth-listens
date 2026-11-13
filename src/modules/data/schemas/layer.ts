@@ -53,7 +53,7 @@ export const LayerDataSchema = z
     unit: LocalizedSchema,
     source: SourceListSchema,
     range: z.object({ min: z.number(), max: z.number() }),
-    series: z.record(z.enum(REGION_IDS), z.array(PointSchema)),
+    series: z.partialRecord(z.enum(REGION_IDS), z.array(PointSchema)),
     annual: z.array(PointSchema).nullable(),
     cells: z.array(CellSchema).nullable(),
     seasonalAmplitude: z.array(PointSchema).nullable(),
@@ -87,14 +87,7 @@ export const LayerDataSchema = z
         }
       }
     }
-    for (const frame of data.frames) {
-      if (frame.sample !== undefined && frame.sample !== data.sample) {
-        ctx.addIssue({
-          code: 'custom',
-          message: 'frames[].sample must match the file sample flag',
-        });
-      }
-    }
+    // Each frame carries its own sample flag: a real series can keep marked stand-in frames.
     if (data.grid && data.grid.bins.length > 256) {
       ctx.addIssue({ code: 'custom', message: 'grid.bins.length must be <= 256' });
     }

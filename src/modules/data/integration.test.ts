@@ -20,8 +20,9 @@ import { chooseTier, gridRegionStats } from './decode';
 import { clientUrlAllowed, envelope, redactSecrets, snapshotIdOf } from './envelope';
 import { chooseFeed, loadFeedChain } from './fallback';
 import { describeFreshness, statusForAge } from './freshness';
-import { LayerDataSchema } from './schemas';
+import { LayerConfigSchema, LayerDataSchema, RegistrySchema } from './schemas';
 import type { FeedEnvelope } from './schemas';
+import { buildScore, type ScoreInput } from '@/modules/sonification';
 
 const recorded = 'pipeline/tests/fixtures/recorded';
 
@@ -261,5 +262,88 @@ describe('fallback, freshness and budgets', () => {
 
   it('skips IndexedDB when the platform has none', async () => {
     expect(await idbGet('missing')).toBeNull();
+  });
+});
+
+describe('recorded histories', () => {
+  it('points temperature, CO2 and sea ice at real files', () => {
+    const registry = RegistrySchema.parse(
+      JSON.parse(readFileSync('public/data/registry.json', 'utf8')),
+    );
+    for (const id of ['temperature', 'co2', 'sea_ice'] as const) {
+      const entry = registry.layers.find((layer) => layer.id === id);
+      expect(entry?.data).toBe(`/data/layers/${id}.json`);
+      const data = LayerDataSchema.parse(
+        JSON.parse(readFileSync(`public${entry?.data ?? ''}`, 'utf8')),
+      );
+      expect(data.sample).toBe(false);
+      const sources = Array.isArray(data.source) ? data.source : [data.source];
+      for (const source of sources) {
+        expect(source.retrieved).toBe('2026-11-13');
+        expect(source.sha256).toHaveLength(64);
+      }
+    }
+    const temperature = LayerDataSchema.parse(
+      JSON.parse(readFileSync('public/data/layers/temperature.json', 'utf8')),
+    );
+    expect(temperature.series.global?.[0]?.v).toBeCloseTo(-0.18);
+    expect(temperature.series.global?.at(-1)?.v).toBeCloseTo(1.19);
+    expect(temperature.series.egypt).toBeUndefined();
+    const ice = LayerDataSchema.parse(
+      JSON.parse(readFileSync('public/data/layers/sea_ice.json', 'utf8')),
+    );
+    expect(ice.series.arctic?.[0]?.v).toBeCloseTo(7.05);
+    expect(ice.series.arctic?.at(-1)?.v).toBeCloseTo(4.81);
+    expect(ice.series.global).toBeUndefined();
+  });
+
+  it('sounds a missing earcon and no note for a region with no series', () => {
+    const config = LayerConfigSchema.parse(
+      JSON.parse(readFileSync('public/data/layers/temperature.config.json', 'utf8')),
+    );
+    const data = LayerDataSchema.parse(
+      JSON.parse(readFileSync('public/data/layers/temperature.json', 'utf8')),
+    );
+    const variable = (value: typeof config.variables.how_much) => ({
+      field: value.field,
+      range: value.range,
+      ...(value.normalize
+        ? {
+            normalize: value.normalize.p
+              ? { method: value.normalize.method, p: value.normalize.p }
+              : { method: value.normalize.method },
+          }
+        : {}),
+    });
+    const input: ScoreInput = {
+      mode: 'sweep',
+      speed: 'normal',
+      scale: 'pentatonic_major',
+      tuning: 'microtonal',
+      view: { lat: 0, lon: 0 },
+      region: 'egypt',
+      regions: { global: { lat: 0, lon: 0 }, egypt: { lat: 26.8, lon: 30.8 } },
+      time: { from: 1880, to: 2025, cursor: 1880 },
+      layers: [
+        {
+          config: {
+            id: config.id,
+            timeKind: config.timeKind,
+            variables: {
+              how_much: variable(config.variables.how_much),
+              how_strong: variable(config.variables.how_strong),
+              how_fast: variable(config.variables.how_fast),
+              where: config.variables.where,
+            },
+            what: config.what,
+            symphony: config.symphony,
+          },
+          data: { series: data.series },
+        },
+      ],
+    };
+    expect(buildScore(input).events).toHaveLength(0);
+    expect(buildScore(input).earcons).toEqual([{ t: 0, id: 'missing' }]);
+    expect(buildScore({ ...input, region: 'global' }).events.length).toBeGreaterThan(100);
   });
 });
