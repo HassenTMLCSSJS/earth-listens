@@ -19,6 +19,9 @@ export const TIMBRE_PRESETS: Record<LayerId, TimbrePreset> = {
   aerosols: { id: 'grain-pad', layerId: 'aerosols' },
   air_quality: { id: 'aq-chord', layerId: 'air_quality' },
   lightning: { id: 'thunder-perc', layerId: 'lightning' },
+  forest: { id: 'grain-pad', layerId: 'forest' },
+  precipitation: { id: 'water-fm', layerId: 'precipitation' },
+  events: { id: 'thunder-perc', layerId: 'events' },
 };
 
 const SPECIES_TIMBRE: Record<string, TimbreId> = {

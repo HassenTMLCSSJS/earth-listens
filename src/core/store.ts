@@ -234,6 +234,9 @@ const LAYER_NAME: Record<LayerId, { en: string; ar: string }> = {
   aerosols: { en: 'Aerosols', ar: 'الهباء الجوي' },
   air_quality: { en: 'Air quality', ar: 'جودة الهواء' },
   lightning: { en: 'Lightning', ar: 'البرق' },
+  forest: { en: 'Forest height', ar: 'ارتفاع الغابات' },
+  precipitation: { en: 'Precipitation', ar: 'هطول الأمطار' },
+  events: { en: 'Natural events', ar: 'أحداث طبيعية' },
 };
 
 function wildfireDate(state: AppData): string | null {

@@ -1,0 +1,46 @@
+{
+  "id": "forest",
+  "category": "biosphere",
+  "title": {
+    "en": "Forest height",
+    "ar": "ارتفاع الغابات"
+  },
+  "unit": {
+    "en": "canopy height, m",
+    "ar": "ارتفاع الغطاء، م"
+  },
+  "timeKind": "year",
+  "eic": {
+    "page": "https://earth.gov/",
+    "frames": "/frames/forest"
+  },
+  "variables": {
+    "how_much": {
+      "field": "v",
+      "range": [0, 40]
+    },
+    "how_strong": {
+      "field": "spread",
+      "range": [0, 20]
+    },
+    "how_fast": {
+      "field": "delta(v)",
+      "range": [-5, 5]
+    },
+    "where": {
+      "field": "region_center"
+    }
+  },
+  "what": {
+    "timbre": "grain-pad",
+    "register": [48, 72],
+    "symphonyRegister": [55, 67]
+  },
+  "scale": "pentatonic_major",
+  "regions": ["global", "egypt", "africa", "arctic", "europe", "asia", "americas", "oceania"],
+  "symphony": {
+    "role": "canopy",
+    "from": 2019,
+    "to": 2023
+  }
+}
