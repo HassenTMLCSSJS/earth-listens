@@ -4,7 +4,9 @@ coverage
 pnpm-lock.yaml
 pipeline/.venv
 public/frames
+public/audio/narration/**/*.mp3
 public/textures
+public/basis
 public/data/grids
 playwright-report
 test-results
