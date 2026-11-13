@@ -1,20 +1,25 @@
 /**
  * Content-Security-Policy.
+ *
+ * KTX2Loader transcodes Basis textures inside a blob worker and compiles
+ * basis_transcoder.wasm there. That needs `'wasm-unsafe-eval'` on script-src
+ * and `worker-src blob:`. Production does not add `'unsafe-eval'`.
+ *
  * Hugging Face hosts are included only outside demo mode, because Kokoro and
- * Piper download ONNX weights from there. Demo mode stays on same-origin,
- * blob, and data URLs. `unsafe-inline` is required by Next.js bootstrap scripts;
- * `wasm-unsafe-eval` is required by the local TTS engines.
+ * Piper download ONNX weights from there. The public R2 host is on img-src
+ * and connect-src outside demo mode so KTX2 and WebP textures can load.
+ * Demo mode stays on same-origin, blob, and data URLs.
+ * `unsafe-inline` is required by Next.js bootstrap scripts.
  */
+import { DEFAULT_ASSET_BASE } from './assets';
+
 const MODEL_HOSTS = [
   'https://huggingface.co',
   'https://cdn-lfs.huggingface.co',
   'https://cas-bridge.xethub.hf.co',
 ].join(' ');
 
-const DATA_HOSTS = [
-  'https://gibs.earthdata.nasa.gov',
-  'https://pub-f4844155e9804bb5adcb0c121896e82b.r2.dev',
-].join(' ');
+const DATA_HOSTS = ['https://gibs.earthdata.nasa.gov', DEFAULT_ASSET_BASE].join(' ');
 
 export function contentSecurityPolicy(allowModels: boolean): string {
   const connect = allowModels
