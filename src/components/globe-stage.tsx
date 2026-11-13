@@ -7,12 +7,20 @@ import {
   useMemo,
   useState,
   useSyncExternalStore,
+  type ComponentType,
   type KeyboardEvent,
 } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { formatNumber } from '@/core/format';
 import { useAppStore } from '@/core/store';
 import { spatialize } from '@/modules/sonification';
+
+type PosterGlobeProps = {
+  globeImageUrl: string;
+  backgroundColor: string;
+  width: number;
+  height: number;
+};
 
 const EarthCanvas = dynamic(
   () =>
@@ -47,11 +55,15 @@ function frameYear(t: number | string): number {
 export function GlobeStage() {
   const t = useTranslations('listen');
   const locale = useLocale();
-  const forceClassic = useSyncExternalStore(
+  const globeQuery = useSyncExternalStore(
     () => () => undefined,
-    () => new URLSearchParams(window.location.search).get('globe') === 'gl',
-    () => false,
+    () => new URLSearchParams(window.location.search).get('globe'),
+    () => null,
   );
+  const forceClassic = globeQuery === 'gl';
+  // `?globe=react` only mounts react-globe.gl. Zain owns the real visuals.
+  const forceReact = globeQuery === 'react';
+  const [PosterGlobe, setPosterGlobe] = useState<ComponentType<PosterGlobeProps> | null>(null);
   const view = useAppStore((state) => state.view);
   const dispatch = useAppStore((state) => state.dispatch);
   const mode = useAppStore((state) => state.mode);
@@ -111,6 +123,20 @@ export function GlobeStage() {
   }, [catalog.events, catalog.wildfire, layers]);
 
   useEffect(() => {
+    if (!forceReact) return;
+    let cancelled = false;
+    void import('react-globe.gl')
+      .then((mod) => {
+        if (cancelled) return;
+        setPosterGlobe(() => mod.default as ComponentType<PosterGlobeProps>);
+      })
+      .catch(() => setFailed(true));
+    return () => {
+      cancelled = true;
+    };
+  }, [forceReact]);
+
+  useEffect(() => {
     if (!forceClassic || !webgl) return;
     let cancelled = false;
     void import('globe.gl')
@@ -156,7 +182,8 @@ export function GlobeStage() {
 
   // Playback opens the shader only while online. An offline demo must not
   // request the Three.js chunk after the network is gone.
-  const showCanvas = webgl && !failed && !forceClassic && (engaged || (playing && online));
+  const showCanvas =
+    webgl && !failed && !forceClassic && !forceReact && (engaged || (playing && online));
   const label = `${t('globe')}. ${formatNumber(view.lat, lang, { maximumFractionDigits: 1 })}°, ${formatNumber(view.lon, lang, { maximumFractionDigits: 1 })}°`;
 
   return (
@@ -175,7 +202,11 @@ export function GlobeStage() {
       onFocus={() => setEngaged(true)}
       className="bg-space-950 relative h-[420px] overflow-hidden rounded-[2rem] border border-white/10 outline-none"
     >
-      {showCanvas ? (
+      {forceReact && PosterGlobe ? (
+        <div data-testid="react-globe" className="absolute inset-0">
+          <PosterGlobe globeImageUrl={POSTER} backgroundColor="#05070d" width={640} height={420} />
+        </div>
+      ) : showCanvas ? (
         <Suspense fallback={<p className="p-6 text-sm">{t('summary')}</p>}>
           <EarthCanvas
             texture="/textures/earth-day.webp"
