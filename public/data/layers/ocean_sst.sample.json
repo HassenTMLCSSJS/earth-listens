@@ -1,0 +1,179 @@
+{
+  "id": "ocean_sst",
+  "sample": true,
+  "title": {
+    "en": "Ocean temperature",
+    "ar": "حرارة المحيط"
+  },
+  "unit": {
+    "en": "°C",
+    "ar": "°C"
+  },
+  "source": {
+    "name": "SAMPLE Ocean temperature",
+    "dataset_url": "https://svs.gsfc.nasa.gov/3912/",
+    "eic_page": "https://svs.gsfc.nasa.gov/3912/",
+    "retrieved": null,
+    "sha256": null,
+    "citation": "SAMPLE. Not a measurement.",
+    "ack": null
+  },
+  "range": {
+    "min": -2,
+    "max": 32
+  },
+  "series": {
+    "global": [
+      {
+        "t": 2003,
+        "v": 18.0,
+        "q": "ok"
+      },
+      {
+        "t": 2014,
+        "v": 18.4,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 19.1,
+        "q": "ok"
+      }
+    ],
+    "egypt": [
+      {
+        "t": 2003,
+        "v": 18.0,
+        "q": "ok"
+      },
+      {
+        "t": 2014,
+        "v": 18.4,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 19.1,
+        "q": "ok"
+      }
+    ],
+    "africa": [
+      {
+        "t": 2003,
+        "v": 18.0,
+        "q": "ok"
+      },
+      {
+        "t": 2014,
+        "v": 18.4,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 19.1,
+        "q": "ok"
+      }
+    ],
+    "arctic": [
+      {
+        "t": 2003,
+        "v": 18.0,
+        "q": "ok"
+      },
+      {
+        "t": 2014,
+        "v": 18.4,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 19.1,
+        "q": "ok"
+      }
+    ],
+    "europe": [
+      {
+        "t": 2003,
+        "v": 18.0,
+        "q": "ok"
+      },
+      {
+        "t": 2014,
+        "v": 18.4,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 19.1,
+        "q": "ok"
+      }
+    ],
+    "asia": [
+      {
+        "t": 2003,
+        "v": 18.0,
+        "q": "ok"
+      },
+      {
+        "t": 2014,
+        "v": 18.4,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 19.1,
+        "q": "ok"
+      }
+    ],
+    "americas": [
+      {
+        "t": 2003,
+        "v": 18.0,
+        "q": "ok"
+      },
+      {
+        "t": 2014,
+        "v": 18.4,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 19.1,
+        "q": "ok"
+      }
+    ],
+    "oceania": [
+      {
+        "t": 2003,
+        "v": 18.0,
+        "q": "ok"
+      },
+      {
+        "t": 2014,
+        "v": 18.4,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 19.1,
+        "q": "ok"
+      }
+    ]
+  },
+  "annual": null,
+  "cells": null,
+  "seasonalAmplitude": null,
+  "frames": [
+    {
+      "t": 2025,
+      "src": "/frames/temperature/2025.webp",
+      "q": "ok",
+      "sample": true
+    }
+  ],
+  "events": [],
+  "description": {
+    "en": "SAMPLE Ocean temperature. Not a measurement. The globe may still show a real NASA texture beside this series.",
+    "ar": "بيانات تجريبية لـ حرارة المحيط. ليست قياسًا."
+  }
+}

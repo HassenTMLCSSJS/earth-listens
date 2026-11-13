@@ -1,0 +1,29 @@
+{
+  "latitude": 30.0,
+  "longitude": 31.2,
+  "generationtime_ms": 0.5185604095458984,
+  "utc_offset_seconds": 0,
+  "timezone": "GMT",
+  "timezone_abbreviation": "GMT",
+  "elevation": 29.0,
+  "current_units": {
+    "time": "iso8601",
+    "interval": "seconds",
+    "pm2_5": "μg/m³",
+    "pm10": "μg/m³",
+    "nitrogen_dioxide": "μg/m³",
+    "ozone": "μg/m³",
+    "carbon_monoxide": "μg/m³",
+    "us_aqi": "USAQI"
+  },
+  "current": {
+    "time": "2026-11-13T11:00",
+    "interval": 3600,
+    "pm2_5": 11.5,
+    "pm10": 16.3,
+    "nitrogen_dioxide": 8.9,
+    "ozone": 95.0,
+    "carbon_monoxide": 167.0,
+    "us_aqi": 56
+  }
+}

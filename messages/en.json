@@ -80,14 +80,21 @@
     "scale": "Scale",
     "tuning": "12-TET",
     "globe": "Interactive globe",
-    "standIn": "Procedural stand-in, not a NASA image.",
+    "standIn": "NASA Blue Marble and ETOPO relief. Night brightness is an image-derived index, not calibrated radiance.",
+    "compare": "Compare",
     "summary": "A text view of the planet. West is left, east is right, relative to the view centre."
   },
   "layers": {
     "temperature": "Temperature",
     "wildfire": "Wildfire",
     "sea_ice": "Sea ice",
-    "co2": "Carbon dioxide"
+    "co2": "Carbon dioxide",
+    "night_lights": "Night lights",
+    "ocean_sst": "Ocean temperature",
+    "ocean_currents": "Ocean currents",
+    "aerosols": "Aerosols",
+    "air_quality": "Air quality",
+    "lightning": "Lightning"
   },
   "regions": {
     "global": "Global",
@@ -158,6 +165,10 @@
     "off": "Allow motion",
     "sr": "Screen reader mode",
     "captions": "Captions",
+    "texture": "Texture quality",
+    "textureAuto": "Auto",
+    "texture4k": "4K",
+    "texture8k": "8K",
     "replay": "Replay intro"
   },
   "sounds": {

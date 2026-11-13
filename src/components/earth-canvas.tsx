@@ -11,9 +11,20 @@ const TINT: Record<LayerId, string> = {
   wildfire: '#ff4d2e',
   sea_ice: '#bfe9ff',
   co2: '#b48cff',
+  night_lights: '#f0c36a',
+  ocean_sst: '#2f6fed',
+  ocean_currents: '#3ec6c6',
+  aerosols: '#d2a15a',
+  air_quality: '#c46bff',
+  lightning: '#f4f7ff',
 };
 
 const earthVert = /* glsl */ `
+  uniform sampler2D uHeight;
+  uniform float uHasHeight;
+  uniform float uExag;
+  uniform float uHeightOffset;
+  uniform float uHeightScale;
   uniform float uLevel;
   uniform float uPulse;
   out vec2 vUv;
@@ -24,26 +35,56 @@ const earthVert = /* glsl */ `
     vec4 world = modelMatrix * vec4(position, 1.0);
     vNormal = normalize(mat3(modelMatrix) * normal);
     vView = normalize(cameraPosition - world.xyz);
-    vec3 displaced = position + normal * (uLevel * 0.045 + uPulse * 0.03);
+    float h = 0.0;
+    if (uHasHeight > 0.5) {
+      h = texture(uHeight, uv).r * uExag;
+    }
+    vec3 displaced = position + normal * (h + uLevel * 0.045 + uPulse * 0.03);
     gl_Position = projectionMatrix * modelViewMatrix * vec4(displaced, 1.0);
   }
 `;
 
 const earthFrag = /* glsl */ `
   uniform sampler2D uMap;
+  uniform sampler2D uNight;
+  uniform sampler2D uFrameA;
+  uniform sampler2D uRamp;
+  uniform sampler2D uWater;
   uniform vec3 uTint;
+  uniform vec3 uSunDir;
   uniform float uLevel;
   uniform float uPulse;
+  uniform float uHasNight;
+  uniform float uHasOverlay;
+  uniform float uHasWater;
+  uniform float uOverlayOpacity;
+  uniform float uNightGain;
+  uniform float uPlayheadLon;
+  uniform float uPlayheadGain;
   in vec2 vUv;
   in vec3 vNormal;
   in vec3 vView;
   out vec4 fragColor;
   void main() {
-    vec3 tex = texture(uMap, vUv).rgb;
-    float fres = pow(1.0 - max(dot(normalize(vNormal), normalize(vView)), 0.0), 1.6);
-    vec3 color = mix(tex, uTint, 0.18 + uLevel * 0.62);
-    color += uTint * fres * (0.15 + uPulse);
+    vec3 day = texture(uMap, vUv).rgb;
+    vec3 night = texture(uNight, vUv).rgb;
+    vec3 N = normalize(vNormal);
+    float dayMix = uHasNight > 0.5 ? smoothstep(-0.12, 0.18, dot(N, normalize(uSunDir))) : 1.0;
+    vec3 base = mix(night * uNightGain, day, dayMix);
+    float fres = pow(1.0 - max(dot(N, normalize(vView)), 0.0), 3.0);
+    vec3 color = mix(base, uTint, 0.18 + uLevel * 0.62);
+    color += vec3(0.3, 0.6, 1.0) * fres * (0.08 + uPulse);
     color += uTint * uPulse * uLevel * 0.35;
+    if (uHasOverlay > 0.5) {
+      float value = texture(uFrameA, vUv).r;
+      float water = uHasWater > 0.5 ? texture(uWater, vUv).r : 1.0;
+      float valid = step(0.004, value);
+      vec3 ramp = texture(uRamp, vec2(value, 0.5)).rgb;
+      color = mix(color, ramp, uOverlayOpacity * valid * water);
+    }
+    float lon = vUv.x * 360.0 - 180.0;
+    float glow = exp(-pow((lon - uPlayheadLon) / 14.0, 2.0));
+    color += uTint * glow * uPlayheadGain;
     fragColor = vec4(color, 1.0);
   }
 `;
@@ -67,9 +108,9 @@ const airFrag = /* glsl */ `
   in vec3 vView;
   out vec4 fragColor;
   void main() {
-    float fres = pow(0.72 - max(dot(normalize(vNormal), normalize(vView)), 0.0), 2.2);
-    float alpha = fres * (0.45 + uLevel * 0.7 + uPulse * 0.4);
-    fragColor = vec4(uTint, clamp(alpha, 0.0, 1.0));
+    float fres = pow(1.0 - max(dot(normalize(vNormal), normalize(vView)), 0.0), 3.0);
+    float alpha = fres * (0.45 + uLevel * 0.35 + uPulse * 0.25);
+    fragColor = vec4(mix(vec3(0.3, 0.6, 1.0), uTint, 0.25), clamp(alpha, 0.0, 1.0));
   }
 `;
 
@@ -90,45 +131,85 @@ function CameraRig({ lat, lon }: { lat: number; lon: number }) {
 
 function Scene({
   texture,
+  night,
+  height,
+  water,
+  overlay,
+  ramp,
   lat,
   lon,
+  playheadLon,
   cells,
   level,
   pulseId,
   layerId,
   motion,
+  segments,
 }: {
   texture: string;
+  night?: string;
+  height?: string;
+  water?: string;
+  overlay?: string;
+  ramp?: string;
   lat: number;
   lon: number;
+  playheadLon: number;
   cells: { lat: number; lon: number }[];
   level: number;
   pulseId: number;
   layerId: LayerId;
   motion: string;
+  segments: number;
 }) {
-  const map = useTexture(texture);
+  const maps = useTexture({
+    day: texture,
+    night: night ?? texture,
+    height: height ?? texture,
+    water: water ?? texture,
+    frame: overlay ?? texture,
+    ramp: ramp ?? texture,
+  });
   const tint = useMemo(() => new THREE.Color(TINT[layerId]), [layerId]);
   const pulse = useRef(0);
   const levelRef = useRef(level);
+  const playRef = useRef(playheadLon);
   useEffect(() => {
     levelRef.current = level;
-  }, [level]);
+    playRef.current = playheadLon;
+  }, [level, playheadLon]);
 
   const earth = useMemo(
     () =>
       new THREE.ShaderMaterial({
         uniforms: {
-          uMap: { value: map },
+          uMap: { value: maps.day },
+          uNight: { value: maps.night },
+          uHeight: { value: maps.height },
+          uFrameA: { value: maps.frame },
+          uRamp: { value: maps.ramp },
+          uWater: { value: maps.water },
           uTint: { value: tint.clone() },
+          uSunDir: { value: new THREE.Vector3(0.6, 0.25, 0.4).normalize() },
           uLevel: { value: 0 },
           uPulse: { value: 0 },
+          uHasNight: { value: night ? 1 : 0 },
+          uHasHeight: { value: height ? 1 : 0 },
+          uHasOverlay: { value: overlay ? 1 : 0 },
+          uHasWater: { value: water && overlay ? 1 : 0 },
+          uExag: { value: 0.045 },
+          uHeightOffset: { value: -10900 },
+          uHeightScale: { value: 19700 },
+          uOverlayOpacity: { value: 0.82 },
+          uNightGain: { value: 1.4 },
+          uPlayheadLon: { value: lon },
+          uPlayheadGain: { value: 0 },
         },
         vertexShader: earthVert,
         fragmentShader: earthFrag,
         glslVersion: THREE.GLSL3,
       }),
-    [map, tint],
+    [maps, tint, night, height, water, overlay, lon],
   );
   const air = useMemo(
     () =>
@@ -161,6 +242,8 @@ function Scene({
     const shown = motion === 'reduce' ? 0 : pulse.current;
     earth.uniforms.uLevel!.value = levelRef.current;
     earth.uniforms.uPulse!.value = shown;
+    earth.uniforms.uPlayheadLon!.value = playRef.current;
+    earth.uniforms.uPlayheadGain!.value = shown;
     air.uniforms.uLevel!.value = levelRef.current;
     air.uniforms.uPulse!.value = shown;
     const tintUniform = earth.uniforms.uTint!.value as THREE.Color;
@@ -186,11 +269,11 @@ function Scene({
   return (
     <>
       <mesh>
-        <sphereGeometry args={[1, 64, 64]} />
+        <sphereGeometry args={[1, segments, Math.round(segments / 2)]} />
         <primitive object={earth} attach="material" />
       </mesh>
       <mesh>
-        <sphereGeometry args={[1.14, 48, 48]} />
+        <sphereGeometry args={[1.025, 48, 48]} />
         <primitive object={air} attach="material" />
       </mesh>
       {cells.length > 0 ? (
@@ -208,8 +291,14 @@ function Scene({
 
 export function EarthCanvas({
   texture,
+  night,
+  height,
+  water,
+  overlay,
+  ramp,
   lat,
   lon,
+  playheadLon,
   cells,
   level,
   pulseId,
@@ -217,30 +306,45 @@ export function EarthCanvas({
   motion,
 }: {
   texture: string;
+  night?: string;
+  height?: string;
+  water?: string;
+  overlay?: string;
+  ramp?: string;
   lat: number;
   lon: number;
+  playheadLon?: number;
   cells: { lat: number; lon: number }[];
   level: number;
   pulseId: number;
   layerId: LayerId;
   motion: string;
 }) {
+  const segments = motion === 'reduce' ? 64 : 128;
   return (
     <Canvas
       camera={{ position: [0, 0, 2.6], fov: 40 }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-      dpr={[1, 1.5]}
+      dpr={[1, motion === 'reduce' ? 1 : 1.5]}
+      frameloop={motion === 'reduce' ? 'demand' : 'always'}
     >
       <color attach="background" args={['#05070d']} />
       <Scene
         texture={texture}
+        {...(night ? { night } : {})}
+        {...(height ? { height } : {})}
+        {...(water ? { water } : {})}
+        {...(overlay ? { overlay } : {})}
+        {...(ramp ? { ramp } : {})}
         lat={lat}
         lon={lon}
+        playheadLon={playheadLon ?? lon}
         cells={cells}
         level={level}
         pulseId={pulseId}
         layerId={layerId}
         motion={motion}
+        segments={segments}
       />
     </Canvas>
   );

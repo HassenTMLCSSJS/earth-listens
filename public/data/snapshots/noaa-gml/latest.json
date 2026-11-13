@@ -1,0 +1,20 @@
+{
+  "feed": "noaa-gml",
+  "status": "snapshot",
+  "dataTime": "2026-09-01T00:00:00Z",
+  "fetchedAt": "2026-11-13T11:20:00Z",
+  "source": {
+    "name": "NOAA GML Mauna Loa CO2",
+    "url": "https://gml.noaa.gov/aftp/products/trends/co2/co2_mm_mlo.csv",
+    "license": "NOAA GML (Lan, Tans, Thoning)"
+  },
+  "latencyNote": "Monthly mean, September 2026.",
+  "snapshotId": "b23c77b8c0c117f2",
+  "items": [
+    {
+      "year": 2026,
+      "month": 9,
+      "ppm": 426.07
+    }
+  ]
+}

@@ -1,0 +1,366 @@
+{
+  "retrieved": "2026-11-13",
+  "note": "Uses NASA data and visualizations; not endorsed by NASA.",
+  "sources": [
+    {
+      "id": "spaceapps",
+      "name": "Space Apps challenge",
+      "url": "https://www.spaceappschallenge.org/2026/challenges/the-earth-information-jukebox/",
+      "license": "Space Apps terms",
+      "usedFor": "Challenge brief",
+      "key": "none",
+      "group": "nasa",
+      "check": "TLS incomplete from the build box"
+    },
+    {
+      "id": "svs-eic",
+      "name": "SVS Earth Information Center gallery",
+      "url": "https://svs.gsfc.nasa.gov/gallery/earth-information-center/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Index and links",
+      "key": "none",
+      "group": "nasa",
+      "check": "WebFetch 2026-11-13"
+    },
+    {
+      "id": "svs-13786",
+      "name": "SVS 13786 Caldwell 73",
+      "url": "https://svs.gsfc.nasa.gov/13786/",
+      "license": "SYSTEM Sounds; NASA/ESA",
+      "usedFor": "Sonification reference",
+      "key": "none",
+      "group": "nasa",
+      "check": "API 2026-11-13"
+    },
+    {
+      "id": "svs-5313",
+      "name": "SVS 5313 night lights",
+      "url": "https://svs.gsfc.nasa.gov/5313/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Night lights change",
+      "key": "none",
+      "group": "nasa",
+      "check": "API 2026-11-13"
+    },
+    {
+      "id": "svs-5475",
+      "name": "SVS 5475 night lights",
+      "url": "https://svs.gsfc.nasa.gov/5475/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Equirect night lights",
+      "key": "none",
+      "group": "nasa",
+      "check": "API 2026-11-13"
+    },
+    {
+      "id": "svs-3912",
+      "name": "SVS 3912 ECCO2",
+      "url": "https://svs.gsfc.nasa.gov/3912/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Ocean currents and SST frames",
+      "key": "none",
+      "group": "nasa",
+      "check": "API 2026-11-13"
+    },
+    {
+      "id": "svs-5425",
+      "name": "SVS 5425 Perpetual Ocean 2",
+      "url": "https://svs.gsfc.nasa.gov/5425/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Ocean visuals",
+      "key": "none",
+      "group": "nasa",
+      "check": "API 2026-11-13"
+    },
+    {
+      "id": "svs-5669",
+      "name": "SVS 5669 aerosols",
+      "url": "https://svs.gsfc.nasa.gov/5669/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Aerosol species",
+      "key": "none",
+      "group": "nasa",
+      "check": "API 2026-11-13"
+    },
+    {
+      "id": "svs-5533",
+      "name": "SVS 5533 air quality",
+      "url": "https://svs.gsfc.nasa.gov/5533/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Air quality frames",
+      "key": "none",
+      "group": "nasa",
+      "check": "API 2026-11-13"
+    },
+    {
+      "id": "svs-5196",
+      "name": "SVS 5196 DYAMOND",
+      "url": "https://svs.gsfc.nasa.gov/5196/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Optional CO2 visual",
+      "key": "none",
+      "group": "nasa",
+      "check": "API 2026-11-13"
+    },
+    {
+      "id": "svs-5011",
+      "name": "SVS 5011 ISS LIS",
+      "url": "https://svs.gsfc.nasa.gov/5011/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Lightning",
+      "key": "none",
+      "group": "nasa",
+      "check": "API 2026-11-13"
+    },
+    {
+      "id": "svs-4960",
+      "name": "SVS 4960 atmospheric river",
+      "url": "https://svs.gsfc.nasa.gov/4960/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Optional intro",
+      "key": "none",
+      "group": "nasa",
+      "check": "API 2026-11-13"
+    },
+    {
+      "id": "svs-4950",
+      "name": "SVS 4950 GEDI",
+      "url": "https://svs.gsfc.nasa.gov/4950/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Forest height, past the cut line",
+      "key": "none",
+      "group": "nasa",
+      "check": "API 2026-11-13"
+    },
+    {
+      "id": "gibs",
+      "name": "NASA GIBS",
+      "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/1.0.0/WMTSCapabilities.xml",
+      "license": "GIBS acknowledgement",
+      "usedFor": "Textures, colormaps, daily layers",
+      "key": "none",
+      "group": "nasa",
+      "check": "Fetched 2026-11-13"
+    },
+    {
+      "id": "gibs-docs",
+      "name": "GIBS API docs",
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software/earthdata-developer-portal/gibs-api",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Reference",
+      "key": "none",
+      "group": "nasa",
+      "check": "2026-11-13"
+    },
+    {
+      "id": "firms",
+      "name": "NASA FIRMS",
+      "url": "https://firms.modaps.eosdis.nasa.gov/",
+      "license": "LANCE FIRMS / ESDIS acknowledgement",
+      "usedFor": "Wildfire points",
+      "key": "FIRMS_MAP_KEY for the area API; none for the 24 h CSV",
+      "group": "nasa",
+      "check": "24 h CSV header fetched 2026-11-13"
+    },
+    {
+      "id": "gistemp",
+      "name": "NASA GISS GISTEMP v4",
+      "url": "https://data.giss.nasa.gov/gistemp/",
+      "license": "Credit the GISTEMP Team",
+      "usedFor": "Temperature",
+      "key": "none",
+      "group": "nasa",
+      "check": "CSV fetched 2026-11-13"
+    },
+    {
+      "id": "eonet",
+      "name": "NASA EONET v3",
+      "url": "https://eonet.gsfc.nasa.gov/api/v3/events",
+      "license": "Credit NASA EONET",
+      "usedFor": "Live events",
+      "key": "none",
+      "group": "nasa",
+      "check": "Fetched 2026-11-13"
+    },
+    {
+      "id": "power",
+      "name": "NASA POWER",
+      "url": "https://power.larc.nasa.gov/",
+      "license": "Credit NASA LaRC POWER",
+      "usedFor": "Optional Cairo history",
+      "key": "none",
+      "group": "nasa",
+      "check": "Page checked 2026-11-13"
+    },
+    {
+      "id": "epic",
+      "name": "NASA EPIC",
+      "url": "https://epic.gsfc.nasa.gov/api/natural",
+      "license": "Credit the NASA EPIC team",
+      "usedFor": "Optional Earth today",
+      "key": "none",
+      "group": "nasa",
+      "check": "Page checked 2026-11-13"
+    },
+    {
+      "id": "cmr",
+      "name": "NASA CMR",
+      "url": "https://cmr.earthdata.nasa.gov/search/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Pipeline discovery",
+      "key": "none",
+      "group": "nasa",
+      "check": "2026-11-13"
+    },
+    {
+      "id": "worldview",
+      "name": "NASA Worldview",
+      "url": "https://worldview.earthdata.nasa.gov/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Layer browsing reference",
+      "key": "none",
+      "group": "nasa",
+      "check": "2026-11-13"
+    },
+    {
+      "id": "earth-gov",
+      "name": "Earth.gov",
+      "url": "https://earth.gov/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Vital-sign links",
+      "key": "none",
+      "group": "nasa",
+      "check": "2026-11-13"
+    },
+    {
+      "id": "media",
+      "name": "NASA media guidelines",
+      "url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "license": "NASA media guidelines; credit required; no implied endorsement",
+      "usedFor": "Usage rules",
+      "key": "none",
+      "group": "nasa",
+      "check": "2026-11-13"
+    },
+    {
+      "id": "etopo",
+      "name": "NOAA ETOPO 2022",
+      "url": "https://www.ncei.noaa.gov/products/etopo-global-relief-model",
+      "license": "US government public domain; cite NOAA NCEI 2022",
+      "usedFor": "Height, bathymetry, water mask, normals",
+      "key": "none",
+      "group": "other",
+      "check": "Grid fetched and averaged 2026-11-13"
+    },
+    {
+      "id": "gml",
+      "name": "NOAA GML Mauna Loa CO2",
+      "url": "https://gml.noaa.gov/aftp/products/trends/co2/co2_mm_mlo.csv",
+      "license": "NOAA GML (Lan, Tans, Thoning)",
+      "usedFor": "CO2",
+      "key": "none",
+      "group": "other",
+      "check": "CSV fetched 2026-11-13"
+    },
+    {
+      "id": "gml-daily",
+      "name": "NOAA GML daily CO2",
+      "url": "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_daily_mlo.csv",
+      "license": "NOAA GML",
+      "usedFor": "CO2 daily",
+      "key": "none",
+      "group": "other",
+      "check": "CSV fetched 2026-11-13"
+    },
+    {
+      "id": "nsidc",
+      "name": "NSIDC Sea Ice Index v4",
+      "url": "https://nsidc.org/data/g02135/versions/4",
+      "license": "Cite Fetterer et al., NSIDC",
+      "usedFor": "Sea ice",
+      "key": "none",
+      "group": "other",
+      "check": "September CSV fetched 2026-11-13"
+    },
+    {
+      "id": "open-meteo",
+      "name": "Open-Meteo forecast",
+      "url": "https://api.open-meteo.com/v1/forecast",
+      "license": "CC BY 4.0; Weather data by Open-Meteo.com",
+      "usedFor": "Cairo weather",
+      "key": "none",
+      "group": "other",
+      "check": "Fetched 2026-11-13"
+    },
+    {
+      "id": "open-meteo-aq",
+      "name": "Open-Meteo air quality",
+      "url": "https://air-quality-api.open-meteo.com/v1/air-quality",
+      "license": "CC BY 4.0; modified Copernicus Atmosphere Monitoring Service information",
+      "usedFor": "Cairo model air quality",
+      "key": "none",
+      "group": "other",
+      "check": "Fetched 2026-11-13"
+    },
+    {
+      "id": "open-meteo-terms",
+      "name": "Open-Meteo terms",
+      "url": "https://open-meteo.com/en/terms",
+      "license": "Open-Meteo terms",
+      "usedFor": "Rate limits",
+      "key": "none",
+      "group": "other",
+      "check": "2026-11-13"
+    },
+    {
+      "id": "openaq",
+      "name": "OpenAQ v3",
+      "url": "https://api.openaq.org/v3/",
+      "license": "OpenAQ terms; cite each provider",
+      "usedFor": "Optional measured air quality",
+      "key": "OPENAQ_API_KEY",
+      "group": "other",
+      "check": "401 without a key, 2026-11-13"
+    },
+    {
+      "id": "natural-earth",
+      "name": "Natural Earth",
+      "url": "https://www.naturalearthdata.com/",
+      "license": "Public domain; Made with Natural Earth",
+      "usedFor": "Region outlines",
+      "key": "none",
+      "group": "other",
+      "check": "CDN checked 2026-11-13"
+    },
+    {
+      "id": "gebco",
+      "name": "GEBCO",
+      "url": "https://www.gebco.net/data-products/gridded-bathymetry-data",
+      "license": "GEBCO terms",
+      "usedFor": "Optional bathymetry",
+      "key": "none",
+      "group": "other",
+      "check": "Not used; ETOPO is the height source"
+    },
+    {
+      "id": "r2",
+      "name": "Cloudflare R2",
+      "url": "https://developers.cloudflare.com/r2/",
+      "license": "Cloudflare terms",
+      "usedFor": "Asset host",
+      "key": "R2 credentials",
+      "group": "other",
+      "check": "Bucket earth-listens-assets"
+    },
+    {
+      "id": "github-releases",
+      "name": "GitHub Releases",
+      "url": "https://docs.github.com/en/repositories/releasing-projects-on-github",
+      "license": "GitHub terms",
+      "usedFor": "Archive of record for 4K and 8K",
+      "key": "GITHUB_TOKEN",
+      "group": "other",
+      "check": "Release data-v1 is created by Hassan"
+    }
+  ]
+}

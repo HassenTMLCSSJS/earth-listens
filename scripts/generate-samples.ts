@@ -1,7 +1,7 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
-import { LAYER_IDS, REGION_IDS, type LayerId, type RegionId } from '../src/core/actions';
+import { REGION_IDS, SYMPHONY_LAYER_IDS, type LayerId, type RegionId } from '../src/core/actions';
 import { mulberry32, nextGaussian } from '../src/core/prng';
 import { REGIONS } from '../src/modules/data/regions';
 import {
@@ -168,7 +168,7 @@ function wildfire() {
 }
 
 function configFor(
-  id: LayerId,
+  id: (typeof SYMPHONY_LAYER_IDS)[number],
   timeKind: 'year' | 'day',
   category: 'climate' | 'fire' | 'ice_ocean',
   where: string,
@@ -260,6 +260,13 @@ async function frame(file: string, mix: number, label: string): Promise<void> {
 }
 
 async function earthTexture(): Promise<void> {
+  const note = path.join(root, 'public/textures/SOURCE.txt');
+  try {
+    const current = await readFile(note, 'utf8');
+    if (current.includes('NASA GIBS')) return;
+  } catch {
+    /* No note yet: the base generator may still try a public-domain download. */
+  }
   const dest = path.join(root, 'public/textures/earth-day.jpg');
   await mkdir(path.dirname(dest), { recursive: true });
   const urls = [
@@ -462,7 +469,10 @@ async function main(): Promise<void> {
     }),
   };
 
-  const frameIndex: Record<LayerId, { t: number | string; src: string }[]> = {
+  const frameIndex: Record<
+    (typeof SYMPHONY_LAYER_IDS)[number],
+    { t: number | string; src: string }[]
+  > = {
     temperature: [],
     wildfire: [],
     sea_ice: [],
@@ -494,7 +504,7 @@ async function main(): Promise<void> {
     frameIndex.wildfire.push({ t: iso, src });
   }
 
-  for (const id of LAYER_IDS) {
+  for (const id of SYMPHONY_LAYER_IDS) {
     const data = { ...layers[id], frames: frameIndex[id] };
     LayerDataSchema.parse(data);
     await writeJson(path.join(root, `public/data/layers/${id}.config.json`), configs[id]);
@@ -510,15 +520,28 @@ async function main(): Promise<void> {
     })),
   });
   await writeJson(path.join(root, 'public/data/regions.json'), regions);
+  const registryPath = path.join(root, 'public/data/registry.json');
+  let kept: { id: LayerId; config: string; data: string }[] = [];
+  try {
+    const current = RegistrySchema.parse(JSON.parse(await readFile(registryPath, 'utf8')));
+    kept = current.layers.filter(
+      (layer) => !SYMPHONY_LAYER_IDS.includes(layer.id as (typeof SYMPHONY_LAYER_IDS)[number]),
+    );
+  } catch {
+    kept = [];
+  }
   await writeJson(
-    path.join(root, 'public/data/registry.json'),
+    registryPath,
     RegistrySchema.parse({
       version: 1,
-      layers: LAYER_IDS.map((id) => ({
-        id,
-        config: `/data/layers/${id}.config.json`,
-        data: `/data/layers/${id}.sample.json`,
-      })),
+      layers: [
+        ...SYMPHONY_LAYER_IDS.map((id) => ({
+          id,
+          config: `/data/layers/${id}.config.json`,
+          data: `/data/layers/${id}.sample.json`,
+        })),
+        ...kept,
+      ],
     }),
   );
   await earthTexture();

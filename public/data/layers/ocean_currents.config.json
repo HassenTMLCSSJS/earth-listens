@@ -1,0 +1,46 @@
+{
+  "id": "ocean_currents",
+  "category": "ocean",
+  "title": {
+    "en": "Ocean currents",
+    "ar": "تيارات المحيط"
+  },
+  "unit": {
+    "en": "frame step",
+    "ar": "خطوة إطار"
+  },
+  "timeKind": "year",
+  "eic": {
+    "page": "https://svs.gsfc.nasa.gov/3912/",
+    "frames": "/frames/ocean_currents"
+  },
+  "variables": {
+    "how_much": {
+      "field": "v",
+      "range": [0, 1]
+    },
+    "how_strong": {
+      "field": "abs(v)",
+      "range": [0, 1]
+    },
+    "how_fast": {
+      "field": "delta(v)",
+      "range": [-1, 1]
+    },
+    "where": {
+      "field": "region_center"
+    }
+  },
+  "what": {
+    "timbre": "water-fm",
+    "register": [40, 64],
+    "symphonyRegister": [40, 60]
+  },
+  "scale": "maqam_nahawand",
+  "regions": ["global", "egypt", "africa", "arctic", "europe", "asia", "americas", "oceania"],
+  "symphony": {
+    "role": "bed",
+    "from": 2007,
+    "to": 2008
+  }
+}

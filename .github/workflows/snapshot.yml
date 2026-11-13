@@ -1,0 +1,28 @@
+name: snapshot
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Enable pnpm from package.json packageManager (pnpm@12.18.0)
+        run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Refresh live snapshots
+        env:
+          FIRMS_MAP_KEY: ${{ secrets.FIRMS_MAP_KEY }}
+          OPENAQ_API_KEY: ${{ secrets.OPENAQ_API_KEY }}
+        run: pnpm exec tsx scripts/snapshot.ts
+      - uses: actions/upload-artifact@v5
+        with:
+          name: snapshots
+          path: public/data/snapshots
+          retention-days: 7

@@ -1,0 +1,46 @@
+{
+  "id": "lightning",
+  "category": "weather",
+  "title": {
+    "en": "Lightning",
+    "ar": "البرق"
+  },
+  "unit": {
+    "en": "flash-rate index",
+    "ar": "مؤشر معدل الوميض"
+  },
+  "timeKind": "year",
+  "eic": {
+    "page": "https://svs.gsfc.nasa.gov/5011/",
+    "frames": "/frames/lightning"
+  },
+  "variables": {
+    "how_much": {
+      "field": "v",
+      "range": [0, 1]
+    },
+    "how_strong": {
+      "field": "abs(v)",
+      "range": [0, 1]
+    },
+    "how_fast": {
+      "field": "delta(v)",
+      "range": [-1, 1]
+    },
+    "where": {
+      "field": "region_center"
+    }
+  },
+  "what": {
+    "timbre": "thunder-perc",
+    "register": [72, 96],
+    "symphonyRegister": [84, 96]
+  },
+  "scale": "chromatic",
+  "regions": ["global", "egypt", "africa", "arctic", "europe", "asia", "americas", "oceania"],
+  "symphony": {
+    "role": "percussion",
+    "from": 2017,
+    "to": 2021
+  }
+}

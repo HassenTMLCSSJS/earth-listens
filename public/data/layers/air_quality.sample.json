@@ -1,0 +1,179 @@
+{
+  "id": "air_quality",
+  "sample": true,
+  "title": {
+    "en": "Air quality",
+    "ar": "جودة الهواء"
+  },
+  "unit": {
+    "en": "µg/m³",
+    "ar": "µg/m³"
+  },
+  "source": {
+    "name": "SAMPLE Air quality",
+    "dataset_url": "https://svs.gsfc.nasa.gov/5533/",
+    "eic_page": "https://svs.gsfc.nasa.gov/5533/",
+    "retrieved": null,
+    "sha256": null,
+    "citation": "SAMPLE. Not a measurement.",
+    "ack": null
+  },
+  "range": {
+    "min": 0,
+    "max": 75
+  },
+  "series": {
+    "global": [
+      {
+        "t": 2024,
+        "v": 18,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 16,
+        "q": "ok"
+      },
+      {
+        "t": 2026,
+        "v": 15,
+        "q": "ok"
+      }
+    ],
+    "egypt": [
+      {
+        "t": 2024,
+        "v": 18,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 16,
+        "q": "ok"
+      },
+      {
+        "t": 2026,
+        "v": 15,
+        "q": "ok"
+      }
+    ],
+    "africa": [
+      {
+        "t": 2024,
+        "v": 18,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 16,
+        "q": "ok"
+      },
+      {
+        "t": 2026,
+        "v": 15,
+        "q": "ok"
+      }
+    ],
+    "arctic": [
+      {
+        "t": 2024,
+        "v": 18,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 16,
+        "q": "ok"
+      },
+      {
+        "t": 2026,
+        "v": 15,
+        "q": "ok"
+      }
+    ],
+    "europe": [
+      {
+        "t": 2024,
+        "v": 18,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 16,
+        "q": "ok"
+      },
+      {
+        "t": 2026,
+        "v": 15,
+        "q": "ok"
+      }
+    ],
+    "asia": [
+      {
+        "t": 2024,
+        "v": 18,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 16,
+        "q": "ok"
+      },
+      {
+        "t": 2026,
+        "v": 15,
+        "q": "ok"
+      }
+    ],
+    "americas": [
+      {
+        "t": 2024,
+        "v": 18,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 16,
+        "q": "ok"
+      },
+      {
+        "t": 2026,
+        "v": 15,
+        "q": "ok"
+      }
+    ],
+    "oceania": [
+      {
+        "t": 2024,
+        "v": 18,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 16,
+        "q": "ok"
+      },
+      {
+        "t": 2026,
+        "v": 15,
+        "q": "ok"
+      }
+    ]
+  },
+  "annual": null,
+  "cells": null,
+  "seasonalAmplitude": null,
+  "frames": [
+    {
+      "t": 2026,
+      "src": "/frames/temperature/2025.webp",
+      "q": "ok",
+      "sample": true
+    }
+  ],
+  "events": [],
+  "description": {
+    "en": "SAMPLE Air quality. Not a measurement. The globe may still show a real NASA texture beside this series.",
+    "ar": "بيانات تجريبية لـ جودة الهواء. ليست قياسًا."
+  }
+}

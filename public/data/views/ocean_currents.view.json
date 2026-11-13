@@ -1,0 +1,33 @@
+{
+  "id": "ocean_currents",
+  "base": "earth-relief-bathy",
+  "baseDim": 0,
+  "night": true,
+  "height": {
+    "src": "/textures/earth-height.png",
+    "offset": -10900,
+    "scale": 19700,
+    "exaggeration": 0.012
+  },
+  "overlay": null,
+  "cameras": [
+    {
+      "id": "gulf-stream",
+      "label": {
+        "en": "Gulf Stream",
+        "ar": "تيار الخليج"
+      },
+      "lat": 35,
+      "lon": -65,
+      "alt": 2.0
+    }
+  ],
+  "beforeAfter": null,
+  "transitionMs": 900,
+  "credit": [
+    "NASA/GSFC Scientific Visualization Studio; ECCO2 (MIT/JPL).",
+    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS).",
+    "NOAA National Centers for Environmental Information. 2022: ETOPO 2022 Global Relief Model."
+  ],
+  "note": "No numeric speeds are invented from the frames."
+}

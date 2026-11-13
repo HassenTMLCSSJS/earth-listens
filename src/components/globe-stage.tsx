@@ -156,13 +156,23 @@ export function GlobeStage() {
       {showCanvas ? (
         <Suspense fallback={<p className="p-6 text-sm">{t('summary')}</p>}>
           <EarthCanvas
-            texture={POSTER}
+            texture="/textures/earth-day.webp"
+            night="/textures/earth-night.webp"
+            height="/textures/earth-height.png"
+            {...(layers[0] === 'ocean_sst'
+              ? {
+                  water: '/textures/earth-water-mask.png',
+                  overlay: '/frames/ocean_sst/2024-08-15.value.png',
+                  ramp: '/ramps/sst.png',
+                }
+              : {})}
             lat={view.lat}
             lon={view.lon}
+            playheadLon={visual.playheadLon}
             cells={cells}
             level={visual.level}
             pulseId={visual.pulse}
-            layerId={visual.layerId}
+            layerId={layers[0] ?? visual.layerId}
             motion={motion ?? 'full'}
           />
         </Suspense>

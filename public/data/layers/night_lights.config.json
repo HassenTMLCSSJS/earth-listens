@@ -1,0 +1,46 @@
+{
+  "id": "night_lights",
+  "category": "human",
+  "title": {
+    "en": "Night lights",
+    "ar": "أضواء الليل"
+  },
+  "unit": {
+    "en": "night brightness index (image-derived, not calibrated radiance)",
+    "ar": "مؤشر سطوع ليلي (مشتق من الصورة، ليس إشعاعًا معايرًا)"
+  },
+  "timeKind": "year",
+  "eic": {
+    "page": "https://svs.gsfc.nasa.gov/5313/",
+    "frames": "/textures"
+  },
+  "variables": {
+    "how_much": {
+      "field": "v",
+      "range": [5.51, 51.75]
+    },
+    "how_strong": {
+      "field": "abs(v)",
+      "range": [0, 51.75]
+    },
+    "how_fast": {
+      "field": "delta(v)",
+      "range": [-10, 10]
+    },
+    "where": {
+      "field": "region_center"
+    }
+  },
+  "what": {
+    "timbre": "night-bell",
+    "register": [52, 88],
+    "symphonyRegister": [60, 84]
+  },
+  "scale": "maqam_hijaz",
+  "regions": ["global", "egypt", "africa", "arctic", "europe", "asia", "americas", "oceania"],
+  "symphony": {
+    "role": "bell",
+    "from": 2012,
+    "to": 2016
+  }
+}

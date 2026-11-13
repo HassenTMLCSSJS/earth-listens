@@ -1,0 +1,19 @@
+{
+  "feed": "nsidc",
+  "status": "snapshot",
+  "dataTime": "2026-09-15T00:00:00Z",
+  "fetchedAt": "2026-11-13T11:20:00Z",
+  "source": {
+    "name": "NSIDC Sea Ice Index v4",
+    "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_09_extent_v4.0.csv",
+    "license": "Fetterer et al., NSIDC"
+  },
+  "latencyNote": "September 2026 Arctic extent.",
+  "snapshotId": "934955d33573e946",
+  "items": [
+    {
+      "year": 2026,
+      "extent": 4.81
+    }
+  ]
+}

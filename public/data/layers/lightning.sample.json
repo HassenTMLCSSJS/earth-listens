@@ -1,0 +1,179 @@
+{
+  "id": "lightning",
+  "sample": true,
+  "title": {
+    "en": "Lightning",
+    "ar": "البرق"
+  },
+  "unit": {
+    "en": "flash-rate index",
+    "ar": "مؤشر معدل الوميض"
+  },
+  "source": {
+    "name": "SAMPLE Lightning",
+    "dataset_url": "https://svs.gsfc.nasa.gov/5011/",
+    "eic_page": "https://svs.gsfc.nasa.gov/5011/",
+    "retrieved": null,
+    "sha256": null,
+    "citation": "SAMPLE. Not a measurement.",
+    "ack": null
+  },
+  "range": {
+    "min": 0,
+    "max": 1
+  },
+  "series": {
+    "global": [
+      {
+        "t": 2017,
+        "v": 0.2,
+        "q": "ok"
+      },
+      {
+        "t": 2019,
+        "v": 0.35,
+        "q": "ok"
+      },
+      {
+        "t": 2021,
+        "v": 0.28,
+        "q": "ok"
+      }
+    ],
+    "egypt": [
+      {
+        "t": 2017,
+        "v": 0.2,
+        "q": "ok"
+      },
+      {
+        "t": 2019,
+        "v": 0.35,
+        "q": "ok"
+      },
+      {
+        "t": 2021,
+        "v": 0.28,
+        "q": "ok"
+      }
+    ],
+    "africa": [
+      {
+        "t": 2017,
+        "v": 0.2,
+        "q": "ok"
+      },
+      {
+        "t": 2019,
+        "v": 0.35,
+        "q": "ok"
+      },
+      {
+        "t": 2021,
+        "v": 0.28,
+        "q": "ok"
+      }
+    ],
+    "arctic": [
+      {
+        "t": 2017,
+        "v": 0.2,
+        "q": "ok"
+      },
+      {
+        "t": 2019,
+        "v": 0.35,
+        "q": "ok"
+      },
+      {
+        "t": 2021,
+        "v": 0.28,
+        "q": "ok"
+      }
+    ],
+    "europe": [
+      {
+        "t": 2017,
+        "v": 0.2,
+        "q": "ok"
+      },
+      {
+        "t": 2019,
+        "v": 0.35,
+        "q": "ok"
+      },
+      {
+        "t": 2021,
+        "v": 0.28,
+        "q": "ok"
+      }
+    ],
+    "asia": [
+      {
+        "t": 2017,
+        "v": 0.2,
+        "q": "ok"
+      },
+      {
+        "t": 2019,
+        "v": 0.35,
+        "q": "ok"
+      },
+      {
+        "t": 2021,
+        "v": 0.28,
+        "q": "ok"
+      }
+    ],
+    "americas": [
+      {
+        "t": 2017,
+        "v": 0.2,
+        "q": "ok"
+      },
+      {
+        "t": 2019,
+        "v": 0.35,
+        "q": "ok"
+      },
+      {
+        "t": 2021,
+        "v": 0.28,
+        "q": "ok"
+      }
+    ],
+    "oceania": [
+      {
+        "t": 2017,
+        "v": 0.2,
+        "q": "ok"
+      },
+      {
+        "t": 2019,
+        "v": 0.35,
+        "q": "ok"
+      },
+      {
+        "t": 2021,
+        "v": 0.28,
+        "q": "ok"
+      }
+    ]
+  },
+  "annual": null,
+  "cells": null,
+  "seasonalAmplitude": null,
+  "frames": [
+    {
+      "t": 2021,
+      "src": "/frames/temperature/2025.webp",
+      "q": "ok",
+      "sample": true
+    }
+  ],
+  "events": [],
+  "description": {
+    "en": "SAMPLE Lightning. Not a measurement. The globe may still show a real NASA texture beside this series.",
+    "ar": "بيانات تجريبية لـ البرق. ليست قياسًا."
+  }
+}

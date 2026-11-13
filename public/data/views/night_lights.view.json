@@ -1,0 +1,47 @@
+{
+  "id": "night_lights",
+  "base": "earth-night",
+  "baseDim": 0,
+  "night": true,
+  "height": {
+    "src": "/textures/earth-height.png",
+    "offset": -10900,
+    "scale": 19700,
+    "exaggeration": 0.012
+  },
+  "overlay": null,
+  "cameras": [
+    {
+      "id": "nile",
+      "label": {
+        "en": "Nile",
+        "ar": "النيل"
+      },
+      "lat": 30,
+      "lon": 31,
+      "alt": 1.9
+    },
+    {
+      "id": "india",
+      "label": {
+        "en": "India",
+        "ar": "الهند"
+      },
+      "lat": 22,
+      "lon": 79,
+      "alt": 1.9
+    }
+  ],
+  "beforeAfter": {
+    "a": 2012,
+    "b": 2016,
+    "mode": "wipe"
+  },
+  "transitionMs": 900,
+  "credit": [
+    "NASA Earth Observatory images by Joshua Stevens, using Suomi NPP VIIRS data from Miguel Román, NASA GSFC.",
+    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS).",
+    "NOAA National Centers for Environmental Information. 2022: ETOPO 2022 Global Relief Model."
+  ],
+  "note": "night brightness index (image-derived, not calibrated radiance)"
+}

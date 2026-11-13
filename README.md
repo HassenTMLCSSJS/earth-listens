@@ -51,6 +51,24 @@ Copy `.env.example` to `.env.local` if you want a provider. Leave the values bla
 | `pnpm data:validate`                | validate `public/data`                |
 | `pnpm py:test`                      | pipeline pytest                       |
 
+## Assets and live data
+
+2K WebP/PNG derivatives are in the repo. 4K/8K files belong in the GitHub release `data-v1` and are served from Cloudflare R2. Nothing in this repo uploads them.
+
+Hassan sets these GitHub Actions secrets (values only, never committed): `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, and optionally `FIRMS_MAP_KEY` and `OPENAQ_API_KEY`.
+
+Vercel env (server): the same names, plus `CRON_SECRET` and `REVALIDATE_SECRET`. `NEXT_PUBLIC_ASSET_BASE_URL` may be set to the R2 public URL. Leave it unset to use `https://pub-f4844155e9804bb5adcb0c121896e82b.r2.dev`. Set it to `off` to stay on the committed 2K files.
+
+```bash
+# Create the release yourself, then mirror it. Dry-run prints the file list.
+gh release create data-v1 --title "Earth Listens data v1" --notes "Derived textures and frames."
+gh release upload data-v1 path/to/file.ktx2
+node scripts/upload-r2.mjs --dir release-assets
+node scripts/upload-r2.mjs --dir release-assets --yes
+```
+
+Or run the **sync-r2** workflow (`workflow_dispatch`, input `tag=data-v1`). Snapshots refresh every 3 hours via the **snapshot** workflow. Vercel cron hits `/api/cron/snapshot` once a day and requires `Authorization: Bearer $CRON_SECRET`.
+
 ## Architecture
 
 ```mermaid

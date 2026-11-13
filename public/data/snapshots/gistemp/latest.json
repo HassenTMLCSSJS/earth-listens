@@ -1,0 +1,19 @@
+{
+  "feed": "gistemp",
+  "status": "snapshot",
+  "dataTime": "2025-01-01T00:00:00Z",
+  "fetchedAt": "2026-11-13T11:20:00Z",
+  "source": {
+    "name": "NASA GISTEMP v4",
+    "url": "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv",
+    "license": "NASA; credit GISTEMP Team"
+  },
+  "latencyNote": "J-D annual mean for 2025. 2026 is incomplete and is not filled.",
+  "snapshotId": "0fcb1cafd74d3d08",
+  "items": [
+    {
+      "year": 2025,
+      "value": 1.19
+    }
+  ]
+}

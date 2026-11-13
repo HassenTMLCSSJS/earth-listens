@@ -1,34 +1,13 @@
 import * as z from 'zod';
 import { LAYER_IDS, REGION_IDS, SCALE_IDS } from '@/core/actions';
-
-export const LocalizedSchema = z.object({ en: z.string().min(1), ar: z.string().min(1) });
-export type Localized = z.infer<typeof LocalizedSchema>;
-
-export const PointSchema = z.object({
-  t: z.union([z.number(), z.string()]),
-  v: z.number().nullable(),
-  q: z.enum(['ok', 'missing', 'estimated']),
-});
-export type Point = z.infer<typeof PointSchema>;
-
-const RangeSchema = z.tuple([z.number(), z.number()]).refine((pair) => pair[0] <= pair[1], {
-  message: 'range min must be <= max',
-});
-
-export const VariableSchema = z.object({
-  field: z.string().min(1),
-  range: RangeSchema,
-  normalize: z
-    .object({
-      method: z.enum(['minmax', 'robust']),
-      p: z.tuple([z.number(), z.number()]).optional(),
-    })
-    .optional(),
-});
+import { CATEGORIES, LocalizedSchema, PointSchema, TIMBRE_IDS, VariableSchema } from './common';
+import { FrameSchema, timesIncrease } from './frame';
+import { GridMetaSchema } from './grid';
+import { SourceListSchema, sourcesOf } from './source';
 
 export const LayerConfigSchema = z.object({
   id: z.enum(LAYER_IDS),
-  category: z.enum(['climate', 'fire', 'ice_ocean']),
+  category: z.enum(CATEGORIES),
   title: LocalizedSchema,
   unit: LocalizedSchema,
   timeKind: z.enum(['year', 'day']),
@@ -41,9 +20,10 @@ export const LayerConfigSchema = z.object({
     seasonalAmplitude: VariableSchema.optional(),
   }),
   what: z.object({
-    timbre: z.enum(['warm-lead', 'crackle-marimba', 'glass-bells', 'beating-drone']),
+    timbre: z.enum(TIMBRE_IDS),
     register: z.tuple([z.number(), z.number()]),
     symphonyRegister: z.tuple([z.number(), z.number()]),
+    timbreBySpecies: z.record(z.string(), z.enum(TIMBRE_IDS)).optional(),
   }),
   scale: z.enum(SCALE_IDS),
   regions: z.array(z.enum(REGION_IDS)).min(1),
@@ -59,43 +39,64 @@ export const CellSchema = z.object({
   frp_mean: z.number(),
 });
 
+export const SpeciesSchema = z.object({
+  id: z.string().min(1),
+  label: LocalizedSchema,
+  timbre: z.enum(TIMBRE_IDS),
+});
+
 export const LayerDataSchema = z
   .object({
     id: z.enum(LAYER_IDS),
     sample: z.boolean(),
     title: LocalizedSchema,
     unit: LocalizedSchema,
-    source: z.object({
-      name: z.string(),
-      dataset_url: z.string(),
-      eic_page: z.string(),
-      retrieved: z.string().nullable(),
-      sha256: z.string().nullable(),
-      citation: z.string(),
-      ack: z.string().nullable(),
-    }),
+    source: SourceListSchema,
     range: z.object({ min: z.number(), max: z.number() }),
     series: z.record(z.enum(REGION_IDS), z.array(PointSchema)),
     annual: z.array(PointSchema).nullable(),
     cells: z.array(CellSchema).nullable(),
     seasonalAmplitude: z.array(PointSchema).nullable(),
-    frames: z.array(z.object({ t: z.union([z.number(), z.string()]), src: z.string() })),
+    frames: z.array(FrameSchema),
     events: z.array(z.object({ t: z.union([z.number(), z.string()]), label: LocalizedSchema })),
     description: LocalizedSchema,
+    grid: GridMetaSchema.optional(),
+    variables: z.record(z.string(), z.array(PointSchema)).optional(),
+    species: z.array(SpeciesSchema).optional(),
   })
   .superRefine((data, ctx) => {
     for (const [region, points] of Object.entries(data.series)) {
-      let prev: number | string | null = null;
-      for (const point of points) {
-        if (prev !== null && String(point.t) <= String(prev)) {
-          ctx.addIssue({ code: 'custom', message: `${region} times must strictly increase` });
-          break;
-        }
-        prev = point.t;
+      if (!timesIncrease(points.map((point) => point.t))) {
+        ctx.addIssue({ code: 'custom', message: `${region} times must strictly increase` });
       }
     }
-    if (!data.sample && data.id === 'wildfire' && !data.source.ack) {
+    if (!timesIncrease(data.frames.map((frame) => frame.t))) {
+      ctx.addIssue({ code: 'custom', message: 'frames[].t must strictly increase' });
+    }
+    const sources = sourcesOf(data.source);
+    if (!data.sample && data.id === 'wildfire' && sources.some((source) => !source.ack)) {
       ctx.addIssue({ code: 'custom', message: 'wildfire source.ack is required for real data' });
+    }
+    if (!data.sample) {
+      for (const source of sources) {
+        if (!source.retrieved || !source.sha256) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'sample:false requires source.retrieved and source.sha256',
+          });
+        }
+      }
+    }
+    for (const frame of data.frames) {
+      if (frame.sample !== undefined && frame.sample !== data.sample) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'frames[].sample must match the file sample flag',
+        });
+      }
+    }
+    if (data.grid && data.grid.bins.length > 256) {
+      ctx.addIssue({ code: 'custom', message: 'grid.bins.length must be <= 256' });
     }
   });
 export type LayerData = z.infer<typeof LayerDataSchema>;
@@ -107,6 +108,16 @@ export const RegistrySchema = z.object({
       id: z.enum(LAYER_IDS),
       config: z.string(),
       data: z.string(),
+      view: z.string().optional(),
+      live: z
+        .object({
+          feed: z.string().min(1),
+          params: z.record(z.string(), z.string()).optional(),
+          revalidate: z.number().int().positive(),
+        })
+        .optional(),
+      sources: z.array(z.string()).optional(),
+      historicalOnly: z.boolean().optional(),
     }),
   ),
 });
