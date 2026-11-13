@@ -1,0 +1,192 @@
+{
+  "meta": {
+    "title": "Earth Listens",
+    "description": "Hear NASA Earth data as deterministic sound. Built for blind and low-vision listeners, with a globe for everyone else.",
+    "loading": "Loading Earth Listens"
+  },
+  "skip": "Skip to content",
+  "nav": {
+    "home": "Story",
+    "listen": "Listen",
+    "quiz": "Guess",
+    "tutorial": "Tutorial",
+    "sounds": "How it sounds",
+    "guide": "Guide",
+    "data": "Data",
+    "settings": "Settings",
+    "label": "Primary"
+  },
+  "banner": {
+    "sample": "SAMPLE DATA: not real measurements / بيانات تجريبية: ليست قياسات حقيقية",
+    "demo": "DEMO",
+    "nasa": "Uses NASA data; not endorsed by NASA."
+  },
+  "command": {
+    "label": "Command",
+    "placeholder": "play temperature"
+  },
+  "header": {
+    "talk": "Talk",
+    "stop": "Stop",
+    "audio": "Audio-first",
+    "visual": "Visual",
+    "pause": "Pause animations",
+    "resume": "Play animations",
+    "help": "Help",
+    "language": "العربية"
+  },
+  "gate": {
+    "kicker": "Team Ctrl+Earth",
+    "title": "Earth Listens",
+    "headphones": "Headphones recommended",
+    "begin": "Begin"
+  },
+  "intro": {
+    "skip": "Skip",
+    "replay": "Replay intro",
+    "line1": "Earth is always making a sound.",
+    "line2": "Can you hear the change?"
+  },
+  "story": {
+    "next": "Next chapter",
+    "back": "Previous chapter",
+    "play": "Play this",
+    "nav": "Chapters",
+    "start": "Start listening",
+    "audio": "Audio-first mode",
+    "tutorial": "Take the tutorial",
+    "quiz": "Guess the Earth",
+    "c1title": "Earth is always making a sound.",
+    "c1body": "Before the pictures, there is a tone. A slow drone is the first sample of carbon dioxide, held quietly so you can find the room.",
+    "c2title": "NASA sees everything.",
+    "c2body": "The Earth Information Center draws the planet as frames. This sample frame is labelled SAMPLE. The real frames plug in later, from the same contract.",
+    "c3title": "Not everyone can see it.",
+    "c3body": "A chart that only exists as colour leaves people out. The counts behind this sentence are not filled in yet. [citation needed: Basmala]",
+    "c4title": "A language you can hear.",
+    "c4body": "Where, how much, how strong, how fast, what. Each question is a separate part of the sound, and the order of the notes follows the data.",
+    "c5title": "Travel in time.",
+    "c5body": "The sample temperature series runs from 1880 to 2025. Scrub a year. The pitch is the value. Nothing here is a forecast.",
+    "c6title": "Hear the planet.",
+    "c6body": "Start the jukebox, switch to audio-first, walk the tutorial, or guess whether a clip rose or fell."
+  },
+  "listen": {
+    "title": "The jukebox",
+    "what": "What",
+    "where": "Where",
+    "when": "When",
+    "listen": "Listen",
+    "stop": "Stop",
+    "speed": "Speed",
+    "scale": "Scale",
+    "tuning": "12-TET",
+    "globe": "Interactive globe",
+    "summary": "A text view of the planet. West is left, east is right, relative to the view centre."
+  },
+  "layers": {
+    "temperature": "Temperature",
+    "wildfire": "Wildfire",
+    "sea_ice": "Sea ice",
+    "co2": "Carbon dioxide"
+  },
+  "regions": {
+    "global": "Global",
+    "egypt": "Egypt",
+    "africa": "Africa",
+    "arctic": "Arctic",
+    "europe": "Europe",
+    "asia": "Asia",
+    "americas": "Americas",
+    "oceania": "Oceania"
+  },
+  "speeds": { "slow": "Slow", "normal": "Normal", "fast": "Fast" },
+  "scales": {
+    "pentatonic_major": "Science",
+    "major": "Major",
+    "chromatic": "Chromatic",
+    "maqam_rast": "Rast",
+    "maqam_bayati": "Bayati",
+    "maqam_hijaz": "Hijaz",
+    "maqam_nahawand": "Nahawand"
+  },
+  "quiz": {
+    "title": "Guess the Earth",
+    "intro": "Hear a sample clip. Did the value increase, decrease, or stay the same?",
+    "code": "Participant code (optional)",
+    "group": "Group",
+    "start": "Start",
+    "play": "Play clip",
+    "increased": "Increased",
+    "decreased": "Decreased",
+    "same": "Stayed the same",
+    "next": "Next",
+    "export": "Export CSV",
+    "clear": "Clear",
+    "confirm": "Confirm clear",
+    "explore": "Could you explore this without help?",
+    "yes": "Yes",
+    "partly": "Partly",
+    "no": "No",
+    "ease": "Ease, 1 to 5",
+    "score": "Score",
+    "results": "Results",
+    "training": "Training clip",
+    "question": "Did it increase, decrease, or stay the same?"
+  },
+  "groups": {
+    "blind": "Blind",
+    "low_vision": "Low vision",
+    "sighted": "Sighted",
+    "sighted_screen_covered": "Sighted, screen covered",
+    "prefer_not_say": "Prefer not to say"
+  },
+  "tutorial": {
+    "title": "Tutorial",
+    "progress": "Step {step} of {total}",
+    "skip": "Skip",
+    "back": "Back",
+    "hint": "Hint"
+  },
+  "settings": {
+    "title": "Settings",
+    "rate": "Speech rate",
+    "volume": "Master volume",
+    "contrast": "High contrast",
+    "motion": "Motion",
+    "system": "Follow system",
+    "on": "Reduce motion",
+    "off": "Allow motion",
+    "sr": "Screen reader mode",
+    "captions": "Captions",
+    "replay": "Replay intro"
+  },
+  "sounds": {
+    "title": "How it sounds",
+    "lead": "The Earth Sonification Language maps one data question to one part of the sound.",
+    "low": "Play lowest year",
+    "high": "Play highest year",
+    "table": "Sample temperature, text alternative"
+  },
+  "guide": {
+    "title": "Guide",
+    "esl": "Where is position. How much is pitch. How strong is loudness. How fast is rhythm. What is the instrument.",
+    "commands": "Commands",
+    "shortcuts": "Shortcuts",
+    "legend": "Sound legend",
+    "sources": "Sources"
+  },
+  "data": {
+    "title": "Data",
+    "lead": "Every number in the app right now is SAMPLE data from a seeded formula. Real NASA and NOAA files plug in through the pipeline, without changing the engine.",
+    "steps": "Pipeline",
+    "validation": "Validation plots appear here after the real data is fetched."
+  },
+  "footer": {
+    "credit": "Team Ctrl+Earth · NASA Space Apps Cairo 2026",
+    "license": "MIT License"
+  },
+  "captions": "Captions",
+  "help": {
+    "title": "Keyboard and voice",
+    "close": "Close"
+  }
+}

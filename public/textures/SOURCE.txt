@@ -1,0 +1,1 @@
+Procedural stand-in. NASA Blue Marble URLs were not reachable from this build. Do not describe this file as a NASA image.

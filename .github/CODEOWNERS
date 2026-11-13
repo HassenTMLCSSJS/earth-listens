@@ -1,0 +1,38 @@
+# Hassan reviews every path. Other owners stay commented until their GitHub logins are confirmed.
+* @HassenTMLCSSJS
+
+# feat/sonification-engine — Hassan
+# /src/modules/sonification/
+
+# feat/data-pipeline — Hassan (Basmala Samy checks sources)
+# /pipeline/
+# /public/data/
+# /docs/DATA_MAPPING_GUIDE.md
+
+# feat/agent-voice — Hassan
+# /src/modules/agent/
+# /src/modules/voice/
+# /src/app/api/
+
+# feat/globe-3d — Zain Eldin
+# /src/components/globe-stage.tsx
+# /src/components/earth-canvas.tsx
+
+# feat/intro-landing — Zain Eldin (visuals) and Nesma Nassar (copy)
+# /src/components/home-experience.tsx
+# /docs/STORY.md
+
+# feat/frontend-a11y — Youssef Alnaggar
+# /src/components/
+# /messages/
+# /docs/ACCESSIBILITY.md
+
+# feat/tutorial-quiz — Youssef Alnaggar and Basmala Samy
+# /src/components/tutorial-panel.tsx
+# /src/components/quiz-panel.tsx
+# /src/modules/tutorial/
+# /src/modules/quiz/
+
+# docs/story-research — Nesma Nassar and Basmala Samy
+# /docs/STORY.md
+# /docs/RESEARCH.md

@@ -1,0 +1,291 @@
+{
+  "sample": true,
+  "items": [
+    {
+      "id": "intro.line1",
+      "en": {
+        "text": "Earth is always making a sound.",
+        "file": "/audio/narration/en/intro.line1.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "الأرض دايمًا بتطلّع صوت.",
+        "file": "/audio/narration/ar/intro.line1.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "intro.line2",
+      "en": {
+        "text": "Can you hear the change?",
+        "file": "/audio/narration/en/intro.line2.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "سامع التغيير؟",
+        "file": "/audio/narration/ar/intro.line2.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "onboarding.main",
+      "en": {
+        "text": "Welcome to Earth Listens. Every sound here is a real NASA measurement. Higher notes mean more, louder means stronger, faster rhythm means faster change, and where you hear it is where it happens on Earth. Choose Audio-first mode or Visual mode. Press Talk or Alt+Shift+T and say 'play temperature', or say 'help' at any time.",
+        "file": "/audio/narration/en/onboarding.main.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "أهلًا بيك في Earth Listens. كل صوت هنا قياس حقيقي من ناسا. النغمة لما تعلى يبقى الكمية زادت، الصوت لما يعلى يبقى الظاهرة أقوى، الإيقاع لما يسرع يبقى التغيير أسرع، والمكان اللي بتسمع منه الصوت هو مكانه على الأرض. اختار وضع الصوت أولًا أو الوضع المرئي. دوس على زرار الكلام وقول 'شغّل الحرارة'، أو قول 'مساعدة' في أي وقت.",
+        "file": "/audio/narration/ar/onboarding.main.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "story.ch1",
+      "en": {
+        "text": "Earth is always making a sound. A slow drone is the planet breathing in numbers.",
+        "file": "/audio/narration/en/story.ch1.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "الأرض دايمًا بتطلّع صوت. الدندنة البطيئة هي الكوكب وهو بيتنفس أرقام.",
+        "file": "/audio/narration/ar/story.ch1.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "story.ch2",
+      "en": {
+        "text": "NASA sees the planet in pictures. Earth Listens turns those pictures into sound.",
+        "file": "/audio/narration/en/story.ch2.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "ناسا بتشوف الكوكب في صور. Earth Listens بيحوّل الصور دي لصوت.",
+        "file": "/audio/narration/ar/story.ch2.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "story.ch3",
+      "en": {
+        "text": "Not everyone can see those pictures. The numbers behind this chapter still need Basmala’s check. [citation needed: Basmala]",
+        "file": "/audio/narration/en/story.ch3.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "مش كل الناس تقدر تشوف الصور دي. الأرقام لسه محتاجة مراجعة بسمة. [citation needed: Basmala]",
+        "file": "/audio/narration/ar/story.ch3.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "story.ch4",
+      "en": {
+        "text": "Five questions become five parts of a sound: where, how much, how strong, how fast, and what.",
+        "file": "/audio/narration/en/story.ch4.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "خمس أسئلة بتبقى خمس أجزاء من الصوت: فين، قد إيه، قد إيه قوي، قد إيه سريع، وإيه.",
+        "file": "/audio/narration/ar/story.ch4.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "story.ch5",
+      "en": {
+        "text": "Travel the sample years from 1880 to 2025. The pitch follows the sample series.",
+        "file": "/audio/narration/en/story.ch5.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "سافر في السنين التجريبية من ١٨٨٠ لـ ٢٠٢٥. النغمة ماشية مع السلسلة التجريبية.",
+        "file": "/audio/narration/ar/story.ch5.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "story.ch6",
+      "en": {
+        "text": "Hear the planet. Start listening, switch to audio-first, take the tutorial, or guess the Earth.",
+        "file": "/audio/narration/en/story.ch6.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "اسمع الكوكب. ابدأ الاستماع، أو وضع الصوت أولًا، أو الدرس، أو خمّن الأرض.",
+        "file": "/audio/narration/ar/story.ch6.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "tutorial.step1",
+      "en": {
+        "text": "Press Listen, or say play temperature.",
+        "file": "/audio/narration/en/tutorial.step1.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "دوس اسمع، أو قول شغّل الحرارة.",
+        "file": "/audio/narration/ar/tutorial.step1.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "tutorial.step2",
+      "en": {
+        "text": "Move the years to 1990, or say go to 1990.",
+        "file": "/audio/narration/en/tutorial.step2.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "حرّك السنين لسنة ١٩٩٠، أو قول روح لسنة ١٩٩٠.",
+        "file": "/audio/narration/ar/tutorial.step2.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "tutorial.step3",
+      "en": {
+        "text": "Say or type compare 1900 and 2020.",
+        "file": "/audio/narration/en/tutorial.step3.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "قول أو اكتب قارن ١٩٠٠ و٢٠٢٠.",
+        "file": "/audio/narration/ar/tutorial.step3.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "tutorial.step4",
+      "en": {
+        "text": "Add sea ice.",
+        "file": "/audio/narration/en/tutorial.step4.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "ضيف الجليد.",
+        "file": "/audio/narration/ar/tutorial.step4.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "tutorial.step5",
+      "en": {
+        "text": "Rotate the globe with the arrow keys, or say go to Africa.",
+        "file": "/audio/narration/en/tutorial.step5.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "لف الكرة بالأسهم، أو قول روح لأفريقيا.",
+        "file": "/audio/narration/ar/tutorial.step5.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "tutorial.step6",
+      "en": {
+        "text": "Ask what am I hearing.",
+        "file": "/audio/narration/en/tutorial.step6.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "اسأل أنا بسمع إيه.",
+        "file": "/audio/narration/ar/tutorial.step6.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "tutorial.step7",
+      "en": {
+        "text": "Start the quiz.",
+        "file": "/audio/narration/en/tutorial.step7.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "ابدأ الاختبار.",
+        "file": "/audio/narration/ar/tutorial.step7.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "quiz.intro",
+      "en": {
+        "text": "Guess the Earth. You will hear a clip. Did it increase, decrease, or stay the same?",
+        "file": "/audio/narration/en/quiz.intro.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "خمّن الأرض. هتسمع مقطع. زاد، قل، ولا زي ما هو؟",
+        "file": "/audio/narration/ar/quiz.intro.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "quiz.question",
+      "en": {
+        "text": "Did it increase, decrease, or stay the same?",
+        "file": "/audio/narration/en/quiz.question.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "زاد، قل، ولا زي ما هو؟",
+        "file": "/audio/narration/ar/quiz.question.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "quiz.correct",
+      "en": {
+        "text": "Yes. That matches the sample series.",
+        "file": "/audio/narration/en/quiz.correct.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "صح. ده مطابق للسلسلة التجريبية.",
+        "file": "/audio/narration/ar/quiz.correct.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "quiz.wrong",
+      "en": {
+        "text": "Not this time. The sample series says otherwise.",
+        "file": "/audio/narration/en/quiz.wrong.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "مش المرة دي. السلسلة التجريبية بتقول غير كده.",
+        "file": "/audio/narration/ar/quiz.wrong.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "quiz.end",
+      "en": {
+        "text": "Quiz complete. Could you explore this without help?",
+        "file": "/audio/narration/en/quiz.end.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "الاختبار خلّص. قدرت تستكشف من غير مساعدة؟",
+        "file": "/audio/narration/ar/quiz.end.mp3",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "help.commands",
+      "en": {
+        "text": "Say play temperature, stop, go to 1990, compare 1900 and 2020, or help.",
+        "file": "/audio/narration/en/help.commands.mp3",
+        "status": "missing"
+      },
+      "ar": {
+        "text": "قول شغّل الحرارة، وقّف، روح لسنة ١٩٩٠، قارن ١٩٠٠ و٢٠٢٠، أو مساعدة.",
+        "file": "/audio/narration/ar/help.commands.mp3",
+        "status": "missing"
+      }
+    }
+  ]
+}

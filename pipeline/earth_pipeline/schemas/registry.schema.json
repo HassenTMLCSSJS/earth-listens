@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "number",
+      "const": 1
+    },
+    "layers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": ["temperature", "wildfire", "sea_ice", "co2"]
+          },
+          "config": {
+            "type": "string"
+          },
+          "data": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "config", "data"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["version", "layers"],
+  "additionalProperties": false
+}
