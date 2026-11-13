@@ -74,6 +74,9 @@ export const LAYER_REGISTERS: Record<
   aerosols: { solo: [55, 86], symphony: [60, 84] },
   air_quality: { solo: [52, 84], symphony: [55, 79] },
   lightning: { solo: [72, 96], symphony: [84, 96] },
+  forest: { solo: [48, 72], symphony: [55, 67] },
+  precipitation: { solo: [60, 84], symphony: [64, 79] },
+  events: { solo: [60, 84], symphony: [60, 79] },
 };
 
 export const SAMPLE_RANGES: Record<LayerId, { min: number; max: number; unit: string }> = {
@@ -91,6 +94,9 @@ export const SAMPLE_RANGES: Record<LayerId, { min: number; max: number; unit: st
   aerosols: { min: 0, max: 5, unit: 'AOD' },
   air_quality: { min: 0, max: 75, unit: 'µg/m³' },
   lightning: { min: 0, max: 1, unit: 'flash-rate index' },
+  forest: { min: 0, max: 40, unit: 'canopy height, m' },
+  precipitation: { min: 0, max: 60, unit: 'precipitation rate, mm/day' },
+  events: { min: 0, max: 50, unit: 'events per year' },
 };
 
 export const TIMBRES = {
@@ -104,6 +110,9 @@ export const TIMBRES = {
   aerosols: 'grain-pad',
   air_quality: 'aq-chord',
   lightning: 'thunder-perc',
+  forest: 'grain-pad',
+  precipitation: 'water-fm',
+  events: 'thunder-perc',
 } as const;
 
 export const GLOBAL_POSITION = { x: 0, y: 0, z: -1 } as const;

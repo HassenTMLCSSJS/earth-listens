@@ -94,7 +94,10 @@
     "ocean_currents": "Ocean currents",
     "aerosols": "Aerosols",
     "air_quality": "Air quality",
-    "lightning": "Lightning"
+    "lightning": "Lightning",
+    "forest": "Forest height",
+    "precipitation": "Precipitation",
+    "events": "Natural events"
   },
   "regions": {
     "global": "Global",

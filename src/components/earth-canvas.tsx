@@ -17,6 +17,9 @@ const TINT: Record<LayerId, string> = {
   aerosols: '#d2a15a',
   air_quality: '#c46bff',
   lightning: '#f4f7ff',
+  forest: '#4f9d5d',
+  precipitation: '#4f8cff',
+  events: '#ffb454',
 };
 
 const earthVert = /* glsl */ `

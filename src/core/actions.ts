@@ -10,6 +10,9 @@ export const LAYER_IDS = [
   'aerosols',
   'air_quality',
   'lightning',
+  'forest',
+  'precipitation',
+  'events',
 ] as const;
 export const TEXTURE_QUALITIES = ['auto', '4k', '8k'] as const;
 export type TextureQuality = (typeof TEXTURE_QUALITIES)[number];

@@ -1,0 +1,46 @@
+{
+  "id": "precipitation",
+  "category": "weather",
+  "title": {
+    "en": "Precipitation",
+    "ar": "هطول الأمطار"
+  },
+  "unit": {
+    "en": "precipitation rate, mm/day",
+    "ar": "معدل الهطول، مم/يوم"
+  },
+  "timeKind": "year",
+  "eic": {
+    "page": "https://earth.gov/",
+    "frames": "/frames/precipitation"
+  },
+  "variables": {
+    "how_much": {
+      "field": "v",
+      "range": [0, 60]
+    },
+    "how_strong": {
+      "field": "p95",
+      "range": [0, 120]
+    },
+    "how_fast": {
+      "field": "delta(v)",
+      "range": [-20, 20]
+    },
+    "where": {
+      "field": "region_center"
+    }
+  },
+  "what": {
+    "timbre": "water-fm",
+    "register": [60, 84],
+    "symphonyRegister": [64, 79]
+  },
+  "scale": "pentatonic_major",
+  "regions": ["global", "egypt", "africa", "arctic", "europe", "asia", "americas", "oceania"],
+  "symphony": {
+    "role": "rain",
+    "from": 2000,
+    "to": 2025
+  }
+}
