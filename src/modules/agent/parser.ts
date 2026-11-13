@@ -1,4 +1,10 @@
-import { LAYER_IDS, type Action, type Lang, type LayerId, type RegionId } from '@/core/actions';
+import {
+  SYMPHONY_LAYER_IDS,
+  type Action,
+  type Lang,
+  type LayerId,
+  type RegionId,
+} from '@/core/actions';
 import {
   ADD_WORDS,
   ARABIC_WORDS,
@@ -140,7 +146,7 @@ export function parseIntent(text: string, ctx: ParseContext): ParseResult {
   const yearGo = !compare && !range && years.length === 1 && go ? years[0] : undefined;
 
   if (symphony) {
-    actions.push({ type: 'combine_layers', ids: [...LAYER_IDS] });
+    actions.push({ type: 'combine_layers', ids: [...SYMPHONY_LAYER_IDS] });
   } else if (add && layerHit.ids.length > 0) {
     const ids = ctx.layers.slice();
     for (const id of layerHit.ids) if (!ids.includes(id)) ids.push(id);

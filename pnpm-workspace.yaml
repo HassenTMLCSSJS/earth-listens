@@ -6,6 +6,10 @@ allowBuilds:
   '@swc/core': true
   '@parcel/watcher': true
   unrs-resolver: true
+  # Not needed: onnxruntime-node is the Node build pulled in by kokoro-js (voices run in the
+  # browser via onnxruntime-web), and protobufjs's postinstall is only a version notice.
+  onnxruntime-node: false
+  protobufjs: false
 peerDependencyRules:
   allowedVersions:
     eslint: '10'

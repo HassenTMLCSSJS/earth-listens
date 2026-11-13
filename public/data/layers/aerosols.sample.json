@@ -1,0 +1,179 @@
+{
+  "id": "aerosols",
+  "sample": true,
+  "title": {
+    "en": "Aerosols",
+    "ar": "الهباء الجوي"
+  },
+  "unit": {
+    "en": "AOD",
+    "ar": "AOD"
+  },
+  "source": {
+    "name": "SAMPLE Aerosols",
+    "dataset_url": "https://svs.gsfc.nasa.gov/5669/",
+    "eic_page": "https://svs.gsfc.nasa.gov/5669/",
+    "retrieved": null,
+    "sha256": null,
+    "citation": "SAMPLE. Not a measurement.",
+    "ack": null
+  },
+  "range": {
+    "min": 0,
+    "max": 5
+  },
+  "series": {
+    "global": [
+      {
+        "t": 1980,
+        "v": 0.12,
+        "q": "ok"
+      },
+      {
+        "t": 2000,
+        "v": 0.16,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 0.21,
+        "q": "ok"
+      }
+    ],
+    "egypt": [
+      {
+        "t": 1980,
+        "v": 0.12,
+        "q": "ok"
+      },
+      {
+        "t": 2000,
+        "v": 0.16,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 0.21,
+        "q": "ok"
+      }
+    ],
+    "africa": [
+      {
+        "t": 1980,
+        "v": 0.12,
+        "q": "ok"
+      },
+      {
+        "t": 2000,
+        "v": 0.16,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 0.21,
+        "q": "ok"
+      }
+    ],
+    "arctic": [
+      {
+        "t": 1980,
+        "v": 0.12,
+        "q": "ok"
+      },
+      {
+        "t": 2000,
+        "v": 0.16,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 0.21,
+        "q": "ok"
+      }
+    ],
+    "europe": [
+      {
+        "t": 1980,
+        "v": 0.12,
+        "q": "ok"
+      },
+      {
+        "t": 2000,
+        "v": 0.16,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 0.21,
+        "q": "ok"
+      }
+    ],
+    "asia": [
+      {
+        "t": 1980,
+        "v": 0.12,
+        "q": "ok"
+      },
+      {
+        "t": 2000,
+        "v": 0.16,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 0.21,
+        "q": "ok"
+      }
+    ],
+    "americas": [
+      {
+        "t": 1980,
+        "v": 0.12,
+        "q": "ok"
+      },
+      {
+        "t": 2000,
+        "v": 0.16,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 0.21,
+        "q": "ok"
+      }
+    ],
+    "oceania": [
+      {
+        "t": 1980,
+        "v": 0.12,
+        "q": "ok"
+      },
+      {
+        "t": 2000,
+        "v": 0.16,
+        "q": "ok"
+      },
+      {
+        "t": 2025,
+        "v": 0.21,
+        "q": "ok"
+      }
+    ]
+  },
+  "annual": null,
+  "cells": null,
+  "seasonalAmplitude": null,
+  "frames": [
+    {
+      "t": 2025,
+      "src": "/frames/temperature/2025.webp",
+      "q": "ok",
+      "sample": true
+    }
+  ],
+  "events": [],
+  "description": {
+    "en": "SAMPLE Aerosols. Not a measurement. The globe may still show a real NASA texture beside this series.",
+    "ar": "بيانات تجريبية لـ الهباء الجوي. ليست قياسًا."
+  }
+}

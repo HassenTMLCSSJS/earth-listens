@@ -1,0 +1,53 @@
+{
+  "id": "ocean_sst",
+  "base": "earth-relief-bathy",
+  "baseDim": 0,
+  "night": true,
+  "height": {
+    "src": "/textures/earth-height.png",
+    "offset": -10900,
+    "scale": 19700,
+    "exaggeration": 0.012
+  },
+  "overlay": {
+    "kind": "value",
+    "mask": "water",
+    "src": "/frames/ocean_sst/2024-08-15.value.png",
+    "ramp": {
+      "id": "sst",
+      "src": "/ramps/sst.png",
+      "domain": [-2, 32],
+      "unit": {
+        "en": "°C",
+        "ar": "°C"
+      },
+      "kind": "sequential",
+      "source": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/GHRSST_Sea_Surface_Temperature.xml"
+    },
+    "opacity": 0.85
+  },
+  "cameras": [
+    {
+      "id": "gulf-stream",
+      "label": {
+        "en": "Gulf Stream",
+        "ar": "تيار الخليج"
+      },
+      "lat": 35,
+      "lon": -65,
+      "alt": 2.0
+    }
+  ],
+  "beforeAfter": {
+    "a": 2003,
+    "b": 2025,
+    "mode": "toggle"
+  },
+  "transitionMs": 900,
+  "credit": [
+    "JPL MUR MEaSUREs Project. GHRSST Level 4 MUR Global Foundation Sea Surface Temperature Analysis, v4.1. PO.DAAC.",
+    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS).",
+    "NOAA National Centers for Environmental Information. 2022: ETOPO 2022 Global Relief Model."
+  ],
+  "note": "The 15 Aug 2024 frame is a real GIBS decode. The multi-year series in the sample file is not."
+}

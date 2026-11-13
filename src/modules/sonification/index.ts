@@ -1,6 +1,7 @@
 export {
   SCALES,
   STEP_SEC,
+  SYMPHONY_LAYERS,
   LAYER_REGISTERS,
   SAMPLE_RANGES,
   TIMBRES,
@@ -23,7 +24,7 @@ export { buildScore } from './score';
 export { createPlayer } from './player';
 export { getPlayer, unlockAudio } from './session';
 export { EARCONS, crackleSeed } from './earcons';
-export { TIMBRE_PRESETS } from './timbres';
+export { TIMBRE_PRESETS, timbreFor } from './timbres';
 export type { Player } from './player';
 export type {
   Score,

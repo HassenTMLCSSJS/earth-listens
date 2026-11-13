@@ -18,6 +18,25 @@ async function command(page: Page, text: string) {
   await box.press('Enter');
 }
 
+test('demo listen survives a blocked network', async ({ page, context }) => {
+  await context.route('**/*', (route) => {
+    const url = route.request().url();
+    if (url.includes('127.0.0.1') || url.includes('localhost')) return route.continue();
+    return route.abort();
+  });
+  await page.goto('/en/listen?demo=1');
+  await expect(page.getByTestId('freshness')).toHaveText('Demo data');
+  await page.getByLabel('Command').first().fill('play temperature');
+  await page.getByLabel('Command').first().press('Enter');
+  await expect(page.getByTestId('score-events')).not.toHaveText('0');
+});
+
+test('a failed live feed shows a cached snapshot', async ({ page }) => {
+  await page.route('**/api/live/**', (route) => route.abort());
+  await page.goto('/en/listen');
+  await expect(page.getByTestId('freshness')).toHaveText('Cached snapshot', { timeout: 15000 });
+});
+
 test('keyboard intro reaches listen', async ({ page }) => {
   await page.goto('/en');
   const begin = page.getByRole('button', { name: 'Begin' });

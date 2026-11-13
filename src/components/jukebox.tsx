@@ -14,9 +14,36 @@ import {
 } from '@/core/actions';
 import { formatDegrees, formatYear } from '@/core/format';
 import { scoreFor, useAppStore } from '@/core/store';
-import { REGIONS } from '@/modules/data';
+import { REGIONS, describeFreshness } from '@/modules/data';
 import { getPlayer, unlockAudio } from '@/modules/sonification';
 import { GlobeStage } from '@/components/globe-stage';
+
+function FreshnessChip({ demo }: { demo: boolean }) {
+  const [text, setText] = useState('');
+  useEffect(() => {
+    if (demo || new URLSearchParams(window.location.search).get('demo') === '1') return;
+    let cancel = false;
+    void fetch('/api/live/gistemp')
+      .then(async (response) => {
+        if (!response.ok) throw new Error('live');
+        return response.json();
+      })
+      .then((body) => {
+        if (!cancel) setText(describeFreshness(body, 'en'));
+      })
+      .catch(() => {
+        if (!cancel) setText('Cached snapshot');
+      });
+    return () => {
+      cancel = true;
+    };
+  }, [demo]);
+  return (
+    <p data-testid="freshness" aria-live="polite">
+      {demo ? 'Demo data' : text}
+    </p>
+  );
+}
 import { Button } from '@/components/ui/button';
 
 export function Jukebox({ embedded = false }: { embedded?: boolean }) {
@@ -32,6 +59,7 @@ export function Jukebox({ embedded = false }: { embedded?: boolean }) {
   const lang = useAppStore((state) => state.lang);
   const mode = useAppStore((state) => state.mode);
   const debug = useAppStore((state) => state.debug);
+  const demo = useAppStore((state) => state.demo);
   const score = useAppStore((state) => state.lastScore);
   const [previewYear, setPreviewYear] = useState<number | null>(null);
 
@@ -113,6 +141,17 @@ export function Jukebox({ embedded = false }: { embedded?: boolean }) {
               ))}
             </ToggleGroup.Root>
           </fieldset>
+          {layers[0] === 'night_lights' ? (
+            <Button
+              onClick={() => {
+                dispatch({ type: 'compare_times', a: 2012, b: 2016 }, 'pointer');
+                dispatch({ type: 'play' }, 'pointer');
+              }}
+            >
+              {t('listen.compare')}
+            </Button>
+          ) : null}
+          <FreshnessChip demo={demo} />
           <label>
             {t('listen.where')}
             <select

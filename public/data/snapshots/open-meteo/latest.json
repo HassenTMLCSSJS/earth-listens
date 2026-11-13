@@ -1,0 +1,21 @@
+{
+  "feed": "open-meteo",
+  "status": "snapshot",
+  "dataTime": "2026-11-13T11:00:00Z",
+  "fetchedAt": "2026-11-13T11:20:00Z",
+  "source": {
+    "name": "Open-Meteo",
+    "url": "https://api.open-meteo.com/v1/forecast",
+    "license": "CC BY 4.0"
+  },
+  "latencyNote": "Weather data by Open-Meteo.com. Cairo, retrieved 2026-11-13.",
+  "snapshotId": "ea437203ef9788b2",
+  "items": [
+    {
+      "time": "2026-11-13T11:00",
+      "temperatureC": 26.8,
+      "windKmh": 12.2,
+      "precipitationMm": 0
+    }
+  ]
+}

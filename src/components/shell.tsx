@@ -90,6 +90,9 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
       jobs.push(warmTone());
     }
     void Promise.all(jobs);
+    if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+      void navigator.serviceWorker.register('/sw.js').catch(() => undefined);
+    }
   }, [load]);
 
   const skipFocus = useRef(true);

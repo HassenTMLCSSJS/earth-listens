@@ -1,0 +1,26 @@
+{
+  "id": "aerosols",
+  "base": "earth-day",
+  "baseDim": 0,
+  "night": false,
+  "height": null,
+  "overlay": null,
+  "cameras": [
+    {
+      "id": "sahara",
+      "label": {
+        "en": "Saharan dust",
+        "ar": "غبار الصحراء"
+      },
+      "lat": 15,
+      "lon": -20,
+      "alt": 2.5
+    }
+  ],
+  "beforeAfter": null,
+  "transitionMs": 900,
+  "credit": [
+    "NASA Global Modeling and Assimilation Office (GMAO).",
+    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS)."
+  ]
+}

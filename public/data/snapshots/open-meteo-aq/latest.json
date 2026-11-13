@@ -1,0 +1,24 @@
+{
+  "feed": "open-meteo-aq",
+  "status": "snapshot",
+  "dataTime": "2026-11-13T11:00:00Z",
+  "fetchedAt": "2026-11-13T11:20:00Z",
+  "source": {
+    "name": "Open-Meteo Air Quality",
+    "url": "https://air-quality-api.open-meteo.com/v1/air-quality",
+    "license": "CC BY 4.0; modified Copernicus Atmosphere Monitoring Service information"
+  },
+  "latencyNote": "CAMS model for Cairo, not a station. Retrieved 2026-11-13.",
+  "snapshotId": "3d21d23191f63927",
+  "items": [
+    {
+      "time": "2026-11-13T11:00",
+      "pm25": 11.5,
+      "pm10": 16.3,
+      "no2": 8.9,
+      "o3": 95,
+      "co": 167,
+      "usAqi": 56
+    }
+  ]
+}

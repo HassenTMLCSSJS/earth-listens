@@ -1,0 +1,21 @@
+name: live-canary
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  canary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - name: Enable pnpm from package.json packageManager (pnpm@12.18.0)
+        run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Read-only upstream parse
+        run: pnpm exec tsx scripts/live-canary.ts

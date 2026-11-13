@@ -51,6 +51,66 @@ const COPY: Record<
       ar: 'منحنى تجريبي فيه دورة موسمية وصعود. ده مش سجل ماونا لوا بتاع NOAA. المتوسط السنوي هو اللي بتسمعه في السيمفونية. سعة الموسم متخزنة جنبه ومش توقع.',
     },
   },
+  night_lights: {
+    short: {
+      en: 'Higher notes mean a higher night brightness index (image-derived, not calibrated radiance).',
+      ar: 'النغمة الأعلى تعني مؤشر سطوع ليلي أعلى (مشتق من الصورة، مش إشعاع معاير).',
+    },
+    detailed: {
+      en: 'The index is the cosine-weighted luma of the NASA GIBS Black Marble PNG. It is not calibrated radiance. Brighter is a bell, dimmer is a pad.',
+      ar: 'المؤشر هو لمعان صورة الرخام الأسود من GIBS موزون بجيب التمام. ده مش إشعاع معاير. الأفتح جرس، والأغمق وسادة.',
+    },
+  },
+  ocean_sst: {
+    short: {
+      en: 'SAMPLE series. Higher notes mean warmer sample sea-surface values. The globe can still show a real GIBS frame.',
+      ar: 'سلسلة تجريبية. النغمة الأعلى تعني سطح بحر أدفأ في العينة. الكرة ممكن تعرض إطار حقيقي من GIBS.',
+    },
+    detailed: {
+      en: 'SAMPLE ocean series, not the MUR record. A decoded 15 Aug 2024 frame is a separate real snapshot.',
+      ar: 'سلسلة محيط تجريبية، ليست سجل MUR. إطار 15 أغسطس 2024 المفكوك لقطة حقيقية منفصلة.',
+    },
+  },
+  ocean_currents: {
+    short: {
+      en: 'SAMPLE. Currents are a picture of flow. This build does not invent speeds.',
+      ar: 'تجريبي. التيارات صورة للجريان. البناء ده ما بيخترعش سرعات.',
+    },
+    detailed: {
+      en: 'SAMPLE bed. Direction comes from frames when they exist. No numeric current speed is spoken.',
+      ar: 'خلفية تجريبية. الاتجاه من الإطارات لما توجد. مفيش سرعة رقمية بتتقال.',
+    },
+  },
+  aerosols: {
+    short: {
+      en: 'SAMPLE. Sea salt, dust, smoke and sulfate would be four timbres. This series is still a sample.',
+      ar: 'تجريبي. ملح البحر والتراب والدخان والكبريتات أربع طبقات صوت. السلسلة لسه تجريبية.',
+    },
+    detailed: {
+      en: 'SAMPLE aerosol series. Real MERRA-2 frames are a pipeline step. Species timbres are sea salt flute, dust pad, smoke brass, sulfate bell.',
+      ar: 'سلسلة هباء تجريبية. إطارات MERRA-2 الحقيقية خطوة في خط الأنابيب. الطبقات: ناي، وسادة، نحاس، جرس.',
+    },
+  },
+  air_quality: {
+    short: {
+      en: 'SAMPLE history. Live Cairo air quality, when the network is up, is a separate Open-Meteo snapshot.',
+      ar: 'تاريخ تجريبي. جودة هواء القاهرة المباشرة، لما الشبكة شغالة، لقطة Open-Meteo منفصلة.',
+    },
+    detailed: {
+      en: 'SAMPLE chord. PM2.5, ozone, CO and NOx are four voices when a real snapshot is loaded. The sample series is not a measurement.',
+      ar: 'كورد تجريبي. الجسيمات والأوزون وأول أكسيد الكربون وأكاسيد النيتروجين أربع أصوات لما اللقطة الحقيقية تتحمل. السلسلة التجريبية مش قياس.',
+    },
+  },
+  lightning: {
+    short: {
+      en: 'SAMPLE ticks. Lightning here is historical only: 18 seasons, each a 10-day window, and missing days are not filled.',
+      ar: 'تكات تجريبية. البرق هنا تاريخي فقط: 18 موسما، كل واحد 10 أيام، والأيام الناقصة ما بتتملاش.',
+    },
+    detailed: {
+      en: 'SAMPLE flash index, not ISS LIS counts. The seasonal windows run from spring 2017 to summer 2021. A frame records how many days were actually present.',
+      ar: 'مؤشر ومضات تجريبي، ليس أعداد LIS. النوافذ من ربيع 2017 لصيف 2021. الإطار بيسجل الأيام الموجودة فعلا.',
+    },
+  },
 };
 
 async function main(): Promise<void> {

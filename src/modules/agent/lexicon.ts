@@ -13,6 +13,30 @@ function normList(values: string[]): string[] {
 
 export const LAYER_LEXICON: { id: LayerId; phrases: string[] }[] = [
   {
+    id: 'night_lights',
+    phrases: normList(['night lights', 'night brightness', 'أضواء الليل', 'اضواء الليل']),
+  },
+  {
+    id: 'ocean_currents',
+    phrases: normList(['ocean currents', 'currents', 'تيارات المحيط', 'التيارات']),
+  },
+  {
+    id: 'ocean_sst',
+    phrases: normList(['sea surface', 'ocean temperature', 'sst', 'حرارة المحيط']),
+  },
+  {
+    id: 'air_quality',
+    phrases: normList(['air quality', 'pollution', 'جودة الهواء', 'التلوث']),
+  },
+  {
+    id: 'lightning',
+    phrases: normList(['lightning', 'thunder', 'البرق', 'الرعد']),
+  },
+  {
+    id: 'aerosols',
+    phrases: normList(['aerosols', 'aerosol', 'الهباء', 'الهباء الجوي']),
+  },
+  {
     id: 'co2',
     phrases: normList(['carbon dioxide', 'co2', 'carbon', 'ثاني أكسيد الكربون', 'كربون']),
   },

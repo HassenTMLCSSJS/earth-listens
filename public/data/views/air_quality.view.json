@@ -1,0 +1,27 @@
+{
+  "id": "air_quality",
+  "base": "earth-day",
+  "baseDim": 0,
+  "night": false,
+  "height": null,
+  "overlay": null,
+  "cameras": [
+    {
+      "id": "cairo",
+      "label": {
+        "en": "Cairo",
+        "ar": "القاهرة"
+      },
+      "lat": 30.0,
+      "lon": 31.2,
+      "alt": 1.6
+    }
+  ],
+  "beforeAfter": null,
+  "transitionMs": 900,
+  "credit": [
+    "NASA GMAO GEOS-CF.",
+    "Contains modified Copernicus Atmosphere Monitoring Service information",
+    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS)."
+  ]
+}

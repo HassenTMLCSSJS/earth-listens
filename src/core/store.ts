@@ -2,7 +2,6 @@
 
 import { create } from 'zustand';
 import {
-  LAYER_IDS,
   parseAction,
   type Action,
   type Lang,
@@ -20,6 +19,7 @@ import { formatIsoDate, formatYear } from '@/core/format';
 import { REGIONS, regionCentre } from '@/modules/data';
 import { announce } from '@/modules/narration';
 import {
+  SYMPHONY_LAYERS,
   buildScore,
   clampMasterDb,
   type Score,
@@ -59,7 +59,7 @@ export interface AppData {
   catalog: Partial<Record<LayerId, LoadedLayer>>;
   lastScore: Score | null;
   message: { en: string; ar: string } | null;
-  visual: { level: number; pulse: number; layerId: LayerId };
+  visual: { level: number; pulse: number; layerId: LayerId; playheadLon: number };
 }
 
 const DEFAULT_SETTINGS: Settings = {
@@ -69,6 +69,7 @@ const DEFAULT_SETTINGS: Settings = {
   reducedMotion: 'system',
   screenReaderMode: false,
   captions: true,
+  textureQuality: 'auto',
 };
 
 export const initialAppData = (): AppData => ({
@@ -92,7 +93,7 @@ export const initialAppData = (): AppData => ({
   catalog: {},
   lastScore: null,
   message: null,
-  visual: { level: 0, pulse: 0, layerId: 'temperature' },
+  visual: { level: 0, pulse: 0, layerId: 'temperature', playheadLon: 31 },
 });
 
 function clamp(n: number, lo: number, hi: number): number {
@@ -129,6 +130,9 @@ function applySetting(
   if (key === 'screenReaderMode' && typeof value === 'boolean')
     return { ...settings, screenReaderMode: value };
   if (key === 'captions' && typeof value === 'boolean') return { ...settings, captions: value };
+  if (key === 'textureQuality' && (value === 'auto' || value === '4k' || value === '8k')) {
+    return { ...settings, textureQuality: value };
+  }
   return settings;
 }
 
@@ -209,12 +213,18 @@ export function reduceApp(state: AppData, action: Action): AppData {
   }
 }
 
-const LAYER_NAME = {
+const LAYER_NAME: Record<LayerId, { en: string; ar: string }> = {
   temperature: { en: 'Temperature', ar: 'الحرارة' },
   wildfire: { en: 'Wildfire', ar: 'الحرايق' },
   sea_ice: { en: 'Sea ice', ar: 'الجليد' },
   co2: { en: 'Carbon dioxide', ar: 'ثاني أكسيد الكربون' },
-} as const;
+  night_lights: { en: 'Night lights', ar: 'أضواء الليل' },
+  ocean_sst: { en: 'Ocean temperature', ar: 'حرارة المحيط' },
+  ocean_currents: { en: 'Ocean currents', ar: 'تيارات المحيط' },
+  aerosols: { en: 'Aerosols', ar: 'الهباء الجوي' },
+  air_quality: { en: 'Air quality', ar: 'جودة الهواء' },
+  lightning: { en: 'Lightning', ar: 'البرق' },
+};
 
 function wildfireDate(state: AppData): string | null {
   const cells = state.catalog.wildfire?.data.cells ?? [];
@@ -315,7 +325,7 @@ function toScoreInput(state: AppData): ScoreInput | null {
 export function scoreFor(state: AppData): Score | null {
   const input = toScoreInput(state);
   if (!input) return null;
-  if (state.layers.length === LAYER_IDS.length) input.mode = 'symphony';
+  if (state.layers.length === SYMPHONY_LAYERS) input.mode = 'symphony';
   return buildScore(input);
 }
 

@@ -39,6 +39,7 @@ export function PlaybackBridge() {
               level,
               pulse: useAppStore.getState().visual.pulse + 1,
               layerId: event.layerId,
+              playheadLon: event.source.lon ?? useAppStore.getState().view.lon,
             });
           },
         });
