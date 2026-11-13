@@ -1,0 +1,172 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`buildScore > is byte-identical across two runs 1`] = `
+{
+  "duration": 1.5,
+  "earcons": [
+    {
+      "id": "record",
+      "t": 0.3,
+    },
+    {
+      "id": "missing",
+      "t": 0.6,
+    },
+    {
+      "id": "record",
+      "t": 0.9,
+    },
+    {
+      "id": "out_of_range",
+      "t": 1.2,
+    },
+    {
+      "id": "record",
+      "t": 1.2,
+    },
+  ],
+  "events": [
+    {
+      "dur": 0.27,
+      "flags": {
+        "missing": false,
+        "outOfRange": false,
+        "record": false,
+      },
+      "freqHz": 261.625565,
+      "gainDb": -30,
+      "layerId": "temperature",
+      "lowpassHz": 20000,
+      "midi": 60,
+      "midiRaw": 58.8,
+      "pan": 0,
+      "pos": {
+        "x": 0,
+        "y": 0,
+        "z": -1,
+      },
+      "source": {
+        "region": "global",
+        "t": 2000,
+        "v": 0,
+      },
+      "t": 0,
+      "ticks": 1,
+      "voiceId": "temperature:global",
+    },
+    {
+      "dur": 0.27,
+      "flags": {
+        "missing": false,
+        "outOfRange": false,
+        "record": true,
+      },
+      "freqHz": 261.625565,
+      "gainDb": -28.285714,
+      "layerId": "temperature",
+      "lowpassHz": 20000,
+      "midi": 60,
+      "midiRaw": 60.6,
+      "pan": 0,
+      "pos": {
+        "x": 0,
+        "y": 0,
+        "z": -1,
+      },
+      "source": {
+        "region": "global",
+        "t": 2001,
+        "v": 0.1,
+      },
+      "t": 0.3,
+      "ticks": 2,
+      "voiceId": "temperature:global",
+    },
+    {
+      "dur": 0.27,
+      "flags": {
+        "missing": true,
+        "outOfRange": false,
+        "record": false,
+      },
+      "freqHz": 0,
+      "gainDb": -30,
+      "layerId": "temperature",
+      "lowpassHz": 20000,
+      "midi": 0,
+      "midiRaw": 0,
+      "pan": 0,
+      "pos": {
+        "x": 0,
+        "y": 0,
+        "z": -1,
+      },
+      "source": {
+        "region": "global",
+        "t": 2002,
+        "v": null,
+      },
+      "t": 0.6,
+      "ticks": 1,
+      "voiceId": "temperature:global",
+    },
+    {
+      "dur": 0.27,
+      "flags": {
+        "missing": false,
+        "outOfRange": false,
+        "record": true,
+      },
+      "freqHz": 329.627557,
+      "gainDb": -24.857143,
+      "layerId": "temperature",
+      "lowpassHz": 20000,
+      "midi": 64,
+      "midiRaw": 64.2,
+      "pan": 0,
+      "pos": {
+        "x": 0,
+        "y": 0,
+        "z": -1,
+      },
+      "source": {
+        "region": "global",
+        "t": 2003,
+        "v": 0.3,
+      },
+      "t": 0.9,
+      "ticks": 1,
+      "voiceId": "temperature:global",
+    },
+    {
+      "dur": 0.27,
+      "flags": {
+        "missing": false,
+        "outOfRange": true,
+        "record": true,
+      },
+      "freqHz": 1046.502261,
+      "gainDb": -6,
+      "layerId": "temperature",
+      "lowpassHz": 20000,
+      "midi": 84,
+      "midiRaw": 84,
+      "pan": 0,
+      "pos": {
+        "x": 0,
+        "y": 0,
+        "z": -1,
+      },
+      "source": {
+        "region": "global",
+        "t": 2004,
+        "v": 1.5,
+      },
+      "t": 1.2,
+      "ticks": 4,
+      "voiceId": "temperature:global",
+    },
+  ],
+  "mode": "sweep",
+}
+`;

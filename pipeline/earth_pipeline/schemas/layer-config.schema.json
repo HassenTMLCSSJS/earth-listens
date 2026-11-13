@@ -1,0 +1,369 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": ["temperature", "wildfire", "sea_ice", "co2"]
+    },
+    "category": {
+      "type": "string",
+      "enum": ["climate", "fire", "ice_ocean"]
+    },
+    "title": {
+      "type": "object",
+      "properties": {
+        "en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ar": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": ["en", "ar"],
+      "additionalProperties": false
+    },
+    "unit": {
+      "type": "object",
+      "properties": {
+        "en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ar": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": ["en", "ar"],
+      "additionalProperties": false
+    },
+    "timeKind": {
+      "type": "string",
+      "enum": ["year", "day"]
+    },
+    "eic": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "string",
+          "format": "uri"
+        },
+        "frames": {
+          "type": "string"
+        }
+      },
+      "required": ["page", "frames"],
+      "additionalProperties": false
+    },
+    "variables": {
+      "type": "object",
+      "properties": {
+        "how_much": {
+          "type": "object",
+          "properties": {
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "range": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "normalize": {
+              "type": "object",
+              "properties": {
+                "method": {
+                  "type": "string",
+                  "enum": ["minmax", "robust"]
+                },
+                "p": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              },
+              "required": ["method"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["field", "range"],
+          "additionalProperties": false
+        },
+        "how_strong": {
+          "type": "object",
+          "properties": {
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "range": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "normalize": {
+              "type": "object",
+              "properties": {
+                "method": {
+                  "type": "string",
+                  "enum": ["minmax", "robust"]
+                },
+                "p": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              },
+              "required": ["method"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["field", "range"],
+          "additionalProperties": false
+        },
+        "how_fast": {
+          "type": "object",
+          "properties": {
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "range": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "normalize": {
+              "type": "object",
+              "properties": {
+                "method": {
+                  "type": "string",
+                  "enum": ["minmax", "robust"]
+                },
+                "p": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              },
+              "required": ["method"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["field", "range"],
+          "additionalProperties": false
+        },
+        "where": {
+          "type": "object",
+          "properties": {
+            "field": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": ["field"],
+          "additionalProperties": false
+        },
+        "seasonalAmplitude": {
+          "type": "object",
+          "properties": {
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "range": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "normalize": {
+              "type": "object",
+              "properties": {
+                "method": {
+                  "type": "string",
+                  "enum": ["minmax", "robust"]
+                },
+                "p": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              },
+              "required": ["method"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["field", "range"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["how_much", "how_strong", "how_fast", "where"],
+      "additionalProperties": false
+    },
+    "what": {
+      "type": "object",
+      "properties": {
+        "timbre": {
+          "type": "string",
+          "enum": ["warm-lead", "crackle-marimba", "glass-bells", "beating-drone"]
+        },
+        "register": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "symphonyRegister": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "required": ["timbre", "register", "symphonyRegister"],
+      "additionalProperties": false
+    },
+    "scale": {
+      "type": "string",
+      "enum": [
+        "pentatonic_major",
+        "major",
+        "chromatic",
+        "maqam_rast",
+        "maqam_bayati",
+        "maqam_hijaz",
+        "maqam_nahawand"
+      ]
+    },
+    "regions": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["global", "egypt", "africa", "arctic", "europe", "asia", "americas", "oceania"]
+      }
+    },
+    "symphony": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "from": {
+          "type": "number"
+        },
+        "to": {
+          "type": "number"
+        }
+      },
+      "required": ["role", "from", "to"],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "id",
+    "category",
+    "title",
+    "unit",
+    "timeKind",
+    "eic",
+    "variables",
+    "what",
+    "scale",
+    "regions",
+    "symphony"
+  ],
+  "additionalProperties": false
+}

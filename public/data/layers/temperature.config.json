@@ -1,0 +1,46 @@
+{
+  "id": "temperature",
+  "category": "climate",
+  "title": {
+    "en": "Temperature",
+    "ar": "الحرارة"
+  },
+  "unit": {
+    "en": "°C anomaly vs 1951–1980",
+    "ar": "°C anomaly vs 1951–1980"
+  },
+  "timeKind": "year",
+  "eic": {
+    "page": "https://earth.gov/sealevel/vital-signs/global-temperature/",
+    "frames": "/frames/temperature"
+  },
+  "variables": {
+    "how_much": {
+      "field": "v",
+      "range": [-0.6, 1.4]
+    },
+    "how_strong": {
+      "field": "const:0.5",
+      "range": [0, 1]
+    },
+    "how_fast": {
+      "field": "delta(v)",
+      "range": [0, 0.4]
+    },
+    "where": {
+      "field": "region_center"
+    }
+  },
+  "what": {
+    "timbre": "warm-lead",
+    "register": [48, 84],
+    "symphonyRegister": [48, 67]
+  },
+  "scale": "pentatonic_major",
+  "regions": ["global", "egypt", "africa", "arctic", "europe", "asia", "americas", "oceania"],
+  "symphony": {
+    "role": "melody",
+    "from": 1880,
+    "to": 2025
+  }
+}

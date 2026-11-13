@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "layers": [
+    {
+      "id": "temperature",
+      "config": "/data/layers/temperature.config.json",
+      "data": "/data/layers/temperature.sample.json"
+    },
+    {
+      "id": "wildfire",
+      "config": "/data/layers/wildfire.config.json",
+      "data": "/data/layers/wildfire.sample.json"
+    },
+    {
+      "id": "sea_ice",
+      "config": "/data/layers/sea_ice.config.json",
+      "data": "/data/layers/sea_ice.sample.json"
+    },
+    {
+      "id": "co2",
+      "config": "/data/layers/co2.config.json",
+      "data": "/data/layers/co2.sample.json"
+    }
+  ]
+}
