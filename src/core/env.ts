@@ -18,7 +18,6 @@ const ServerEnvSchema = z.object({
   R2_SECRET_ACCESS_KEY: z.string().default(''),
   R2_BUCKET: z.string().default(''),
   CRON_SECRET: z.string().default(''),
-  REVALIDATE_SECRET: z.string().default(''),
   NEXT_PUBLIC_ASSET_BASE_URL: z.string().default(''),
 });
 
@@ -43,7 +42,6 @@ export function readServerEnv(source: NodeJS.ProcessEnv = process.env): ServerEn
     R2_SECRET_ACCESS_KEY: source.R2_SECRET_ACCESS_KEY ?? '',
     R2_BUCKET: source.R2_BUCKET ?? '',
     CRON_SECRET: source.CRON_SECRET ?? '',
-    REVALIDATE_SECRET: source.REVALIDATE_SECRET ?? '',
     NEXT_PUBLIC_ASSET_BASE_URL: source.NEXT_PUBLIC_ASSET_BASE_URL ?? '',
   });
 }

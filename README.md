@@ -57,7 +57,7 @@ Copy `.env.example` to `.env.local` if you want a provider. Leave the values bla
 
 Hassan sets these GitHub Actions secrets (values only, never committed): `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, and optionally `FIRMS_MAP_KEY` and `OPENAQ_API_KEY`.
 
-Vercel env (server): the same names, plus `CRON_SECRET` and `REVALIDATE_SECRET`. `NEXT_PUBLIC_ASSET_BASE_URL` may be set to the R2 public URL. Leave it unset to use `https://pub-f4844155e9804bb5adcb0c121896e82b.r2.dev`. Set it to `off` to stay on the committed 2K files.
+Vercel env (server): the same names, plus `CRON_SECRET`. `NEXT_PUBLIC_ASSET_BASE_URL` may be set to the R2 public URL. Leave it unset to use `https://pub-f4844155e9804bb5adcb0c121896e82b.r2.dev`. Set it to `off` to stay on the committed 2K files.
 
 ```bash
 # Create the release yourself, then mirror it. Dry-run prints the file list.
