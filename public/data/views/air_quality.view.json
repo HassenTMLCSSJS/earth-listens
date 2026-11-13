@@ -2,26 +2,29 @@
   "id": "air_quality",
   "base": "earth-day",
   "baseDim": 0,
-  "night": false,
-  "height": null,
+  "night": true,
+  "height": {
+    "src": "/textures/earth-height.png",
+    "offset": -10900,
+    "scale": 19700,
+    "exaggeration": 0.012
+  },
   "overlay": null,
   "cameras": [
     {
       "id": "cairo",
-      "label": {
-        "en": "Cairo",
-        "ar": "القاهرة"
-      },
-      "lat": 30.0,
+      "label": { "en": "Cairo", "ar": "القاهرة" },
+      "lat": 30,
       "lon": 31.2,
-      "alt": 1.6
+      "alt": 1.8
     }
   ],
   "beforeAfter": null,
   "transitionMs": 900,
   "credit": [
-    "NASA GMAO GEOS-CF.",
-    "Contains modified Copernicus Atmosphere Monitoring Service information",
-    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS)."
-  ]
+    "NASA GMAO GEOS-CF. Modeled, not a station measurement and not an AQI.",
+    "Knowland et al., File Specification for GEOS-CF Products, GMAO Office Note No. 17 (Version 1.3), 12 December 2022.",
+    "OpenAQ stations are hidden until OPENAQ_API_KEY is set. None were invented."
+  ],
+  "note": "Cairo cell only, four afternoons a year, 2018–2025. Gas µg/m³ use 25 °C and 1013.25 hPa. 1e15 is missing."
 }

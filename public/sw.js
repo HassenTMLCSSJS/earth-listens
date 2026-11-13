@@ -1,4 +1,4 @@
-const CACHE = 'earth-listens-v1';
+const CACHE = 'earth-listens-v2';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(self.skipWaiting());
@@ -22,6 +22,7 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin || event.request.method !== 'GET') return;
   const path = url.pathname;
   if (
+    path.startsWith('/_next/static/') ||
     path.startsWith('/textures/') ||
     path.startsWith('/frames/') ||
     path.startsWith('/ramps/') ||

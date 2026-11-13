@@ -25,7 +25,9 @@ const TINT: Record<LayerId, string> = {
 const earthVert = /* glsl */ `
   uniform sampler2D uHeight;
   uniform float uHasHeight;
+  uniform sampler2D uFrameA;
   uniform float uExag;
+  uniform float uCanopy;
   uniform float uHeightOffset;
   uniform float uHeightScale;
   uniform float uLevel;
@@ -41,6 +43,9 @@ const earthVert = /* glsl */ `
     float h = 0.0;
     if (uHasHeight > 0.5) {
       h = texture(uHeight, uv).r * uExag;
+    }
+    if (uCanopy > 0.0) {
+      h += texture(uFrameA, uv).r * uCanopy;
     }
     vec3 displaced = position + normal * (h + uLevel * 0.045 + uPulse * 0.03);
     gl_Position = projectionMatrix * modelViewMatrix * vec4(displaced, 1.0);
@@ -201,6 +206,7 @@ function Scene({
           uHasOverlay: { value: overlay ? 1 : 0 },
           uHasWater: { value: water && overlay ? 1 : 0 },
           uExag: { value: 0.045 },
+          uCanopy: { value: layerId === 'forest' && overlay ? 0.04 : 0 },
           uHeightOffset: { value: -10900 },
           uHeightScale: { value: 19700 },
           uOverlayOpacity: { value: 0.82 },
@@ -212,7 +218,7 @@ function Scene({
         fragmentShader: earthFrag,
         glslVersion: THREE.GLSL3,
       }),
-    [maps, tint, night, height, water, overlay, lon],
+    [maps, tint, night, height, water, overlay, lon, layerId],
   );
   const air = useMemo(
     () =>
@@ -282,7 +288,7 @@ function Scene({
       {cells.length > 0 ? (
         <points geometry={fires}>
           <pointsMaterial
-            color={TINT.wildfire}
+            color={TINT[layerId]}
             size={0.03 + (motion === 'reduce' ? 0 : level * 0.02)}
           />
         </points>

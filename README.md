@@ -6,7 +6,7 @@ Earth Listens is a voice-first jukebox for NASA Earth data. It turns temperature
 
 NASA Space Apps Cairo runs 13–14 November 2026. The submission deadline is to be confirmed with Space Apps Cairo.
 
-The files in `public/data/**/*.sample.json` and `public/frames/` are **SAMPLE** data from a seeded formula. They are not measurements.
+Files named `*.sample.json`, and frames flagged `"sample": true`, are **SAMPLE** data from a seeded formula. They are not measurements. Layers whose registry file is not a sample file are decoded from the cited source. A single-day or single-month map is not an annual mean.
 
 ## Quick start
 
@@ -24,13 +24,16 @@ Open [http://localhost:3000/en?demo=1](http://localhost:3000/en?demo=1). Arabic 
 
 Copy `.env.example` to `.env.local` if you want a provider. Leave the values blank to keep the mock agent. Never commit a real key, and never put a key in a `NEXT_PUBLIC_` variable.
 
-| Name                                                               | Used by                                     |
-| ------------------------------------------------------------------ | ------------------------------------------- |
-| `GROQ_API_KEY`, `GEMINI_API_KEY`, `OPENROUTER_API_KEY`             | `/api/agent` only                           |
-| `AGENT_PROVIDER_ORDER`                                             | which of those three to try                 |
-| `GROQ_AGENT_MODEL`, `GEMINI_AGENT_MODEL`, `OPENROUTER_AGENT_MODEL` | model ids                                   |
-| `GROQ_STT_MODEL`                                                   | `/api/stt`                                  |
-| `FIRMS_MAP_KEY`                                                    | the Python pipeline only, never the web app |
+| Name                                                                      | Used by                                         |
+| ------------------------------------------------------------------------- | ----------------------------------------------- |
+| `GROQ_API_KEY`, `GEMINI_API_KEY`, `OPENROUTER_API_KEY`                    | `/api/agent` only                               |
+| `AGENT_PROVIDER_ORDER`                                                    | which of those three to try                     |
+| `GROQ_AGENT_MODEL`, `GEMINI_AGENT_MODEL`, `OPENROUTER_AGENT_MODEL`        | model ids                                       |
+| `GROQ_STT_MODEL`                                                          | `/api/stt`                                      |
+| `FIRMS_MAP_KEY`                                                           | FIRMS area history, server only                 |
+| `OPENAQ_API_KEY`                                                          | OpenAQ stations, server only                    |
+| `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_S3_ENDPOINT`, `R2_BUCKET` | `scripts/upload-r2.mjs`                         |
+| `NEXT_PUBLIC_ASSET_BASE_URL`                                              | public base for R2 objects; `off` uses 2K files |
 
 ## Scripts
 
@@ -171,7 +174,7 @@ Uses NASA data; not endorsed by NASA.
 
 We acknowledge the use of data and imagery from LANCE FIRMS operated by NASA's Earth Science Data and Information System (ESDIS) with funding provided by NASA Headquarters.
 
-Also credit GISTEMP v4 (NASA GISS), NOAA GML Mauna Loa (Lan, Tans, and Thoning), NSIDC Sea Ice Index v4 (Fetterer et al.; verify the DOI before citing it), and NASA SVS 5113. The globe texture in this build is a procedural stand-in, not NASA Blue Marble. Full wording is in `ATTRIBUTION.md`.
+Also credit GISTEMP v4 (NASA GISS), NOAA GML Mauna Loa (Lan, Tans, and Thoning), NSIDC Sea Ice Index v4 (Fetterer et al.; verify the DOI before citing it), NASA SVS 5113, and GIBS. The day texture is Blue Marble Next Generation from GIBS. Full wording is in `ATTRIBUTION.md`.
 
 ## Team
 

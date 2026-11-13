@@ -9,15 +9,28 @@
     "en": "ppm",
     "ar": "ppm"
   },
-  "source": {
-    "name": "NOAA GML Mauna Loa CO2",
-    "dataset_url": "https://gml.noaa.gov/aftp/products/trends/co2/co2_mm_mlo.csv",
-    "eic_page": "https://earth.gov/sealevel/vital-signs/carbon-dioxide/",
-    "retrieved": "2026-11-13",
-    "sha256": "d895fb5b4a59fb5e4cd98e69b7667fe5bef595c6581f630852b12cb41c07f675",
-    "citation": "Lan, Tans, and Thoning, NOAA Global Monitoring Laboratory, Mauna Loa CO2 monthly mean data.",
-    "ack": null
-  },
+  "source": [
+    {
+      "name": "NOAA GML Mauna Loa CO2",
+      "dataset_url": "https://gml.noaa.gov/aftp/products/trends/co2/co2_mm_mlo.csv",
+      "eic_page": "https://earth.gov/sealevel/vital-signs/carbon-dioxide/",
+      "retrieved": "2026-11-13",
+      "sha256": "d895fb5b4a59fb5e4cd98e69b7667fe5bef595c6581f630852b12cb41c07f675",
+      "citation": "Lan, Tans, and Thoning, NOAA Global Monitoring Laboratory, Mauna Loa CO2 monthly mean data.",
+      "ack": null
+    },
+    {
+      "name": "NASA AIRS/AMSU mid-tropospheric CO₂, monthly, via GIBS",
+      "dataset_url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi",
+      "eic_page": "https://gml.noaa.gov/ccgg/trends/",
+      "retrieved": "2026-11-13",
+      "sha256": "3ff5f04aedc56fd87b832fd13c4b186654f391653c098e6ecb4d155097cb51b3",
+      "citation": "AIRS_L3_Carbon_Dioxide_AIRS_AMSU_Monthly, July 2003–2011. The layer ends February 2012. The sounded numbers stay Mauna Loa. Regional values are cosine-latitude means of the decoded 512×256 GIBS PNG. Missing dates are omitted.",
+      "ack": "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS).",
+      "gibs_layer": "AIRS_L3_Carbon_Dioxide_AIRS_AMSU_Monthly",
+      "license": "NASA media guidelines; credit required; no implied endorsement"
+    }
+  ],
   "range": {
     "min": 1958,
     "max": 2025
@@ -371,84 +384,63 @@
   "seasonalAmplitude": null,
   "frames": [
     {
-      "t": 1958,
-      "src": "/frames/co2/1958.webp",
-      "sample": true
+      "t": "2003-07-01",
+      "src": "/frames/co2/2003-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/co2/2003-07-01.json"
     },
     {
-      "t": 1963,
-      "src": "/frames/co2/1963.webp",
-      "sample": true
+      "t": "2004-07-01",
+      "src": "/frames/co2/2004-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/co2/2004-07-01.json"
     },
     {
-      "t": 1968,
-      "src": "/frames/co2/1968.webp",
-      "sample": true
+      "t": "2005-07-01",
+      "src": "/frames/co2/2005-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/co2/2005-07-01.json"
     },
     {
-      "t": 1973,
-      "src": "/frames/co2/1973.webp",
-      "sample": true
+      "t": "2006-07-01",
+      "src": "/frames/co2/2006-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/co2/2006-07-01.json"
     },
     {
-      "t": 1978,
-      "src": "/frames/co2/1978.webp",
-      "sample": true
+      "t": "2007-07-01",
+      "src": "/frames/co2/2007-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/co2/2007-07-01.json"
     },
     {
-      "t": 1983,
-      "src": "/frames/co2/1983.webp",
-      "sample": true
+      "t": "2008-07-01",
+      "src": "/frames/co2/2008-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/co2/2008-07-01.json"
     },
     {
-      "t": 1988,
-      "src": "/frames/co2/1988.webp",
-      "sample": true
+      "t": "2009-07-01",
+      "src": "/frames/co2/2009-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/co2/2009-07-01.json"
     },
     {
-      "t": 1993,
-      "src": "/frames/co2/1993.webp",
-      "sample": true
+      "t": "2010-07-01",
+      "src": "/frames/co2/2010-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/co2/2010-07-01.json"
     },
     {
-      "t": 1998,
-      "src": "/frames/co2/1998.webp",
-      "sample": true
-    },
-    {
-      "t": 2003,
-      "src": "/frames/co2/2003.webp",
-      "sample": true
-    },
-    {
-      "t": 2008,
-      "src": "/frames/co2/2008.webp",
-      "sample": true
-    },
-    {
-      "t": 2013,
-      "src": "/frames/co2/2013.webp",
-      "sample": true
-    },
-    {
-      "t": 2018,
-      "src": "/frames/co2/2018.webp",
-      "sample": true
-    },
-    {
-      "t": 2023,
-      "src": "/frames/co2/2023.webp",
-      "sample": true
-    },
-    {
-      "t": 2025,
-      "src": "/frames/co2/2025.webp",
-      "sample": true
+      "t": "2011-07-01",
+      "src": "/frames/co2/2011-07-01.webp",
+      "q": "ok",
+      "grid": "/data/grids/co2/2011-07-01.json"
     }
   ],
   "events": [],
   "description": {
-    "en": "Annual means of the NOAA GML Mauna Loa monthly CO2 record, 1958–2025. Complete calendar years only; 2026 is incomplete and is not filled. Globe map frames are marked stand-ins.",
-    "ar": "متوسطات سنوية لسجل ثاني أكسيد الكربون الشهري من ماونا لوا التابع لـ NOAA GML، من 1958 إلى 2025. السنوات الكاملة فقط؛ 2026 ناقصة ولا تُملأ. إطارات الخريطة مولّدة."
+    "en": "NOAA GML Mauna Loa monthly CO₂. Maps are AIRS mid-troposphere July fields, 2003–2011. Outside 2002–2012 there is no AIRS map. The map is not the Mauna Loa number.",
+    "ar": "ثاني أكسيد الكربون الشهري من ماونا لوا. الخرائط حقول يوليو من AIRS لمنتصف التروبوسفير 2003–2011. خارج 2002–2012 لا توجد خريطة AIRS. الخريطة ليست رقم ماونا لوا."
   }
 }

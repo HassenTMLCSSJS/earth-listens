@@ -6,6 +6,9 @@ const ctx = { layers: ['temperature' as const], region: 'global' as const };
 describe('parseIntent', () => {
   const cases: [string, unknown][] = [
     ['play temperature', [{ type: 'select_phenomenon', id: 'temperature' }, { type: 'play' }]],
+    ['play forest', [{ type: 'select_phenomenon', id: 'forest' }, { type: 'play' }]],
+    ['play rain', [{ type: 'select_phenomenon', id: 'precipitation' }, { type: 'play' }]],
+    ['شغّل الأحداث', [{ type: 'select_phenomenon', id: 'events' }, { type: 'play' }]],
     [
       'شغّل الحرايق في أفريقيا',
       [

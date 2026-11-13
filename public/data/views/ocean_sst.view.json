@@ -1,6 +1,6 @@
 {
   "id": "ocean_sst",
-  "base": "earth-relief-bathy",
+  "base": "earth-day",
   "baseDim": 0,
   "night": true,
   "height": {
@@ -12,7 +12,6 @@
   "overlay": {
     "kind": "value",
     "mask": "water",
-    "src": "/frames/ocean_sst/2024-08-15.value.png",
     "ramp": {
       "id": "sst",
       "src": "/ramps/sst.png",
@@ -28,26 +27,21 @@
   },
   "cameras": [
     {
-      "id": "gulf-stream",
+      "id": "default",
       "label": {
-        "en": "Gulf Stream",
-        "ar": "تيار الخليج"
+        "en": "Overview",
+        "ar": "نظرة عامة"
       },
-      "lat": 35,
-      "lon": -65,
-      "alt": 2.0
+      "lat": 20,
+      "lon": 10,
+      "alt": 2.2
     }
   ],
-  "beforeAfter": {
-    "a": 2003,
-    "b": 2025,
-    "mode": "toggle"
-  },
+  "beforeAfter": null,
   "transitionMs": 900,
   "credit": [
-    "JPL MUR MEaSUREs Project. GHRSST Level 4 MUR Global Foundation Sea Surface Temperature Analysis, v4.1. PO.DAAC.",
-    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS).",
-    "NOAA National Centers for Environmental Information. 2022: ETOPO 2022 Global Relief Model."
+    "JPL MUR GHRSST L4 via GIBS.",
+    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS)."
   ],
-  "note": "The 15 Aug 2024 frame is a real GIBS decode. The multi-year series in the sample file is not."
+  "note": "Daily MUR fields. 15 August 2003–2025, plus other mid-month days in 2024."
 }
