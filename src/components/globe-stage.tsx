@@ -81,8 +81,7 @@ export function GlobeStage() {
 
   const spatial = spatialize(37.5, 22.5, view.lat, view.lon);
   const frame =
-    catalog[layers[0] ?? 'temperature']?.data.frames.at(-1)?.src ??
-    '/frames/temperature/2025.webp';
+    catalog[layers[0] ?? 'temperature']?.data.frames.at(-1)?.src ?? '/frames/temperature/2025.webp';
   const cells = useMemo(() => {
     if (!layers.includes('wildfire')) return [];
     const all = catalog.wildfire?.data.cells ?? [];
