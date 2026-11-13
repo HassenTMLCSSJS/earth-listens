@@ -1,12 +1,16 @@
-import { readdir, readFile } from 'node:fs/promises';
+import { access, readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { LAYER_IDS } from '../src/core/actions';
 import {
+  AssetManifestSchema,
   LayerConfigSchema,
   LayerDataSchema,
   QuizFileSchema,
   RegistrySchema,
   RegionsFileSchema,
+  SourceCatalogSchema,
+  ViewSchema,
+  sourcesOf,
 } from '../src/modules/data/schemas';
 
 async function main(): Promise<void> {
@@ -22,16 +26,47 @@ async function main(): Promise<void> {
     throw new Error(`registry ids ${ids.join(',')} do not match the layer union`);
   }
   for (const layer of registry.layers) {
-    if (!layer.data.endsWith('.sample.json'))
-      throw new Error(`${layer.id} registry data must be a sample file in the base MVP`);
     LayerConfigSchema.parse(await readJson(path.join(process.cwd(), 'public', layer.config)));
     const dataFile = path.join(process.cwd(), 'public', layer.data);
     const data = LayerDataSchema.parse(await readJson(dataFile));
     const sampleName = path.basename(dataFile).endsWith('.sample.json');
     if (data.sample !== sampleName)
       throw new Error(`${dataFile} sample flag must match the file name`);
-    if (data.sample !== true) throw new Error(`${dataFile} must be marked sample`);
+    if (!data.sample) {
+      for (const source of sourcesOf(data.source)) {
+        if (!source.retrieved || !source.sha256) {
+          throw new Error(`${dataFile} real data needs retrieved and sha256`);
+        }
+      }
+    }
+    if (layer.view) {
+      const view = ViewSchema.parse(await readJson(path.join(process.cwd(), 'public', layer.view)));
+      if (view.credit.length === 0) throw new Error(`${layer.id} view needs a credit`);
+    }
+    for (const frame of data.frames) {
+      if (!frame.value) continue;
+      await access(path.join(process.cwd(), 'public', frame.value));
+    }
   }
+
+  await access(path.join(root, 'assets.manifest.json'))
+    .then(() =>
+      readJson(path.join(root, 'assets.manifest.json')).then((json) =>
+        AssetManifestSchema.parse(json),
+      ),
+    )
+    .catch((error: unknown) => {
+      if (error && typeof error === 'object' && 'code' in error && error.code === 'ENOENT') return;
+      throw error;
+    });
+  await access(path.join(root, 'sources.json'))
+    .then(() =>
+      readJson(path.join(root, 'sources.json')).then((json) => SourceCatalogSchema.parse(json)),
+    )
+    .catch((error: unknown) => {
+      if (error && typeof error === 'object' && 'code' in error && error.code === 'ENOENT') return;
+      throw error;
+    });
 
   RegionsFileSchema.parse(await readJson(path.join(root, 'regions.json')));
   QuizFileSchema.parse(await readJson(path.join(root, 'quiz/clips.sample.json')));

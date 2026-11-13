@@ -1,0 +1,21 @@
+{
+  "feed": "firms-24h",
+  "status": "snapshot",
+  "dataTime": "2026-11-12T00:00:00Z",
+  "fetchedAt": "2026-11-13T11:20:00Z",
+  "source": {
+    "name": "NASA FIRMS VIIRS NOAA-20",
+    "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/noaa-20-viirs-c2/csv/J1_VIIRS_C2_Global_24h.csv",
+    "license": "LANCE FIRMS / ESDIS"
+  },
+  "latencyNote": "Partial excerpt from the start of the 24 h CSV (97 complete rows), not the full day.",
+  "snapshotId": "e8a0aac1b8ecc136",
+  "items": [
+    {
+      "lat": -18.85008,
+      "lon": -159.79056,
+      "frp": 3.15,
+      "date": "2026-11-12"
+    }
+  ]
+}

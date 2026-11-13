@@ -11,8 +11,16 @@ const MODEL_HOSTS = [
   'https://cas-bridge.xethub.hf.co',
 ].join(' ');
 
+const DATA_HOSTS = [
+  'https://gibs.earthdata.nasa.gov',
+  'https://pub-f4844155e9804bb5adcb0c121896e82b.r2.dev',
+].join(' ');
+
 export function contentSecurityPolicy(allowModels: boolean): string {
-  const connect = allowModels ? `'self' blob: data: ${MODEL_HOSTS}` : `'self' blob: data:`;
+  const connect = allowModels
+    ? `'self' blob: data: ${MODEL_HOSTS} ${DATA_HOSTS}`
+    : `'self' blob: data:`;
+  const images = allowModels ? `'self' data: blob: ${DATA_HOSTS}` : `'self' data: blob:`;
   return [
     "default-src 'self'",
     "base-uri 'self'",
@@ -21,8 +29,8 @@ export function contentSecurityPolicy(allowModels: boolean): string {
     "form-action 'self'",
     "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'",
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob:",
-    "media-src 'self' blob: data:",
+    `img-src ${images}`,
+    `media-src ${images}`,
     "font-src 'self'",
     `connect-src ${connect}`,
     "worker-src 'self' blob:",

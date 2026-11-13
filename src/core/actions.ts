@@ -1,6 +1,18 @@
 import * as z from 'zod';
 
-export const LAYER_IDS = ['temperature', 'wildfire', 'sea_ice', 'co2'] as const;
+/** The four voices "play everything" still combines. New layers stay outside the symphony. */
+export const SYMPHONY_LAYER_IDS = ['temperature', 'wildfire', 'sea_ice', 'co2'] as const;
+export const LAYER_IDS = [
+  ...SYMPHONY_LAYER_IDS,
+  'night_lights',
+  'ocean_sst',
+  'ocean_currents',
+  'aerosols',
+  'air_quality',
+  'lightning',
+] as const;
+export const TEXTURE_QUALITIES = ['auto', '4k', '8k'] as const;
+export type TextureQuality = (typeof TEXTURE_QUALITIES)[number];
 export const REGION_IDS = [
   'global',
   'egypt',
@@ -44,6 +56,7 @@ export interface Settings {
   reducedMotion: 'system' | 'on' | 'off';
   screenReaderMode: boolean;
   captions: boolean;
+  textureQuality: TextureQuality;
 }
 
 export type SettingKey = keyof Settings;
@@ -120,8 +133,14 @@ export const ActionSchema = z.discriminatedUnion('type', [
       'reducedMotion',
       'screenReaderMode',
       'captions',
+      'textureQuality',
     ]),
-    value: z.union([z.number(), z.boolean(), z.enum(['system', 'on', 'off'])]),
+    value: z.union([
+      z.number(),
+      z.boolean(),
+      z.enum(['system', 'on', 'off']),
+      z.enum(TEXTURE_QUALITIES),
+    ]),
   }),
 ]);
 
@@ -161,7 +180,9 @@ export function parseAction(input: unknown): Action | null {
       (data.key === 'reducedMotion' &&
         (data.value === 'system' || data.value === 'on' || data.value === 'off')) ||
       (data.key === 'screenReaderMode' && typeof data.value === 'boolean') ||
-      (data.key === 'captions' && typeof data.value === 'boolean');
+      (data.key === 'captions' && typeof data.value === 'boolean') ||
+      (data.key === 'textureQuality' &&
+        (data.value === 'auto' || data.value === '4k' || data.value === '8k'));
     if (!ok) return null;
   }
   return stripUndefined(data) as Action;

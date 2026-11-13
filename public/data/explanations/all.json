@@ -64,6 +64,102 @@
         "en": "SAMPLE curve shaped like a seasonal cycle plus a rise. It is not the NOAA Mauna Loa record. The annual mean is what you hear in the symphony. Seasonal amplitude is stored beside it and is not a forecast. Sample range 310 to 440.",
         "ar": "منحنى تجريبي فيه دورة موسمية وصعود. ده مش سجل ماونا لوا بتاع NOAA. المتوسط السنوي هو اللي بتسمعه في السيمفونية. سعة الموسم متخزنة جنبه ومش توقع. المدى التجريبي من 310 إلى 440."
       }
+    },
+    {
+      "id": "night_lights",
+      "level": "short",
+      "text": {
+        "en": "Higher notes mean a higher night brightness index (image-derived, not calibrated radiance). Sample range 5.51 to 51.75.",
+        "ar": "النغمة الأعلى تعني مؤشر سطوع ليلي أعلى (مشتق من الصورة، مش إشعاع معاير). المدى التجريبي من 5.51 إلى 51.75."
+      }
+    },
+    {
+      "id": "night_lights",
+      "level": "detailed",
+      "text": {
+        "en": "The index is the cosine-weighted luma of the NASA GIBS Black Marble PNG. It is not calibrated radiance. Brighter is a bell, dimmer is a pad. Sample range 5.51 to 51.75.",
+        "ar": "المؤشر هو لمعان صورة الرخام الأسود من GIBS موزون بجيب التمام. ده مش إشعاع معاير. الأفتح جرس، والأغمق وسادة. المدى التجريبي من 5.51 إلى 51.75."
+      }
+    },
+    {
+      "id": "ocean_sst",
+      "level": "short",
+      "text": {
+        "en": "SAMPLE series. Higher notes mean warmer sample sea-surface values. The globe can still show a real GIBS frame. Sample range -2 to 32.",
+        "ar": "سلسلة تجريبية. النغمة الأعلى تعني سطح بحر أدفأ في العينة. الكرة ممكن تعرض إطار حقيقي من GIBS. المدى التجريبي من -2 إلى 32."
+      }
+    },
+    {
+      "id": "ocean_sst",
+      "level": "detailed",
+      "text": {
+        "en": "SAMPLE ocean series, not the MUR record. A decoded 15 Aug 2024 frame is a separate real snapshot. Sample range -2 to 32.",
+        "ar": "سلسلة محيط تجريبية، ليست سجل MUR. إطار 15 أغسطس 2024 المفكوك لقطة حقيقية منفصلة. المدى التجريبي من -2 إلى 32."
+      }
+    },
+    {
+      "id": "ocean_currents",
+      "level": "short",
+      "text": {
+        "en": "SAMPLE. Currents are a picture of flow. This build does not invent speeds. Sample range 0 to 1.",
+        "ar": "تجريبي. التيارات صورة للجريان. البناء ده ما بيخترعش سرعات. المدى التجريبي من 0 إلى 1."
+      }
+    },
+    {
+      "id": "ocean_currents",
+      "level": "detailed",
+      "text": {
+        "en": "SAMPLE bed. Direction comes from frames when they exist. No numeric current speed is spoken. Sample range 0 to 1.",
+        "ar": "خلفية تجريبية. الاتجاه من الإطارات لما توجد. مفيش سرعة رقمية بتتقال. المدى التجريبي من 0 إلى 1."
+      }
+    },
+    {
+      "id": "aerosols",
+      "level": "short",
+      "text": {
+        "en": "SAMPLE. Sea salt, dust, smoke and sulfate would be four timbres. This series is still a sample. Sample range 0 to 5.",
+        "ar": "تجريبي. ملح البحر والتراب والدخان والكبريتات أربع طبقات صوت. السلسلة لسه تجريبية. المدى التجريبي من 0 إلى 5."
+      }
+    },
+    {
+      "id": "aerosols",
+      "level": "detailed",
+      "text": {
+        "en": "SAMPLE aerosol series. Real MERRA-2 frames are a pipeline step. Species timbres are sea salt flute, dust pad, smoke brass, sulfate bell. Sample range 0 to 5.",
+        "ar": "سلسلة هباء تجريبية. إطارات MERRA-2 الحقيقية خطوة في خط الأنابيب. الطبقات: ناي، وسادة، نحاس، جرس. المدى التجريبي من 0 إلى 5."
+      }
+    },
+    {
+      "id": "air_quality",
+      "level": "short",
+      "text": {
+        "en": "SAMPLE history. Live Cairo air quality, when the network is up, is a separate Open-Meteo snapshot. Sample range 0 to 75.",
+        "ar": "تاريخ تجريبي. جودة هواء القاهرة المباشرة، لما الشبكة شغالة، لقطة Open-Meteo منفصلة. المدى التجريبي من 0 إلى 75."
+      }
+    },
+    {
+      "id": "air_quality",
+      "level": "detailed",
+      "text": {
+        "en": "SAMPLE chord. PM2.5, ozone, CO and NOx are four voices when a real snapshot is loaded. The sample series is not a measurement. Sample range 0 to 75.",
+        "ar": "كورد تجريبي. الجسيمات والأوزون وأول أكسيد الكربون وأكاسيد النيتروجين أربع أصوات لما اللقطة الحقيقية تتحمل. السلسلة التجريبية مش قياس. المدى التجريبي من 0 إلى 75."
+      }
+    },
+    {
+      "id": "lightning",
+      "level": "short",
+      "text": {
+        "en": "SAMPLE ticks. Lightning here is historical only: 18 seasons, each a 10-day window, and missing days are not filled. Sample range 0 to 1.",
+        "ar": "تكات تجريبية. البرق هنا تاريخي فقط: 18 موسما، كل واحد 10 أيام، والأيام الناقصة ما بتتملاش. المدى التجريبي من 0 إلى 1."
+      }
+    },
+    {
+      "id": "lightning",
+      "level": "detailed",
+      "text": {
+        "en": "SAMPLE flash index, not ISS LIS counts. The seasonal windows run from spring 2017 to summer 2021. A frame records how many days were actually present. Sample range 0 to 1.",
+        "ar": "مؤشر ومضات تجريبي، ليس أعداد LIS. النوافذ من ربيع 2017 لصيف 2021. الإطار بيسجل الأيام الموجودة فعلا. المدى التجريبي من 0 إلى 1."
+      }
     }
   ]
 }

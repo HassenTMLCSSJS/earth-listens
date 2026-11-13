@@ -1,0 +1,32 @@
+{
+  "id": "home",
+  "base": "earth-day",
+  "baseDim": 0,
+  "night": true,
+  "height": {
+    "src": "/textures/earth-height.png",
+    "offset": -10900,
+    "scale": 19700,
+    "exaggeration": 0.012
+  },
+  "overlay": null,
+  "cameras": [
+    {
+      "id": "africa",
+      "label": {
+        "en": "Africa",
+        "ar": "أفريقيا"
+      },
+      "lat": 20,
+      "lon": 31,
+      "alt": 2.8
+    }
+  ],
+  "beforeAfter": null,
+  "transitionMs": 900,
+  "credit": [
+    "NASA Earth Observatory, Blue Marble NG by Reto Stöckli (NASA GSFC); served by NASA GIBS.",
+    "NOAA National Centers for Environmental Information. 2022: ETOPO 2022 Global Relief Model.",
+    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS)."
+  ]
+}

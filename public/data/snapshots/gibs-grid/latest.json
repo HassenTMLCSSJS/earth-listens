@@ -1,0 +1,20 @@
+{
+  "feed": "gibs-grid",
+  "status": "snapshot",
+  "dataTime": "2024-08-15T00:00:00Z",
+  "fetchedAt": "2026-11-13T11:20:00Z",
+  "source": {
+    "name": "GHRSST MUR SST via NASA GIBS",
+    "url": "https://gibs.earthdata.nasa.gov/",
+    "license": "JPL MUR / PO.DAAC; NASA GIBS"
+  },
+  "latencyNote": "Area-weighted mean of opaque pixels in the 512×256 GIBS PNG. Colormap hit rate 1.0. Not a filled climatology.",
+  "snapshotId": "3f7dad076f772704",
+  "items": [
+    {
+      "date": "2024-08-15",
+      "meanC": 20.27085705774111,
+      "n": 76301
+    }
+  ]
+}

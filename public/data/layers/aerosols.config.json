@@ -1,0 +1,52 @@
+{
+  "id": "aerosols",
+  "category": "atmosphere",
+  "title": {
+    "en": "Aerosols",
+    "ar": "الهباء الجوي"
+  },
+  "unit": {
+    "en": "AOD",
+    "ar": "AOD"
+  },
+  "timeKind": "year",
+  "eic": {
+    "page": "https://svs.gsfc.nasa.gov/5669/",
+    "frames": "/frames/aerosols"
+  },
+  "variables": {
+    "how_much": {
+      "field": "v",
+      "range": [0, 5]
+    },
+    "how_strong": {
+      "field": "abs(v)",
+      "range": [0, 5]
+    },
+    "how_fast": {
+      "field": "delta(v)",
+      "range": [-1, 1]
+    },
+    "where": {
+      "field": "region_center"
+    }
+  },
+  "what": {
+    "timbre": "grain-pad",
+    "register": [55, 86],
+    "symphonyRegister": [60, 84],
+    "timbreBySpecies": {
+      "sea_salt": "air-flute",
+      "dust": "grain-pad",
+      "smoke": "low-brass",
+      "sulfate": "glass-bells"
+    }
+  },
+  "scale": "maqam_rast",
+  "regions": ["global", "egypt", "africa", "arctic", "europe", "asia", "americas", "oceania"],
+  "symphony": {
+    "role": "texture",
+    "from": 1980,
+    "to": 2026
+  }
+}

@@ -1,5 +1,23 @@
 # Decisions
 
+## 13 Nov 2026 — data integration
+
+**Branch.** `feat/data-integration` is the only branch for this phase. It starts with the CI pnpm `allowBuilds` fix so the web job is not skipped.
+
+**Textures.** GIBS WMS returned real 2048×1024 Blue Marble, shaded relief, and Black Marble images on 13 Nov 2026. They replace the procedural stand-in. `public/textures/SOURCE.txt` records the hashes. 4K and 8K are not committed.
+
+**ETOPO.** The 60 arc-second surface GeoTIFF (SHA-256 `9d27d4b8…`) was area-averaged with GDAL to 2048×1024. Height is stored as 8-bit with offset −10900 m and scale 19700 m. A spot check after averaging: Himalaya about 6218 m, Mariana about −9433 m. That smoothing is what a 2K grid does to a 60 arc-second source. It is not a new elevation model.
+
+**Night lights.** The series is cosine-weighted luma of the 1024×512 Black Marble PNGs for 2012-01-01 and 2016-01-01. The label everywhere is "night brightness index (image-derived, not calibrated radiance)". The p5–p95 of the 2016 image is 5.51–51.75 and that is the sonification range. `sample` is false. The other new layers stay `sample: true` because a full frame history was not fetched.
+
+**Symphony.** "Play everything" still combines temperature, wildfire, sea ice, and CO₂. New layers are selectable on their own. The four-voice ceiling in the reducer is unchanged.
+
+**Asset host.** `https://pub-f4844155e9804bb5adcb0c121896e82b.r2.dev` is the public R2 URL. The upload script defaults to a dry run. No release was created and nothing was uploaded from this build.
+
+**Colormap parser.** The GIBS v1.3 XML is read with regular expressions in TypeScript and Python so the browser bundle does not take a DOM parser. The recorded MUR PNG matches the colormap on every opaque pixel.
+
+**Service worker.** A small `public/sw.js` caches textures. Serwist was not added; a hand-written worker keeps the install free of another framework and still does cache-first for textures.
+
 ## 13 Nov 2026
 
 **Hackathon dates.** NASA Space Apps Cairo runs 13–14 November 2026. Day-based milestones in the build brief move one day earlier. The submission deadline stays “to be confirmed with Space Apps Cairo”. The PRNG seed `mulberry32(20261114)` is a technical constant and did not change.

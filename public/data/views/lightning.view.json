@@ -1,0 +1,32 @@
+{
+  "id": "lightning",
+  "base": "earth-night",
+  "baseDim": 0,
+  "night": true,
+  "height": {
+    "src": "/textures/earth-height.png",
+    "offset": -10900,
+    "scale": 19700,
+    "exaggeration": 0.012
+  },
+  "overlay": null,
+  "cameras": [
+    {
+      "id": "maracaibo",
+      "label": {
+        "en": "Lake Maracaibo",
+        "ar": "بحيرة ماراكيبو"
+      },
+      "lat": 9.8,
+      "lon": -71.6,
+      "alt": 2.2
+    }
+  ],
+  "beforeAfter": null,
+  "transitionMs": 900,
+  "credit": [
+    "Blakeslee, R. J. (2020), ISS LIS science data, NASA GHRC DAAC.",
+    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS)."
+  ],
+  "note": "Seasonal set: 18 windows from MAM 2017 to JJA 2021. Each is a 10-day mid-season sum. Missing days are not filled. Historical only."
+}

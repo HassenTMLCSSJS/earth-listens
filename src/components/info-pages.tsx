@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { LAYER_IDS, SCALE_IDS } from '@/core/actions';
 import { useAppStore } from '@/core/store';
@@ -155,6 +155,15 @@ export function GuidePage() {
 
 export function DataPage() {
   const t = useTranslations();
+  const [sources, setSources] = useState<
+    { id: string; name: string; url: string; license: string; usedFor: string; key: string }[]
+  >([]);
+  useEffect(() => {
+    void fetch('/data/sources.json')
+      .then((response) => response.json())
+      .then((body: { sources: typeof sources }) => setSources(body.sources))
+      .catch(() => setSources([]));
+  }, []);
   return (
     <article className="mx-auto grid max-w-3xl gap-4 px-4 py-8">
       <h1 className="display text-5xl">{t('data.title')}</h1>
@@ -174,9 +183,32 @@ export function DataPage() {
       <p>
         GISTEMP Team, NASA Goddard Institute for Space Studies. NOAA GML Mauna Loa: Lan, Tans and
         Thoning. NSIDC Sea Ice Index v4 (Fetterer et al.; verify the DOI before citing it). NASA SVS
-        5113. The globe texture in this build is a procedural stand-in, not NASA Blue Marble, until
-        the public-domain image can be fetched.
+        5113. The globe day texture is NASA Blue Marble Next Generation from GIBS. Relief is NOAA
+        ETOPO 2022. Night brightness is an image-derived index, not calibrated radiance.
       </p>
+      <h2>Sources</h2>
+      <table className="w-full text-sm">
+        <caption>Every source used or kept for this build, with its license.</caption>
+        <thead>
+          <tr>
+            <th scope="col">Source</th>
+            <th scope="col">Used for</th>
+            <th scope="col">Key</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sources.map((source) => (
+            <tr key={source.id}>
+              <td>
+                <a href={source.url}>{source.name}</a>
+                <span className="block text-xs">{source.license}</span>
+              </td>
+              <td>{source.usedFor}</td>
+              <td>{source.key}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <p lang="en">{t('banner.nasa')}</p>
       <p>{t('data.validation')}</p>
       <p>
@@ -254,6 +286,27 @@ export function SettingsPage() {
           <option value="system">{t('system')}</option>
           <option value="on">{t('on')}</option>
           <option value="off">{t('off')}</option>
+        </select>
+      </label>
+      <label>
+        {t('texture')}
+        <select
+          className="bg-space-950 mt-1 min-h-11 w-full rounded-full border border-white/20 px-4"
+          value={settings.textureQuality}
+          onChange={(event) =>
+            dispatch(
+              {
+                type: 'set_setting',
+                key: 'textureQuality',
+                value: event.target.value as 'auto' | '4k' | '8k',
+              },
+              'pointer',
+            )
+          }
+        >
+          <option value="auto">{t('textureAuto')}</option>
+          <option value="4k">{t('texture4k')}</option>
+          <option value="8k">{t('texture8k')}</option>
         </select>
       </label>
       <SettingSwitch

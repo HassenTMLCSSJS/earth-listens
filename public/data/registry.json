@@ -4,22 +4,99 @@
     {
       "id": "temperature",
       "config": "/data/layers/temperature.config.json",
-      "data": "/data/layers/temperature.sample.json"
+      "data": "/data/layers/temperature.sample.json",
+      "live": {
+        "feed": "gistemp",
+        "revalidate": 604800
+      },
+      "historicalOnly": false
     },
     {
       "id": "wildfire",
       "config": "/data/layers/wildfire.config.json",
-      "data": "/data/layers/wildfire.sample.json"
+      "data": "/data/layers/wildfire.sample.json",
+      "live": {
+        "feed": "firms-24h",
+        "revalidate": 1800
+      }
     },
     {
       "id": "sea_ice",
       "config": "/data/layers/sea_ice.config.json",
-      "data": "/data/layers/sea_ice.sample.json"
+      "data": "/data/layers/sea_ice.sample.json",
+      "live": {
+        "feed": "nsidc",
+        "revalidate": 86400
+      }
     },
     {
       "id": "co2",
       "config": "/data/layers/co2.config.json",
-      "data": "/data/layers/co2.sample.json"
+      "data": "/data/layers/co2.sample.json",
+      "live": {
+        "feed": "noaa-gml",
+        "revalidate": 86400
+      }
+    },
+    {
+      "id": "night_lights",
+      "config": "/data/layers/night_lights.config.json",
+      "data": "/data/layers/night_lights.json",
+      "view": "/data/views/night_lights.view.json",
+      "historicalOnly": false,
+      "sources": ["night_lights"],
+      "live": {
+        "feed": "gibs-grid",
+        "revalidate": 21600
+      }
+    },
+    {
+      "id": "ocean_sst",
+      "config": "/data/layers/ocean_sst.config.json",
+      "data": "/data/layers/ocean_sst.sample.json",
+      "view": "/data/views/ocean_sst.view.json",
+      "historicalOnly": false,
+      "sources": ["ocean_sst"],
+      "live": {
+        "feed": "gibs-grid",
+        "revalidate": 21600
+      }
+    },
+    {
+      "id": "ocean_currents",
+      "config": "/data/layers/ocean_currents.config.json",
+      "data": "/data/layers/ocean_currents.sample.json",
+      "view": "/data/views/ocean_currents.view.json",
+      "historicalOnly": true,
+      "sources": ["ocean_currents"]
+    },
+    {
+      "id": "aerosols",
+      "config": "/data/layers/aerosols.config.json",
+      "data": "/data/layers/aerosols.sample.json",
+      "view": "/data/views/aerosols.view.json",
+      "historicalOnly": true,
+      "sources": ["aerosols"]
+    },
+    {
+      "id": "air_quality",
+      "config": "/data/layers/air_quality.config.json",
+      "data": "/data/layers/air_quality.sample.json",
+      "view": "/data/views/air_quality.view.json",
+      "historicalOnly": false,
+      "sources": ["air_quality"],
+      "live": {
+        "feed": "open-meteo-aq",
+        "revalidate": 3600
+      }
+    },
+    {
+      "id": "lightning",
+      "config": "/data/layers/lightning.config.json",
+      "data": "/data/layers/lightning.sample.json",
+      "view": "/data/views/lightning.view.json",
+      "historicalOnly": true,
+      "sources": ["lightning"]
     }
   ]
 }

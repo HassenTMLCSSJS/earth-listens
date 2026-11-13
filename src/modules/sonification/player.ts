@@ -1,5 +1,5 @@
 import { EARCONS, crackleSeed } from './earcons';
-import { TIMBRE_PRESETS } from './timbres';
+import { timbreFor } from './timbres';
 import { clampMasterDb } from './math/volume';
 import { mulberry32 } from '@/core/prng';
 import type { EarconId, NoteEvent, Score } from './types';
@@ -154,7 +154,7 @@ export function createPlayer(): Player {
     if (!tone || !bus || event.flags.missing || event.freqHz <= 0) return;
     const gain = place(event);
     if (!gain) return;
-    const id = TIMBRE_PRESETS[event.layerId].id;
+    const id = timbreFor(event.layerId, event.voiceId);
     const dur = Math.max(0.05, event.dur);
 
     if (id === 'warm-lead') {
@@ -196,6 +196,46 @@ export function createPlayer(): Player {
         modulation: { type: 'sine' },
         envelope: { attack: 0.001, decay: 1.2, sustain: 0, release: 1.5 },
       });
+      synth.connect(gain);
+      synth.triggerAttackRelease(event.freqHz, dur, when);
+      scheduled.push(synth);
+      return;
+    }
+
+    if (id === 'water-fm' || id === 'night-bell') {
+      const synth = new tone.FMSynth({
+        harmonicity: id === 'water-fm' ? 1.5 : 4.2,
+        modulationIndex: id === 'water-fm' ? 3 : 8,
+        oscillator: { type: 'sine' },
+        modulation: { type: 'sine' },
+        envelope: { attack: 0.02, decay: 0.4, sustain: 0.2, release: 0.6 },
+      });
+      synth.connect(gain);
+      synth.triggerAttackRelease(event.freqHz, dur, when);
+      scheduled.push(synth);
+      return;
+    }
+
+    if (
+      id === 'air-flute' ||
+      id === 'grain-pad' ||
+      id === 'low-brass' ||
+      id === 'thunder-perc' ||
+      id === 'aq-chord'
+    ) {
+      const type =
+        id === 'air-flute'
+          ? 'triangle'
+          : id === 'low-brass'
+            ? 'square'
+            : id === 'grain-pad'
+              ? 'sawtooth'
+              : 'sine';
+      const envelope =
+        id === 'thunder-perc'
+          ? { attack: 0.001, decay: 0.12, sustain: 0, release: 0.05 }
+          : { attack: 0.03, decay: 0.2, sustain: 0.45, release: 0.25 };
+      const synth = new tone.Synth({ oscillator: { type }, envelope });
       synth.connect(gain);
       synth.triggerAttackRelease(event.freqHz, dur, when);
       scheduled.push(synth);

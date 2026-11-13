@@ -68,6 +68,12 @@ export const LAYER_REGISTERS: Record<
   wildfire: { solo: [60, 84], symphony: [69, 81] },
   sea_ice: { solo: [72, 96], symphony: [84, 96] },
   co2: { solo: [36, 43], symphony: [36, 43] },
+  night_lights: { solo: [52, 88], symphony: [60, 84] },
+  ocean_sst: { solo: [48, 84], symphony: [55, 72] },
+  ocean_currents: { solo: [40, 64], symphony: [40, 60] },
+  aerosols: { solo: [55, 86], symphony: [60, 84] },
+  air_quality: { solo: [52, 84], symphony: [55, 79] },
+  lightning: { solo: [72, 96], symphony: [84, 96] },
 };
 
 export const SAMPLE_RANGES: Record<LayerId, { min: number; max: number; unit: string }> = {
@@ -75,6 +81,16 @@ export const SAMPLE_RANGES: Record<LayerId, { min: number; max: number; unit: st
   wildfire: { min: 0, max: 500, unit: 'detections per 5° cell per day' },
   sea_ice: { min: 3, max: 8, unit: 'million km²' },
   co2: { min: 310, max: 440, unit: 'ppm' },
+  night_lights: {
+    min: 5.51,
+    max: 51.75,
+    unit: 'night brightness index (image-derived, not calibrated radiance)',
+  },
+  ocean_sst: { min: -2, max: 32, unit: '°C' },
+  ocean_currents: { min: 0, max: 1, unit: 'frame step (no numeric speed)' },
+  aerosols: { min: 0, max: 5, unit: 'AOD' },
+  air_quality: { min: 0, max: 75, unit: 'µg/m³' },
+  lightning: { min: 0, max: 1, unit: 'flash-rate index' },
 };
 
 export const TIMBRES = {
@@ -82,6 +98,12 @@ export const TIMBRES = {
   wildfire: 'crackle-marimba',
   sea_ice: 'glass-bells',
   co2: 'beating-drone',
+  night_lights: 'night-bell',
+  ocean_sst: 'water-fm',
+  ocean_currents: 'water-fm',
+  aerosols: 'grain-pad',
+  air_quality: 'aq-chord',
+  lightning: 'thunder-perc',
 } as const;
 
 export const GLOBAL_POSITION = { x: 0, y: 0, z: -1 } as const;

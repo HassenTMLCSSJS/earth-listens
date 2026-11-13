@@ -1,0 +1,21 @@
+{
+  "feed": "eonet",
+  "status": "snapshot",
+  "dataTime": "2026-11-12T00:22:00Z",
+  "fetchedAt": "2026-11-13T11:20:00Z",
+  "source": {
+    "name": "NASA EONET v3",
+    "url": "https://eonet.gsfc.nasa.gov/api/v3/events",
+    "license": "NASA; credit EONET"
+  },
+  "latencyNote": "Open events retrieved 2026-11-13. The bundled copy is a frozen subset.",
+  "snapshotId": "2651274d1289f28e",
+  "items": [
+    {
+      "id": "EONET_26331",
+      "title": "Wildfire Red Hill, Perry, Mississippi",
+      "lat": 31.130069,
+      "lon": -89.063853
+    }
+  ]
+}

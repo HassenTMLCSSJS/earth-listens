@@ -1,1 +1,10 @@
-Procedural stand-in. NASA Blue Marble URLs were not reachable from this build. Do not describe this file as a NASA image.
+Retrieved 2026-11-13 from NASA GIBS WMS (EPSG:4326) and NOAA ETOPO 2022.
+earth-day: BlueMarble_NextGeneration, 2048x1024 JPEG and WebP. SHA-256 JPEG 7f1b66f435c3a21a3dce6a537818997a28c5a820dd218c45308054daf2eddabd.
+earth-relief: BlueMarble_ShadedRelief_Bathymetry, 2048x1024 WebP.
+earth-night: VIIRS_Black_Marble TIME=2016-01-01. earth-night-2012: TIME=2012-01-01.
+Night brightness index (image-derived, not calibrated radiance) is cosine-weighted luma of the 1024x512 PNGs.
+earth-height / water mask / normal: ETOPO 2022 v1 60 arc-second surface grid, area-averaged with GDAL to 2048x1024.
+Offset -10900 m, scale 19700 m. Himalaya sample about 6218 m, Mariana sample about -9433 m after averaging.
+SHA-256 of the source grid 9d27d4b8ea8e76977e2988bca667d7c8fa68b927355feffcddd6b4875a7fd08e.
+Credit NOAA NCEI 2022 ETOPO and NASA GIBS. Not endorsed by NASA or NOAA.
+4K and 8K files are not in the repo. They belong in the data-v1 release and the R2 bucket.

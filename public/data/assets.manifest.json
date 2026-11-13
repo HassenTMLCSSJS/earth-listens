@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "generated": "2026-11-13T11:20:00Z",
+  "assets": [
+    {
+      "name": "earth-day.webp",
+      "path": "/textures/earth-day.webp",
+      "url": "/textures/earth-day.webp",
+      "bytes": 185296,
+      "sha256": "8da11136bf3d2d9e0f2378b984557523bf960027c7b4526fb3e7b85544defe70",
+      "tier": "2k",
+      "role": "earth-day"
+    },
+    {
+      "name": "earth-day.jpg",
+      "path": "/textures/earth-day.jpg",
+      "url": "/textures/earth-day.jpg",
+      "bytes": 209456,
+      "sha256": "7f1b66f435c3a21a3dce6a537818997a28c5a820dd218c45308054daf2eddabd",
+      "tier": "2k",
+      "role": "earth-day"
+    },
+    {
+      "name": "earth-relief.webp",
+      "path": "/textures/earth-relief.webp",
+      "url": "/textures/earth-relief.webp",
+      "bytes": 247982,
+      "sha256": "65dad24dd632b5a7f7f2894bac30110d757eae2221e5faaadc208f62f01fca83",
+      "tier": "2k",
+      "role": "earth-relief-bathy"
+    },
+    {
+      "name": "earth-night.webp",
+      "path": "/textures/earth-night.webp",
+      "url": "/textures/earth-night.webp",
+      "bytes": 86378,
+      "sha256": "8d3aff7dbf30597cb3b7ff67d454176ac9295ff2b89f46da32ff37e835dacf7e",
+      "tier": "2k",
+      "role": "earth-night"
+    },
+    {
+      "name": "earth-night-2012.webp",
+      "path": "/textures/earth-night-2012.webp",
+      "url": "/textures/earth-night-2012.webp",
+      "bytes": 25266,
+      "sha256": "86893576c9c62637b17e1342d147fdd64bb83d5b59c9567da53f071eab5878c3",
+      "tier": "2k",
+      "role": "earth-night-2012"
+    },
+    {
+      "name": "earth-height.png",
+      "path": "/textures/earth-height.png",
+      "url": "/textures/earth-height.png",
+      "bytes": 689859,
+      "sha256": "0a819f37dba804f269b208da140012a59be086879e231f2f4c09471b04c4425e",
+      "tier": "2k",
+      "role": "earth-height"
+    },
+    {
+      "name": "earth-water-mask.png",
+      "path": "/textures/earth-water-mask.png",
+      "url": "/textures/earth-water-mask.png",
+      "bytes": 30295,
+      "sha256": "5b4a01a8f5b7e3177db565d8dc2503e3965b07d483d998253cd0d00ea1df4848",
+      "tier": "2k",
+      "role": "earth-water-mask"
+    },
+    {
+      "name": "earth-normal.webp",
+      "path": "/textures/earth-normal.webp",
+      "url": "/textures/earth-normal.webp",
+      "bytes": 92818,
+      "sha256": "47ff1105a626cc6eefaa5e7b6ca52ff51d4fb0373c6bbee6ff0bc96e2c36ca99",
+      "tier": "2k",
+      "role": "earth-normal"
+    },
+    {
+      "name": "sst-ramp.png",
+      "path": "/ramps/sst.png",
+      "url": "/ramps/sst.png",
+      "bytes": 311,
+      "sha256": "0add9d03e91de1b3da01448992617e18aee3dceba256ea9263999845b7172f1d",
+      "tier": "ramp",
+      "role": "ramp-sst"
+    },
+    {
+      "name": "sst-2024-08-15.value.png",
+      "path": "/frames/ocean_sst/2024-08-15.value.png",
+      "url": "/frames/ocean_sst/2024-08-15.value.png",
+      "bytes": 44964,
+      "sha256": "bd40aea5e98dccf6ff68492e81e46bfa78906c7a8292de841b695b86256f2b09",
+      "tier": "frame",
+      "role": "ocean-sst-value"
+    },
+    {
+      "name": "sst-2024-08-15.png",
+      "path": "/frames/ocean_sst/2024-08-15.png",
+      "url": "/frames/ocean_sst/2024-08-15.png",
+      "bytes": 75525,
+      "sha256": "68bbf0c92fc229947f55bb936d31c86efe8131076ee560b4dcee859c2a546beb",
+      "tier": "frame",
+      "role": "ocean-sst-color"
+    }
+  ]
+}

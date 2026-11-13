@@ -1,0 +1,158 @@
+{
+  "id": "night_lights",
+  "sample": false,
+  "title": {
+    "en": "Night lights",
+    "ar": "أضواء الليل"
+  },
+  "unit": {
+    "en": "night brightness index (image-derived, not calibrated radiance)",
+    "ar": "مؤشر سطوع ليلي (مشتق من الصورة، ليس إشعاعًا معايرًا)"
+  },
+  "source": [
+    {
+      "name": "NASA GIBS VIIRS Black Marble 2012",
+      "dataset_url": "https://gibs.earthdata.nasa.gov/",
+      "eic_page": "https://svs.gsfc.nasa.gov/5313/",
+      "retrieved": "2026-11-13T11:20:00Z",
+      "sha256": "f37dd51adccbf247c7ecbfd8f0ee8eec02dfa96e04cbe6da72b88cb862a86f4c",
+      "citation": "NASA Earth Observatory / Black Marble (Suomi NPP VIIRS), Miguel Román, NASA GSFC; NASA GIBS",
+      "ack": "NASA Earth Observatory images by Joshua Stevens, using Suomi NPP VIIRS data from Miguel Román, NASA GSFC.",
+      "gibs_layer": "VIIRS_Black_Marble"
+    },
+    {
+      "name": "NASA GIBS VIIRS Black Marble 2016",
+      "dataset_url": "https://gibs.earthdata.nasa.gov/",
+      "eic_page": "https://svs.gsfc.nasa.gov/5475/",
+      "retrieved": "2026-11-13T11:20:00Z",
+      "sha256": "663523926f9c2df360e96799e7a3dcc9407d9ac387f84add14df173781c8855f",
+      "citation": "NASA Earth Observatory / Black Marble (Suomi NPP VIIRS), Miguel Román, NASA GSFC; NASA GIBS",
+      "ack": "NASA Earth Observatory images by Joshua Stevens, using Suomi NPP VIIRS data from Miguel Román, NASA GSFC.",
+      "gibs_layer": "VIIRS_Black_Marble"
+    }
+  ],
+  "range": {
+    "min": 5.51,
+    "max": 51.75
+  },
+  "series": {
+    "global": [
+      {
+        "t": 2012,
+        "v": 12.1298,
+        "q": "ok"
+      },
+      {
+        "t": 2016,
+        "v": 12.1857,
+        "q": "ok"
+      }
+    ],
+    "egypt": [
+      {
+        "t": 2012,
+        "v": 38.6884,
+        "q": "ok"
+      },
+      {
+        "t": 2016,
+        "v": 38.5287,
+        "q": "ok"
+      }
+    ],
+    "africa": [
+      {
+        "t": 2012,
+        "v": 18.5286,
+        "q": "ok"
+      },
+      {
+        "t": 2016,
+        "v": 18.6335,
+        "q": "ok"
+      }
+    ],
+    "arctic": [
+      {
+        "t": 2012,
+        "v": 17.2753,
+        "q": "ok"
+      },
+      {
+        "t": 2016,
+        "v": 17.2506,
+        "q": "ok"
+      }
+    ],
+    "europe": [
+      {
+        "t": 2012,
+        "v": 16.0756,
+        "q": "ok"
+      },
+      {
+        "t": 2016,
+        "v": 15.7698,
+        "q": "ok"
+      }
+    ],
+    "asia": [
+      {
+        "t": 2012,
+        "v": 15.8362,
+        "q": "ok"
+      },
+      {
+        "t": 2016,
+        "v": 16.2455,
+        "q": "ok"
+      }
+    ],
+    "americas": [
+      {
+        "t": 2012,
+        "v": 9.4969,
+        "q": "ok"
+      },
+      {
+        "t": 2016,
+        "v": 9.4701,
+        "q": "ok"
+      }
+    ],
+    "oceania": [
+      {
+        "t": 2012,
+        "v": 9.6532,
+        "q": "ok"
+      },
+      {
+        "t": 2016,
+        "v": 9.6831,
+        "q": "ok"
+      }
+    ]
+  },
+  "annual": null,
+  "cells": null,
+  "seasonalAmplitude": null,
+  "frames": [
+    {
+      "t": 2012,
+      "src": "/textures/earth-night-2012.webp",
+      "q": "ok",
+      "sample": false
+    },
+    {
+      "t": 2016,
+      "src": "/textures/earth-night.webp",
+      "q": "ok",
+      "sample": false
+    }
+  ],
+  "events": [],
+  "description": {
+    "en": "Cosine-weighted luma of the GIBS Black Marble PNG at 1024×512. This is a night brightness index (image-derived, not calibrated radiance). Range 5.51–51.75 is the 2016 image p5–p95.",
+    "ar": "لمعان موزون بجيب التمام لصورة الرخام الأسود من GIBS. مؤشر سطوع ليلي مشتق من الصورة، وليس إشعاعًا معايرًا."
+  }
+}
