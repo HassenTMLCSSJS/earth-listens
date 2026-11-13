@@ -41,6 +41,11 @@ Retrieved from NASA GIBS and NOAA. Not endorsed by NASA or NOAA.
 - NASA EONET and NASA FIRMS: see the source list on `/data`. The bundled FIRMS file is a partial excerpt, not a full day.
 - 4K/8K files are not in git. The archive of record is the GitHub release `data-v1`. Browsers load them from `NEXT_PUBLIC_ASSET_BASE_URL` (Cloudflare R2). `scripts/upload-r2.mjs` and `.github/workflows/sync-r2.yml` do the copy. This repository does not upload them.
 
+## Voices
+
+- Fixed narration MP3s are rendered with Resemble AI Chatterbox (MIT), https://github.com/resemble-ai/chatterbox. English clips use Chatterbox-Nano. Arabic clips use Chatterbox Multilingual V3. The project was archived in August 2026 and is unmaintained. Resemble AI does not sell or support this text-to-speech code. Every clip keeps Chatterbox's built-in Perth watermark (https://github.com/resemble-ai/perth).
+- Lines with no clip use the live chain already in the app. This pass does not add a new in-browser speech model.
+
 ## Sample data
 
 Files whose names end in `.sample.json`, and the frames under `public/frames/`, are formulas seeded with `mulberry32(20261114)`. They are labelled SAMPLE. They are not measurements from the sources above.

@@ -5,286 +5,286 @@
       "id": "intro.line1",
       "en": {
         "text": "Earth is always making a sound.",
-        "file": "/audio/narration/en/intro.line1.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/edbf3fa1a9a37c0096759cb86926847f5e5838dcbc4e72af6a8b78d68a483306.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "الأرض دايمًا بتطلّع صوت.",
-        "file": "/audio/narration/ar/intro.line1.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/b95eacc764d65c1336c4f042c75e0a181983f69237754e74ba2797c38f8b18bc.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "intro.line2",
       "en": {
         "text": "Can you hear the change?",
-        "file": "/audio/narration/en/intro.line2.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/3ca5727fca3eb4df86d22df8337e000b8ebea871d23846b3971bb18b15199bc6.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "سامع التغيير؟",
-        "file": "/audio/narration/ar/intro.line2.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/b6e48f70ec9e8ddaeb381c9afa03f69548372d3a5c71edfddee469ccb6b311b1.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "onboarding.main",
       "en": {
         "text": "Welcome to Earth Listens. Every sound here is a real NASA measurement. Higher notes mean more, louder means stronger, faster rhythm means faster change, and where you hear it is where it happens on Earth. Choose Audio-first mode or Visual mode. Press Talk or Alt+Shift+T and say 'play temperature', or say 'help' at any time.",
-        "file": "/audio/narration/en/onboarding.main.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/f3432e9c2ae03dedf6a35ad1e8cbf528b5f36a90c6b94ef4b5312fa1184f3e4f.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "أهلًا بيك في Earth Listens. كل صوت هنا قياس حقيقي من ناسا. النغمة لما تعلى يبقى الكمية زادت، الصوت لما يعلى يبقى الظاهرة أقوى، الإيقاع لما يسرع يبقى التغيير أسرع، والمكان اللي بتسمع منه الصوت هو مكانه على الأرض. اختار وضع الصوت أولًا أو الوضع المرئي. دوس على زرار الكلام وقول 'شغّل الحرارة'، أو قول 'مساعدة' في أي وقت.",
-        "file": "/audio/narration/ar/onboarding.main.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/77d620de7ad25f759e77140234d2d9eb70574f740f39bfa1490a2480e749e157.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "story.ch1",
       "en": {
         "text": "Earth is always making a sound. A slow drone is the planet breathing in numbers.",
-        "file": "/audio/narration/en/story.ch1.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/1d8de9b88d2751e37eac6b4671d3264976afb1432a73d3d9515a0962f648c7bf.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "الأرض دايمًا بتطلّع صوت. الدندنة البطيئة هي الكوكب وهو بيتنفس أرقام.",
-        "file": "/audio/narration/ar/story.ch1.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/95e29c09741883bbe182cadb21f12ac8babf2a50bde65a7ca96cce901325da82.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "story.ch2",
       "en": {
         "text": "NASA sees the planet in pictures. Earth Listens turns those pictures into sound.",
-        "file": "/audio/narration/en/story.ch2.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/bb4138603cbe575962fb537794b8658f29ce9d80b35656048b2437840ebefa49.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "ناسا بتشوف الكوكب في صور. Earth Listens بيحوّل الصور دي لصوت.",
-        "file": "/audio/narration/ar/story.ch2.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/c1424515ab16db4b165821e70862c5ec181b71ae20f7c4a616ac5c4b16b7b74d.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "story.ch3",
       "en": {
         "text": "Not everyone can see those pictures. The numbers behind this chapter still need Basmala’s check. [citation needed: Basmala]",
-        "file": "/audio/narration/en/story.ch3.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/ad35d8547a78d03adf77c54d1fc7a7aedd2adc493ce0602a8540684f9b320f5f.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "مش كل الناس تقدر تشوف الصور دي. الأرقام لسه محتاجة مراجعة بسمة. [citation needed: Basmala]",
-        "file": "/audio/narration/ar/story.ch3.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/9b7065c766bc1050c6a0ab3b84b63c9bb6fda1c1a579045b17ebbbb878207273.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "story.ch4",
       "en": {
         "text": "Five questions become five parts of a sound: where, how much, how strong, how fast, and what.",
-        "file": "/audio/narration/en/story.ch4.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/8e833f6505ec316a4dd384f9b8f7adc5135ddb59ff532e5ec56b18a8b1163f20.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "خمس أسئلة بتبقى خمس أجزاء من الصوت: فين، قد إيه، قد إيه قوي، قد إيه سريع، وإيه.",
-        "file": "/audio/narration/ar/story.ch4.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/c2d17bb88ad119d157120abeb3ad00056666484f866a1022053abea97c83bad7.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "story.ch5",
       "en": {
         "text": "Travel the sample years from 1880 to 2025. The pitch follows the sample series.",
-        "file": "/audio/narration/en/story.ch5.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/6127b53029649a925d85e6349545a8c830820140af3af2d5f82555384286013b.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "سافر في السنين التجريبية من ١٨٨٠ لـ ٢٠٢٥. النغمة ماشية مع السلسلة التجريبية.",
-        "file": "/audio/narration/ar/story.ch5.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/2b927f8de0dc436ebd4c96f7053f54c8039eaf1bb22d26c95b1f403777d78310.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "story.ch6",
       "en": {
         "text": "Hear the planet. Start listening, switch to audio-first, take the tutorial, or guess the Earth.",
-        "file": "/audio/narration/en/story.ch6.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/576c8060603ccb81190d974e7e8f911d58dde14e61911710453d5d2e41ddf8cd.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "اسمع الكوكب. ابدأ الاستماع، أو وضع الصوت أولًا، أو الدرس، أو خمّن الأرض.",
-        "file": "/audio/narration/ar/story.ch6.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/ac7115c36117216a8640a3a7b6c5dcf70756738d339948eb944486e289233d60.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "tutorial.step1",
       "en": {
         "text": "Press Listen, or say play temperature.",
-        "file": "/audio/narration/en/tutorial.step1.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/c15510520632a0df28b786a3791b47c5d28dd30c8da01a64357fd9574ffc93f0.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "دوس اسمع، أو قول شغّل الحرارة.",
-        "file": "/audio/narration/ar/tutorial.step1.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/05dc9b5c7c0a73aacd7d8c09b877eac38a84e65237f03fda2e025a66d8af2132.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "tutorial.step2",
       "en": {
         "text": "Move the years to 1990, or say go to 1990.",
-        "file": "/audio/narration/en/tutorial.step2.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/e684a23821d0ac42f2fc4b4448bccdcacf18df49180b953e04689952fd828535.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "حرّك السنين لسنة ١٩٩٠، أو قول روح لسنة ١٩٩٠.",
-        "file": "/audio/narration/ar/tutorial.step2.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/59b408ff2f540081a588b06bb837903d1a51d2eaab7da0ef6cd9b22883b297b1.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "tutorial.step3",
       "en": {
         "text": "Say or type compare 1900 and 2020.",
-        "file": "/audio/narration/en/tutorial.step3.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/53043b6899c500a7cf3f83b368075745537dbbb643b1f3d050fda13e254a6c6d.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "قول أو اكتب قارن ١٩٠٠ و٢٠٢٠.",
-        "file": "/audio/narration/ar/tutorial.step3.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/d97dc3c3248a7abda227ecf85d0dd208d99802f1e97a6b7c94274c050249e310.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "tutorial.step4",
       "en": {
         "text": "Add sea ice.",
-        "file": "/audio/narration/en/tutorial.step4.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/a670a5be900a676c9ad4f4691cb20e0730884e594af3b306413626abc535ab9a.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "ضيف الجليد.",
-        "file": "/audio/narration/ar/tutorial.step4.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/0386828a3e00d8fc9fae1ad91109df66f9925e4271c1b59388897c85c52c9c28.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "tutorial.step5",
       "en": {
         "text": "Rotate the globe with the arrow keys, or say go to Africa.",
-        "file": "/audio/narration/en/tutorial.step5.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/2469cb36408d4811c17597322928900feb681113c60d99b70f9596517eeb061f.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "لف الكرة بالأسهم، أو قول روح لأفريقيا.",
-        "file": "/audio/narration/ar/tutorial.step5.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/e0b87bfb4ff420d708a033bb21d45d4d571c3cd2e7c6babbbca15481ddf6fbd1.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "tutorial.step6",
       "en": {
         "text": "Ask what am I hearing.",
-        "file": "/audio/narration/en/tutorial.step6.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/347a4c00d7ecab6e6fadbbbb302a8f59f952e02f55edff6522a826f7b0c5843b.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "اسأل أنا بسمع إيه.",
-        "file": "/audio/narration/ar/tutorial.step6.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/dc573aeadd2750de3c077f63ca5434edc2d05ca0db51b3c48768061857dd0193.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "tutorial.step7",
       "en": {
         "text": "Start the quiz.",
-        "file": "/audio/narration/en/tutorial.step7.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/976d91914767b76365dd5359bf94c4043654159cb35173ee8f2d6068c3b114ec.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "ابدأ الاختبار.",
-        "file": "/audio/narration/ar/tutorial.step7.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/4534b9a2e7c2e25c52f4b02c6a09215286937476b825cfb5647b17c4e8ee8195.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "quiz.intro",
       "en": {
         "text": "Guess the Earth. You will hear a clip. Did it increase, decrease, or stay the same?",
-        "file": "/audio/narration/en/quiz.intro.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/d8a887860691bcef15475d8c4bbe19ad6ecce35f2e07c6bb23ccecd15e79b9eb.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "خمّن الأرض. هتسمع مقطع. زاد، قل، ولا زي ما هو؟",
-        "file": "/audio/narration/ar/quiz.intro.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/dff254d6dc486cdcb21c69693eff7787715ffdb1a194e3cca9634ec1adf8ea21.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "quiz.question",
       "en": {
         "text": "Did it increase, decrease, or stay the same?",
-        "file": "/audio/narration/en/quiz.question.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/442ba4eae1864c1f367a58b13e44e877f841ed8ca8ba4d57fe1408522ef325d4.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "زاد، قل، ولا زي ما هو؟",
-        "file": "/audio/narration/ar/quiz.question.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/22b1c8492052a682a81505b6913da13fda58c69580164abd635d62faf826745f.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "quiz.correct",
       "en": {
         "text": "Yes. That matches the sample series.",
-        "file": "/audio/narration/en/quiz.correct.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/16902760ec5e85804eff060d2c9cddd0403973d18532a3399bd41dca164053a3.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "صح. ده مطابق للسلسلة التجريبية.",
-        "file": "/audio/narration/ar/quiz.correct.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/b2ccc1f988ceca1b87ca2cfddf39c3d8e6bfb9727f2bb5004618dd51ac47d324.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "quiz.wrong",
       "en": {
         "text": "Not this time. The sample series says otherwise.",
-        "file": "/audio/narration/en/quiz.wrong.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/987dc6c010fac31215492e00070195d9d40de6d89cce23cda3d8ba52664929e0.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "مش المرة دي. السلسلة التجريبية بتقول غير كده.",
-        "file": "/audio/narration/ar/quiz.wrong.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/738041e1d432794be2927dc305fffff23c7f4920ef12d6f0c90f5be5a0ef48e0.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "quiz.end",
       "en": {
         "text": "Quiz complete. Could you explore this without help?",
-        "file": "/audio/narration/en/quiz.end.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/40ec355a71408c168d406ce0e560a023d0f6ef1b7fc9a3c569a3ff4a3b9151ce.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "الاختبار خلّص. قدرت تستكشف من غير مساعدة؟",
-        "file": "/audio/narration/ar/quiz.end.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/eb1efd2b6b611c5d019f92797c6ff05a7d5a4871a680ea318fbd9ce492c2b241.mp3",
+        "status": "recorded"
       }
     },
     {
       "id": "help.commands",
       "en": {
         "text": "Say play temperature, stop, go to 1990, compare 1900 and 2020, or help.",
-        "file": "/audio/narration/en/help.commands.mp3",
-        "status": "missing"
+        "file": "/audio/narration/en/a55a288870e65a61cfc5ad39df01ad76643ffe14dc1233f53807eab6cb574415.mp3",
+        "status": "recorded"
       },
       "ar": {
         "text": "قول شغّل الحرارة، وقّف، روح لسنة ١٩٩٠، قارن ١٩٠٠ و٢٠٢٠، أو مساعدة.",
-        "file": "/audio/narration/ar/help.commands.mp3",
-        "status": "missing"
+        "file": "/audio/narration/ar/ceb6985b53a6ce5674989a0f0d2461dc8d67e34fded4f9bb34b1a7952503093d.mp3",
+        "status": "recorded"
       }
     }
   ]
