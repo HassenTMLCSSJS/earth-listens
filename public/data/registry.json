@@ -97,6 +97,24 @@
       "view": "/data/views/lightning.view.json",
       "historicalOnly": true,
       "sources": ["lightning"]
+    },
+    {
+      "id": "forest",
+      "config": "/data/layers/forest.config.json",
+      "data": "/data/layers/forest.sample.json",
+      "historicalOnly": true
+    },
+    {
+      "id": "precipitation",
+      "config": "/data/layers/precipitation.config.json",
+      "data": "/data/layers/precipitation.sample.json",
+      "historicalOnly": false
+    },
+    {
+      "id": "events",
+      "config": "/data/layers/events.config.json",
+      "data": "/data/layers/events.sample.json",
+      "historicalOnly": false
     }
   ]
 }

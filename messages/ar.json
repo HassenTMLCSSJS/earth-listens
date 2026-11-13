@@ -94,7 +94,10 @@
     "ocean_currents": "تيارات المحيط",
     "aerosols": "الهباء الجوي",
     "air_quality": "جودة الهواء",
-    "lightning": "البرق"
+    "lightning": "البرق",
+    "forest": "ارتفاع الغابات",
+    "precipitation": "هطول الأمطار",
+    "events": "أحداث طبيعية"
   },
   "regions": {
     "global": "العالم",

@@ -111,6 +111,36 @@ const COPY: Record<
       ar: 'مؤشر ومضات تجريبي، ليس أعداد LIS. النوافذ من ربيع 2017 لصيف 2021. الإطار بيسجل الأيام الموجودة فعلا.',
     },
   },
+  forest: {
+    short: {
+      en: 'SAMPLE. Taller sample canopy plays a higher note; denser variation widens the sound. The real GEDI layer is not wired yet.',
+      ar: 'بيانات تجريبية. الغطاء الأعلى نغمته أعلى؛ والتنوع الأكبر يوسّع الصوت. طبقة GEDI الحقيقية لسه مش متوصلة.',
+    },
+    detailed: {
+      en: 'SAMPLE canopy-height values for 2019–2023, shaped like NASA GEDI. Not a measurement. No map frames are shipped for this layer yet, so the globe shows no forest overlay.',
+      ar: 'قيم ارتفاع غطاء تجريبية من 2019 لـ 2023، على شكل GEDI. مش قياس. مفيش إطارات خريطة للطبقة دي لسه، فالكرة ما بتعرضش طبقة غابات.',
+    },
+  },
+  precipitation: {
+    short: {
+      en: 'SAMPLE. More rain plays faster ticks; dry years fall silent. The real IMERG layer is not wired yet.',
+      ar: 'بيانات تجريبية. مطر أكتر يعني تكات أسرع؛ والسنين الجافة تسكت. طبقة IMERG الحقيقية لسه مش متوصلة.',
+    },
+    detailed: {
+      en: 'SAMPLE annual precipitation-rate series for 2000–2025, shaped like IMERG. Not a measurement. No map frames are shipped for this layer yet.',
+      ar: 'سلسلة تجريبية لمعدل هطول الأمطار السنوي من 2000 لـ 2025، على شكل IMERG. مش قياس. مفيش إطارات خريطة للطبقة دي لسه.',
+    },
+  },
+  events: {
+    short: {
+      en: 'SAMPLE. More events play more strikes. The real EONET markers are not wired yet.',
+      ar: 'بيانات تجريبية. أحداث أكتر يعني ضربات أكتر. علامات EONET الحقيقية لسه مش متوصلة.',
+    },
+    detailed: {
+      en: 'SAMPLE yearly natural-event counts for 2001–2025, shaped like NASA EONET. Not a measurement. Markers and the event feed are not wired yet.',
+      ar: 'أعداد تجريبية للأحداث الطبيعية السنوية من 2001 لـ 2025، على شكل EONET. مش قياس. العلامات وتغذية الأحداث لسه مش متوصلة.',
+    },
+  },
 };
 
 async function main(): Promise<void> {

@@ -80,8 +80,7 @@ export function GlobeStage() {
   const visual = useAppStore((state) => state.visual);
 
   const spatial = spatialize(37.5, 22.5, view.lat, view.lon);
-  const frame =
-    catalog[layers[0] ?? 'temperature']?.data.frames.at(-1)?.src ?? '/frames/temperature/2025.webp';
+  const frame = catalog[layers[0] ?? 'temperature']?.data.frames.at(-1)?.src;
   const cells = useMemo(() => {
     if (!layers.includes('wildfire')) return [];
     const all = catalog.wildfire?.data.cells ?? [];
@@ -186,13 +185,15 @@ export function GlobeStage() {
           className="h-full w-full object-cover"
         />
       )}
-      <img
-        src={frame}
-        alt=""
-        width={960}
-        height={420}
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40 mix-blend-screen"
-      />
+      {frame ? (
+        <img
+          src={frame}
+          alt=""
+          width={960}
+          height={420}
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40 mix-blend-screen"
+        />
+      ) : null}
       <div id="globe-classic" className="absolute inset-0" hidden={!forceClassic} />
       <p className="bg-space-950/80 absolute inset-x-0 bottom-0 grid gap-1 p-3 text-sm">
         <span>{t('summary')}</span>

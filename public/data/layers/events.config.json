@@ -1,0 +1,46 @@
+{
+  "id": "events",
+  "category": "weather",
+  "title": {
+    "en": "Natural events",
+    "ar": "أحداث طبيعية"
+  },
+  "unit": {
+    "en": "events per year",
+    "ar": "حدث في السنة"
+  },
+  "timeKind": "year",
+  "eic": {
+    "page": "https://eonet.gsfc.nasa.gov/",
+    "frames": "/frames/events"
+  },
+  "variables": {
+    "how_much": {
+      "field": "count",
+      "range": [0, 50]
+    },
+    "how_strong": {
+      "field": "severity",
+      "range": [0, 50]
+    },
+    "how_fast": {
+      "field": "delta(count)",
+      "range": [-10, 10]
+    },
+    "where": {
+      "field": "region_center"
+    }
+  },
+  "what": {
+    "timbre": "thunder-perc",
+    "register": [60, 84],
+    "symphonyRegister": [60, 79]
+  },
+  "scale": "chromatic",
+  "regions": ["global", "egypt", "africa", "arctic", "europe", "asia", "americas", "oceania"],
+  "symphony": {
+    "role": "markers",
+    "from": 2001,
+    "to": 2025
+  }
+}
