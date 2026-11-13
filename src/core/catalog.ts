@@ -4,6 +4,7 @@ import { create } from 'zustand';
 import { LAYER_IDS, type LayerId } from '@/core/actions';
 import { loadRegistry, type LoadedLayer, type QuizFile } from '@/modules/data';
 import { useAppStore } from '@/core/store';
+import { preloadNarrationClips } from '@/modules/voice';
 
 export interface ExplanationItem {
   id: LayerId;
@@ -78,6 +79,7 @@ export const useContent = create<ContentState>((set, get) => ({
       ),
       fetch('/data/regions.json'),
       fetch('/audio/narration/manifest.json'),
+      preloadNarrationClips(),
     ]);
     useAppStore.getState().setCatalog(catalog);
     set({ ready: true, explanations: explanations.items, quiz });

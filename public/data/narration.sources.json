@@ -1,0 +1,883 @@
+{
+  "version": 1,
+  "hash": "sha256",
+  "formula": "sha256(utf8(lang + '\\n' + text))",
+  "lines": [
+    {
+      "id": "intro.line1",
+      "lang": "en",
+      "kind": "script",
+      "text": "Earth is always making a sound."
+    },
+    {
+      "id": "intro.line1",
+      "lang": "ar",
+      "kind": "script",
+      "text": "الأرض دايمًا بتطلّع صوت."
+    },
+    {
+      "id": "intro.line2",
+      "lang": "en",
+      "kind": "script",
+      "text": "Can you hear the change?"
+    },
+    {
+      "id": "intro.line2",
+      "lang": "ar",
+      "kind": "script",
+      "text": "سامع التغيير؟"
+    },
+    {
+      "id": "onboarding.main",
+      "lang": "en",
+      "kind": "script",
+      "text": "Welcome to Earth Listens. Every sound here is a real NASA measurement. Higher notes mean more, louder means stronger, faster rhythm means faster change, and where you hear it is where it happens on Earth. Choose Audio-first mode or Visual mode. Press Talk or Alt+Shift+T and say 'play temperature', or say 'help' at any time."
+    },
+    {
+      "id": "onboarding.main",
+      "lang": "ar",
+      "kind": "script",
+      "text": "أهلًا بيك في Earth Listens. كل صوت هنا قياس حقيقي من ناسا. النغمة لما تعلى يبقى الكمية زادت، الصوت لما يعلى يبقى الظاهرة أقوى، الإيقاع لما يسرع يبقى التغيير أسرع، والمكان اللي بتسمع منه الصوت هو مكانه على الأرض. اختار وضع الصوت أولًا أو الوضع المرئي. دوس على زرار الكلام وقول 'شغّل الحرارة'، أو قول 'مساعدة' في أي وقت."
+    },
+    {
+      "id": "story.ch1",
+      "lang": "en",
+      "kind": "script",
+      "text": "Earth is always making a sound. A slow drone is the planet breathing in numbers."
+    },
+    {
+      "id": "story.ch1",
+      "lang": "ar",
+      "kind": "script",
+      "text": "الأرض دايمًا بتطلّع صوت. الدندنة البطيئة هي الكوكب وهو بيتنفس أرقام."
+    },
+    {
+      "id": "story.ch2",
+      "lang": "en",
+      "kind": "script",
+      "text": "NASA sees the planet in pictures. Earth Listens turns those pictures into sound."
+    },
+    {
+      "id": "story.ch2",
+      "lang": "ar",
+      "kind": "script",
+      "text": "ناسا بتشوف الكوكب في صور. Earth Listens بيحوّل الصور دي لصوت."
+    },
+    {
+      "id": "story.ch3",
+      "lang": "en",
+      "kind": "script",
+      "text": "Not everyone can see those pictures. The numbers behind this chapter still need Basmala’s check. [citation needed: Basmala]"
+    },
+    {
+      "id": "story.ch3",
+      "lang": "ar",
+      "kind": "script",
+      "text": "مش كل الناس تقدر تشوف الصور دي. الأرقام لسه محتاجة مراجعة بسمة. [citation needed: Basmala]"
+    },
+    {
+      "id": "story.ch4",
+      "lang": "en",
+      "kind": "script",
+      "text": "Five questions become five parts of a sound: where, how much, how strong, how fast, and what."
+    },
+    {
+      "id": "story.ch4",
+      "lang": "ar",
+      "kind": "script",
+      "text": "خمس أسئلة بتبقى خمس أجزاء من الصوت: فين، قد إيه، قد إيه قوي، قد إيه سريع، وإيه."
+    },
+    {
+      "id": "story.ch5",
+      "lang": "en",
+      "kind": "script",
+      "text": "Travel the sample years from 1880 to 2025. The pitch follows the sample series."
+    },
+    {
+      "id": "story.ch5",
+      "lang": "ar",
+      "kind": "script",
+      "text": "سافر في السنين التجريبية من ١٨٨٠ لـ ٢٠٢٥. النغمة ماشية مع السلسلة التجريبية."
+    },
+    {
+      "id": "story.ch6",
+      "lang": "en",
+      "kind": "script",
+      "text": "Hear the planet. Start listening, switch to audio-first, take the tutorial, or guess the Earth."
+    },
+    {
+      "id": "story.ch6",
+      "lang": "ar",
+      "kind": "script",
+      "text": "اسمع الكوكب. ابدأ الاستماع، أو وضع الصوت أولًا، أو الدرس، أو خمّن الأرض."
+    },
+    {
+      "id": "tutorial.step1",
+      "lang": "en",
+      "kind": "script",
+      "text": "Press Listen, or say play temperature."
+    },
+    {
+      "id": "tutorial.step1",
+      "lang": "ar",
+      "kind": "script",
+      "text": "دوس اسمع، أو قول شغّل الحرارة."
+    },
+    {
+      "id": "tutorial.step2",
+      "lang": "en",
+      "kind": "script",
+      "text": "Move the years to 1990, or say go to 1990."
+    },
+    {
+      "id": "tutorial.step2",
+      "lang": "ar",
+      "kind": "script",
+      "text": "حرّك السنين لسنة ١٩٩٠، أو قول روح لسنة ١٩٩٠."
+    },
+    {
+      "id": "tutorial.step3",
+      "lang": "en",
+      "kind": "script",
+      "text": "Say or type compare 1900 and 2020."
+    },
+    {
+      "id": "tutorial.step3",
+      "lang": "ar",
+      "kind": "script",
+      "text": "قول أو اكتب قارن ١٩٠٠ و٢٠٢٠."
+    },
+    {
+      "id": "tutorial.step4",
+      "lang": "en",
+      "kind": "script",
+      "text": "Add sea ice."
+    },
+    {
+      "id": "tutorial.step4",
+      "lang": "ar",
+      "kind": "script",
+      "text": "ضيف الجليد."
+    },
+    {
+      "id": "tutorial.step5",
+      "lang": "en",
+      "kind": "script",
+      "text": "Rotate the globe with the arrow keys, or say go to Africa."
+    },
+    {
+      "id": "tutorial.step5",
+      "lang": "ar",
+      "kind": "script",
+      "text": "لف الكرة بالأسهم، أو قول روح لأفريقيا."
+    },
+    {
+      "id": "tutorial.step6",
+      "lang": "en",
+      "kind": "script",
+      "text": "Ask what am I hearing."
+    },
+    {
+      "id": "tutorial.step6",
+      "lang": "ar",
+      "kind": "script",
+      "text": "اسأل أنا بسمع إيه."
+    },
+    {
+      "id": "tutorial.step7",
+      "lang": "en",
+      "kind": "script",
+      "text": "Start the quiz."
+    },
+    {
+      "id": "tutorial.step7",
+      "lang": "ar",
+      "kind": "script",
+      "text": "ابدأ الاختبار."
+    },
+    {
+      "id": "quiz.intro",
+      "lang": "en",
+      "kind": "script",
+      "text": "Guess the Earth. You will hear a clip. Did it increase, decrease, or stay the same?"
+    },
+    {
+      "id": "quiz.intro",
+      "lang": "ar",
+      "kind": "script",
+      "text": "خمّن الأرض. هتسمع مقطع. زاد، قل، ولا زي ما هو؟"
+    },
+    {
+      "id": "quiz.question",
+      "lang": "en",
+      "kind": "script",
+      "text": "Did it increase, decrease, or stay the same?"
+    },
+    {
+      "id": "quiz.question",
+      "lang": "ar",
+      "kind": "script",
+      "text": "زاد، قل، ولا زي ما هو؟"
+    },
+    {
+      "id": "quiz.correct",
+      "lang": "en",
+      "kind": "script",
+      "text": "Yes. That matches the sample series."
+    },
+    {
+      "id": "quiz.correct",
+      "lang": "ar",
+      "kind": "script",
+      "text": "صح. ده مطابق للسلسلة التجريبية."
+    },
+    {
+      "id": "quiz.wrong",
+      "lang": "en",
+      "kind": "script",
+      "text": "Not this time. The sample series says otherwise."
+    },
+    {
+      "id": "quiz.wrong",
+      "lang": "ar",
+      "kind": "script",
+      "text": "مش المرة دي. السلسلة التجريبية بتقول غير كده."
+    },
+    {
+      "id": "quiz.end",
+      "lang": "en",
+      "kind": "script",
+      "text": "Quiz complete. Could you explore this without help?"
+    },
+    {
+      "id": "quiz.end",
+      "lang": "ar",
+      "kind": "script",
+      "text": "الاختبار خلّص. قدرت تستكشف من غير مساعدة؟"
+    },
+    {
+      "id": "help.commands",
+      "lang": "en",
+      "kind": "script",
+      "text": "Say play temperature, stop, go to 1990, compare 1900 and 2020, or help."
+    },
+    {
+      "id": "help.commands",
+      "lang": "ar",
+      "kind": "script",
+      "text": "قول شغّل الحرارة، وقّف، روح لسنة ١٩٩٠، قارن ١٩٠٠ و٢٠٢٠، أو مساعدة."
+    },
+    {
+      "id": "temperature.short",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "Real GISTEMP v4. Higher notes mean warmer years. The range goes from -0.6 to 1.4 °C, and the rhythm speeds up when the year-to-year change is bigger. Range -0.6 to 1.4."
+    },
+    {
+      "id": "temperature.short",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "بيانات GISTEMP v4 الحقيقية. النغمة الأعلى تعني سنة أدفأ. المدى من -0.6 إلى 1.4 درجة، والإيقاع يسرع لما الفرق بين السنين يكبر. المدى من -0.6 إلى 1.4."
+    },
+    {
+      "id": "temperature.detailed",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "Real GISTEMP v4 annual global mean anomaly, 1880–2025. Pitch is the anomaly, loudness is fixed for this layer, and rhythm follows the change from the previous year. GISTEMP is global only, so other regions have no series. Globe map frames are marked stand-ins. Range -0.6 to 1.4."
+    },
+    {
+      "id": "temperature.detailed",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "شذوذ سنوي عالمي حقيقي من GISTEMP v4، من 1880 إلى 2025. الطبقة هي الشذوذ، والعلو ثابت، والإيقاع ماشي مع الفرق عن السنة اللي فاتت. GISTEMP عالمي فقط، فمفيش سلسلة لمناطق تانية. إطارات الخريطة مولّدة. المدى من -0.6 إلى 1.4."
+    },
+    {
+      "id": "wildfire.short",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE. More detections play a higher note. Louder means higher sample fire power. You hear the sound from the cell’s place on Earth. Sample range 0 to 500."
+    },
+    {
+      "id": "wildfire.short",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "بيانات تجريبية. الرصدات الأكتر نغمتها أعلى. الصوت الأعلى يعني طاقة حريق تجريبية أكبر. هتسمع الصوت من مكان الخلية على الأرض. المدى التجريبي من 0 إلى 500."
+    },
+    {
+      "id": "wildfire.detailed",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE counts on a 5° grid, not FIRMS detections. The loudest cells are the top 24 that day. A week-earlier cell sets the rhythm. Annual sample values stay inside the daily range so the symphony does not slam the ceiling. Sample range 0 to 500."
+    },
+    {
+      "id": "wildfire.detailed",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "أعداد تجريبية على شبكة 5 درجات، ليست رصدات FIRMS. أعلى 24 خلية في اليوم هي اللي بتسمع. خلية من أسبوع فات بتحدد الإيقاع. القيم السنوية التجريبية جوه المدى اليومي عشان السيمفونية ما تطلعش للسقف. المدى التجريبي من 0 إلى 500."
+    },
+    {
+      "id": "sea_ice.short",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "Real NSIDC September Arctic extent. Higher notes mean more ice. The sound sits in the north, and other regions have no September series. Range 3 to 8."
+    },
+    {
+      "id": "sea_ice.short",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "امتداد جليد سبتمبر الحقيقي من NSIDC. النغمة الأعلى تعني جليدًا أكثر. الصوت جاي من الشمال، ومفيش سلسلة سبتمبر لمناطق تانية. المدى من 3 إلى 8."
+    },
+    {
+      "id": "sea_ice.detailed",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "Real NSIDC Sea Ice Index v4 September Arctic extent, 1979–2026. Loudness is steady. Rhythm follows the change since the previous September. The DOI still needs a check before anyone cites it. Range 3 to 8."
+    },
+    {
+      "id": "sea_ice.detailed",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "امتداد جليد سبتمبر الحقيقي من NSIDC v4، من 1979 إلى 2026. العلو ثابت. الإيقاع ماشي مع الفرق عن سبتمبر اللي فات. رقم DOI لسه محتاج مراجعة قبل أي استشهاد. المدى من 3 إلى 8."
+    },
+    {
+      "id": "co2.short",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "Real NOAA Mauna Loa CO₂. Higher notes mean a higher annual mean. The drone has no left-right position because the series is global. Range 310 to 440."
+    },
+    {
+      "id": "co2.short",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "ثاني أكسيد كربون حقيقي من ماونا لوا التابع لـ NOAA. النغمة الأعلى تعني متوسطًا سنويًا أعلى. الدندنة ملهاش يمين وشمال لأن السلسلة عالمية. المدى من 310 إلى 440."
+    },
+    {
+      "id": "co2.detailed",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "Real NOAA GML Mauna Loa annual means, 1958–2025. Complete calendar years only; 2026 is incomplete and is not filled. Seasonal amplitude is not shipped in this file, and this is not a forecast. Range 310 to 440."
+    },
+    {
+      "id": "co2.detailed",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "متوسطات سنوية حقيقية من ماونا لوا التابع لـ NOAA GML، من 1958 إلى 2025. السنوات الكاملة فقط؛ 2026 ناقصة ولا تُملأ. سعة الموسم غير مرفقة في الملف، وده مش توقع. المدى من 310 إلى 440."
+    },
+    {
+      "id": "night_lights.short",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "Higher notes mean a higher night brightness index (image-derived, not calibrated radiance). Range 5.51 to 51.75."
+    },
+    {
+      "id": "night_lights.short",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "النغمة الأعلى تعني مؤشر سطوع ليلي أعلى (مشتق من الصورة، مش إشعاع معاير). المدى من 5.51 إلى 51.75."
+    },
+    {
+      "id": "night_lights.detailed",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "The index is the cosine-weighted luma of the NASA GIBS Black Marble PNG. It is not calibrated radiance. Brighter is a bell, dimmer is a pad. Range 5.51 to 51.75."
+    },
+    {
+      "id": "night_lights.detailed",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "المؤشر هو لمعان صورة الرخام الأسود من GIBS موزون بجيب التمام. ده مش إشعاع معاير. الأفتح جرس، والأغمق وسادة. المدى من 5.51 إلى 51.75."
+    },
+    {
+      "id": "ocean_sst.short",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE series. Higher notes mean warmer sample sea-surface values. The globe can still show a real GIBS frame. Sample range -2 to 32."
+    },
+    {
+      "id": "ocean_sst.short",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "سلسلة تجريبية. النغمة الأعلى تعني سطح بحر أدفأ في العينة. الكرة ممكن تعرض إطار حقيقي من GIBS. المدى التجريبي من -2 إلى 32."
+    },
+    {
+      "id": "ocean_sst.detailed",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE ocean series, not the MUR record. A decoded 15 Aug 2024 frame is a separate real snapshot. Sample range -2 to 32."
+    },
+    {
+      "id": "ocean_sst.detailed",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "سلسلة محيط تجريبية، ليست سجل MUR. إطار 15 أغسطس 2024 المفكوك لقطة حقيقية منفصلة. المدى التجريبي من -2 إلى 32."
+    },
+    {
+      "id": "ocean_currents.short",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE. Currents are a picture of flow. This build does not invent speeds. Sample range 0 to 1."
+    },
+    {
+      "id": "ocean_currents.short",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "تجريبي. التيارات صورة للجريان. البناء ده ما بيخترعش سرعات. المدى التجريبي من 0 إلى 1."
+    },
+    {
+      "id": "ocean_currents.detailed",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE bed. Direction comes from frames when they exist. No numeric current speed is spoken. Sample range 0 to 1."
+    },
+    {
+      "id": "ocean_currents.detailed",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "خلفية تجريبية. الاتجاه من الإطارات لما توجد. مفيش سرعة رقمية بتتقال. المدى التجريبي من 0 إلى 1."
+    },
+    {
+      "id": "aerosols.short",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE. Sea salt, dust, smoke and sulfate would be four timbres. This series is still a sample. Sample range 0 to 5."
+    },
+    {
+      "id": "aerosols.short",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "تجريبي. ملح البحر والتراب والدخان والكبريتات أربع طبقات صوت. السلسلة لسه تجريبية. المدى التجريبي من 0 إلى 5."
+    },
+    {
+      "id": "aerosols.detailed",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE aerosol series. Real MERRA-2 frames are a pipeline step. Species timbres are sea salt flute, dust pad, smoke brass, sulfate bell. Sample range 0 to 5."
+    },
+    {
+      "id": "aerosols.detailed",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "سلسلة هباء تجريبية. إطارات MERRA-2 الحقيقية خطوة في خط الأنابيب. الطبقات: ناي، وسادة، نحاس، جرس. المدى التجريبي من 0 إلى 5."
+    },
+    {
+      "id": "air_quality.short",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE history. Live Cairo air quality, when the network is up, is a separate Open-Meteo snapshot. Sample range 0 to 75."
+    },
+    {
+      "id": "air_quality.short",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "تاريخ تجريبي. جودة هواء القاهرة المباشرة، لما الشبكة شغالة، لقطة Open-Meteo منفصلة. المدى التجريبي من 0 إلى 75."
+    },
+    {
+      "id": "air_quality.detailed",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE chord. PM2.5, ozone, CO and NOx are four voices when a real snapshot is loaded. The sample series is not a measurement. Sample range 0 to 75."
+    },
+    {
+      "id": "air_quality.detailed",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "كورد تجريبي. الجسيمات والأوزون وأول أكسيد الكربون وأكاسيد النيتروجين أربع أصوات لما اللقطة الحقيقية تتحمل. السلسلة التجريبية مش قياس. المدى التجريبي من 0 إلى 75."
+    },
+    {
+      "id": "lightning.short",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE ticks. Lightning here is historical only: 18 seasons, each a 10-day window, and missing days are not filled. Sample range 0 to 1."
+    },
+    {
+      "id": "lightning.short",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "تكات تجريبية. البرق هنا تاريخي فقط: 18 موسما، كل واحد 10 أيام، والأيام الناقصة ما بتتملاش. المدى التجريبي من 0 إلى 1."
+    },
+    {
+      "id": "lightning.detailed",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE flash index, not ISS LIS counts. The seasonal windows run from spring 2017 to summer 2021. A frame records how many days were actually present. Sample range 0 to 1."
+    },
+    {
+      "id": "lightning.detailed",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "مؤشر ومضات تجريبي، ليس أعداد LIS. النوافذ من ربيع 2017 لصيف 2021. الإطار بيسجل الأيام الموجودة فعلا. المدى التجريبي من 0 إلى 1."
+    },
+    {
+      "id": "forest.short",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE. Taller sample canopy plays a higher note; denser variation widens the sound. The real GEDI layer is not wired yet. Sample range 0 to 40."
+    },
+    {
+      "id": "forest.short",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "بيانات تجريبية. الغطاء الأعلى نغمته أعلى؛ والتنوع الأكبر يوسّع الصوت. طبقة GEDI الحقيقية لسه مش متوصلة. المدى التجريبي من 0 إلى 40."
+    },
+    {
+      "id": "forest.detailed",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE canopy-height values for 2019–2023, shaped like NASA GEDI. Not a measurement. No map frames are shipped for this layer yet, so the globe shows no forest overlay. Sample range 0 to 40."
+    },
+    {
+      "id": "forest.detailed",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "قيم ارتفاع غطاء تجريبية من 2019 لـ 2023، على شكل GEDI. مش قياس. مفيش إطارات خريطة للطبقة دي لسه، فالكرة ما بتعرضش طبقة غابات. المدى التجريبي من 0 إلى 40."
+    },
+    {
+      "id": "precipitation.short",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE. More rain plays faster ticks; dry years fall silent. The real IMERG layer is not wired yet. Sample range 0 to 60."
+    },
+    {
+      "id": "precipitation.short",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "بيانات تجريبية. مطر أكتر يعني تكات أسرع؛ والسنين الجافة تسكت. طبقة IMERG الحقيقية لسه مش متوصلة. المدى التجريبي من 0 إلى 60."
+    },
+    {
+      "id": "precipitation.detailed",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE annual precipitation-rate series for 2000–2025, shaped like IMERG. Not a measurement. No map frames are shipped for this layer yet. Sample range 0 to 60."
+    },
+    {
+      "id": "precipitation.detailed",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "سلسلة تجريبية لمعدل هطول الأمطار السنوي من 2000 لـ 2025، على شكل IMERG. مش قياس. مفيش إطارات خريطة للطبقة دي لسه. المدى التجريبي من 0 إلى 60."
+    },
+    {
+      "id": "events.short",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE. More events play more strikes. The real EONET markers are not wired yet. Sample range 0 to 50."
+    },
+    {
+      "id": "events.short",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "بيانات تجريبية. أحداث أكتر يعني ضربات أكتر. علامات EONET الحقيقية لسه مش متوصلة. المدى التجريبي من 0 إلى 50."
+    },
+    {
+      "id": "events.detailed",
+      "lang": "en",
+      "kind": "explanation",
+      "text": "SAMPLE yearly natural-event counts for 2001–2025, shaped like NASA EONET. Not a measurement. Markers and the event feed are not wired yet. Sample range 0 to 50."
+    },
+    {
+      "id": "events.detailed",
+      "lang": "ar",
+      "kind": "explanation",
+      "text": "أعداد تجريبية للأحداث الطبيعية السنوية من 2001 لـ 2025، على شكل EONET. مش قياس. العلامات وتغذية الأحداث لسه مش متوصلة. المدى التجريبي من 0 إلى 50."
+    },
+    {
+      "id": "region.global",
+      "lang": "en",
+      "kind": "region",
+      "text": "Global. Centre 0 degrees latitude, 0 degrees longitude."
+    },
+    {
+      "id": "region.global",
+      "lang": "ar",
+      "kind": "region",
+      "text": "العالم. المركز 0 درجة عرضًا و0 درجة طولًا."
+    },
+    {
+      "id": "region.egypt",
+      "lang": "en",
+      "kind": "region",
+      "text": "Egypt. Centre 26.8 degrees latitude, 30.8 degrees longitude."
+    },
+    {
+      "id": "region.egypt",
+      "lang": "ar",
+      "kind": "region",
+      "text": "مصر. المركز 26.8 درجة عرضًا و30.8 درجة طولًا."
+    },
+    {
+      "id": "region.africa",
+      "lang": "en",
+      "kind": "region",
+      "text": "Africa. Centre 2 degrees latitude, 17 degrees longitude."
+    },
+    {
+      "id": "region.africa",
+      "lang": "ar",
+      "kind": "region",
+      "text": "أفريقيا. المركز 2 درجة عرضًا و17 درجة طولًا."
+    },
+    {
+      "id": "region.arctic",
+      "lang": "en",
+      "kind": "region",
+      "text": "Arctic. Centre 80 degrees latitude, 0 degrees longitude."
+    },
+    {
+      "id": "region.arctic",
+      "lang": "ar",
+      "kind": "region",
+      "text": "القطب الشمالي. المركز 80 درجة عرضًا و0 درجة طولًا."
+    },
+    {
+      "id": "region.europe",
+      "lang": "en",
+      "kind": "region",
+      "text": "Europe. Centre 54 degrees latitude, 15 degrees longitude."
+    },
+    {
+      "id": "region.europe",
+      "lang": "ar",
+      "kind": "region",
+      "text": "أوروبا. المركز 54 درجة عرضًا و15 درجة طولًا."
+    },
+    {
+      "id": "region.asia",
+      "lang": "en",
+      "kind": "region",
+      "text": "Asia. Centre 35 degrees latitude, 95 degrees longitude."
+    },
+    {
+      "id": "region.asia",
+      "lang": "ar",
+      "kind": "region",
+      "text": "آسيا. المركز 35 درجة عرضًا و95 درجة طولًا."
+    },
+    {
+      "id": "region.americas",
+      "lang": "en",
+      "kind": "region",
+      "text": "Americas. Centre 10 degrees latitude, -80 degrees longitude."
+    },
+    {
+      "id": "region.americas",
+      "lang": "ar",
+      "kind": "region",
+      "text": "الأمريكتان. المركز 10 درجة عرضًا و-80 درجة طولًا."
+    },
+    {
+      "id": "region.oceania",
+      "lang": "en",
+      "kind": "region",
+      "text": "Oceania. Centre -25 degrees latitude, 140 degrees longitude."
+    },
+    {
+      "id": "region.oceania",
+      "lang": "ar",
+      "kind": "region",
+      "text": "أوقيانوسيا. المركز -25 درجة عرضًا و140 درجة طولًا."
+    },
+    {
+      "id": "earcon.start",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Start."
+    },
+    {
+      "id": "earcon.start",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "ابدأ."
+    },
+    {
+      "id": "earcon.stop",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Stop."
+    },
+    {
+      "id": "earcon.stop",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "توقّف."
+    },
+    {
+      "id": "earcon.layer_added",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Layer added."
+    },
+    {
+      "id": "earcon.layer_added",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "أُضيفت طبقة."
+    },
+    {
+      "id": "earcon.region_changed",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Region changed."
+    },
+    {
+      "id": "earcon.region_changed",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "تغيّرت المنطقة."
+    },
+    {
+      "id": "earcon.record",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Record value."
+    },
+    {
+      "id": "earcon.record",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "قيمة قياسية."
+    },
+    {
+      "id": "earcon.missing",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "No data."
+    },
+    {
+      "id": "earcon.missing",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "لا توجد بيانات."
+    },
+    {
+      "id": "earcon.out_of_range",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Out of range."
+    },
+    {
+      "id": "earcon.out_of_range",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "خارج المدى."
+    },
+    {
+      "id": "earcon.quiz_correct",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Correct."
+    },
+    {
+      "id": "earcon.quiz_correct",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "إجابة صحيحة."
+    },
+    {
+      "id": "earcon.quiz_wrong",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Not this time."
+    },
+    {
+      "id": "earcon.quiz_wrong",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "ليست هذه المرة."
+    },
+    {
+      "id": "earcon.listening",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Listening."
+    },
+    {
+      "id": "earcon.listening",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "أستمع."
+    },
+    {
+      "id": "earcon.error",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Something went wrong."
+    },
+    {
+      "id": "earcon.error",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "حدث خطأ."
+    },
+    {
+      "id": "earcon.fire",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Wildfire."
+    },
+    {
+      "id": "earcon.fire",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "حريق."
+    },
+    {
+      "id": "earcon.volcano",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Volcano."
+    },
+    {
+      "id": "earcon.volcano",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "بركان."
+    },
+    {
+      "id": "earcon.storm",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Storm."
+    },
+    {
+      "id": "earcon.storm",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "عاصفة."
+    },
+    {
+      "id": "earcon.ice",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Ice."
+    },
+    {
+      "id": "earcon.ice",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "جليد."
+    },
+    {
+      "id": "earcon.flood",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Flood."
+    },
+    {
+      "id": "earcon.flood",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "فيضان."
+    },
+    {
+      "id": "earcon.event",
+      "lang": "en",
+      "kind": "earcon",
+      "text": "Natural event."
+    },
+    {
+      "id": "earcon.event",
+      "lang": "ar",
+      "kind": "earcon",
+      "text": "حدث طبيعي."
+    }
+  ]
+}

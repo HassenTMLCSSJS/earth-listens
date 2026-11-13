@@ -26,6 +26,8 @@
     "data:quiz": "tsx scripts/generate-quiz-truth.ts",
     "data:schemas": "tsx scripts/export-json-schemas.ts",
     "data:validate": "tsx scripts/validate-data.ts",
+    "voice:collect": "tsx scripts/voice/collect-lines.ts",
+    "voice:render": "python3 scripts/voice/render_narration.py",
     "py:test": "cd pipeline && python3 -m pytest"
   },
   "dependencies": {

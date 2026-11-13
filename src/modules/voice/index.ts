@@ -1,4 +1,7 @@
 import type { Lang } from '@/core/actions';
+import { findNarrationClip } from './clips';
+
+export { narrationKey, preloadNarrationClips, resetNarrationClipsForTests } from './clips';
 
 interface WebSpeech {
   lang: string;
@@ -135,16 +138,29 @@ export const speechSynthesisTts: TtsEngine = {
   },
 };
 
-async function playUrl(url: string, signal: AbortSignal): Promise<void> {
+async function playUrl(url: string, signal: AbortSignal): Promise<boolean> {
   const audio = new Audio(url);
-  await new Promise<void>((resolve) => {
-    audio.onended = () => resolve();
-    audio.onerror = () => resolve();
-    signal.addEventListener('abort', () => {
-      audio.pause();
-      resolve();
-    });
-    void audio.play().catch(() => resolve());
+  return new Promise((resolve) => {
+    let settled = false;
+    const finish = (ok: boolean) => {
+      if (settled) return;
+      settled = true;
+      resolve(ok);
+    };
+    audio.onended = () => finish(true);
+    audio.onerror = () => finish(false);
+    signal.addEventListener(
+      'abort',
+      () => {
+        audio.pause();
+        finish(true);
+      },
+      { once: true },
+    );
+    void audio.play().then(
+      () => undefined,
+      () => finish(false),
+    );
   });
 }
 
@@ -163,6 +179,11 @@ export async function speakText(
   opts: { demo: boolean; rate: number; signal?: AbortSignal; neural?: boolean },
 ): Promise<void> {
   const signal = opts.signal ?? new AbortController().signal;
+  const clip = await findNarrationClip(lang, text);
+  if (clip) {
+    const played = await playUrl(clip.url, signal);
+    if (played || signal.aborted) return;
+  }
   const chain: TtsEngine[] = [];
   // Kokoro and Piper stay off the first paint. Callers opt in with neural.
   if (!opts.demo && opts.neural) {

@@ -1,5 +1,15 @@
 # Decisions
 
+## 13 Nov 2026 — voice
+
+**Needle 3.** Rejected. It has no Arabic. The agent providers stay Groq `openai/gpt-oss-120b`, then Gemini `gemini-3-flash-preview`, then OpenRouter `deepseek/deepseek-v4-flash`. Speech-to-text stays Groq `whisper-large-v3-turbo`. Nothing in `src/core/env.ts` changed for this.
+
+**Fixed speech.** Intro, tutorial, quiz, layer explanations, region centre lines, and earcon labels are pre-rendered. The pipeline is `scripts/voice/render_narration.py`. English uses Resemble AI Chatterbox-Nano. Arabic uses Chatterbox Multilingual V3 (`language_id=ar`) and reads the Arabic strings already in the repo. Those strings are Egyptian colloquial, matching the captions. They were not rewritten into Modern Standard Arabic. Chatterbox has been archived and unmaintained since August 2026. The built-in Perth watermark stays on. Paralinguistic tags are not added to the current lines.
+
+**Live speech is unchanged.** Dynamic agent replies still use the chain that was already in `src/modules/voice/index.ts`: Kokoro for English and Piper `ar_JO-kareem-medium` for Arabic only when a caller passes `neural: true` and the page is not in demo mode, otherwise `speechSynthesis`. This change does not add a model, does not stream Kokoro, and does not retune Piper. A fixed line plays a Chatterbox MP3 when `public/data/narration.manifest.json` has the same text, and otherwise falls through to that existing chain.
+
+**What was rendered here.** `pnpm voice:collect` lists 146 fixed lines (scripts, layer explanations, region centres, earcon labels, both languages). Chatterbox-Nano rendered all 73 English lines (2,925,165 bytes, largest 137,037). Chatterbox Multilingual V3 rendered all 73 Arabic lines (3,494,181 bytes, largest 154,797). Total 6,419,346 bytes, 146 MP3s, all under `public/audio/narration/`, none over 3 MB, each marked `watermark: resemble-perth`. Nothing was left for R2. PyPI `chatterbox-tts` 0.1.7 cannot load Nano or V3; this render used the archived GitHub master.
+
 ## 13 Nov 2026 — data integration
 
 **Branch.** `feat/data-integration` is the only branch for this phase. It starts with the CI pnpm `allowBuilds` fix so the web job is not skipped.
