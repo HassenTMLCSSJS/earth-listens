@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useTexture } from '@react-three/drei';
+import { PerformanceMonitor, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import type { LayerId } from '@/core/actions';
 
@@ -321,13 +321,16 @@ export function EarthCanvas({
   motion: string;
 }) {
   const segments = motion === 'reduce' ? 64 : 128;
+  const cap = motion === 'reduce' ? 1 : 1.5;
+  const [dpr, setDpr] = useState(cap);
   return (
     <Canvas
       camera={{ position: [0, 0, 2.6], fov: 40 }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-      dpr={[1, motion === 'reduce' ? 1 : 1.5]}
+      dpr={dpr}
       frameloop={motion === 'reduce' ? 'demand' : 'always'}
     >
+      <PerformanceMonitor onDecline={() => setDpr(1)} onIncline={() => setDpr(cap)} />
       <color attach="background" args={['#05070d']} />
       <Scene
         texture={texture}
