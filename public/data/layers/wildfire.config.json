@@ -1,0 +1,46 @@
+{
+  "id": "wildfire",
+  "category": "fire",
+  "title": {
+    "en": "Wildfire",
+    "ar": "الحرايق"
+  },
+  "unit": {
+    "en": "detections per 5° cell per day",
+    "ar": "detections per 5° cell per day"
+  },
+  "timeKind": "day",
+  "eic": {
+    "page": "https://earth.gov/themes/wildfires",
+    "frames": "/frames/wildfire"
+  },
+  "variables": {
+    "how_much": {
+      "field": "count",
+      "range": [0, 500]
+    },
+    "how_strong": {
+      "field": "frp_mean",
+      "range": [0, 100]
+    },
+    "how_fast": {
+      "field": "delta(count)",
+      "range": [0, 40]
+    },
+    "where": {
+      "field": "cell"
+    }
+  },
+  "what": {
+    "timbre": "crackle-marimba",
+    "register": [60, 84],
+    "symphonyRegister": [69, 81]
+  },
+  "scale": "pentatonic_major",
+  "regions": ["global", "egypt", "africa", "arctic", "europe", "asia", "americas", "oceania"],
+  "symphony": {
+    "role": "sparks",
+    "from": 2012,
+    "to": 2025
+  }
+}

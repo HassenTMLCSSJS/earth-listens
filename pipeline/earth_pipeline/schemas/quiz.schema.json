@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "sample": {
+      "type": "boolean",
+      "const": true
+    },
+    "training": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "layerId": {
+          "type": "string",
+          "enum": ["temperature", "wildfire", "sea_ice", "co2"]
+        },
+        "region": {
+          "type": "string",
+          "enum": ["global", "egypt", "africa", "arctic", "europe", "asia", "americas", "oceania"]
+        },
+        "from": {
+          "type": "number"
+        },
+        "to": {
+          "type": "number"
+        },
+        "truth": {
+          "type": "string",
+          "enum": ["increased", "decreased", "unchanged"]
+        }
+      },
+      "required": ["id", "layerId", "region", "from", "to", "truth"],
+      "additionalProperties": false
+    },
+    "clips": {
+      "minItems": 10,
+      "maxItems": 10,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "layerId": {
+            "type": "string",
+            "enum": ["temperature", "wildfire", "sea_ice", "co2"]
+          },
+          "region": {
+            "type": "string",
+            "enum": ["global", "egypt", "africa", "arctic", "europe", "asia", "americas", "oceania"]
+          },
+          "from": {
+            "type": "number"
+          },
+          "to": {
+            "type": "number"
+          },
+          "truth": {
+            "type": "string",
+            "enum": ["increased", "decreased", "unchanged"]
+          }
+        },
+        "required": ["id", "layerId", "region", "from", "to", "truth"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["sample", "training", "clips"],
+  "additionalProperties": false
+}

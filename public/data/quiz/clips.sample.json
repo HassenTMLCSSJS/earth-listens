@@ -1,0 +1,93 @@
+{
+  "sample": true,
+  "training": {
+    "id": "sample-training",
+    "layerId": "temperature",
+    "region": "global",
+    "from": 1880,
+    "to": 1884,
+    "truth": "increased"
+  },
+  "clips": [
+    {
+      "id": "sample-02",
+      "layerId": "temperature",
+      "region": "global",
+      "from": 1883,
+      "to": 1887,
+      "truth": "unchanged"
+    },
+    {
+      "id": "sample-03",
+      "layerId": "temperature",
+      "region": "global",
+      "from": 1886,
+      "to": 1890,
+      "truth": "unchanged"
+    },
+    {
+      "id": "sample-04",
+      "layerId": "temperature",
+      "region": "global",
+      "from": 1901,
+      "to": 1905,
+      "truth": "increased"
+    },
+    {
+      "id": "sample-05",
+      "layerId": "temperature",
+      "region": "global",
+      "from": 1925,
+      "to": 1929,
+      "truth": "increased"
+    },
+    {
+      "id": "sample-06",
+      "layerId": "temperature",
+      "region": "global",
+      "from": 1934,
+      "to": 1938,
+      "truth": "increased"
+    },
+    {
+      "id": "sample-07",
+      "layerId": "temperature",
+      "region": "global",
+      "from": 1949,
+      "to": 1953,
+      "truth": "increased"
+    },
+    {
+      "id": "sample-08",
+      "layerId": "temperature",
+      "region": "global",
+      "from": 1913,
+      "to": 1917,
+      "truth": "decreased"
+    },
+    {
+      "id": "sample-09",
+      "layerId": "temperature",
+      "region": "global",
+      "from": 1937,
+      "to": 1941,
+      "truth": "decreased"
+    },
+    {
+      "id": "sample-10",
+      "layerId": "temperature",
+      "region": "global",
+      "from": 1967,
+      "to": 1971,
+      "truth": "decreased"
+    },
+    {
+      "id": "sample-11",
+      "layerId": "temperature",
+      "region": "global",
+      "from": 1988,
+      "to": 1992,
+      "truth": "decreased"
+    }
+  ]
+}

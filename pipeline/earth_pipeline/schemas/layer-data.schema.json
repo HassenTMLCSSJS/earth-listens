@@ -1,0 +1,278 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": ["temperature", "wildfire", "sea_ice", "co2"]
+    },
+    "sample": {
+      "type": "boolean"
+    },
+    "title": {
+      "type": "object",
+      "properties": {
+        "en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ar": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": ["en", "ar"],
+      "additionalProperties": false
+    },
+    "unit": {
+      "type": "object",
+      "properties": {
+        "en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ar": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": ["en", "ar"],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "dataset_url": {
+          "type": "string"
+        },
+        "eic_page": {
+          "type": "string"
+        },
+        "retrieved": {
+          "type": ["string", "null"]
+        },
+        "sha256": {
+          "type": ["string", "null"]
+        },
+        "citation": {
+          "type": "string"
+        },
+        "ack": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": ["name", "dataset_url", "eic_page", "retrieved", "sha256", "citation", "ack"],
+      "additionalProperties": false
+    },
+    "range": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        }
+      },
+      "required": ["min", "max"],
+      "additionalProperties": false
+    },
+    "series": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "enum": ["global", "egypt", "africa", "arctic", "europe", "asia", "americas", "oceania"]
+      },
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "t": {
+              "type": ["number", "string"]
+            },
+            "v": {
+              "type": ["number", "null"]
+            },
+            "q": {
+              "type": "string",
+              "enum": ["ok", "missing", "estimated"]
+            }
+          },
+          "required": ["t", "v", "q"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["global", "egypt", "africa", "arctic", "europe", "asia", "americas", "oceania"]
+    },
+    "annual": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "t": {
+                "type": ["number", "string"]
+              },
+              "v": {
+                "type": ["number", "null"]
+              },
+              "q": {
+                "type": "string",
+                "enum": ["ok", "missing", "estimated"]
+              }
+            },
+            "required": ["t", "v", "q"],
+            "additionalProperties": false
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "cells": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "t": {
+                "type": "string"
+              },
+              "lat": {
+                "type": "number",
+                "minimum": -90,
+                "maximum": 90
+              },
+              "lon": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180
+              },
+              "count": {
+                "type": "number",
+                "minimum": 0
+              },
+              "frp_mean": {
+                "type": "number"
+              }
+            },
+            "required": ["t", "lat", "lon", "count", "frp_mean"],
+            "additionalProperties": false
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "seasonalAmplitude": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "t": {
+                "type": ["number", "string"]
+              },
+              "v": {
+                "type": ["number", "null"]
+              },
+              "q": {
+                "type": "string",
+                "enum": ["ok", "missing", "estimated"]
+              }
+            },
+            "required": ["t", "v", "q"],
+            "additionalProperties": false
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "frames": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "t": {
+            "type": ["number", "string"]
+          },
+          "src": {
+            "type": "string"
+          }
+        },
+        "required": ["t", "src"],
+        "additionalProperties": false
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "t": {
+            "type": ["number", "string"]
+          },
+          "label": {
+            "type": "object",
+            "properties": {
+              "en": {
+                "type": "string",
+                "minLength": 1
+              },
+              "ar": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": ["en", "ar"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["t", "label"],
+        "additionalProperties": false
+      }
+    },
+    "description": {
+      "type": "object",
+      "properties": {
+        "en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ar": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": ["en", "ar"],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "id",
+    "sample",
+    "title",
+    "unit",
+    "source",
+    "range",
+    "series",
+    "annual",
+    "cells",
+    "seasonalAmplitude",
+    "frames",
+    "events",
+    "description"
+  ],
+  "additionalProperties": false
+}

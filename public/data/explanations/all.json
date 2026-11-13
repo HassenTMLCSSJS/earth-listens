@@ -1,0 +1,69 @@
+{
+  "sample": true,
+  "items": [
+    {
+      "id": "temperature",
+      "level": "short",
+      "text": {
+        "en": "SAMPLE. Higher notes mean warmer years. This sample range goes from -0.6 to 1.4 °C. The rhythm speeds up when the year-to-year change is bigger. Sample range -0.6 to 1.4.",
+        "ar": "بيانات تجريبية. النغمة الأعلى تعني سنة أدفأ. المدى التجريبي من -0.6 إلى 1.4 درجة. الإيقاع يسرع لما الفرق بين السنين يكبر. المدى التجريبي من -0.6 إلى 1.4."
+      }
+    },
+    {
+      "id": "temperature",
+      "level": "detailed",
+      "text": {
+        "en": "SAMPLE data, not a GISTEMP measurement. Pitch is the anomaly, loudness is fixed for this layer, and rhythm follows the change from the previous year. One sample year is intentionally outside the range so you can hear the warning tone. Sample range -0.6 to 1.4.",
+        "ar": "بيانات تجريبية، ليست قياس GISTEMP. الطبقة هي الشذوذ، والعلو ثابت في الطبقة دي، والإيقاع ماشي مع الفرق عن السنة اللي فاتت. فيه سنة تجريبية خارجة عن المدى عشان تسمع نغمة التحذير. المدى التجريبي من -0.6 إلى 1.4."
+      }
+    },
+    {
+      "id": "wildfire",
+      "level": "short",
+      "text": {
+        "en": "SAMPLE. More detections play a higher note. Louder means higher sample fire power. You hear the sound from the cell’s place on Earth. Sample range 0 to 500.",
+        "ar": "بيانات تجريبية. الرصدات الأكتر نغمتها أعلى. الصوت الأعلى يعني طاقة حريق تجريبية أكبر. هتسمع الصوت من مكان الخلية على الأرض. المدى التجريبي من 0 إلى 500."
+      }
+    },
+    {
+      "id": "wildfire",
+      "level": "detailed",
+      "text": {
+        "en": "SAMPLE counts on a 5° grid, not FIRMS detections. The loudest cells are the top 24 that day. A week-earlier cell sets the rhythm. Annual sample values stay inside the daily range so the symphony does not slam the ceiling. Sample range 0 to 500.",
+        "ar": "أعداد تجريبية على شبكة 5 درجات، ليست رصدات FIRMS. أعلى 24 خلية في اليوم هي اللي بتسمع. خلية من أسبوع فات بتحدد الإيقاع. القيم السنوية التجريبية جوه المدى اليومي عشان السيمفونية ما تطلعش للسقف. المدى التجريبي من 0 إلى 500."
+      }
+    },
+    {
+      "id": "sea_ice",
+      "level": "short",
+      "text": {
+        "en": "SAMPLE. Higher notes mean more September ice in the sample series. The sound sits in the north. Sample range 3 to 8.",
+        "ar": "بيانات تجريبية. النغمة الأعلى تعني جليد سبتمبر أكتر في السلسلة التجريبية. الصوت جاي من الشمال. المدى التجريبي من 3 إلى 8."
+      }
+    },
+    {
+      "id": "sea_ice",
+      "level": "detailed",
+      "text": {
+        "en": "SAMPLE September values, not the NSIDC Sea Ice Index. Loudness is steady. Rhythm follows the change since the previous September. The real DOI still needs a check before anyone cites it. Sample range 3 to 8.",
+        "ar": "قيم سبتمبر تجريبية، ليست مؤشر NSIDC. العلو ثابت. الإيقاع ماشي مع الفرق عن سبتمبر اللي فات. رقم DOI الحقيقي لسه محتاج مراجعة قبل أي استشهاد. المدى التجريبي من 3 إلى 8."
+      }
+    },
+    {
+      "id": "co2",
+      "level": "short",
+      "text": {
+        "en": "SAMPLE. Higher notes mean a higher sample carbon dioxide value. The drone has no left-right position because the series is global. Sample range 310 to 440.",
+        "ar": "بيانات تجريبية. النغمة الأعلى تعني قيمة تجريبية أعلى لثاني أكسيد الكربون. الدندنة ملهاش يمين وشمال لأن السلسلة عالمية. المدى التجريبي من 310 إلى 440."
+      }
+    },
+    {
+      "id": "co2",
+      "level": "detailed",
+      "text": {
+        "en": "SAMPLE curve shaped like a seasonal cycle plus a rise. It is not the NOAA Mauna Loa record. The annual mean is what you hear in the symphony. Seasonal amplitude is stored beside it and is not a forecast. Sample range 310 to 440.",
+        "ar": "منحنى تجريبي فيه دورة موسمية وصعود. ده مش سجل ماونا لوا بتاع NOAA. المتوسط السنوي هو اللي بتسمعه في السيمفونية. سعة الموسم متخزنة جنبه ومش توقع. المدى التجريبي من 310 إلى 440."
+      }
+    }
+  ]
+}

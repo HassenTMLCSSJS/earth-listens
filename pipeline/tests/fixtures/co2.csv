@@ -1,0 +1,5 @@
+# SAMPLE header shape only
+year,month,decimal date,average,deseasonalized,ndays,sdev,unc
+1958,3,1958.208,-99.99,-99.99,-1,-9.99,-0.99
+1958,4,1958.292,315.00,314.00,20,0.40,0.10
+1958,5,1958.375,316.00,315.00,20,0.40,0.10

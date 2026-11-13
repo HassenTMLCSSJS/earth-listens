@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" role="img">
+  <title>Screenshot placeholder for Earth Listens</title>
+  <rect width="1200" height="630" fill="#05070d"/>
+  <circle cx="820" cy="300" r="180" fill="#0b1020" stroke="#5ad1ff" stroke-width="2"/>
+  <text x="80" y="250" fill="#e8eefc" font-size="64" font-family="sans-serif">Earth Listens</text>
+  <text x="80" y="330" fill="#c5d0ea" font-size="28" font-family="sans-serif">Screenshot placeholder. Replace with a real capture.</text>
+  <text x="80" y="390" fill="#ffd34d" font-size="24" font-family="sans-serif">SAMPLE DATA</text>
+</svg>

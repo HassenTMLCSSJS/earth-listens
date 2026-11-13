@@ -1,0 +1,4 @@
+year, mo, source_dataset, region, extent, area
+1979,  9, SAMPLE, N, 7.20, 4.50
+1980,  8, SAMPLE, N, 7.50, 4.80
+1980,  9, SAMPLE, N, -9999, -9999
