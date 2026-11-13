@@ -89,7 +89,16 @@ bpm = 60 + 120 * r
 | sea ice     | glass-bells     |
 | CO2         | beating-drone   |
 
-The player currently renders every voice with a sine `Synth` plus an HRTF `Panner3D`. The names above are the contracts the score carries. The Tone.js recipes for those four timbres are still the next pass on `feat/sonification-engine`.
+The player loads Tone.js on the first unlock and builds the timbre named on the note:
+
+| Timbre          | Recipe                                                                                                                                                         |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| warm-lead       | `PolySynth(Synth)` with a 3-voice `fatsawtooth` (spread 20) into a 2400 Hz lowpass. Attack 0.02, decay 0.1, sustain 0.6, release 0.3.                          |
+| crackle-marimba | Sine `Synth`, attack 0.001, decay 0.4, sustain 0, release 0.2. Each tick is a `Player` on a 30 ms exponential burst from `mulberry32(hashString('wildfire'))`. |
+| glass-bells     | `FMSynth`, harmonicity 3.5, modulation index 10, sine carriers. Attack 0.001, decay 1.2, sustain 0, release 1.5.                                               |
+| beating-drone   | Two sine oscillators at `f` and `f + 3` Hz through a `Tremolo`. Depth is the seasonal amplitude divided by 10, clamped to 0–1. Rate is `1 / stepSec`.          |
+
+Every voice still ends in an HRTF `Panner3D` and a `Gain`. The CO2 depth and the step length are playback options. They are not fields on the note, so the score snapshot stays the same.
 
 ## Playback
 

@@ -120,6 +120,14 @@ html[data-motion='reduce'] *::after {
 }
 
 .starfield {
+  position: relative;
+}
+
+.starfield::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background-image:
     radial-gradient(1px 1px at 10% 20%, white, transparent),
     radial-gradient(1px 1px at 30% 80%, white, transparent),
@@ -196,6 +204,29 @@ html[data-motion='full'] .planet {
 @keyframes breathe {
   50% {
     filter: saturate(1.2) brightness(1.08);
+  }
+}
+
+.story-chapter {
+  min-height: 100vh;
+  display: grid;
+  align-content: center;
+}
+
+html[data-motion='reduce'] .story-chapter:not([data-active='true']) {
+  display: none;
+}
+
+.route-fade {
+  animation: settle 280ms var(--ease-cinematic) both;
+}
+
+@keyframes settle {
+  from {
+    transform: translateY(8px);
+  }
+  to {
+    transform: none;
   }
 }
 

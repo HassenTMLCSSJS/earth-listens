@@ -31,9 +31,20 @@ vi.mock('tone', () => {
     Synth: class extends Chain {
       triggerAttackRelease() {}
     },
-    PolySynth: class extends Chain {},
+    PolySynth: class extends Chain {
+      triggerAttackRelease() {}
+    },
     Filter: class extends Chain {},
-    FMSynth: class extends Chain {},
+    FMSynth: class extends Chain {
+      triggerAttackRelease() {}
+    },
+    Oscillator: class extends Chain {
+      start() {}
+      stop() {}
+    },
+    Tremolo: class extends Chain {
+      start() {}
+    },
     Player: class extends Chain {
       start() {}
     },
@@ -148,6 +159,54 @@ describe('module runtime paths', () => {
           ticks: 1,
           flags: { missing: false, outOfRange: false, record: false },
           source: { t: 2000, v: 0 },
+        },
+        {
+          t: 0,
+          dur: 0.2,
+          layerId: 'wildfire',
+          voiceId: 'wildfire:0,0',
+          midiRaw: 70,
+          midi: 70,
+          freqHz: 466,
+          gainDb: -18,
+          pan: 0.2,
+          pos: { x: 0.2, y: 0, z: -1 },
+          lowpassHz: 20000,
+          ticks: 2,
+          flags: { missing: false, outOfRange: false, record: false },
+          source: { t: '2025-08-04', v: 4 },
+        },
+        {
+          t: 0,
+          dur: 0.2,
+          layerId: 'sea_ice',
+          voiceId: 'sea_ice:arctic',
+          midiRaw: 80,
+          midi: 80,
+          freqHz: 830,
+          gainDb: -18,
+          pan: 0,
+          pos: { x: 0, y: 0.4, z: -1 },
+          lowpassHz: 20000,
+          ticks: 1,
+          flags: { missing: false, outOfRange: false, record: false },
+          source: { t: 2020, v: 5 },
+        },
+        {
+          t: 0,
+          dur: 0.2,
+          layerId: 'co2',
+          voiceId: 'co2:global',
+          midiRaw: 40,
+          midi: 40,
+          freqHz: 82,
+          gainDb: -18,
+          pan: 0,
+          pos: { x: 0, y: 0, z: -1 },
+          lowpassHz: 20000,
+          ticks: 1,
+          flags: { missing: false, outOfRange: false, record: false },
+          source: { t: 2020, v: 410 },
         },
       ],
       earcons: [{ t: 0, id: 'missing' }],

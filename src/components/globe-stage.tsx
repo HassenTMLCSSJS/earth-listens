@@ -10,14 +10,20 @@ import {
   type KeyboardEvent,
 } from 'react';
 import { useTranslations } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
 import { formatNumber } from '@/core/format';
 import { useAppStore } from '@/core/store';
-import { useContent } from '@/core/catalog';
 import { spatialize } from '@/modules/sonification';
 
 const EarthCanvas = dynamic(
-  () => import('@/components/earth-canvas').then((mod) => mod.EarthCanvas),
+  () =>
+    import('@/components/earth-canvas')
+      .then((mod) => mod.EarthCanvas)
+      .catch(
+        () =>
+          function EarthUnavailable() {
+            return null;
+          },
+      ),
   { ssr: false },
 );
 
@@ -30,27 +36,53 @@ function webglAvailable(): boolean {
   }
 }
 
+const POSTER = '/textures/earth-day.jpg';
+
 export function GlobeStage() {
   const t = useTranslations('listen');
-  const params = useSearchParams();
+  const forceClassic = useSyncExternalStore(
+    () => () => undefined,
+    () => new URLSearchParams(window.location.search).get('globe') === 'gl',
+    () => false,
+  );
   const view = useAppStore((state) => state.view);
   const dispatch = useAppStore((state) => state.dispatch);
   const mode = useAppStore((state) => state.mode);
   const lang = useAppStore((state) => state.lang);
   const layers = useAppStore((state) => state.layers);
   const catalog = useAppStore((state) => state.catalog);
-  const texture = useContent((state) => state.texture);
-  const motion = typeof document !== 'undefined' ? document.documentElement.dataset.motion : 'full';
+  const reducedMotion = useAppStore((state) => state.settings.reducedMotion);
+  const motion =
+    reducedMotion === 'on' ||
+    (typeof document !== 'undefined' && document.documentElement.dataset.motion === 'reduce')
+      ? 'reduce'
+      : 'full';
   const webgl = useSyncExternalStore(
     () => () => undefined,
     () => webglAvailable(),
     () => false,
   );
+  const online = useSyncExternalStore(
+    (onStoreChange) => {
+      window.addEventListener('online', onStoreChange);
+      window.addEventListener('offline', onStoreChange);
+      return () => {
+        window.removeEventListener('online', onStoreChange);
+        window.removeEventListener('offline', onStoreChange);
+      };
+    },
+    () => navigator.onLine,
+    () => true,
+  );
   const [failed, setFailed] = useState(false);
-  const forceClassic = params.get('globe') === 'gl';
+  const [engaged, setEngaged] = useState(false);
+  const playing = useAppStore((state) => state.playback.status) === 'playing';
+  const visual = useAppStore((state) => state.visual);
 
   const spatial = spatialize(37.5, 22.5, view.lat, view.lon);
-  const frame = catalog[layers[0] ?? 'temperature']?.data.frames.at(-1)?.src;
+  const frame =
+    catalog[layers[0] ?? 'temperature']?.data.frames.at(-1)?.src ??
+    '/frames/temperature/2025.webp';
   const cells = useMemo(() => {
     if (!layers.includes('wildfire')) return [];
     const all = catalog.wildfire?.data.cells ?? [];
@@ -70,14 +102,14 @@ export function GlobeStage() {
           width: (n: number) => { height: (n: number) => void };
         };
         const instance = new Globe(holder);
-        instance.globeImageUrl(texture);
+        instance.globeImageUrl(POSTER);
         instance.width(640).height(420);
       })
       .catch(() => setFailed(true));
     return () => {
       cancelled = true;
     };
-  }, [forceClassic, texture, webgl]);
+  }, [forceClassic, webgl]);
 
   if (mode === 'audio_first') {
     return (
@@ -101,7 +133,9 @@ export function GlobeStage() {
     event.preventDefault();
   }
 
-  const showCanvas = webgl && !failed && !forceClassic && motion !== 'reduce';
+  // Playback opens the shader only while online. An offline demo must not
+  // request the Three.js chunk after the network is gone.
+  const showCanvas = webgl && !failed && !forceClassic && (engaged || (playing && online));
   const label = `${t('globe')}. ${formatNumber(view.lat, lang, { maximumFractionDigits: 1 })}°, ${formatNumber(view.lon, lang, { maximumFractionDigits: 1 })}°`;
 
   return (
@@ -116,24 +150,45 @@ export function GlobeStage() {
       tabIndex={0}
       data-pan={spatial.pan.toFixed(6)}
       onKeyDown={onKey}
+      onPointerEnter={() => setEngaged(true)}
+      onFocus={() => setEngaged(true)}
       className="bg-space-950 relative h-[420px] overflow-hidden rounded-[2rem] border border-white/10 outline-none"
     >
       {showCanvas ? (
         <Suspense fallback={<p className="p-6 text-sm">{t('summary')}</p>}>
-          <EarthCanvas texture={texture} lat={view.lat} lon={view.lon} cells={cells} />
+          <EarthCanvas
+            texture={POSTER}
+            lat={view.lat}
+            lon={view.lon}
+            cells={cells}
+            level={visual.level}
+            pulseId={visual.pulse}
+            layerId={visual.layerId}
+            motion={motion ?? 'full'}
+          />
         </Suspense>
       ) : (
-        <img src={texture} alt={label} className="h-full w-full object-cover" />
-      )}
-      {frame ? (
         <img
-          src={frame}
-          alt=""
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40 mix-blend-screen"
+          src={POSTER}
+          alt={label}
+          width={960}
+          height={420}
+          fetchPriority="high"
+          className="h-full w-full object-cover"
         />
-      ) : null}
+      )}
+      <img
+        src={frame}
+        alt=""
+        width={960}
+        height={420}
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40 mix-blend-screen"
+      />
       <div id="globe-classic" className="absolute inset-0" hidden={!forceClassic} />
-      <p className="bg-space-950/70 absolute inset-x-0 bottom-0 p-3 text-sm">{t('summary')}</p>
+      <p className="bg-space-950/80 absolute inset-x-0 bottom-0 grid gap-1 p-3 text-sm">
+        <span>{t('summary')}</span>
+        <span>{t('standIn')}</span>
+      </p>
     </div>
   );
 }

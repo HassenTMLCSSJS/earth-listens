@@ -160,11 +160,12 @@ async function playRaw(
 export async function speakText(
   text: string,
   lang: Lang,
-  opts: { demo: boolean; rate: number; signal?: AbortSignal },
+  opts: { demo: boolean; rate: number; signal?: AbortSignal; neural?: boolean },
 ): Promise<void> {
   const signal = opts.signal ?? new AbortController().signal;
   const chain: TtsEngine[] = [];
-  if (!opts.demo) {
+  // Kokoro and Piper stay off the first paint. Callers opt in with neural.
+  if (!opts.demo && opts.neural) {
     if (lang === 'en') chain.push(kokoroTts);
     if (lang === 'ar') chain.push(piperTts);
   }

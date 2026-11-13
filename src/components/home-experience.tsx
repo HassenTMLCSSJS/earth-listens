@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { subscribe } from '@/core/bus';
@@ -21,6 +21,11 @@ function HomeStory() {
   const dispatch = useAppStore((state) => state.dispatch);
   const markIntroSeen = useAppStore((state) => state.markIntroSeen);
   const ready = useContent((state) => state.ready);
+  const reducedSetting = useAppStore((state) => state.settings.reducedMotion);
+  const lenisRef = useRef<{
+    scrollTo: (target: HTMLElement) => void;
+    destroy: () => void;
+  } | null>(null);
   const [phase, setPhase] = useState<'gate' | 'intro' | 'story'>(
     introSeen || demo ? 'story' : 'gate',
   );
@@ -97,9 +102,17 @@ function HomeStory() {
         setPhase('story');
       }
       if (visible === 'story' && action.type === 'next')
-        setChapter((value) => Math.min(5, value + 1));
+        setChapter((value) => {
+          const next = Math.min(5, value + 1);
+          queueMicrotask(() => scrollToChapter(next));
+          return next;
+        });
       if (visible === 'story' && action.type === 'back')
-        setChapter((value) => Math.max(0, value - 1));
+        setChapter((value) => {
+          const next = Math.max(0, value - 1);
+          queueMicrotask(() => scrollToChapter(next));
+          return next;
+        });
       if (visible === 'intro' && (action.type === 'skip' || action.type === 'next')) {
         markIntroSeen(true);
         setPhase('story');
@@ -113,11 +126,19 @@ function HomeStory() {
         return;
       if (event.key === 'PageDown') {
         event.preventDefault();
-        setChapter((value) => Math.min(5, value + 1));
+        setChapter((value) => {
+          const next = Math.min(5, value + 1);
+          queueMicrotask(() => scrollToChapter(next));
+          return next;
+        });
       }
       if (event.key === 'PageUp') {
         event.preventDefault();
-        setChapter((value) => Math.max(0, value - 1));
+        setChapter((value) => {
+          const next = Math.max(0, value - 1);
+          queueMicrotask(() => scrollToChapter(next));
+          return next;
+        });
       }
       if (event.key === 'Escape' && visible !== 'story') {
         markIntroSeen(true);
@@ -127,6 +148,83 @@ function HomeStory() {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [visible, markIntroSeen]);
+
+  function scrollToChapter(index: number) {
+    if (document.documentElement.dataset.motion === 'reduce') return;
+    const el = document.querySelector(`[data-story-chapter="${index}"]`);
+    if (!(el instanceof HTMLElement)) return;
+    if (lenisRef.current) lenisRef.current.scrollTo(el);
+    else el.scrollIntoView({ block: 'start' });
+  }
+
+  function showChapter(next: number) {
+    const value = Math.max(0, Math.min(5, next));
+    setChapter(value);
+    scrollToChapter(value);
+  }
+
+  useEffect(() => {
+    if (visible !== 'story') return;
+    if (document.documentElement.dataset.motion === 'reduce' || reducedSetting === 'on') return;
+    let dead = false;
+    let ticker: ((time: number) => void) | null = null;
+    let gsapRef: { ticker: { remove: (fn: (time: number) => void) => void } } | null = null;
+    void (async () => {
+      const [{ default: gsap }, { ScrollTrigger }, { default: Lenis }] = await Promise.all([
+        import('gsap'),
+        import('gsap/ScrollTrigger'),
+        import('lenis'),
+      ]);
+      if (dead || document.documentElement.dataset.motion === 'reduce') return;
+      gsap.registerPlugin(ScrollTrigger);
+      const lenis = new Lenis({ autoRaf: false, duration: 1.15, anchors: false });
+      lenis.on('scroll', ScrollTrigger.update);
+      ticker = (time: number) => {
+        lenis.raf(time * 1000);
+      };
+      gsap.ticker.add(ticker);
+      gsap.ticker.lagSmoothing(0);
+      gsapRef = gsap;
+      lenisRef.current = lenis;
+      const sections = gsap.utils.toArray<HTMLElement>('[data-story-chapter]');
+      sections.forEach((section) => {
+        const copy = section.querySelector('[data-chapter-copy]');
+        if (copy) {
+          gsap.fromTo(
+            copy,
+            { autoAlpha: 0.15, y: 48 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              scrollTrigger: {
+                trigger: section,
+                start: 'top 80%',
+                end: 'top 30%',
+                scrub: 0.6,
+              },
+            },
+          );
+        }
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top top',
+          end: '+=100%',
+          pin: true,
+          anticipatePin: 1,
+        });
+      });
+      ScrollTrigger.refresh();
+    })();
+    return () => {
+      dead = true;
+      lenisRef.current?.destroy();
+      lenisRef.current = null;
+      if (ticker && gsapRef) gsapRef.ticker.remove(ticker);
+      void import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      });
+    };
+  }, [visible, reducedSetting]);
 
   if (visible === 'gate') {
     return (
@@ -197,41 +295,73 @@ function HomeStory() {
     );
   }
 
-  const key = `c${chapter + 1}` as const;
   return (
-    <article className="mx-auto grid max-w-5xl gap-8 px-4 py-10">
-      <ChapterNav count={CHAPTERS.length} current={chapter} onSelect={setChapter} />
-      <section className="chapter panel p-8 md:p-12" aria-labelledby="chapter-title">
-        <p className="text-accent text-sm">
-          {chapter + 1} / {CHAPTERS.length}
-        </p>
-        <h1 id="chapter-title" className="display mt-3 text-5xl">
-          {t(`story.${key}title`)}
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed">{t(`story.${key}body`)}</p>
-        {chapter === 1 && ready ? (
-          <img
-            src="/frames/temperature/2020.webp"
-            alt={t('banner.sample')}
-            className="mt-6 aspect-[2/1] w-full rounded-2xl object-cover"
-          />
-        ) : null}
-        {chapter === 4 ? (
-          <label className="mt-6 block">
-            {t('listen.when')}
-            <input
-              className="mt-2 w-full"
-              type="range"
-              min={1880}
-              max={2025}
-              defaultValue={2020}
-              onChange={(event) =>
-                dispatch({ type: 'set_time', from: Number(event.target.value) }, 'pointer')
-              }
-            />
-          </label>
-        ) : null}
-        <div className="mt-8 flex flex-wrap gap-3">
+    <article>
+      {CHAPTERS.map((number, index) => {
+        const key = `c${number}` as const;
+        return (
+          <section
+            key={number}
+            data-story-chapter={index}
+            data-active={index === chapter ? 'true' : 'false'}
+            className="story-chapter starfield px-4"
+          >
+            <div data-chapter-copy className="chapter panel mx-auto max-w-5xl p-8 md:p-12">
+              <p className="text-accent text-sm">
+                {number} / {CHAPTERS.length}
+              </p>
+              {index === chapter ? (
+                <h1 id="chapter-title" tabIndex={-1} className="display mt-3 text-5xl">
+                  {t(`story.${key}title`)}
+                </h1>
+              ) : (
+                <h2 className="display mt-3 text-5xl">{t(`story.${key}title`)}</h2>
+              )}
+              <p className="mt-6 max-w-2xl text-lg leading-relaxed">{t(`story.${key}body`)}</p>
+              {index === 1 && ready ? (
+                <img
+                  src="/frames/temperature/2020.webp"
+                  alt={t('banner.sample')}
+                  width={1200}
+                  height={600}
+                  loading="lazy"
+                  className="mt-6 aspect-[2/1] w-full rounded-2xl object-cover"
+                />
+              ) : null}
+              {index === 1 ? (
+                <p className="mt-4 flex flex-wrap gap-3 text-sm">
+                  <a href="https://earth.gov/sealevel/vital-signs/global-temperature/">
+                    Global temperature
+                  </a>
+                  <a href="https://earth.gov/sealevel/vital-signs/carbon-dioxide/">
+                    Carbon dioxide
+                  </a>
+                  <a href="https://earth.gov/themes/wildfires">Wildfires</a>
+                  <a href="https://svs.gsfc.nasa.gov/5113/">NASA SVS 5113</a>
+                </p>
+              ) : null}
+              {index === 4 ? (
+                <label className="mt-6 block">
+                  {t('listen.when')}
+                  <input
+                    className="mt-2 w-full"
+                    type="range"
+                    min={1880}
+                    max={2025}
+                    defaultValue={2020}
+                    onChange={(event) =>
+                      dispatch({ type: 'set_time', from: Number(event.target.value) }, 'pointer')
+                    }
+                  />
+                </label>
+              ) : null}
+            </div>
+          </section>
+        );
+      })}
+      <div className="bg-space-950/90 sticky bottom-0 z-20 border-t border-white/10 px-4 py-4">
+        <ChapterNav count={CHAPTERS.length} current={chapter} onSelect={showChapter} />
+        <div className="mt-4 flex flex-wrap gap-3">
           <Button
             onClick={() => {
               unlockAudio();
@@ -245,20 +375,20 @@ function HomeStory() {
           <button
             type="button"
             className="min-h-11 rounded-full border border-white/20 px-4"
-            onClick={() => setChapter((value) => Math.max(0, value - 1))}
+            onClick={() => showChapter(chapter - 1)}
           >
             {t('story.back')}
           </button>
           <button
             type="button"
             className="min-h-11 rounded-full border border-white/20 px-4"
-            onClick={() => setChapter((value) => Math.min(5, value + 1))}
+            onClick={() => showChapter(chapter + 1)}
           >
             {t('story.next')}
           </button>
         </div>
         {chapter === 5 ? (
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-4 flex flex-wrap gap-3">
             <Link
               href="/listen"
               prefetch={false}
@@ -289,10 +419,10 @@ function HomeStory() {
             </Link>
           </div>
         ) : null}
-        <p className="mt-6 text-sm" lang="en">
+        <p className="mt-4 text-sm" lang="en">
           {t('banner.nasa')}
         </p>
-      </section>
+      </div>
     </article>
   );
 }

@@ -59,6 +59,7 @@ export interface AppData {
   catalog: Partial<Record<LayerId, LoadedLayer>>;
   lastScore: Score | null;
   message: { en: string; ar: string } | null;
+  visual: { level: number; pulse: number; layerId: LayerId };
 }
 
 const DEFAULT_SETTINGS: Settings = {
@@ -91,6 +92,7 @@ export const initialAppData = (): AppData => ({
   catalog: {},
   lastScore: null,
   message: null,
+  visual: { level: 0, pulse: 0, layerId: 'temperature' },
 });
 
 function clamp(n: number, lo: number, hi: number): number {
@@ -324,6 +326,7 @@ interface AppStore extends AppData {
   markIntroSeen: (seen: boolean) => void;
   setTutorialIndex: (index: number) => void;
   closeQuiz: () => void;
+  setVisual: (visual: AppData['visual']) => void;
 }
 
 export const useAppStore = create<AppStore>((set, get) => ({
@@ -370,4 +373,5 @@ export const useAppStore = create<AppStore>((set, get) => ({
   },
   setTutorialIndex: (index) => set({ tutorial: { index, stepId: null } }),
   closeQuiz: () => set({ quiz: null }),
+  setVisual: (visual) => set({ visual }),
 }));

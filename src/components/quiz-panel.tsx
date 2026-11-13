@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import { useTranslations } from 'next-intl';
 import { QUIZ_ANSWERS, type QuizAnswer } from '@/core/actions';
 import { subscribe } from '@/core/bus';
@@ -34,7 +33,11 @@ function readLog(): QuizLogEntry[] {
 
 export function QuizPanel() {
   const t = useTranslations();
-  const params = useSearchParams();
+  const resultsFlag = useSyncExternalStore(
+    () => () => undefined,
+    () => new URLSearchParams(window.location.search).get('results') === '1',
+    () => false,
+  );
   const file = useContent((state) => state.quiz);
   const dispatch = useAppStore((state) => state.dispatch);
   const closeQuiz = useAppStore((state) => state.closeQuiz);
@@ -146,9 +149,7 @@ export function QuizPanel() {
   const graded = log.filter((entry) => !entry.training);
   const correctCount = graded.filter((entry) => entry.correct).length;
   const scoreText = `${correctCount}/${graded.length}`;
-  const results = params.get('results') === '1' || phase === 'end';
-
-  if (!file) return <p className="px-4 py-8">{t('quiz.intro')}</p>;
+  const results = resultsFlag || phase === 'end';
 
   return (
     <section className="mx-auto grid max-w-3xl gap-6 px-4 py-8">
@@ -166,7 +167,7 @@ export function QuizPanel() {
             setRound('training');
             setPhase('question');
             void speakNarration('quiz.intro', document.documentElement.lang === 'ar' ? 'ar' : 'en');
-            playCurrent(file.training);
+            if (file) playCurrent(file.training);
           }}
         >
           <p>{t('quiz.intro')}</p>
@@ -192,7 +193,9 @@ export function QuizPanel() {
               ))}
             </select>
           </label>
-          <Button type="submit">{t('quiz.start')}</Button>
+          <Button type="submit" disabled={!file}>
+            {t('quiz.start')}
+          </Button>
         </form>
       ) : null}
       {clip && phase !== 'intro' && phase !== 'end' ? (

@@ -1,8 +1,7 @@
 'use client';
 
-import { Suspense, useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
 import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { isDemoFlag } from '@/core/demo';
 import { useAppStore } from '@/core/store';
@@ -20,6 +19,24 @@ import { PlaybackBridge } from '@/components/playback-bridge';
 import { QuizPanel } from '@/components/quiz-panel';
 import * as Dialog from '@radix-ui/react-dialog';
 
+function warmTone(): Promise<void> {
+  return new Promise((resolve) => {
+    try {
+      const worker = new Worker(new URL('../workers/warm-tone.ts', import.meta.url), {
+        type: 'module',
+      });
+      const finish = () => {
+        worker.terminate();
+        resolve();
+      };
+      worker.onmessage = finish;
+      worker.onerror = finish;
+    } catch {
+      resolve();
+    }
+  });
+}
+
 const LINKS = [
   ['/', 'nav.home'],
   ['/listen', 'nav.listen'],
@@ -31,11 +48,10 @@ const LINKS = [
   ['/settings', 'nav.settings'],
 ] as const;
 
-function ShellInner({ children, locale }: { children: ReactNode; locale: string }) {
+export function Shell({ children, locale }: { children: ReactNode; locale: string }) {
   const t = useTranslations();
   const pathname = usePathname();
   const router = useRouter();
-  const params = useSearchParams();
   const dispatch = useAppStore((state) => state.dispatch);
   const mode = useAppStore((state) => state.mode);
   const sample = useAppStore((state) => state.sample);
@@ -47,8 +63,9 @@ function ShellInner({ children, locale }: { children: ReactNode; locale: string 
   const other = locale === 'ar' ? 'en' : 'ar';
 
   useEffect(() => {
-    const demoOn = isDemoFlag(params.get('demo')) || document.cookie.includes('el.demo=1');
-    useAppStore.getState().setDemo(demoOn, params.get('debug') === '1');
+    const search = new URLSearchParams(window.location.search);
+    const demoOn = isDemoFlag(search.get('demo')) || document.cookie.includes('el.demo=1');
+    useAppStore.getState().setDemo(demoOn, search.get('debug') === '1');
     document.documentElement.dataset.demo = demoOn ? '1' : '0';
     const saved = localStorage.getItem('el.settings.v1');
     if (saved) {
@@ -66,15 +83,26 @@ function ShellInner({ children, locale }: { children: ReactNode; locale: string 
       useAppStore.setState({ mode: storedMode });
     if (!demoOn && localStorage.getItem('el.introSeen') === '1')
       useAppStore.getState().markIntroSeen(true);
-    // Pull the synthesis and voice chunks while the catalog is still loading,
-    // so ?demo=1 can go offline without a later dynamic import.
-    void Promise.all([
-      load(),
-      import('tone'),
-      import('@/modules/voice'),
-      import('@/components/earth-canvas'),
-    ]);
-  }, [params, load]);
+    // Voice stays in the cache so narration works after the demo goes offline.
+    // Tone is warmed in a worker only for ?demo=1, off the main thread.
+    const jobs: Promise<unknown>[] = [load(), import('@/modules/voice')];
+    if (demoOn && typeof Worker !== 'undefined') {
+      jobs.push(warmTone());
+    }
+    void Promise.all(jobs);
+  }, [load]);
+
+  const skipFocus = useRef(true);
+  useEffect(() => {
+    if (skipFocus.current) {
+      skipFocus.current = false;
+      return;
+    }
+    const heading = document.querySelector('#content h1');
+    if (!(heading instanceof HTMLElement)) return;
+    heading.tabIndex = -1;
+    heading.focus();
+  }, [pathname]);
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -132,7 +160,6 @@ function ShellInner({ children, locale }: { children: ReactNode; locale: string 
     return () => window.removeEventListener('keydown', onKey);
   }, [dispatch, pathname]);
 
-  const query = params.toString();
   const onQuiz = pathname.endsWith('/quiz');
 
   return (
@@ -185,6 +212,7 @@ function ShellInner({ children, locale }: { children: ReactNode; locale: string 
             {mode === 'audio_first' ? t('header.visual') : t('header.audio')}
           </IconButton>
           <IconButton
+            data-testid="pause-animations"
             aria-pressed={settings.reducedMotion === 'on'}
             aria-label={settings.reducedMotion === 'on' ? t('header.resume') : t('header.pause')}
             onClick={() =>
@@ -208,6 +236,7 @@ function ShellInner({ children, locale }: { children: ReactNode; locale: string 
             className="min-h-11 px-3"
             onClick={() => {
               dispatch({ type: 'set_language', lang: other }, 'pointer');
+              const query = window.location.search.replace(/^\?/, '');
               router.replace(query ? `${pathname}?${query}` : pathname, { locale: other });
             }}
           >
@@ -219,7 +248,7 @@ function ShellInner({ children, locale }: { children: ReactNode; locale: string 
         </div>
       </header>
       <Banner sample={sample} demo={demo} />
-      <main id="content">
+      <main id="content" key={pathname} className="route-fade">
         {children}
         {quiz?.open && !onQuiz ? <QuizPanel /> : null}
       </main>
@@ -263,22 +292,5 @@ function ShellInner({ children, locale }: { children: ReactNode; locale: string 
         </Dialog.Portal>
       </Dialog.Root>
     </>
-  );
-}
-
-function ShellFallback() {
-  const t = useTranslations();
-  return (
-    <main id="content" className="starfield min-h-screen px-6 py-16">
-      <p role="status">{t('meta.loading')}</p>
-    </main>
-  );
-}
-
-export function Shell({ children, locale }: { children: ReactNode; locale: string }) {
-  return (
-    <Suspense fallback={<ShellFallback />}>
-      <ShellInner locale={locale}>{children}</ShellInner>
-    </Suspense>
   );
 }

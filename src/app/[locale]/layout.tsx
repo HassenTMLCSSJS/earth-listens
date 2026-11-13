@@ -10,13 +10,23 @@ import '@/styles/globals.css';
 const display = Space_Grotesk({
   subsets: ['latin'],
   variable: '--font-display',
-  weight: ['500', '600', '700'],
+  weight: '500',
+  display: 'swap',
+  preload: false,
 });
-const sans = Inter({ subsets: ['latin'], variable: '--font-sans', weight: ['400', '500', '600'] });
+const sans = Inter({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  weight: '400',
+  display: 'swap',
+  preload: false,
+});
 const arabic = IBM_Plex_Sans_Arabic({
   subsets: ['arabic'],
   variable: '--font-arabic',
-  weight: ['400', '500', '600'],
+  weight: ['400', '500'],
+  display: 'swap',
+  preload: false,
 });
 
 export function generateStaticParams() {
@@ -45,7 +55,11 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${display.variable} ${sans.variable} ${arabic.variable}`}
+      className={
+        locale === 'ar'
+          ? `${arabic.variable} ${display.variable}`
+          : `${display.variable} ${sans.variable}`
+      }
     >
       <body>
         <NextIntlClientProvider messages={messages}>

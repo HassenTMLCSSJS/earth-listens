@@ -80,6 +80,7 @@
     "scale": "Scale",
     "tuning": "12-TET",
     "globe": "Interactive globe",
+    "standIn": "Procedural stand-in, not a NASA image.",
     "summary": "A text view of the planet. West is left, east is right, relative to the view centre."
   },
   "layers": {

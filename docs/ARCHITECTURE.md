@@ -50,6 +50,6 @@ Import a module only through `src/modules/<name>/index.ts`. ESLint rejects `@/mo
 
 ## Demo mode
 
-`?demo=1` sets the `el.demo` cookie. The catalog preload copies every JSON file, frame, and the globe texture into memory. The shell also requests the Tone.js, voice, and globe chunks during that load. After `networkidle`, the listen page plays, compares, opens the quiz, and runs the symphony with no further network. Kokoro and Piper are not called in demo mode. There is no `/api` call.
+`?demo=1` sets the `el.demo` cookie. The catalog preload copies the JSON files, the latest frame of each layer, and the globe texture into memory. The shell requests the voice chunk during that load. On a demo page it also warms the Tone.js chunk inside a module worker. The globe’s Three.js chunk loads after a pointer, focus, or playback. After `networkidle`, the listen page plays, compares, opens the quiz, and runs the symphony with no further network. Kokoro and Piper are not called in demo mode. There is no `/api` call.
 
 Sample files are synthetic. The banner reads `SAMPLE DATA: not real measurements` and `بيانات تجريبية: ليست قياسات حقيقية`.

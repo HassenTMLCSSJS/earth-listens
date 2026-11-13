@@ -36,4 +36,12 @@
 
 **Modules for the globe and the intro.** The globe and the story live in `src/components` because they are client UI. Their pure helpers stay in `sonification` and `narration`.
 
-**Player timbres.** The score names warm-lead, crackle-marimba, glass-bells, and beating-drone. The player still uses one sine synth. See `docs/SONIFICATION.md`.
+**Player timbres.** The score names warm-lead, crackle-marimba, glass-bells, and beating-drone. The player builds those four Tone.js instruments. See `docs/SONIFICATION.md`. Seasonal tremolo depth is computed at playback from `seasonalAmplitude / 10`. It is not stored on the note.
+
+**Intro scroll.** After the gate and the spoken intro, the six chapters are pinned with Lenis and GSAP ScrollTrigger. Reduced motion, and the pause control, skip the pin and show one chapter at a time. The keyboard path is still Begin, Enter, Escape, then Next chapter.
+
+**Globe shader.** The canvas is a displaced sphere plus an additive fresnel atmosphere. Layer intensity, the same 0–1 value the pitch uses, tints and lifts the surface. Each note retriggers a pulse. The texture remains the procedural stand-in. The canvas mounts after pointer or focus, or when playback starts while the browser is online. The first paint is the still image, and an offline demo does not request the Three.js chunk.
+
+**Route focus and pause.** After the first load, a pathname change moves focus to the `h1` inside `#content`. The header pause control sets `reducedMotion` and is labelled for assistive tech.
+
+**What the first paint loads.** The shell reads `demo` and `debug` from `window.location.search`, so the page is in the first HTML instead of a suspense fallback. English pages ship Space Grotesk 500 and Inter 400. Arabic pages ship IBM Plex Sans Arabic 400 and 500, plus the display face. Fonts are not preloaded until the page uses them. The catalog fetches the globe texture and the latest frame of each layer into the HTTP cache and leaves their URLs in place. The poster is that static texture, so it can paint before the catalog returns. Tone.js is prefetched in a module worker only when `?demo=1` is set. Kokoro and Piper load only when a caller opts into neural speech, so the tutorial does not download them on first paint. Automatic lines use the captions and `speechSynthesis`.
