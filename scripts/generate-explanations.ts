@@ -13,12 +13,12 @@ const COPY: Record<
 > = {
   temperature: {
     short: {
-      en: 'SAMPLE. Higher notes mean warmer years. This sample range goes from -0.6 to 1.4 °C. The rhythm speeds up when the year-to-year change is bigger.',
-      ar: 'بيانات تجريبية. النغمة الأعلى تعني سنة أدفأ. المدى التجريبي من -0.6 إلى 1.4 درجة. الإيقاع يسرع لما الفرق بين السنين يكبر.',
+      en: 'Real GISTEMP v4. Higher notes mean warmer years. The range goes from -0.6 to 1.4 °C, and the rhythm speeds up when the year-to-year change is bigger.',
+      ar: 'بيانات GISTEMP v4 الحقيقية. النغمة الأعلى تعني سنة أدفأ. المدى من -0.6 إلى 1.4 درجة، والإيقاع يسرع لما الفرق بين السنين يكبر.',
     },
     detailed: {
-      en: 'SAMPLE data, not a GISTEMP measurement. Pitch is the anomaly, loudness is fixed for this layer, and rhythm follows the change from the previous year. One sample year is intentionally outside the range so you can hear the warning tone.',
-      ar: 'بيانات تجريبية، ليست قياس GISTEMP. الطبقة هي الشذوذ، والعلو ثابت في الطبقة دي، والإيقاع ماشي مع الفرق عن السنة اللي فاتت. فيه سنة تجريبية خارجة عن المدى عشان تسمع نغمة التحذير.',
+      en: 'Real GISTEMP v4 annual global mean anomaly, 1880–2025. Pitch is the anomaly, loudness is fixed for this layer, and rhythm follows the change from the previous year. GISTEMP is global only, so other regions have no series. Globe map frames are marked stand-ins.',
+      ar: 'شذوذ سنوي عالمي حقيقي من GISTEMP v4، من 1880 إلى 2025. الطبقة هي الشذوذ، والعلو ثابت، والإيقاع ماشي مع الفرق عن السنة اللي فاتت. GISTEMP عالمي فقط، فمفيش سلسلة لمناطق تانية. إطارات الخريطة مولّدة.',
     },
   },
   wildfire: {
@@ -33,22 +33,22 @@ const COPY: Record<
   },
   sea_ice: {
     short: {
-      en: 'SAMPLE. Higher notes mean more September ice in the sample series. The sound sits in the north.',
-      ar: 'بيانات تجريبية. النغمة الأعلى تعني جليد سبتمبر أكتر في السلسلة التجريبية. الصوت جاي من الشمال.',
+      en: 'Real NSIDC September Arctic extent. Higher notes mean more ice. The sound sits in the north, and other regions have no September series.',
+      ar: 'امتداد جليد سبتمبر الحقيقي من NSIDC. النغمة الأعلى تعني جليدًا أكثر. الصوت جاي من الشمال، ومفيش سلسلة سبتمبر لمناطق تانية.',
     },
     detailed: {
-      en: 'SAMPLE September values, not the NSIDC Sea Ice Index. Loudness is steady. Rhythm follows the change since the previous September. The real DOI still needs a check before anyone cites it.',
-      ar: 'قيم سبتمبر تجريبية، ليست مؤشر NSIDC. العلو ثابت. الإيقاع ماشي مع الفرق عن سبتمبر اللي فات. رقم DOI الحقيقي لسه محتاج مراجعة قبل أي استشهاد.',
+      en: 'Real NSIDC Sea Ice Index v4 September Arctic extent, 1979–2026. Loudness is steady. Rhythm follows the change since the previous September. The DOI still needs a check before anyone cites it.',
+      ar: 'امتداد جليد سبتمبر الحقيقي من NSIDC v4، من 1979 إلى 2026. العلو ثابت. الإيقاع ماشي مع الفرق عن سبتمبر اللي فات. رقم DOI لسه محتاج مراجعة قبل أي استشهاد.',
     },
   },
   co2: {
     short: {
-      en: 'SAMPLE. Higher notes mean a higher sample carbon dioxide value. The drone has no left-right position because the series is global.',
-      ar: 'بيانات تجريبية. النغمة الأعلى تعني قيمة تجريبية أعلى لثاني أكسيد الكربون. الدندنة ملهاش يمين وشمال لأن السلسلة عالمية.',
+      en: 'Real NOAA Mauna Loa CO₂. Higher notes mean a higher annual mean. The drone has no left-right position because the series is global.',
+      ar: 'ثاني أكسيد كربون حقيقي من ماونا لوا التابع لـ NOAA. النغمة الأعلى تعني متوسطًا سنويًا أعلى. الدندنة ملهاش يمين وشمال لأن السلسلة عالمية.',
     },
     detailed: {
-      en: 'SAMPLE curve shaped like a seasonal cycle plus a rise. It is not the NOAA Mauna Loa record. The annual mean is what you hear in the symphony. Seasonal amplitude is stored beside it and is not a forecast.',
-      ar: 'منحنى تجريبي فيه دورة موسمية وصعود. ده مش سجل ماونا لوا بتاع NOAA. المتوسط السنوي هو اللي بتسمعه في السيمفونية. سعة الموسم متخزنة جنبه ومش توقع.',
+      en: 'Real NOAA GML Mauna Loa annual means, 1958–2025. Complete calendar years only; 2026 is incomplete and is not filled. Seasonal amplitude is not shipped in this file, and this is not a forecast.',
+      ar: 'متوسطات سنوية حقيقية من ماونا لوا التابع لـ NOAA GML، من 1958 إلى 2025. السنوات الكاملة فقط؛ 2026 ناقصة ولا تُملأ. سعة الموسم غير مرفقة في الملف، وده مش توقع.',
     },
   },
   night_lights: {
@@ -114,6 +114,14 @@ const COPY: Record<
 };
 
 async function main(): Promise<void> {
+  const registry = JSON.parse(
+    await readFile(path.join(root, 'public/data/registry.json'), 'utf8'),
+  ) as { layers: { id: LayerId; data: string }[] };
+  const real = new Set(
+    registry.layers
+      .filter((layer) => !layer.data.endsWith('.sample.json'))
+      .map((layer) => layer.id),
+  );
   const items = [];
   for (const id of LAYER_IDS) {
     const config = JSON.parse(
@@ -124,13 +132,16 @@ async function main(): Promise<void> {
     const range = config.variables.how_much.range;
     for (const level of ['short', 'detailed'] as const) {
       const text = COPY[id][level];
+      const suffix = real.has(id)
+        ? { en: `Range ${range[0]} to ${range[1]}.`, ar: `المدى من ${range[0]} إلى ${range[1]}.` }
+        : {
+            en: `Sample range ${range[0]} to ${range[1]}.`,
+            ar: `المدى التجريبي من ${range[0]} إلى ${range[1]}.`,
+          };
       const item = ExplanationSchema.parse({
         id,
         level,
-        text: {
-          en: `${text.en} Sample range ${range[0]} to ${range[1]}.`,
-          ar: `${text.ar} المدى التجريبي من ${range[0]} إلى ${range[1]}.`,
-        },
+        text: { en: `${text.en} ${suffix.en}`, ar: `${text.ar} ${suffix.ar}` },
       });
       items.push(item);
     }

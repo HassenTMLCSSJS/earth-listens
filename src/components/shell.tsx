@@ -55,6 +55,16 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
   const dispatch = useAppStore((state) => state.dispatch);
   const mode = useAppStore((state) => state.mode);
   const sample = useAppStore((state) => state.sample);
+  const frameSample = useAppStore((state) =>
+    state.layers.some((id) => {
+      const layer = state.catalog[id];
+      return (
+        layer !== undefined &&
+        !layer.isSample &&
+        layer.data.frames.some((frame) => frame.sample === true)
+      );
+    }),
+  );
   const demo = useAppStore((state) => state.demo);
   const quiz = useAppStore((state) => state.quiz);
   const settings = useAppStore((state) => state.settings);
@@ -250,7 +260,7 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
           <CommandBox />
         </div>
       </header>
-      <Banner sample={sample} demo={demo} />
+      <Banner sample={sample} demo={demo} frameSample={frameSample} />
       <main id="content" key={pathname} className="route-fade">
         {children}
         {quiz?.open && !onQuiz ? <QuizPanel /> : null}

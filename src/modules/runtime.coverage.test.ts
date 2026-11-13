@@ -126,11 +126,14 @@ beforeEach(() => {
 });
 
 describe('module runtime paths', () => {
-  it('loads the sample registry through the data contract', async () => {
+  it('loads the recorded registry through the data contract', async () => {
     const registry = await loadRegistry();
     const layer = await registry.get('temperature');
-    expect(layer.isSample).toBe(true);
-    expect(layer.data.sample).toBe(true);
+    expect(layer.isSample).toBe(false);
+    expect(layer.data.sample).toBe(false);
+    expect(layer.data.series.global?.[0]?.v).toBeCloseTo(-0.18);
+    const sample = await registry.get('wildfire');
+    expect(sample.isSample).toBe(true);
     expect(regionCentre('egypt')).toEqual({ lat: 26.8, lon: 30.8 });
     expect(registry.list().map((item) => item.id)).toContain('co2');
   });

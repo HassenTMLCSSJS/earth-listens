@@ -5,16 +5,16 @@
       "id": "temperature",
       "level": "short",
       "text": {
-        "en": "SAMPLE. Higher notes mean warmer years. This sample range goes from -0.6 to 1.4 °C. The rhythm speeds up when the year-to-year change is bigger. Sample range -0.6 to 1.4.",
-        "ar": "بيانات تجريبية. النغمة الأعلى تعني سنة أدفأ. المدى التجريبي من -0.6 إلى 1.4 درجة. الإيقاع يسرع لما الفرق بين السنين يكبر. المدى التجريبي من -0.6 إلى 1.4."
+        "en": "Real GISTEMP v4. Higher notes mean warmer years. The range goes from -0.6 to 1.4 °C, and the rhythm speeds up when the year-to-year change is bigger. Range -0.6 to 1.4.",
+        "ar": "بيانات GISTEMP v4 الحقيقية. النغمة الأعلى تعني سنة أدفأ. المدى من -0.6 إلى 1.4 درجة، والإيقاع يسرع لما الفرق بين السنين يكبر. المدى من -0.6 إلى 1.4."
       }
     },
     {
       "id": "temperature",
       "level": "detailed",
       "text": {
-        "en": "SAMPLE data, not a GISTEMP measurement. Pitch is the anomaly, loudness is fixed for this layer, and rhythm follows the change from the previous year. One sample year is intentionally outside the range so you can hear the warning tone. Sample range -0.6 to 1.4.",
-        "ar": "بيانات تجريبية، ليست قياس GISTEMP. الطبقة هي الشذوذ، والعلو ثابت في الطبقة دي، والإيقاع ماشي مع الفرق عن السنة اللي فاتت. فيه سنة تجريبية خارجة عن المدى عشان تسمع نغمة التحذير. المدى التجريبي من -0.6 إلى 1.4."
+        "en": "Real GISTEMP v4 annual global mean anomaly, 1880–2025. Pitch is the anomaly, loudness is fixed for this layer, and rhythm follows the change from the previous year. GISTEMP is global only, so other regions have no series. Globe map frames are marked stand-ins. Range -0.6 to 1.4.",
+        "ar": "شذوذ سنوي عالمي حقيقي من GISTEMP v4، من 1880 إلى 2025. الطبقة هي الشذوذ، والعلو ثابت، والإيقاع ماشي مع الفرق عن السنة اللي فاتت. GISTEMP عالمي فقط، فمفيش سلسلة لمناطق تانية. إطارات الخريطة مولّدة. المدى من -0.6 إلى 1.4."
       }
     },
     {
@@ -37,48 +37,48 @@
       "id": "sea_ice",
       "level": "short",
       "text": {
-        "en": "SAMPLE. Higher notes mean more September ice in the sample series. The sound sits in the north. Sample range 3 to 8.",
-        "ar": "بيانات تجريبية. النغمة الأعلى تعني جليد سبتمبر أكتر في السلسلة التجريبية. الصوت جاي من الشمال. المدى التجريبي من 3 إلى 8."
+        "en": "Real NSIDC September Arctic extent. Higher notes mean more ice. The sound sits in the north, and other regions have no September series. Range 3 to 8.",
+        "ar": "امتداد جليد سبتمبر الحقيقي من NSIDC. النغمة الأعلى تعني جليدًا أكثر. الصوت جاي من الشمال، ومفيش سلسلة سبتمبر لمناطق تانية. المدى من 3 إلى 8."
       }
     },
     {
       "id": "sea_ice",
       "level": "detailed",
       "text": {
-        "en": "SAMPLE September values, not the NSIDC Sea Ice Index. Loudness is steady. Rhythm follows the change since the previous September. The real DOI still needs a check before anyone cites it. Sample range 3 to 8.",
-        "ar": "قيم سبتمبر تجريبية، ليست مؤشر NSIDC. العلو ثابت. الإيقاع ماشي مع الفرق عن سبتمبر اللي فات. رقم DOI الحقيقي لسه محتاج مراجعة قبل أي استشهاد. المدى التجريبي من 3 إلى 8."
+        "en": "Real NSIDC Sea Ice Index v4 September Arctic extent, 1979–2026. Loudness is steady. Rhythm follows the change since the previous September. The DOI still needs a check before anyone cites it. Range 3 to 8.",
+        "ar": "امتداد جليد سبتمبر الحقيقي من NSIDC v4، من 1979 إلى 2026. العلو ثابت. الإيقاع ماشي مع الفرق عن سبتمبر اللي فات. رقم DOI لسه محتاج مراجعة قبل أي استشهاد. المدى من 3 إلى 8."
       }
     },
     {
       "id": "co2",
       "level": "short",
       "text": {
-        "en": "SAMPLE. Higher notes mean a higher sample carbon dioxide value. The drone has no left-right position because the series is global. Sample range 310 to 440.",
-        "ar": "بيانات تجريبية. النغمة الأعلى تعني قيمة تجريبية أعلى لثاني أكسيد الكربون. الدندنة ملهاش يمين وشمال لأن السلسلة عالمية. المدى التجريبي من 310 إلى 440."
+        "en": "Real NOAA Mauna Loa CO₂. Higher notes mean a higher annual mean. The drone has no left-right position because the series is global. Range 310 to 440.",
+        "ar": "ثاني أكسيد كربون حقيقي من ماونا لوا التابع لـ NOAA. النغمة الأعلى تعني متوسطًا سنويًا أعلى. الدندنة ملهاش يمين وشمال لأن السلسلة عالمية. المدى من 310 إلى 440."
       }
     },
     {
       "id": "co2",
       "level": "detailed",
       "text": {
-        "en": "SAMPLE curve shaped like a seasonal cycle plus a rise. It is not the NOAA Mauna Loa record. The annual mean is what you hear in the symphony. Seasonal amplitude is stored beside it and is not a forecast. Sample range 310 to 440.",
-        "ar": "منحنى تجريبي فيه دورة موسمية وصعود. ده مش سجل ماونا لوا بتاع NOAA. المتوسط السنوي هو اللي بتسمعه في السيمفونية. سعة الموسم متخزنة جنبه ومش توقع. المدى التجريبي من 310 إلى 440."
+        "en": "Real NOAA GML Mauna Loa annual means, 1958–2025. Complete calendar years only; 2026 is incomplete and is not filled. Seasonal amplitude is not shipped in this file, and this is not a forecast. Range 310 to 440.",
+        "ar": "متوسطات سنوية حقيقية من ماونا لوا التابع لـ NOAA GML، من 1958 إلى 2025. السنوات الكاملة فقط؛ 2026 ناقصة ولا تُملأ. سعة الموسم غير مرفقة في الملف، وده مش توقع. المدى من 310 إلى 440."
       }
     },
     {
       "id": "night_lights",
       "level": "short",
       "text": {
-        "en": "Higher notes mean a higher night brightness index (image-derived, not calibrated radiance). Sample range 5.51 to 51.75.",
-        "ar": "النغمة الأعلى تعني مؤشر سطوع ليلي أعلى (مشتق من الصورة، مش إشعاع معاير). المدى التجريبي من 5.51 إلى 51.75."
+        "en": "Higher notes mean a higher night brightness index (image-derived, not calibrated radiance). Range 5.51 to 51.75.",
+        "ar": "النغمة الأعلى تعني مؤشر سطوع ليلي أعلى (مشتق من الصورة، مش إشعاع معاير). المدى من 5.51 إلى 51.75."
       }
     },
     {
       "id": "night_lights",
       "level": "detailed",
       "text": {
-        "en": "The index is the cosine-weighted luma of the NASA GIBS Black Marble PNG. It is not calibrated radiance. Brighter is a bell, dimmer is a pad. Sample range 5.51 to 51.75.",
-        "ar": "المؤشر هو لمعان صورة الرخام الأسود من GIBS موزون بجيب التمام. ده مش إشعاع معاير. الأفتح جرس، والأغمق وسادة. المدى التجريبي من 5.51 إلى 51.75."
+        "en": "The index is the cosine-weighted luma of the NASA GIBS Black Marble PNG. It is not calibrated radiance. Brighter is a bell, dimmer is a pad. Range 5.51 to 51.75.",
+        "ar": "المؤشر هو لمعان صورة الرخام الأسود من GIBS موزون بجيب التمام. ده مش إشعاع معاير. الأفتح جرس، والأغمق وسادة. المدى من 5.51 إلى 51.75."
       }
     },
     {

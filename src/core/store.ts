@@ -108,10 +108,18 @@ function wrapLon(lon: number): number {
 
 function layerBounds(data: AppData): { min: number; max: number } {
   const primary = data.catalog[data.layers[0] ?? 'temperature'];
-  const series = primary?.data.series[data.region] ?? primary?.data.series.global ?? [];
+  const series =
+    primary?.data.series[data.region] ??
+    primary?.data.series.global ??
+    Object.values(primary?.data.series ?? {}).find((points) => points !== undefined) ??
+    [];
   const times = series.flatMap((point) => (typeof point.t === 'number' ? [point.t] : []));
-  if (times.length === 0) return { min: 1880, max: 2025 };
+  if (times.length === 0) return primary?.data.range ?? { min: 1880, max: 2025 };
   return { min: Math.min(...times), max: Math.max(...times) };
+}
+
+function sampleFor(layers: LayerId[], catalog: Partial<Record<LayerId, LoadedLayer>>): boolean {
+  return layers.some((id) => catalog[id]?.isSample === true);
 }
 
 function applySetting(
@@ -142,12 +150,14 @@ export function reduceApp(state: AppData, action: Action): AppData {
       return {
         ...state,
         layers: [action.id],
+        sample: sampleFor([action.id], state.catalog),
         playback: { ...state.playback, status: 'idle', mode: 'idle' },
       };
     case 'combine_layers':
       return {
         ...state,
         layers: action.ids.slice(0, 4),
+        sample: sampleFor(action.ids, state.catalog),
         playback: {
           ...state.playback,
           mode: action.ids.length === 4 ? 'symphony' : state.playback.mode,
@@ -242,9 +252,13 @@ export function summarize(state: AppData): { en: string; ar: string } {
   const day = state.layers[0] === 'wildfire' ? wildfireDate(state) : null;
   const whenEn = day ? formatIsoDate(day, 'en') : formatYear(state.time.cursor, 'en');
   const whenAr = day ? formatIsoDate(day, 'ar') : formatYear(state.time.cursor, 'ar');
+  const active = state.catalog[state.layers[0] ?? 'temperature'];
+  const noRegion = active ? !active.data.series[state.region] : false;
+  const noteEn = noRegion ? ', no regional series for this layer' : '';
+  const noteAr = noRegion ? '، لا توجد سلسلة لهذه المنطقة في هذه الطبقة' : '';
   return {
-    en: `${namesEn}, ${regionEn}, ${whenEn}`,
-    ar: `${namesAr}، ${regionAr}، ${whenAr}`,
+    en: `${namesEn}, ${regionEn}, ${whenEn}${noteEn}`,
+    ar: `${namesAr}، ${regionAr}، ${whenAr}${noteAr}`,
   };
 }
 
@@ -372,7 +386,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
     }
   },
   setCatalog: (catalog) => {
-    const sample = Object.values(catalog).some((layer) => layer?.isSample);
+    const sample = sampleFor(get().layers, catalog);
     const next = { ...get(), catalog, sample };
     set({ catalog, sample, lastScore: scoreFor(next) });
   },

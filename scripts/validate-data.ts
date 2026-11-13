@@ -88,7 +88,7 @@ async function main(): Promise<void> {
     }
   }
 
-  console.log('SAMPLE data validated');
+  console.log('data validated');
 }
 
 main().catch((error: unknown) => {
