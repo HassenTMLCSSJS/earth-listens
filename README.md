@@ -55,18 +55,18 @@ Copy `.env.example` to `.env.local` if you want a provider. Leave the values bla
 
 ```mermaid
 flowchart LR
-  NASA[EIC frames + GISS, NOAA GML, NSIDC, FIRMS] --> PIPE[Python pipeline]
-  PIPE --> DATA[(public/data)]
-  subgraph ENGINE[Sonification Engine]
-    VD[Find variables] --> NO[Normalize] --> MAP[Map] --> GEN[Tone.js]
+  NASA["EIC frames + GISS, NOAA GML, NSIDC, FIRMS"] --> PIPE[Python pipeline]
+  PIPE --> DATA[("public/data")]
+  subgraph ENGINE["Sonification Engine"]
+    VD[Find variables] --> NO[Normalize] --> MAP[Map] --> GEN["Tone.js"]
   end
   DATA --> VD
-  U[Voice, keyboard, pointer] --> FE[Next.js]
-  FE --> R{AR/EN parser}
+  U["Voice, keyboard, pointer"] --> FE["Next.js"]
+  FE --> R{"AR/EN parser"}
   R -->|matched| ACT[dispatch]
-  R -->|unmatched, online| AG[/api/agent]
+  R -->|"unmatched, online"| AG["/api/agent"]
   AG --> ACT
-  ACT --> STORE[(zustand)]
+  ACT --> STORE[("zustand")]
   STORE --> ENGINE
   STORE --> GL[Globe]
   STORE --> LIVE[Captions and TTS]
