@@ -51,6 +51,12 @@ describe('buildScore', () => {
     expect(score.events.every((event) => event.gainDb <= -6)).toBe(true);
   });
 
+  it('sounds a missing earcon and no note for a region without a series', () => {
+    const score = buildScore({ ...input, region: 'egypt' });
+    expect(score.events).toHaveLength(0);
+    expect(score.earcons).toEqual([{ t: 0, id: 'missing' }]);
+  });
+
   it('is byte-identical across two runs', () => {
     const first = JSON.stringify(buildScore(input));
     const second = JSON.stringify(buildScore(input));
@@ -98,6 +104,12 @@ describe('buildScore', () => {
       compare: { a: 2000, b: 2004 },
       region: 'egypt',
       regions: { egypt: { lat: 26.8, lon: 30.8 }, global: { lat: 0, lon: 0 } },
+      layers: [
+        {
+          ...input.layers[0]!,
+          data: { series: { egypt: input.layers[0]!.data.series.global ?? [] } },
+        },
+      ],
     });
     expect(compare.duration).toBe(4.5);
     expect(compare.events.length).toBeGreaterThan(0);

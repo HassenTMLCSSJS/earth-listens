@@ -9,10 +9,17 @@ from __future__ import annotations
 
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
+RECORDED = ROOT / "pipeline/tests/fixtures/recorded"
+RECORDED_RETRIEVED = "2026-11-13"
+
+sys.path.insert(0, str(ROOT / "pipeline"))
+
+from earth_pipeline.clean import annual_co2, gistemp_annual, september_ice  # noqa: E402
 
 NIGHT_2012 = {
     "global": 12.1298,
@@ -50,7 +57,126 @@ def series_from(table: dict[str, float], other: dict[str, float]):
 
 def write(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n"
+    )
+
+
+def sha256_of(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def recorded_points(rows: list[dict], key: str, last_year: int | None = None) -> list[dict]:
+    out = []
+    for row in rows:
+        year = int(row["year"])
+        value = row.get(key)
+        if last_year is not None and year > last_year:
+            continue
+        if value is None:
+            continue
+        out.append({"t": year, "v": float(value), "q": "ok"})
+    if not out:
+        raise SystemExit(f"no recorded values for {key}")
+    return out
+
+
+def stand_in_frames(layer_id: str) -> list[dict]:
+    """The SAMPLE frames stay as marked stand-ins beside a real series."""
+    path = PUBLIC / f"data/layers/{layer_id}.sample.json"
+    frames = json.loads(path.read_text(encoding="utf-8"))["frames"]
+    return [{**frame, "sample": True} for frame in frames]
+
+
+def write_recorded_layers() -> None:
+    temp_csv = RECORDED / "gistemp-2026-11-13.csv"
+    co2_csv = RECORDED / "co2_mm_mlo-2026-11-13.csv"
+    ice_csv = RECORDED / "nsidc-sept-2026-11-13.csv"
+
+    temp = recorded_points(gistemp_annual(temp_csv.read_text(encoding="utf-8")), "value")
+    co2 = recorded_points(
+        annual_co2(co2_csv.read_text(encoding="utf-8")), "value", last_year=2025
+    )
+    ice = recorded_points(september_ice(ice_csv.read_text(encoding="utf-8")), "extent")
+
+    specs = [
+        {
+            "id": "temperature",
+            "series": {"global": temp},
+            "source": {
+                "name": "NASA GISTEMP v4",
+                "dataset_url": "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv",
+                "eic_page": "https://earth.gov/sealevel/vital-signs/global-temperature/",
+                "retrieved": RECORDED_RETRIEVED,
+                "sha256": sha256_of(temp_csv),
+                "citation": "GISTEMP Team, 2026: GISS Surface Temperature Analysis (GISTEMP), version 4. NASA Goddard Institute for Space Studies.",
+                "ack": None,
+            },
+            "description": {
+                "en": "GISTEMP v4 annual global mean surface-temperature anomaly, °C relative to 1951–1980. The source is global only, so no regional series exists. Globe map frames are marked stand-ins, not GISTEMP frames.",
+                "ar": "شذوذ متوسط درجة حرارة سطح الأرض السنوي من GISTEMP v4، بالدرجة المئوية مقارنة بـ 1951–1980. المصدر عالمي فقط، فلا توجد سلسلة إقليمية. إطارات الخريطة على الكرة مولّدة وليست إطارات GISTEMP.",
+            },
+        },
+        {
+            "id": "co2",
+            "series": {"global": co2},
+            "source": {
+                "name": "NOAA GML Mauna Loa CO2",
+                "dataset_url": "https://gml.noaa.gov/aftp/products/trends/co2/co2_mm_mlo.csv",
+                "eic_page": "https://earth.gov/sealevel/vital-signs/carbon-dioxide/",
+                "retrieved": RECORDED_RETRIEVED,
+                "sha256": sha256_of(co2_csv),
+                "citation": "Lan, Tans, and Thoning, NOAA Global Monitoring Laboratory, Mauna Loa CO2 monthly mean data.",
+                "ack": None,
+            },
+            "description": {
+                "en": "Annual means of the NOAA GML Mauna Loa monthly CO2 record, 1958–2025. Complete calendar years only; 2026 is incomplete and is not filled. Globe map frames are marked stand-ins.",
+                "ar": "متوسطات سنوية لسجل ثاني أكسيد الكربون الشهري من ماونا لوا التابع لـ NOAA GML، من 1958 إلى 2025. السنوات الكاملة فقط؛ 2026 ناقصة ولا تُملأ. إطارات الخريطة مولّدة.",
+            },
+        },
+        {
+            "id": "sea_ice",
+            "series": {"arctic": ice},
+            "source": {
+                "name": "NSIDC Sea Ice Index v4",
+                "dataset_url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_09_extent_v4.0.csv",
+                "eic_page": "https://nsidc.org/data/g02135/versions/4",
+                "retrieved": RECORDED_RETRIEVED,
+                "sha256": sha256_of(ice_csv),
+                "citation": "Fetterer et al., Sea Ice Index, G02135, version 4. NSIDC: National Snow and Ice Data Center.",
+                "ack": None,
+            },
+            "description": {
+                "en": "NSIDC Sea Ice Index v4 September Arctic extent, 1979–2026, in million km². Arctic only: the September series does not cover other regions. Globe map frames are marked stand-ins.",
+                "ar": "امتداد الجليد البحري في القطب الشمالي لشهر سبتمبر من NSIDC v4، من 1979 إلى 2026، بملايين الكيلومترات المربعة. القطب الشمالي فقط. إطارات الخريطة مولّدة.",
+            },
+        },
+    ]
+
+    for spec in specs:
+        layer_id = spec["id"]
+        config = json.loads(
+            (PUBLIC / f"data/layers/{layer_id}.config.json").read_text(encoding="utf-8")
+        )
+        points = next(iter(spec["series"].values()))
+        write(
+            PUBLIC / f"data/layers/{layer_id}.json",
+            {
+                "id": layer_id,
+                "sample": False,
+                "title": config["title"],
+                "unit": config["unit"],
+                "source": spec["source"],
+                "range": {"min": points[0]["t"], "max": points[-1]["t"]},
+                "series": spec["series"],
+                "annual": None,
+                "cells": None,
+                "seasonalAmplitude": None,
+                "frames": stand_in_frames(layer_id),
+                "events": [],
+                "description": spec["description"],
+            },
+        )
 
 
 def config(layer_id: str, category: str, title_en: str, title_ar: str, unit_en: str, unit_ar: str, time_kind: str, page: str, frames: str, lo: float, hi: float, timbre: str, register: list[int], sym: list[int], scale: str, role: str, start: int, end: int, field_fast: str = "delta(v)", fast: list[float] | None = None, species: dict | None = None):
@@ -82,6 +208,7 @@ def sample_series(values: list[tuple[int, float]]):
 
 
 def main() -> None:
+    write_recorded_layers()
     label = "night brightness index (image-derived, not calibrated radiance)"
     write(
         PUBLIC / "data/layers/night_lights.config.json",
@@ -307,6 +434,8 @@ def main() -> None:
     existing["temperature"]["historicalOnly"] = False
     existing["co2"]["live"] = {"feed": "noaa-gml", "revalidate": 86400}
     existing["sea_ice"]["live"] = {"feed": "nsidc", "revalidate": 86400}
+    for layer_id in ("temperature", "co2", "sea_ice"):
+        existing[layer_id]["data"] = f"/data/layers/{layer_id}.json"
     existing["wildfire"]["live"] = {"feed": "firms-24h", "revalidate": 1800}
     order = ["temperature", "wildfire", "sea_ice", "co2", "night_lights", "ocean_sst", "ocean_currents", "aerosols", "air_quality", "lightning"]
     registry["layers"] = [existing[layer_id] for layer_id in order]
@@ -377,6 +506,7 @@ def main() -> None:
             ]
         ),
         encoding="utf-8",
+        newline="\n",
     )
     sources = []
 
