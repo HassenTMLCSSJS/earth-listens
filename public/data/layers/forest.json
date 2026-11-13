@@ -1,0 +1,111 @@
+{
+  "id": "forest",
+  "sample": false,
+  "title": {
+    "en": "Forest height",
+    "ar": "ارتفاع الغابات"
+  },
+  "unit": {
+    "en": "canopy height, m",
+    "ar": "ارتفاع الغطاء، م"
+  },
+  "source": {
+    "name": "GEDI L3 canopy height and L4B biomass, via GIBS",
+    "dataset_url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi",
+    "eic_page": "https://svs.gsfc.nasa.gov/4950/",
+    "retrieved": "2026-11-13",
+    "sha256": "4c531e931d87461f368afa07a6c933581e7a029f3e61c9e8a1f53226a689ea62",
+    "citation": "Cumulative GEDI products for 2019-04-18 through 2023-03. One static field, not a yearly time series. Height, standard deviation, and aboveground biomass are separate layers.",
+    "ack": "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS).",
+    "gibs_layer": "GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303",
+    "license": "NASA media guidelines; credit required; no implied endorsement"
+  },
+  "range": {
+    "min": 2019,
+    "max": 2023
+  },
+  "series": {
+    "global": [
+      {
+        "t": 2023,
+        "v": 9.142318,
+        "q": "ok"
+      }
+    ],
+    "egypt": [
+      {
+        "t": 2023,
+        "v": 4.4734,
+        "q": "ok"
+      }
+    ],
+    "africa": [
+      {
+        "t": 2023,
+        "v": 7.27148,
+        "q": "ok"
+      }
+    ],
+    "europe": [
+      {
+        "t": 2023,
+        "v": 8.926332,
+        "q": "ok"
+      }
+    ],
+    "asia": [
+      {
+        "t": 2023,
+        "v": 9.290328,
+        "q": "ok"
+      }
+    ],
+    "americas": [
+      {
+        "t": 2023,
+        "v": 11.513244,
+        "q": "ok"
+      }
+    ],
+    "oceania": [
+      {
+        "t": 2023,
+        "v": 8.089482,
+        "q": "ok"
+      }
+    ]
+  },
+  "annual": null,
+  "cells": null,
+  "seasonalAmplitude": null,
+  "frames": [
+    {
+      "t": "2019-04-18",
+      "src": "/frames/forest/2019-04-18.webp",
+      "q": "ok",
+      "grid": "/data/grids/forest/2019-04-18.json",
+      "value": "/frames/forest/2019-04-18.value.png"
+    }
+  ],
+  "events": [],
+  "description": {
+    "en": "GEDI L3 mean canopy height (RH100), cumulative April 2019–March 2023. One map, not a trend. Standard deviation and biomass are global means of the matching GIBS layers. Coverage grew over the mission; this file does not split that growth into years.",
+    "ar": "متوسط ارتفاع الغطاء من GEDI L3، تراكمي من أبريل 2019 إلى مارس 2023. خريطة واحدة وليست اتجاهًا. الانحراف المعياري والكتلة الحيوية متوسطان عالميان من طبقتي GIBS المقابلتين."
+  },
+  "variables": {
+    "stddev": [
+      {
+        "t": 2023,
+        "v": 3.278535,
+        "q": "ok"
+      }
+    ],
+    "biomass": [
+      {
+        "t": 2023,
+        "v": 41.293492,
+        "q": "ok"
+      }
+    ]
+  }
+}

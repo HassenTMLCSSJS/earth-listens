@@ -1,0 +1,207 @@
+{
+  "id": "air_quality",
+  "sample": false,
+  "title": {
+    "en": "Air quality",
+    "ar": "جودة الهواء"
+  },
+  "unit": {
+    "en": "µg/m³",
+    "ar": "µg/m³"
+  },
+  "source": {
+    "name": "NASA GEOS-CF composition, Cairo grid cell",
+    "dataset_url": "https://opendap.nccs.nasa.gov/dods/gmao/geos-cf/assim/aqc_tavg_1hr_g1440x721_v1",
+    "eic_page": "https://gmao.gsfc.nasa.gov/gmao-products/geos-cf/",
+    "retrieved": "2026-11-13",
+    "sha256": "497025adfb1f796c740c3a1efe7a7fde78490b1151e542718f330e14b54a0673",
+    "citation": "GEOS-CF aqc_tavg_1hr_g1440x721_v1, surface model layer index 72 (not 72 hPa). Cairo cell lat 480, lon 845 (30.04°N, 31.24°E). Up to four hours each year (12:30Z on 15 Jan, Apr, Jul, Oct). A failed request is omitted, not filled, so a year can be a mean of fewer than four hours. The annual figure is the mean of the hours that returned, q estimated, not a full-year mean and not a regional mean. PM2.5 is pm25_rh35_gcc in µg/m³. Gases are dry-air volume mixing ratio converted at 25 °C and 1013.25 hPa (µg/m³ = ppbv × MW / 24.465). Modeled, not a station measurement, not an AQI. 1e15 is missing and was dropped. Knowland et al., GMAO Office Note 17.",
+    "ack": null,
+    "license": "NASA; credit GMAO GEOS-CF"
+  },
+  "range": {
+    "min": 2018,
+    "max": 2025
+  },
+  "series": {
+    "egypt": [
+      {
+        "t": 2018,
+        "v": 58.2682,
+        "q": "estimated"
+      },
+      {
+        "t": 2019,
+        "v": 65.6448,
+        "q": "estimated"
+      },
+      {
+        "t": 2020,
+        "v": 46.0515,
+        "q": "estimated"
+      },
+      {
+        "t": 2021,
+        "v": 32.5852,
+        "q": "estimated"
+      },
+      {
+        "t": 2022,
+        "v": 29.1455,
+        "q": "estimated"
+      },
+      {
+        "t": 2023,
+        "v": 29.3301,
+        "q": "estimated"
+      },
+      {
+        "t": 2024,
+        "v": 28.0438,
+        "q": "estimated"
+      },
+      {
+        "t": 2025,
+        "v": 47.0387,
+        "q": "estimated"
+      }
+    ]
+  },
+  "annual": null,
+  "cells": null,
+  "seasonalAmplitude": null,
+  "frames": [],
+  "events": [],
+  "variables": {
+    "co": [
+      {
+        "t": 2018,
+        "v": 375.6321,
+        "q": "estimated"
+      },
+      {
+        "t": 2019,
+        "v": 338.5723,
+        "q": "estimated"
+      },
+      {
+        "t": 2020,
+        "v": 335.6058,
+        "q": "estimated"
+      },
+      {
+        "t": 2021,
+        "v": 328.1038,
+        "q": "estimated"
+      },
+      {
+        "t": 2022,
+        "v": 289.6877,
+        "q": "estimated"
+      },
+      {
+        "t": 2023,
+        "v": 287.8688,
+        "q": "estimated"
+      },
+      {
+        "t": 2024,
+        "v": 312.9418,
+        "q": "estimated"
+      },
+      {
+        "t": 2025,
+        "v": 440.33,
+        "q": "estimated"
+      }
+    ],
+    "no2": [
+      {
+        "t": 2018,
+        "v": 11.9602,
+        "q": "estimated"
+      },
+      {
+        "t": 2019,
+        "v": 11.4028,
+        "q": "estimated"
+      },
+      {
+        "t": 2020,
+        "v": 13.1607,
+        "q": "estimated"
+      },
+      {
+        "t": 2021,
+        "v": 10.2638,
+        "q": "estimated"
+      },
+      {
+        "t": 2022,
+        "v": 9.207,
+        "q": "estimated"
+      },
+      {
+        "t": 2023,
+        "v": 9.1078,
+        "q": "estimated"
+      },
+      {
+        "t": 2024,
+        "v": 10.7803,
+        "q": "estimated"
+      },
+      {
+        "t": 2025,
+        "v": 15.3701,
+        "q": "estimated"
+      }
+    ],
+    "o3": [
+      {
+        "t": 2018,
+        "v": 102.1257,
+        "q": "estimated"
+      },
+      {
+        "t": 2019,
+        "v": 110.0914,
+        "q": "estimated"
+      },
+      {
+        "t": 2020,
+        "v": 91.6191,
+        "q": "estimated"
+      },
+      {
+        "t": 2021,
+        "v": 87.2508,
+        "q": "estimated"
+      },
+      {
+        "t": 2022,
+        "v": 103.7818,
+        "q": "estimated"
+      },
+      {
+        "t": 2023,
+        "v": 110.3769,
+        "q": "estimated"
+      },
+      {
+        "t": 2024,
+        "v": 104.0101,
+        "q": "estimated"
+      },
+      {
+        "t": 2025,
+        "v": 109.9487,
+        "q": "estimated"
+      }
+    ]
+  },
+  "description": {
+    "en": "Modeled GEOS-CF air quality for the Cairo cell, not station measurements and not an AQI. PM2.5 is the sounded value. CO, NO₂ and O₃ are stored in variables as µg/m³ at 25 °C and 1013.25 hPa. Each year is four afternoons, not a complete mean. OpenAQ stations are separate and need a key.",
+    "ar": "جودة هواء من نموذج GEOS-CF لخلية القاهرة، ليست قياس محطة وليست مؤشر جودة هواء. PM2.5 هي القيمة المسموعة. CO وNO₂ وO₃ مخزّنة بالميكروغرام لكل متر مكعب عند 25 °م و1013.25 هكتوباسكال. كل سنة أربعة أوقات بعد الظهر، وليست متوسطًا كاملًا. محطات OpenAQ منفصلة وتحتاج مفتاحًا."
+  }
+}

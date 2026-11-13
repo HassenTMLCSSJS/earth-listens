@@ -1,0 +1,48 @@
+{
+  "id": "temperature",
+  "base": "earth-day",
+  "baseDim": 0,
+  "night": true,
+  "height": {
+    "src": "/textures/earth-height.png",
+    "offset": -10900,
+    "scale": 19700,
+    "exaggeration": 0.012
+  },
+  "overlay": {
+    "kind": "value",
+    "mask": "none",
+    "ramp": {
+      "id": "temperature",
+      "src": "/ramps/sequential.png",
+      "domain": [240, 310],
+      "unit": {
+        "en": "K",
+        "ar": "K"
+      },
+      "kind": "diverging",
+      "source": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/MERRA2_2m_Air_Temperature_Monthly.xml"
+    },
+    "opacity": 0.85
+  },
+  "cameras": [
+    {
+      "id": "default",
+      "label": {
+        "en": "Overview",
+        "ar": "نظرة عامة"
+      },
+      "lat": 20,
+      "lon": 10,
+      "alt": 2.2
+    }
+  ],
+  "beforeAfter": null,
+  "transitionMs": 900,
+  "credit": [
+    "July field each year 1980–2025, layer MERRA2_2m_Air_Temperature_Monthly. Regional values are cosine-latitude means of the decoded 512×256 GIBS PNG. Missing dates are omitted. Not the GISTEMP annual mean. Confirmed in WMTS capabilities on 2026-11-13.",
+    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS).",
+    "GISTEMP Team, 2026: GISS Surface Temperature Analysis (GISTEMP), version 4."
+  ],
+  "note": "July MERRA-2 maps from 1980. GISTEMP is the number you hear. No map before 1980."
+}

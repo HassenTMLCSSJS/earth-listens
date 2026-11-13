@@ -1,0 +1,29 @@
+{
+  "id": "wildfire",
+  "base": "earth-day",
+  "baseDim": 0,
+  "night": true,
+  "height": {
+    "src": "/textures/earth-height.png",
+    "offset": -10900,
+    "scale": 19700,
+    "exaggeration": 0.012
+  },
+  "overlay": null,
+  "cameras": [
+    {
+      "id": "overview",
+      "label": { "en": "Overview", "ar": "نظرة عامة" },
+      "lat": 10,
+      "lon": 20,
+      "alt": 2.2
+    }
+  ],
+  "beforeAfter": null,
+  "transitionMs": 900,
+  "credit": [
+    "We acknowledge the use of data and imagery from LANCE FIRMS operated by NASA's Earth Science Data and Information System (ESDIS) with funding provided by NASA Headquarters.",
+    "The history in this build is still SAMPLE. FIRMS_MAP_KEY was not available here, so no regional counts were invented."
+  ],
+  "note": "SAMPLE series. Live 24 h fires still use the public FIRMS CSV when that feed answers."
+}

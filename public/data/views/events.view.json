@@ -1,0 +1,29 @@
+{
+  "id": "events",
+  "base": "earth-day",
+  "baseDim": 0,
+  "night": true,
+  "height": {
+    "src": "/textures/earth-height.png",
+    "offset": -10900,
+    "scale": 19700,
+    "exaggeration": 0.012
+  },
+  "overlay": null,
+  "cameras": [
+    {
+      "id": "overview",
+      "label": { "en": "Overview", "ar": "نظرة عامة" },
+      "lat": 20,
+      "lon": 10,
+      "alt": 2.2
+    }
+  ],
+  "beforeAfter": null,
+  "transitionMs": 900,
+  "credit": [
+    "NASA Earth Observatory Natural Event Tracker (EONET) API v3.",
+    "Open events from the last 30 days. Not a historical census."
+  ],
+  "note": "Markers are the open events. Earcons sound as the playhead passes each longitude, at most three a second."
+}

@@ -305,6 +305,16 @@ function scoreLayer(loaded: LoadedLayer): ScoreInput['layers'][number] {
       annual: loaded.data.annual,
       cells: loaded.data.cells,
       seasonalAmplitude: loaded.data.seasonalAmplitude,
+      ...(loaded.data.variables ? { variables: loaded.data.variables } : {}),
+      ...(loaded.data.markers
+        ? {
+            markers: loaded.data.markers.map((marker) => ({
+              id: marker.id,
+              category: marker.category,
+              lon: marker.lon,
+            })),
+          }
+        : {}),
     },
   };
 }

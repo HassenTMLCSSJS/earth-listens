@@ -1,0 +1,47 @@
+{
+  "id": "precipitation",
+  "base": "earth-day",
+  "baseDim": 0,
+  "night": true,
+  "height": {
+    "src": "/textures/earth-height.png",
+    "offset": -10900,
+    "scale": 19700,
+    "exaggeration": 0.012
+  },
+  "overlay": {
+    "kind": "value",
+    "mask": "none",
+    "ramp": {
+      "id": "rain",
+      "src": "/ramps/sequential.png",
+      "domain": [0, 50],
+      "unit": {
+        "en": "mm/day",
+        "ar": "mm/day"
+      },
+      "kind": "sequential",
+      "source": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/GPM_Precipitation_Rate.xml"
+    },
+    "opacity": 0.85
+  },
+  "cameras": [
+    {
+      "id": "default",
+      "label": {
+        "en": "Overview",
+        "ar": "نظرة عامة"
+      },
+      "lat": 20,
+      "lon": 10,
+      "alt": 2.2
+    }
+  ],
+  "beforeAfter": null,
+  "transitionMs": 900,
+  "credit": [
+    "GPM IMERG via GIBS.",
+    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS)."
+  ],
+  "note": "Daily rate. The 2024 frames are the 15th, not monthly means. Zero rain is silence."
+}

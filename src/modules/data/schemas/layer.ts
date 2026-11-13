@@ -39,6 +39,16 @@ export const CellSchema = z.object({
   frp_mean: z.number(),
 });
 
+export const MarkerSchema = z.object({
+  id: z.string().min(1),
+  category: z.string().min(1),
+  lat: z.number().min(-90).max(90),
+  lon: z.number().min(-180).max(180),
+  t: z.string().min(1),
+  title: z.string().min(1),
+  link: z.string().url().optional(),
+});
+
 export const SpeciesSchema = z.object({
   id: z.string().min(1),
   label: LocalizedSchema,
@@ -63,6 +73,7 @@ export const LayerDataSchema = z
     grid: GridMetaSchema.optional(),
     variables: z.record(z.string(), z.array(PointSchema)).optional(),
     species: z.array(SpeciesSchema).optional(),
+    markers: z.array(MarkerSchema).optional(),
   })
   .superRefine((data, ctx) => {
     for (const [region, points] of Object.entries(data.series)) {

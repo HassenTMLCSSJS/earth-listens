@@ -1,0 +1,52 @@
+{
+  "id": "forest",
+  "base": "earth-day",
+  "baseDim": 0,
+  "night": true,
+  "height": {
+    "src": "/textures/earth-height.png",
+    "offset": -10900,
+    "scale": 19700,
+    "exaggeration": 0.02,
+    "canopy": {
+      "src": "/frames/forest/2019-04-18.value.png",
+      "exaggeration": 0.04
+    }
+  },
+  "overlay": {
+    "kind": "value",
+    "mask": "none",
+    "ramp": {
+      "id": "canopy",
+      "src": "/ramps/sequential.png",
+      "domain": [0, 40],
+      "unit": {
+        "en": "m",
+        "ar": "m"
+      },
+      "kind": "sequential",
+      "source": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/GEDI_RH100_Mean_Color_Index.xml"
+    },
+    "opacity": 0.85
+  },
+  "cameras": [
+    {
+      "id": "default",
+      "label": {
+        "en": "Overview",
+        "ar": "نظرة عامة"
+      },
+      "lat": 20,
+      "lon": 10,
+      "alt": 2.2
+    }
+  ],
+  "beforeAfter": null,
+  "transitionMs": 900,
+  "credit": [
+    "GEDI L3/L4B via GIBS.",
+    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS).",
+    "NASA SVS 4950."
+  ],
+  "note": "One cumulative canopy map, 2019-04 to 2023-03. Not a yearly trend."
+}

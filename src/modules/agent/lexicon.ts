@@ -13,6 +13,18 @@ function normList(values: string[]): string[] {
 
 export const LAYER_LEXICON: { id: LayerId; phrases: string[] }[] = [
   {
+    id: 'forest',
+    phrases: normList(['forest height', 'canopy', 'forest', 'غابة', 'ارتفاع الغابة']),
+  },
+  {
+    id: 'precipitation',
+    phrases: normList(['precipitation', 'rainfall', 'rain', 'مطر', 'أمطار']),
+  },
+  {
+    id: 'events',
+    phrases: normList(['natural events', 'eonet', 'events', 'أحداث', 'أحداث طبيعية']),
+  },
+  {
     id: 'night_lights',
     phrases: normList(['night lights', 'night brightness', 'أضواء الليل', 'اضواء الليل']),
   },

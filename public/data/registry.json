@@ -9,7 +9,8 @@
         "feed": "gistemp",
         "revalidate": 604800
       },
-      "historicalOnly": false
+      "historicalOnly": false,
+      "view": "/data/views/temperature.view.json"
     },
     {
       "id": "wildfire",
@@ -18,7 +19,8 @@
       "live": {
         "feed": "firms-24h",
         "revalidate": 1800
-      }
+      },
+      "view": "/data/views/wildfire.view.json"
     },
     {
       "id": "sea_ice",
@@ -27,7 +29,8 @@
       "live": {
         "feed": "nsidc",
         "revalidate": 86400
-      }
+      },
+      "view": "/data/views/sea_ice.view.json"
     },
     {
       "id": "co2",
@@ -36,7 +39,8 @@
       "live": {
         "feed": "noaa-gml",
         "revalidate": 86400
-      }
+      },
+      "view": "/data/views/co2.view.json"
     },
     {
       "id": "night_lights",
@@ -53,7 +57,7 @@
     {
       "id": "ocean_sst",
       "config": "/data/layers/ocean_sst.config.json",
-      "data": "/data/layers/ocean_sst.sample.json",
+      "data": "/data/layers/ocean_sst.json",
       "view": "/data/views/ocean_sst.view.json",
       "historicalOnly": false,
       "sources": ["ocean_sst"],
@@ -73,7 +77,7 @@
     {
       "id": "aerosols",
       "config": "/data/layers/aerosols.config.json",
-      "data": "/data/layers/aerosols.sample.json",
+      "data": "/data/layers/aerosols.json",
       "view": "/data/views/aerosols.view.json",
       "historicalOnly": true,
       "sources": ["aerosols"]
@@ -81,7 +85,7 @@
     {
       "id": "air_quality",
       "config": "/data/layers/air_quality.config.json",
-      "data": "/data/layers/air_quality.sample.json",
+      "data": "/data/layers/air_quality.json",
       "view": "/data/views/air_quality.view.json",
       "historicalOnly": false,
       "sources": ["air_quality"],
@@ -93,7 +97,7 @@
     {
       "id": "lightning",
       "config": "/data/layers/lightning.config.json",
-      "data": "/data/layers/lightning.sample.json",
+      "data": "/data/layers/lightning.json",
       "view": "/data/views/lightning.view.json",
       "historicalOnly": true,
       "sources": ["lightning"]
@@ -101,20 +105,23 @@
     {
       "id": "forest",
       "config": "/data/layers/forest.config.json",
-      "data": "/data/layers/forest.sample.json",
-      "historicalOnly": true
+      "data": "/data/layers/forest.json",
+      "historicalOnly": true,
+      "view": "/data/views/forest.view.json"
     },
     {
       "id": "precipitation",
       "config": "/data/layers/precipitation.config.json",
-      "data": "/data/layers/precipitation.sample.json",
-      "historicalOnly": false
+      "data": "/data/layers/precipitation.json",
+      "historicalOnly": false,
+      "view": "/data/views/precipitation.view.json"
     },
     {
       "id": "events",
       "config": "/data/layers/events.config.json",
-      "data": "/data/layers/events.sample.json",
-      "historicalOnly": false
+      "data": "/data/layers/events.json",
+      "historicalOnly": false,
+      "view": "/data/views/events.view.json"
     }
   ]
 }

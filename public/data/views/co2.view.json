@@ -1,0 +1,47 @@
+{
+  "id": "co2",
+  "base": "earth-day",
+  "baseDim": 0,
+  "night": true,
+  "height": {
+    "src": "/textures/earth-height.png",
+    "offset": -10900,
+    "scale": 19700,
+    "exaggeration": 0.012
+  },
+  "overlay": {
+    "kind": "value",
+    "mask": "none",
+    "ramp": {
+      "id": "co2",
+      "src": "/ramps/sequential.png",
+      "domain": [360, 400],
+      "unit": {
+        "en": "ppm",
+        "ar": "ppm"
+      },
+      "kind": "diverging",
+      "source": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/AIRS_Carbon_Dioxide_AIRS_AMSU_Monthly.xml"
+    },
+    "opacity": 0.85
+  },
+  "cameras": [
+    {
+      "id": "default",
+      "label": {
+        "en": "Overview",
+        "ar": "نظرة عامة"
+      },
+      "lat": 20,
+      "lon": 10,
+      "alt": 2.2
+    }
+  ],
+  "beforeAfter": null,
+  "transitionMs": 900,
+  "credit": [
+    "AIRS_L3_Carbon_Dioxide_AIRS_AMSU_Monthly, July 2003–2011. The layer ends February 2012. The sounded numbers stay Mauna Loa. Regional values are cosine-latitude means of the decoded 512×256 GIBS PNG. Missing dates are omitted.",
+    "We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS)."
+  ],
+  "note": "AIRS July maps 2003–2011. The drone is Mauna Loa. No AIRS map outside 2002–2012."
+}

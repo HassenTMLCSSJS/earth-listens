@@ -9,7 +9,7 @@ import {
   useSyncExternalStore,
   type KeyboardEvent,
 } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { formatNumber } from '@/core/format';
 import { useAppStore } from '@/core/store';
 import { spatialize } from '@/modules/sonification';
@@ -38,8 +38,15 @@ function webglAvailable(): boolean {
 
 const POSTER = '/textures/earth-day.jpg';
 
+function frameYear(t: number | string): number {
+  if (typeof t === 'number') return Math.trunc(t);
+  const year = Number(String(t).slice(0, 4));
+  return Number.isFinite(year) ? year : Number.NaN;
+}
+
 export function GlobeStage() {
   const t = useTranslations('listen');
+  const locale = useLocale();
   const forceClassic = useSyncExternalStore(
     () => () => undefined,
     () => new URLSearchParams(window.location.search).get('globe') === 'gl',
@@ -78,14 +85,30 @@ export function GlobeStage() {
   const [engaged, setEngaged] = useState(false);
   const playing = useAppStore((state) => state.playback.status) === 'playing';
   const visual = useAppStore((state) => state.visual);
+  const cursor = useAppStore((state) => state.time.cursor);
+  const active = layers[0] ?? 'temperature';
+  const activeLayer = catalog[active];
 
   const spatial = spatialize(37.5, 22.5, view.lat, view.lon);
-  const frame = catalog[layers[0] ?? 'temperature']?.data.frames.at(-1)?.src;
+  const chosen = useMemo(() => {
+    const frames = activeLayer?.data.frames ?? [];
+    const real = frames.filter((frame) => frame.sample !== true);
+    const pool = real.length > 0 ? real : frames;
+    return pool.filter((frame) => frameYear(frame.t) <= cursor).at(-1);
+  }, [activeLayer, cursor]);
+  const noMap =
+    (activeLayer?.data.frames.some((frame) => frame.sample !== true) ?? false) && !chosen;
   const cells = useMemo(() => {
+    if (layers.includes('events')) {
+      return (catalog.events?.data.markers ?? []).slice(0, 200).map((marker) => ({
+        lat: marker.lat,
+        lon: marker.lon,
+      }));
+    }
     if (!layers.includes('wildfire')) return [];
     const all = catalog.wildfire?.data.cells ?? [];
     return all.filter((cell) => cell.t === '2025-08-04').slice(0, 24);
-  }, [catalog.wildfire, layers]);
+  }, [catalog.events, catalog.wildfire, layers]);
 
   useEffect(() => {
     if (!forceClassic || !webgl) return;
@@ -158,20 +181,22 @@ export function GlobeStage() {
             texture="/textures/earth-day.webp"
             night="/textures/earth-night.webp"
             height="/textures/earth-height.png"
-            {...(layers[0] === 'ocean_sst'
+            {...(active === 'ocean_sst'
               ? {
                   water: '/textures/earth-water-mask.png',
-                  overlay: '/frames/ocean_sst/2024-08-15.value.png',
+                  overlay: chosen?.value ?? '/frames/ocean_sst/2024-08-15.value.png',
                   ramp: '/ramps/sst.png',
                 }
-              : {})}
+              : chosen?.value
+                ? { overlay: chosen.value }
+                : {})}
             lat={view.lat}
             lon={view.lon}
             playheadLon={visual.playheadLon}
             cells={cells}
             level={visual.level}
             pulseId={visual.pulse}
-            layerId={layers[0] ?? visual.layerId}
+            layerId={active}
             motion={motion ?? 'full'}
           />
         </Suspense>
@@ -185,9 +210,9 @@ export function GlobeStage() {
           className="h-full w-full object-cover"
         />
       )}
-      {frame ? (
+      {chosen ? (
         <img
-          src={frame}
+          src={chosen.src}
           alt=""
           width={960}
           height={420}
@@ -197,6 +222,20 @@ export function GlobeStage() {
       <div id="globe-classic" className="absolute inset-0" hidden={!forceClassic} />
       <p className="bg-space-950/80 absolute inset-x-0 bottom-0 grid gap-1 p-3 text-sm">
         <span>{t('summary')}</span>
+        <span data-testid="layer-legend">
+          {activeLayer?.config.title[locale === 'ar' ? 'ar' : 'en']} ·{' '}
+          {activeLayer?.config.unit[locale === 'ar' ? 'ar' : 'en']}
+        </span>
+        {noMap ? (
+          <span>{locale === 'ar' ? 'لا توجد خريطة لهذه السنة.' : 'No map for this year.'}</span>
+        ) : null}
+        {active === 'air_quality' ? (
+          <span>
+            {locale === 'ar'
+              ? 'محطات OpenAQ تحتاج مفتاحًا. نموذج القاهرة من Open-Meteo. GEOS-CF نموذج وليس مؤشر جودة هواء.'
+              : 'OpenAQ stations need a key. Cairo’s live model is Open-Meteo. GEOS-CF is a model, not an AQI.'}
+          </span>
+        ) : null}
         <span>{t('standIn')}</span>
       </p>
     </div>
