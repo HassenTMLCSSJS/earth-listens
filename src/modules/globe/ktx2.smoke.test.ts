@@ -4,6 +4,8 @@ import { stat } from 'node:fs/promises';
 import path from 'node:path';
 import { chromium } from '@playwright/test';
 import { describe, expect, it } from 'vitest';
+
+type Browser = Awaited<ReturnType<typeof chromium.launch>>;
 import { DEFAULT_ASSET_BASE } from '@/core/assets';
 import { pickSmokeKtx2, TEXTURE_MANIFEST_URL, type TextureManifest } from '@/modules/globe';
 
@@ -28,6 +30,27 @@ function resolveFile(urlPath: string): string | null {
   const full = path.normalize(path.join(root, decoded.slice(mount.length)));
   if (!full.startsWith(root)) return null;
   return full;
+}
+
+/** Headless launch looks for chrome-headless-shell, which `executablePath()` does not report. */
+async function openChromium(): Promise<Browser | 'missing'> {
+  try {
+    return await chromium.launch({
+      args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (message.includes("Executable doesn't exist")) return 'missing';
+    throw error;
+  }
+}
+
+async function fetchManifest(): Promise<Response | 'unreachable'> {
+  try {
+    return await fetch(TEXTURE_MANIFEST_URL, { signal: AbortSignal.timeout(30_000) });
+  } catch {
+    return 'unreachable';
+  }
 }
 
 function listen(server: Server): Promise<number> {
@@ -77,49 +100,57 @@ const PAGE = `<!doctype html>
 </script>
 `;
 
-describe('KTX2Loader smoke', () => {
-  it('decodes a KTX2 file published on the R2 manifest', async () => {
-    const response = await fetch(TEXTURE_MANIFEST_URL);
-    expect(response.ok).toBe(true);
-    const manifest = (await response.json()) as TextureManifest;
-    const asset = pickSmokeKtx2(manifest);
-    expect(asset.url.startsWith(`${DEFAULT_ASSET_BASE}/`)).toBe(true);
-    expect(asset.url.endsWith('.ktx2')).toBe(true);
+describe.skipIf(!process.env.KTX2_SMOKE)('KTX2Loader smoke', () => {
+  it('decodes a KTX2 file published on the R2 manifest', async (context) => {
+    const opened = await openChromium();
+    if (opened === 'missing') {
+      context.skip('chromium executable is missing');
+      return;
+    }
 
-    const server = createServer((req, res) => {
-      const url = req.url ?? '/';
-      if (url.startsWith('/smoke.html')) {
-        res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
-        res.end(PAGE);
+    let server: Server | undefined;
+    try {
+      const response = await fetchManifest();
+      if (response === 'unreachable') {
+        context.skip('texture manifest host is unreachable');
         return;
       }
-      const file = resolveFile(url);
-      if (!file) {
-        res.writeHead(404);
-        res.end('missing');
-        return;
-      }
-      void stat(file)
-        .then((info) => {
-          if (!info.isFile()) {
-            res.writeHead(404);
-            res.end('missing');
-            return;
-          }
-          res.writeHead(200, { 'content-type': contentType(file) });
-          createReadStream(file).pipe(res);
-        })
-        .catch(() => {
+      expect(response.ok).toBe(true);
+      const manifest = (await response.json()) as TextureManifest;
+      const asset = pickSmokeKtx2(manifest);
+      expect(asset.url.startsWith(`${DEFAULT_ASSET_BASE}/`)).toBe(true);
+      expect(asset.url.endsWith('.ktx2')).toBe(true);
+
+      server = createServer((req, res) => {
+        const url = req.url ?? '/';
+        if (url.startsWith('/smoke.html')) {
+          res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
+          res.end(PAGE);
+          return;
+        }
+        const file = resolveFile(url);
+        if (!file) {
           res.writeHead(404);
           res.end('missing');
-        });
-    });
-    const port = await listen(server);
-    const browser = await chromium.launch({
-      args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
-    });
-    try {
-      const page = await browser.newPage();
+          return;
+        }
+        void stat(file)
+          .then((info) => {
+            if (!info.isFile()) {
+              res.writeHead(404);
+              res.end('missing');
+              return;
+            }
+            res.writeHead(200, { 'content-type': contentType(file) });
+            createReadStream(file).pipe(res);
+          })
+          .catch(() => {
+            res.writeHead(404);
+            res.end('missing');
+          });
+      });
+      const port = await listen(server);
+      const page = await opened.newPage();
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       await page.goto(`http://127.0.0.1:${port}/smoke.html?ktx2=${encodeURIComponent(asset.url)}`);
@@ -135,10 +166,13 @@ describe('KTX2Loader smoke', () => {
       const width = Number(await page.locator('body').getAttribute('data-width'));
       expect(width).toBeGreaterThan(0);
     } finally {
-      await browser.close();
-      await new Promise<void>((resolve, reject) =>
-        server.close((error) => (error ? reject(error) : resolve())),
-      );
+      await opened.close();
+      if (server) {
+        const running = server;
+        await new Promise<void>((resolve, reject) =>
+          running.close((error) => (error ? reject(error) : resolve())),
+        );
+      }
     }
   }, 90_000);
 });

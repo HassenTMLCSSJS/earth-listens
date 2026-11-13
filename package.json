@@ -19,6 +19,7 @@
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --coverage",
+    "test:ktx2": "KTX2_SMOKE=1 vitest run src/modules/globe/ktx2.smoke.test.ts",
     "test:e2e": "playwright test",
     "lhci": "lhci autorun",
     "data:samples": "tsx scripts/generate-samples.ts",
