@@ -93,7 +93,7 @@ test('mobile gate reaches listen and symphony', async ({ page }) => {
   });
   if (hasWebgl) await expect(page.getByTestId('react-globe')).toBeVisible();
   await page.goto('/en/symphony?demo=1');
-  await page.getByRole('button', { name: 'Play the symphony' }).click();
+  await page.getByRole('button', { name: "Play the Earth's story" }).click();
   await expect(page.getByTestId('playback-mode')).toHaveText('symphony');
 });
 

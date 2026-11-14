@@ -7,7 +7,7 @@
   },
   "unit": {
     "en": "ppm",
-    "ar": "ppm"
+    "ar": "جزء في المليون"
   },
   "source": {
     "name": "SAMPLE — shaped like NOAA GML Mauna Loa",
@@ -3518,6 +3518,6 @@
   ],
   "description": {
     "en": "SAMPLE carbon dioxide curve. Not an NOAA measurement.",
-    "ar": "منحنى تجريبي لثاني أكسيد الكربون. ليس قياس NOAA."
+    "ar": "منحنى تجريبي لثاني أكسيد الكربون. مش قياس من NOAA."
   }
 }

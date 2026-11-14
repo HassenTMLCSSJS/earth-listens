@@ -3,11 +3,11 @@
   "category": "human",
   "title": {
     "en": "Night lights",
-    "ar": "أضواء الليل"
+    "ar": "أنوار الليل"
   },
   "unit": {
     "en": "night brightness index (image-derived, not calibrated radiance)",
-    "ar": "مؤشر سطوع ليلي (مشتق من الصورة، ليس إشعاعًا معايرًا)"
+    "ar": "مؤشر النور"
   },
   "timeKind": "year",
   "eic": {

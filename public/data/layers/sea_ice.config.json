@@ -3,11 +3,11 @@
   "category": "ice_ocean",
   "title": {
     "en": "Sea ice",
-    "ar": "الجليد"
+    "ar": "الجليد البحري"
   },
   "unit": {
     "en": "million km²",
-    "ar": "million km²"
+    "ar": "مليون كم² (سبتمبر)"
   },
   "timeKind": "year",
   "eic": {

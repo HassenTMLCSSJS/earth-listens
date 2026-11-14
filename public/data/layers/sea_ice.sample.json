@@ -3,11 +3,11 @@
   "sample": true,
   "title": {
     "en": "Sea ice",
-    "ar": "الجليد"
+    "ar": "الجليد البحري"
   },
   "unit": {
     "en": "million km²",
-    "ar": "million km²"
+    "ar": "مليون كم² (سبتمبر)"
   },
   "source": {
     "name": "SAMPLE — shaped like NSIDC Sea Ice Index",
@@ -800,6 +800,6 @@
   ],
   "description": {
     "en": "SAMPLE September sea ice. Not an NSIDC measurement.",
-    "ar": "جليد سبتمبر تجريبي. ليس قياس NSIDC."
+    "ar": "جليد سبتمبر تجريبي. مش قياس من NSIDC."
   }
 }

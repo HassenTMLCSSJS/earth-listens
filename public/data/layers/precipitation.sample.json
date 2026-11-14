@@ -3,11 +3,11 @@
   "sample": true,
   "title": {
     "en": "Precipitation",
-    "ar": "هطول الأمطار"
+    "ar": "المطر"
   },
   "unit": {
     "en": "precipitation rate, mm/day",
-    "ar": "معدل الهطول، مم/يوم"
+    "ar": "مم في اليوم"
   },
   "source": {
     "name": "SAMPLE — shaped like NASA IMERG",
@@ -287,6 +287,6 @@
   "events": [],
   "description": {
     "en": "SAMPLE annual precipitation-rate series shaped like IMERG, 2000–2025. Not a measurement. Map frames are not shipped yet.",
-    "ar": "سلسلة تجريبية سنوية لمعدل الهطول على شكل IMERG، 2000–2025. ليست قياسًا. إطارات الخريطة لم تُرفق بعد."
+    "ar": "سلسلة تجريبية سنوية لمعدل المطر على شكل IMERG، 2000–2025. مش قياس. إطارات الخريطة لسه مش مرفقة."
   }
 }

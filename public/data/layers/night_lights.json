@@ -3,11 +3,11 @@
   "sample": false,
   "title": {
     "en": "Night lights",
-    "ar": "أضواء الليل"
+    "ar": "أنوار الليل"
   },
   "unit": {
     "en": "night brightness index (image-derived, not calibrated radiance)",
-    "ar": "مؤشر سطوع ليلي (مشتق من الصورة، ليس إشعاعًا معايرًا)"
+    "ar": "مؤشر النور"
   },
   "source": [
     {
@@ -153,6 +153,6 @@
   "events": [],
   "description": {
     "en": "Cosine-weighted luma of the GIBS Black Marble PNG at 1024×512. This is a night brightness index (image-derived, not calibrated radiance). Range 5.51–51.75 is the 2016 image p5–p95.",
-    "ar": "لمعان موزون بجيب التمام لصورة الرخام الأسود من GIBS. مؤشر سطوع ليلي مشتق من الصورة، وليس إشعاعًا معايرًا."
+    "ar": "لمعان موزون بجيب التمام لصورة Black Marble من GIBS بمقاس 1024×512. ده مؤشر سطوع ليلي متحسب من الصورة، مش إشعاع معاير. المدى 5.51–51.75 هو صورة 2016 من p5 لـ p95."
   }
 }

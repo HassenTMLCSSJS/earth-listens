@@ -3,11 +3,11 @@
   "category": "atmosphere",
   "title": {
     "en": "Air quality",
-    "ar": "جودة الهواء"
+    "ar": "جودة الهوا"
   },
   "unit": {
     "en": "µg/m³",
-    "ar": "µg/m³"
+    "ar": "PM2.5، ميكروجرام/م³"
   },
   "timeKind": "year",
   "eic": {

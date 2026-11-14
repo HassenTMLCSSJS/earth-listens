@@ -7,7 +7,7 @@
   },
   "unit": {
     "en": "frame step",
-    "ar": "خطوة إطار"
+    "ar": "خطوة سريان"
   },
   "source": {
     "name": "SAMPLE Ocean currents",
@@ -134,6 +134,6 @@
   "events": [],
   "description": {
     "en": "SAMPLE Ocean currents. Not a measurement. The globe may still show a real NASA texture beside this series.",
-    "ar": "بيانات تجريبية لـ تيارات المحيط. ليست قياسًا."
+    "ar": "بيانات تجريبية لتيارات المحيط. مش قياس. الكرة ممكن تفضل تعرض صورة حقيقية من ناسا جنب السلسلة دي."
   }
 }

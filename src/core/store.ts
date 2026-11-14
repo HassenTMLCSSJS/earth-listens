@@ -229,17 +229,17 @@ export function reduceApp(state: AppData, action: Action): AppData {
 
 const LAYER_NAME: Record<LayerId, { en: string; ar: string }> = {
   temperature: { en: 'Temperature', ar: 'الحرارة' },
-  wildfire: { en: 'Wildfire', ar: 'الحرايق' },
-  sea_ice: { en: 'Sea ice', ar: 'الجليد' },
+  wildfire: { en: 'Fire history', ar: 'تاريخ الحرايق' },
+  sea_ice: { en: 'Sea ice', ar: 'الجليد البحري' },
   co2: { en: 'Carbon dioxide', ar: 'ثاني أكسيد الكربون' },
-  night_lights: { en: 'Night lights', ar: 'أضواء الليل' },
-  ocean_sst: { en: 'Ocean temperature', ar: 'حرارة المحيط' },
+  night_lights: { en: 'Night lights', ar: 'أنوار الليل' },
+  ocean_sst: { en: 'Ocean', ar: 'حرارة المحيط' },
   ocean_currents: { en: 'Ocean currents', ar: 'تيارات المحيط' },
-  aerosols: { en: 'Aerosols', ar: 'الهباء الجوي' },
-  air_quality: { en: 'Air quality', ar: 'جودة الهواء' },
+  aerosols: { en: 'Aerosols', ar: 'الغبار والدخان' },
+  air_quality: { en: 'Air quality', ar: 'جودة الهوا' },
   lightning: { en: 'Lightning', ar: 'البرق' },
-  forest: { en: 'Forest height', ar: 'ارتفاع الغابات' },
-  precipitation: { en: 'Precipitation', ar: 'هطول الأمطار' },
+  forest: { en: 'Forest height', ar: 'طول الغابات' },
+  precipitation: { en: 'Rainfall', ar: 'المطر' },
   events: { en: 'Natural events', ar: 'أحداث طبيعية' },
 };
 
@@ -262,7 +262,7 @@ export function summarize(state: AppData): { en: string; ar: string } {
   const active = state.catalog[state.layers[0] ?? 'temperature'];
   const noRegion = active ? !active.data.series[state.region] : false;
   const noteEn = noRegion ? ', no regional series for this layer' : '';
-  const noteAr = noRegion ? '، لا توجد سلسلة لهذه المنطقة في هذه الطبقة' : '';
+  const noteAr = noRegion ? '، مفيش سلسلة للمنطقة دي في الطبقة دي' : '';
   return {
     en: `${namesEn}, ${regionEn}, ${whenEn}${noteEn}`,
     ar: `${namesAr}، ${regionAr}، ${whenAr}${noteAr}`,
@@ -391,7 +391,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
         ar: 'قول شغّل الحرارة، أو وقّف، أو مساعدة.',
       });
     } else if (parsed.type === 'stop') {
-      announce({ en: 'Stopped.', ar: 'وقف.' });
+      announce({ en: 'Stopped.', ar: 'وقّفت.' });
     } else {
       announce(summarize(scored));
     }
