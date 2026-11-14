@@ -1,4 +1,5 @@
 import { LAYER_IDS } from '@/core/actions';
+import { narrationText } from '@/modules/narration';
 import { describe, expect, it } from 'vitest';
 import { LAYER_COLOR, LAYER_SOUND, viewForLayer } from './views';
 
@@ -18,6 +19,7 @@ describe('globe data views', () => {
       });
       expect(view.points.length).toBeGreaterThan(0);
       expect(view.points[0]?.color).toBe(LAYER_COLOR[id]);
+      expect(narrationText(`view.${id}`)).toEqual(LAYER_SOUND[id]);
       expect(LAYER_SOUND[id].ar.length).toBeGreaterThan(0);
       expect(LAYER_SOUND[id].en.length).toBeGreaterThan(0);
     }

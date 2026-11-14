@@ -242,10 +242,10 @@ html[data-motion='reduce'] [data-intro-cue] {
 
 @keyframes settle {
   from {
-    transform: translateY(8px);
+    opacity: 0;
   }
   to {
-    transform: none;
+    opacity: 1;
   }
 }
 

@@ -154,6 +154,58 @@ export const SCRIPTS: Record<NarrationId, { en: string; ar: string }> = {
     en: 'Take your time. Say explore, tutorial, sounds, or quiz.',
     ar: 'خد وقتك. قول استكشف، أو الدرس، أو الأصوات، أو الاختبار.',
   },
+  'view.temperature': {
+    en: 'Warm lead. Higher means warmer.',
+    ar: 'لحن دافي. كل ما يعلى يبقى أسخن.',
+  },
+  'view.sea_ice': {
+    en: 'Glass bells. Higher means more ice.',
+    ar: 'أجراس زجاج. كل ما تعلى يبقى الجليد أكتر.',
+  },
+  'view.forest': {
+    en: 'Soft woodwind. Higher means a taller canopy.',
+    ar: 'ناي هادي. كل ما يعلى يبقى الشجر أطول.',
+  },
+  'view.precipitation': {
+    en: 'Rain ticks. Faster means more rain.',
+    ar: 'تكات مطر. كل ما تسرع يبقى المطر أكتر.',
+  },
+  'view.co2': {
+    en: 'Low beating drone. Higher means more carbon dioxide.',
+    ar: 'دندنة منخفضة. كل ما تعلى يبقى الكربون أكتر.',
+  },
+  'view.aerosols': {
+    en: 'Hazy pad. Louder means thicker air.',
+    ar: 'طبقة ضباب. كل ما تعلى يبقى الهوا أتقل.',
+  },
+  'view.lightning': {
+    en: 'Sharp cracks. More hits mean more lightning.',
+    ar: 'طرقعات حادة. كل ما تكتر يبقى البرق أكتر.',
+  },
+  'view.events': {
+    en: 'A short ping for each NASA EONET event.',
+    ar: 'نبرة قصيرة لكل حدث من ناسا.',
+  },
+  'view.air_quality': {
+    en: 'Tight pulse. Higher means dirtier air.',
+    ar: 'نبض ضيق. كل ما يعلى يبقى الهوا أوسخ.',
+  },
+  'view.wildfire': {
+    en: 'Crackle. Louder means a stronger fire.',
+    ar: 'طقطقة. كل ما تعلى تبقى النار أقوى.',
+  },
+  'view.ocean_sst': {
+    en: 'Slow swell. Higher means warmer water.',
+    ar: 'موج بطيء. كل ما يعلى يبقى المية أسخن.',
+  },
+  'view.ocean_currents': {
+    en: 'A sweep that follows the current.',
+    ar: 'سريان ماشي مع التيار.',
+  },
+  'view.night_lights': {
+    en: 'Bright chime. Higher means brighter nights.',
+    ar: 'رنة منورة. كل ما تعلى يبقى الليل أنور.',
+  },
 };
 
 export function narrationText(id: NarrationId): { en: string; ar: string } {

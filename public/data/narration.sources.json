@@ -508,6 +508,162 @@
       "text": "خد وقتك. قول استكشف، أو الدرس، أو الأصوات، أو الاختبار."
     },
     {
+      "id": "view.temperature",
+      "lang": "en",
+      "kind": "script",
+      "text": "Warm lead. Higher means warmer."
+    },
+    {
+      "id": "view.temperature",
+      "lang": "ar",
+      "kind": "script",
+      "text": "لحن دافي. كل ما يعلى يبقى أسخن."
+    },
+    {
+      "id": "view.wildfire",
+      "lang": "en",
+      "kind": "script",
+      "text": "Crackle. Louder means a stronger fire."
+    },
+    {
+      "id": "view.wildfire",
+      "lang": "ar",
+      "kind": "script",
+      "text": "طقطقة. كل ما تعلى تبقى النار أقوى."
+    },
+    {
+      "id": "view.sea_ice",
+      "lang": "en",
+      "kind": "script",
+      "text": "Glass bells. Higher means more ice."
+    },
+    {
+      "id": "view.sea_ice",
+      "lang": "ar",
+      "kind": "script",
+      "text": "أجراس زجاج. كل ما تعلى يبقى الجليد أكتر."
+    },
+    {
+      "id": "view.co2",
+      "lang": "en",
+      "kind": "script",
+      "text": "Low beating drone. Higher means more carbon dioxide."
+    },
+    {
+      "id": "view.co2",
+      "lang": "ar",
+      "kind": "script",
+      "text": "دندنة منخفضة. كل ما تعلى يبقى الكربون أكتر."
+    },
+    {
+      "id": "view.night_lights",
+      "lang": "en",
+      "kind": "script",
+      "text": "Bright chime. Higher means brighter nights."
+    },
+    {
+      "id": "view.night_lights",
+      "lang": "ar",
+      "kind": "script",
+      "text": "رنة منورة. كل ما تعلى يبقى الليل أنور."
+    },
+    {
+      "id": "view.ocean_sst",
+      "lang": "en",
+      "kind": "script",
+      "text": "Slow swell. Higher means warmer water."
+    },
+    {
+      "id": "view.ocean_sst",
+      "lang": "ar",
+      "kind": "script",
+      "text": "موج بطيء. كل ما يعلى يبقى المية أسخن."
+    },
+    {
+      "id": "view.ocean_currents",
+      "lang": "en",
+      "kind": "script",
+      "text": "A sweep that follows the current."
+    },
+    {
+      "id": "view.ocean_currents",
+      "lang": "ar",
+      "kind": "script",
+      "text": "سريان ماشي مع التيار."
+    },
+    {
+      "id": "view.aerosols",
+      "lang": "en",
+      "kind": "script",
+      "text": "Hazy pad. Louder means thicker air."
+    },
+    {
+      "id": "view.aerosols",
+      "lang": "ar",
+      "kind": "script",
+      "text": "طبقة ضباب. كل ما تعلى يبقى الهوا أتقل."
+    },
+    {
+      "id": "view.air_quality",
+      "lang": "en",
+      "kind": "script",
+      "text": "Tight pulse. Higher means dirtier air."
+    },
+    {
+      "id": "view.air_quality",
+      "lang": "ar",
+      "kind": "script",
+      "text": "نبض ضيق. كل ما يعلى يبقى الهوا أوسخ."
+    },
+    {
+      "id": "view.lightning",
+      "lang": "en",
+      "kind": "script",
+      "text": "Sharp cracks. More hits mean more lightning."
+    },
+    {
+      "id": "view.lightning",
+      "lang": "ar",
+      "kind": "script",
+      "text": "طرقعات حادة. كل ما تكتر يبقى البرق أكتر."
+    },
+    {
+      "id": "view.forest",
+      "lang": "en",
+      "kind": "script",
+      "text": "Soft woodwind. Higher means a taller canopy."
+    },
+    {
+      "id": "view.forest",
+      "lang": "ar",
+      "kind": "script",
+      "text": "ناي هادي. كل ما يعلى يبقى الشجر أطول."
+    },
+    {
+      "id": "view.precipitation",
+      "lang": "en",
+      "kind": "script",
+      "text": "Rain ticks. Faster means more rain."
+    },
+    {
+      "id": "view.precipitation",
+      "lang": "ar",
+      "kind": "script",
+      "text": "تكات مطر. كل ما تسرع يبقى المطر أكتر."
+    },
+    {
+      "id": "view.events",
+      "lang": "en",
+      "kind": "script",
+      "text": "A short ping for each NASA EONET event."
+    },
+    {
+      "id": "view.events",
+      "lang": "ar",
+      "kind": "script",
+      "text": "نبرة قصيرة لكل حدث من ناسا."
+    },
+    {
       "id": "temperature.short",
       "lang": "en",
       "kind": "explanation",

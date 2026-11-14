@@ -64,6 +64,37 @@ test('keyboard intro reaches listen', async ({ page }) => {
   await expect(page.getByTestId('choice-hub')).toBeVisible();
   await page.keyboard.press('1');
   await expect(page).toHaveURL(/\/en\/listen/);
+  const hasWebgl = await page.evaluate(() => {
+    try {
+      const canvas = document.createElement('canvas');
+      return Boolean(canvas.getContext('webgl2') || canvas.getContext('webgl'));
+    } catch {
+      return false;
+    }
+  });
+  if (hasWebgl) await expect(page.getByTestId('react-globe')).toBeVisible();
+});
+
+test('mobile gate reaches listen and symphony', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/en');
+  await page.getByRole('button', { name: 'English' }).click();
+  await expect(page.getByTestId('intro-stage')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await page.keyboard.press('1');
+  await expect(page).toHaveURL(/\/en\/listen/);
+  const hasWebgl = await page.evaluate(() => {
+    try {
+      const canvas = document.createElement('canvas');
+      return Boolean(canvas.getContext('webgl2') || canvas.getContext('webgl'));
+    } catch {
+      return false;
+    }
+  });
+  if (hasWebgl) await expect(page.getByTestId('react-globe')).toBeVisible();
+  await page.goto('/en/symphony?demo=1');
+  await page.getByRole('button', { name: 'Play the symphony' }).click();
+  await expect(page.getByTestId('playback-mode')).toHaveText('symphony');
 });
 
 test('tutorial narration hooks fire', async ({ page }) => {
@@ -107,8 +138,10 @@ test('arabic renders rtl', async ({ page }) => {
   await page.goto('/ar');
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
   await expect(page.locator('html')).toHaveAttribute('lang', 'ar');
-  await expect(page.getByRole('button', { name: 'عربي' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'English' })).toBeVisible();
+  await expect(page.getByTestId('entry-state').getByRole('button', { name: 'عربي' })).toBeVisible();
+  await expect(
+    page.getByTestId('entry-state').getByRole('button', { name: 'English' }),
+  ).toBeVisible();
 });
 
 test('reduced motion disables gsap transforms', async ({ page }) => {

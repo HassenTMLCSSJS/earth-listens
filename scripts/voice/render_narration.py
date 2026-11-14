@@ -233,6 +233,9 @@ def main() -> None:
                 side = entry[line["lang"]]
                 side["file"] = url
                 side["status"] = "recorded"
+        manifest["items"] = sorted(items.values(), key=lambda item: (item["lang"], item["id"]))
+        manifest["watermark"] = "resemble-perth"
+        args.manifest.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
 
     manifest["items"] = sorted(items.values(), key=lambda item: (item["lang"], item["id"]))
     manifest["watermark"] = "resemble-perth"

@@ -20,6 +20,7 @@ export function EarthGlobe({
   reducedMotion,
   framing,
   playing,
+  onReady,
 }: {
   lat: number;
   lon: number;
@@ -28,6 +29,7 @@ export function EarthGlobe({
   reducedMotion: boolean;
   framing: GlobeFraming;
   playing: boolean;
+  onReady?: () => void;
 }) {
   const ref = useRef<GlobeMethods | undefined>(undefined);
   const host = useRef<HTMLDivElement>(null);
@@ -113,6 +115,7 @@ export function EarthGlobe({
           });
           registerGlobeController(controller);
           setReady(true);
+          onReady?.();
         }}
       />
     </div>
