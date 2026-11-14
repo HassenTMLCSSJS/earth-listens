@@ -101,7 +101,7 @@ export function SiteHeader() {
             href="/settings"
             aria-label={t('nav.settings')}
             title={t('nav.settings')}
-            className="text-ink-muted hover:bg-space-700 hover:text-ink hidden size-11 items-center justify-center rounded-full transition-colors sm:inline-flex"
+            className="text-ink-muted hover:bg-space-700 hover:text-ink inline-flex size-11 items-center justify-center rounded-full transition-colors"
           >
             <Settings className="size-[19px]" strokeWidth={1.75} aria-hidden="true" />
           </Link>

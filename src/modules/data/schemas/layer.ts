@@ -1,6 +1,7 @@
 import * as z from 'zod';
 import { LAYER_IDS, REGION_IDS, SCALE_IDS } from '@/core/actions';
 import { CATEGORIES, LocalizedSchema, PointSchema, TIMBRE_IDS, VariableSchema } from './common';
+import type { FeedEnvelope, FreshnessStatus } from './feed';
 import { FrameSchema, timesIncrease } from './frame';
 import { GridMetaSchema } from './grid';
 import { SourceListSchema, sourcesOf } from './source';
@@ -158,6 +159,9 @@ export interface LoadedLayer {
   config: LayerConfig;
   data: LayerData;
   isSample: boolean;
+  /** Latest feed envelope attached by the live-data layer, when one exists. */
+  feed?: FeedEnvelope;
+  status?: FreshnessStatus;
 }
 
 export const ExplanationSchema = z.object({

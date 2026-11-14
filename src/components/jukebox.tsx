@@ -14,33 +14,52 @@ import {
 } from '@/core/actions';
 import { formatDegrees, formatYear } from '@/core/format';
 import { scoreFor, useAppStore } from '@/core/store';
-import { REGIONS, describeFreshness } from '@/modules/data';
+import { FEED_FOR_LAYER, REGIONS, describeFreshness } from '@/modules/data';
 import { getPlayer, unlockAudio } from '@/modules/sonification';
 import { GlobeStage } from '@/components/globe-stage';
 
 function FreshnessChip({ demo }: { demo: boolean }) {
-  const [text, setText] = useState('');
+  const lang = useAppStore((state) => state.lang);
+  const layerId = useAppStore((state) => state.layers[0] ?? 'temperature');
+  const envelope = useAppStore((state) => state.catalog[layerId]?.feed);
+  const [fallback, setFallback] = useState('');
+  const feed = FEED_FOR_LAYER[layerId];
   useEffect(() => {
     if (demo || new URLSearchParams(window.location.search).get('demo') === '1') return;
+    if (envelope || !feed) return;
     let cancel = false;
-    void fetch('/api/live/gistemp')
+    void fetch(`/api/live/${feed}`)
       .then(async (response) => {
         if (!response.ok) throw new Error('live');
         return response.json();
       })
-      .then((body) => {
-        if (!cancel) setText(describeFreshness(body, 'en'));
+      .then((body: Parameters<typeof describeFreshness>[0]) => {
+        if (cancel) return;
+        setFallback(
+          body.status === 'snapshot'
+            ? lang === 'ar'
+              ? 'نسخة محفوظة'
+              : 'Cached snapshot'
+            : describeFreshness(body, lang),
+        );
       })
       .catch(() => {
-        if (!cancel) setText('Cached snapshot');
+        if (!cancel) setFallback(lang === 'ar' ? 'نسخة محفوظة' : 'Cached snapshot');
       });
     return () => {
       cancel = true;
     };
-  }, [demo]);
+  }, [demo, envelope, feed, lang]);
+  const text = envelope
+    ? envelope.status === 'snapshot'
+      ? lang === 'ar'
+        ? 'نسخة محفوظة'
+        : 'Cached snapshot'
+      : describeFreshness(envelope, lang)
+    : fallback;
   return (
     <p data-testid="freshness" aria-live="polite">
-      {demo ? 'Demo data' : text}
+      {demo ? 'Demo data' : text || (lang === 'ar' ? 'بيانات حقيقية' : 'Real data')}
     </p>
   );
 }
@@ -104,9 +123,9 @@ export function Jukebox({ embedded = false }: { embedded?: boolean }) {
   return (
     <section className="mx-auto grid max-w-6xl gap-6 px-4 py-8">
       {embedded ? (
-        <h2 className="display text-4xl">{t('listen.title')}</h2>
+        <h2 className="display text-4xl rtl:leading-[1.25]">{t('listen.title')}</h2>
       ) : (
-        <h1 className="display text-5xl">{t('listen.title')}</h1>
+        <h1 className="display text-5xl rtl:leading-[1.2]">{t('listen.title')}</h1>
       )}
       <div
         className={mode === 'audio_first' ? 'grid gap-6' : 'grid gap-6 lg:grid-cols-[1.1fr_0.9fr]'}
@@ -173,8 +192,11 @@ export function Jukebox({ embedded = false }: { embedded?: boolean }) {
           </label>
           <div>
             <p id="when-label">{t('listen.when')}</p>
-            <p id="when-value">{valueText}</p>
+            <p id="when-value" dir="ltr" className="tabular-nums">
+              {valueText}
+            </p>
             <Slider.Root
+              dir="ltr"
               className="relative mt-4 flex h-11 items-center"
               min={bounds.min}
               max={bounds.max}
@@ -206,6 +228,7 @@ export function Jukebox({ embedded = false }: { embedded?: boolean }) {
             <label className="mt-4 block">
               {t('listen.year')}
               <Slider.Root
+                dir="ltr"
                 className="relative mt-2 flex h-11 items-center"
                 min={bounds.min}
                 max={Math.max(bounds.min + 1, bounds.max)}

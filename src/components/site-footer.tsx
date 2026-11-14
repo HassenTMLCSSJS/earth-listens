@@ -30,7 +30,7 @@ export function SiteFooter() {
                         href={item.href}
                         target="_blank"
                         rel="noopener"
-                        className="text-ink-muted hover:text-ink block py-[7px] transition-colors"
+                        className="text-ink-muted hover:text-ink flex min-h-11 items-center transition-colors"
                       >
                         {t(item.label)}
                         <span className="sr-only"> ({t('a11y.newWindow')})</span>
@@ -38,7 +38,7 @@ export function SiteFooter() {
                     ) : (
                       <Link
                         href={item.href}
-                        className="text-ink-muted hover:text-ink block py-[7px] transition-colors"
+                        className="text-ink-muted hover:text-ink flex min-h-11 items-center transition-colors"
                       >
                         {t(item.label)}
                       </Link>
@@ -54,7 +54,7 @@ export function SiteFooter() {
                         sessionStorage.setItem('el.replay', '1');
                         router.push('/');
                       }}
-                      className="text-ink-muted hover:text-ink block py-[7px] text-start transition-colors"
+                      className="text-ink-muted hover:text-ink flex min-h-11 items-center text-start transition-colors"
                     >
                       {t('footer.replay')}
                     </button>

@@ -2,7 +2,15 @@
 
 import { create } from 'zustand';
 import { LAYER_IDS, type LayerId } from '@/core/actions';
-import { loadRegistry, type LoadedLayer, type QuizFile } from '@/modules/data';
+import {
+  feedForEntry,
+  loadLiveEnvelope,
+  loadRegistry,
+  mergeFeedEnvelope,
+  type LoadedLayer,
+  type QuizFile,
+  type Registry,
+} from '@/modules/data';
 import { useAppStore } from '@/core/store';
 import { preloadNarrationClips } from '@/modules/voice';
 
@@ -44,7 +52,44 @@ async function preloadFonts(): Promise<void> {
       }
     }
   }
-  await Promise.all([...urls].map((url) => fetch(url).then((response) => response.blob())));
+  await Promise.allSettled([...urls].map((url) => fetch(url).then((response) => response.blob())));
+}
+
+/**
+ * Pull every registry feed in parallel, merge the newest point into its layer,
+ * and swap the catalog in once. A failed feed keeps the bundled history and is
+ * labelled with its fallback status, so one bad upstream never empties the app.
+ */
+async function hydrateLiveFeeds(
+  layers: readonly LoadedLayer[],
+  entries: Registry['layers'],
+): Promise<void> {
+  const jobs: { layer: LoadedLayer; feed: string }[] = [];
+  for (const layer of layers) {
+    const entry = entries.find((item) => item.id === layer.config.id);
+    // Precipitation and events have no registry descriptor, so the helper falls
+    // back to the static layer→feed map instead of silently skipping them.
+    const feed = feedForEntry(layer.config.id, entry?.live?.feed);
+    if (!feed) continue;
+    jobs.push({ layer, feed });
+  }
+  if (jobs.length === 0) return;
+
+  const settled = await Promise.allSettled(
+    jobs.map(async ({ layer, feed }) => {
+      const envelope = await loadLiveEnvelope(feed);
+      return mergeFeedEnvelope(layer, envelope);
+    }),
+  );
+
+  const current = useAppStore.getState().catalog;
+  const next = { ...current };
+  for (const result of settled) {
+    if (result.status !== 'fulfilled') continue;
+    const layer = result.value;
+    next[layer.config.id] = layer;
+  }
+  if (Object.keys(next).length > 0) useAppStore.getState().setCatalog(next);
 }
 
 export const useContent = create<ContentState>((set, get) => ({
@@ -54,8 +99,24 @@ export const useContent = create<ContentState>((set, get) => ({
   quiz: null,
   async load() {
     if (get().ready) return;
-    const registry = await loadRegistry();
-    const layers = await Promise.all(LAYER_IDS.map((id) => registry.get(id)));
+
+    let registry: Awaited<ReturnType<typeof loadRegistry>>;
+    try {
+      registry = await loadRegistry();
+    } catch {
+      set({ ready: true });
+      return;
+    }
+    const entries = registry.list();
+    const settledLayers = await Promise.allSettled(LAYER_IDS.map((id) => registry.get(id)));
+    const layers = settledLayers.flatMap((result) =>
+      result.status === 'fulfilled' ? [result.value] : [],
+    );
+
+    const catalog: Partial<Record<LayerId, LoadedLayer>> = {};
+    for (const layer of layers) catalog[layer.config.id] = layer;
+    useAppStore.getState().setCatalog(catalog);
+
     const frameUrls = [
       ...new Set(
         layers.flatMap((layer) => {
@@ -64,13 +125,19 @@ export const useContent = create<ContentState>((set, get) => ({
         }),
       ),
     ];
-    await Promise.all([...frameUrls.map((url) => fetch(url)), fetch('/textures/earth-day.jpg')]);
-    await preloadFonts();
-    const catalog: Partial<Record<LayerId, LoadedLayer>> = {};
-    for (const layer of layers) {
-      catalog[layer.config.id] = layer;
+    await Promise.allSettled([
+      ...frameUrls.map((url) => fetch(url)),
+      fetch('/textures/earth-day.jpg'),
+    ]);
+    await preloadFonts().catch(() => undefined);
+
+    // Static history is ready before any feed call, so the first command works
+    // even when an upstream is slow. The live merge arrives a moment later.
+    if (!useAppStore.getState().demo) {
+      void hydrateLiveFeeds(layers, entries).catch(() => undefined);
     }
-    const [explanations, quiz] = await Promise.all([
+
+    const [explanations, quiz] = await Promise.allSettled([
       fetch('/data/explanations/all.json').then(
         (response) => response.json() as Promise<{ items: ExplanationItem[] }>,
       ),
@@ -81,7 +148,10 @@ export const useContent = create<ContentState>((set, get) => ({
       fetch('/audio/narration/manifest.json'),
       preloadNarrationClips(),
     ]);
-    useAppStore.getState().setCatalog(catalog);
-    set({ ready: true, explanations: explanations.items, quiz });
+    set({
+      ready: true,
+      explanations: explanations.status === 'fulfilled' ? explanations.value.items : [],
+      quiz: quiz.status === 'fulfilled' ? quiz.value : null,
+    });
   },
 }));

@@ -383,7 +383,17 @@
     "step2": "نراجعه وننضّفه",
     "step3": "نحوّل الأرقام لنغمات",
     "step4": "نشغّله، والمصدر قدامك",
-    "licence": "الرخصة والشكر"
+    "licence": "الرخصة والشكر",
+    "attributionTitle": "الشكر والفضل",
+    "attributionBody": "بنشكر NASA على استخدام بيانات وصور LANCE FIRMS اللي بتشغّلها Earth Science Data and Information System (ESDIS) بتمويل من NASA Headquarters.",
+    "attributionBody2": "فريق GISTEMP في NASA Goddard Institute for Space Studies. NOAA GML Mauna Loa: Lan و Tans و Thoning. NSIDC Sea Ice Index v4 (Fetterer وآخرين؛ راجع الـ DOI قبل ما تقتبس). NASA SVS 5113. صورة الكرة النهارية من NASA Blue Marble Next Generation من GIBS. التضاريس من NOAA ETOPO 2022. سطوع الليل مؤشر متحسب من الصور، مش إشعاع متعاير.",
+    "sourcesTitle": "المصادر",
+    "sourcesCaption": "كل مصدر اتستخدم أو محفوظ في النسخة دي، ومعاه رخصته.",
+    "colUsedFor": "بيتستخدم في إيه",
+    "colKey": "المفتاح",
+    "loadingSources": "بنجيب قائمة المصادر…",
+    "sourcesEmpty": "لسه مفيش مصادر نعرضها.",
+    "sourcesError": "قائمة المصادر ما نزلتش. البيانات نفسها مش متأثرة. اعمل تحديث للصفحة وجرّب تاني."
   },
   "symphony": {
     "title": "سيمفونية الأرض",

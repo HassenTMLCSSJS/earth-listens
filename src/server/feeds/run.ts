@@ -27,6 +27,25 @@ const AQ =
   'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=30.04&longitude=31.24&current=pm2_5,pm10,nitrogen_dioxide,ozone,carbon_monoxide,us_aqi';
 const EONET = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=open&days=7';
 
+/** Every feed `/api/live/[feed]` and `/api/health` may serve. */
+export const FEED_IDS = [
+  'gistemp',
+  'noaa-gml',
+  'nsidc',
+  'open-meteo',
+  'open-meteo-aq',
+  'eonet',
+  'firms-24h',
+  'firms-area',
+  'openaq',
+] as const;
+
+export type FeedId = (typeof FEED_IDS)[number];
+
+export function isFeedId(value: string): value is FeedId {
+  return (FEED_IDS as readonly string[]).includes(value);
+}
+
 async function upstream(url: string, headers?: HeadersInit): Promise<Response> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 8000);
@@ -58,6 +77,28 @@ function secretList(): string[] {
   );
 }
 
+/** Bundled snapshot → demo. Never a 500 when an upstream is down. */
+export async function snapshotOrDemo(feed: string, note: string): Promise<FeedEnvelope> {
+  const bundled = await readBundledSnapshot(feed);
+  if (bundled) {
+    return {
+      ...bundled,
+      status: bundled.status === 'live' ? 'snapshot' : bundled.status,
+      latencyNote: note || bundled.latencyNote,
+    };
+  }
+  const fetchedAt = new Date().toISOString();
+  return envelope({
+    feed,
+    status: 'demo',
+    dataTime: fetchedAt,
+    fetchedAt,
+    source: { name: feed, url: 'https://earth.gov/', license: 'demo' },
+    latencyNote: note || 'No bundled snapshot.',
+    items: [],
+  });
+}
+
 export async function liveFeed(feed: string): Promise<FeedEnvelope> {
   const fetchedAt = new Date().toISOString();
   const secrets = secretList();
@@ -69,32 +110,12 @@ export async function liveFeed(feed: string): Promise<FeedEnvelope> {
       error instanceof Error ? error.message : 'upstream failed',
       secrets,
     );
-    const bundled = await readBundledSnapshot(feed);
-    if (bundled) {
-      return { ...bundled, status: 'snapshot', latencyNote: message || bundled.latencyNote };
-    }
-    return envelope({
-      feed,
-      status: 'demo',
-      dataTime: fetchedAt,
-      fetchedAt,
-      source: { name: feed, url: 'https://earth.gov/', license: 'demo' },
-      latencyNote: message || 'No bundled snapshot.',
-      items: [],
-    });
+    return snapshotOrDemo(feed, message);
   }
   const bundled = await readBundledSnapshot(feed);
   if (bundled)
     return { ...bundled, status: bundled.status === 'live' ? 'snapshot' : bundled.status };
-  return envelope({
-    feed,
-    status: 'demo',
-    dataTime: fetchedAt,
-    fetchedAt,
-    source: { name: feed, url: 'https://earth.gov/', license: 'demo' },
-    latencyNote: 'This feed has no live adapter in this build.',
-    items: [],
-  });
+  return snapshotOrDemo(feed, 'This feed has no live adapter in this build.');
 }
 
 async function buildLive(feed: string, fetchedAt: string): Promise<FeedEnvelope | null> {

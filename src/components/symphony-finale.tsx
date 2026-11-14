@@ -16,25 +16,32 @@ export function SymphonyFinale() {
   const reduced = useAppStore((state) => state.settings.reducedMotion) === 'on';
 
   return (
-    <section className="mx-auto grid max-w-6xl gap-6 px-4 py-8">
+    <section className="mx-auto grid w-full max-w-6xl gap-5 px-4 py-8">
       <h1 className="display text-5xl">{t('symphony.title')}</h1>
-      <p>{t('symphony.lead')}</p>
-      <OverlayStage
-        ids={['inst_oud', 'inst_darbuka', 'inst_qanun', 'inst_bowl']}
-        lang={lang}
-        playing={playing}
-        intensity={0.7}
-        reducedMotion={reduced}
-      />
-      <Button
-        onClick={() => {
-          unlockAudio();
-          dispatch({ type: 'combine_layers', ids: [...SYMPHONY_LAYER_IDS] }, 'pointer');
-          dispatch({ type: 'play' }, 'pointer');
-        }}
-      >
-        {t('symphony.play')}
-      </Button>
+      <p className="v5-lead">{t('symphony.lead')}</p>
+      <div className="v5-card overflow-hidden p-5">
+        <OverlayStage
+          ids={['inst_oud', 'inst_darbuka', 'inst_qanun', 'inst_bowl']}
+          lang={lang}
+          playing={playing}
+          intensity={0.7}
+          reducedMotion={reduced}
+        />
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button
+          className="rounded-full"
+          aria-pressed={playing}
+          onClick={() => {
+            unlockAudio();
+            dispatch({ type: 'combine_layers', ids: [...SYMPHONY_LAYER_IDS] }, 'pointer');
+            dispatch({ type: 'play' }, 'pointer');
+          }}
+        >
+          {t('symphony.play')}
+        </Button>
+        <p className="text-ink-subtle text-sm">{t('symphony.sampleNote')}</p>
+      </div>
       <Jukebox embedded />
     </section>
   );

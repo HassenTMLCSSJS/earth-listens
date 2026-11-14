@@ -10,7 +10,8 @@ import {
 import type { LayerId } from '@/core/actions';
 
 export interface LayerRegistry {
-  list(): { id: LayerId; config: string; data: string }[];
+  /** Registry entries, including each layer's optional live-feed descriptor. */
+  list(): Registry['layers'];
   get(id: LayerId): Promise<LoadedLayer>;
 }
 

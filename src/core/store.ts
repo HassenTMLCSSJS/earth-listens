@@ -417,9 +417,25 @@ export const useAppStore = create<AppStore>((set, get) => ({
     }
   },
   setCatalog: (catalog) => {
-    const sample = sampleFor(get().layers, catalog);
-    const next = { ...get(), catalog, sample };
-    set({ catalog, sample, lastScore: scoreFor(next) });
+    const current = get();
+    const sample = sampleFor(current.layers, catalog);
+    const next = { ...current, catalog, sample };
+    const oldBounds = layerBounds(current);
+    const bounds = layerBounds(next);
+    // Data loads in two phases: the recorded history first, then the live point.
+    // Expand a full-range selection when the live point reaches a new year,
+    // but never shrink a range the listener chose.
+    const keepMin = current.time.from > oldBounds.min + 1e-9;
+    const keepMax = current.time.to < oldBounds.max - 1e-9;
+    const from = keepMin ? clamp(current.time.from, bounds.min, bounds.max) : bounds.min;
+    const to = keepMax ? clamp(current.time.to, bounds.min, bounds.max) : bounds.max;
+    const time = {
+      from,
+      to,
+      cursor: clamp(current.time.cursor, Math.min(from, to), Math.max(from, to)),
+    };
+    const scored = { ...next, time };
+    set({ catalog, sample, time, lastScore: scoreFor(scored) ?? current.lastScore });
   },
   setDemo: (demo, debug) => set({ demo, debug, introSeen: demo ? true : get().introSeen }),
   markIntroSeen: (seen) => {

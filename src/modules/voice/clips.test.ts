@@ -58,7 +58,27 @@ describe('pre-rendered narration', () => {
     );
   });
 
-  it('plays the matching clip and does not call the live chain', async () => {
+  it('finds the matching clip on first use without preloading', async () => {
+    const text = 'Earth is always making a sound.';
+    const hash = await narrationKey('en', text);
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (url: string) => {
+        if (String(url).endsWith('.mp3')) return { ok: true, blob: async () => new Blob(['mp3']) };
+        return {
+          ok: true,
+          json: async () => ({
+            items: [{ hash, lang: 'en', url: `/audio/narration/en/${hash}.mp3`, duration: 1.9 }],
+          }),
+        };
+      }),
+    );
+    await speakText(text, 'en', { demo: true, rate: 1, neural: true });
+    expect(played[0]).toBe(`/audio/narration/en/${hash}.mp3`);
+    expect(spoken).toEqual([]);
+  });
+
+  it('preload swaps the clip URLs to local blobs for offline playback', async () => {
     const text = 'Earth is always making a sound.';
     const hash = await narrationKey('en', text);
     vi.stubGlobal(

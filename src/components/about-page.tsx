@@ -36,10 +36,7 @@ export function AboutPage() {
   }, []);
 
   return (
-    <main
-      id="content"
-      className="relative mx-auto max-w-[1320px] px-[clamp(20px,3.4vw,48px)] pt-[clamp(72px,10vw,130px)]"
-    >
+    <div className="relative mx-auto max-w-[1320px] px-[clamp(20px,3.4vw,48px)] pb-24">
       <section className="bloom relative z-10 grid max-w-[980px] gap-[18px]">
         <span className="v5-eyebrow">{t('eyebrow')}</span>
         {locale === 'ar' ? (
@@ -114,6 +111,6 @@ export function AboutPage() {
           <p className="text-ink-muted text-sm leading-relaxed">{t('credits')}</p>
         </article>
       </section>
-    </main>
+    </div>
   );
 }

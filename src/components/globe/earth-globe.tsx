@@ -101,8 +101,22 @@ export function EarthGlobe({
         arcColor="color"
         arcAltitudeAutoScale={0.3}
         onGlobeReady={() => {
-          const api = ref.current;
+          const api = ref.current as any;
           if (!api) return;
+          const material = api.globeMaterial?.();
+          if (material) {
+            material.bumpScale = 0.045;
+            material.shininess = 8;
+            material.needsUpdate = true;
+            const map = material.map;
+            if (map) {
+              try {
+                map.anisotropy = api.renderer?.()?.capabilities?.getMaxAnisotropy?.() ?? 1;
+              } catch {
+                /* Headless or software GL. */
+              }
+            }
+          }
           const controller = createGlobeController({
             pointOfView: (pov, ms) => {
               api.pointOfView(pov, ms);
