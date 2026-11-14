@@ -268,6 +268,402 @@
       "text": "قول شغّل الحرارة، وقّف، روح لسنة ١٩٩٠، قارن ١٩٠٠ و٢٠٢٠، أو مساعدة."
     },
     {
+      "id": "gate.prompt",
+      "lang": "en",
+      "kind": "script",
+      "text": "Hi, welcome to Earth Listens. To travel with sound, press Space, or just say \"Listen\". To look around, pick a language on the screen."
+    },
+    {
+      "id": "gate.prompt",
+      "lang": "ar",
+      "kind": "script",
+      "text": "أهلًا بيك في Earth Listens. لو حابب تسافر بالصوت، دوس مسافة، أو قول \"اسمع\". ولو حابب تتفرّج، اختار اللغة من على الشاشة."
+    },
+    {
+      "id": "gate.reprompt",
+      "lang": "en",
+      "kind": "script",
+      "text": "Still with me? Press Space, or say \"Listen\", and we'll start the journey together."
+    },
+    {
+      "id": "gate.reprompt",
+      "lang": "ar",
+      "kind": "script",
+      "text": "لسه معايا؟ دوس مسافة، أو قول \"اسمع\"، ونبدأ الرحلة سوا."
+    },
+    {
+      "id": "gate.welcome_back",
+      "lang": "en",
+      "kind": "script",
+      "text": "Welcome back. The Earth is still talking. Let's listen."
+    },
+    {
+      "id": "gate.welcome_back",
+      "lang": "ar",
+      "kind": "script",
+      "text": "أهلًا بيك تاني. الأرض لسه بتحكي، يلا نسمع."
+    },
+    {
+      "id": "mode.listening.confirm",
+      "lang": "en",
+      "kind": "script",
+      "text": "Perfect, we'll travel with sound. I'll describe everything for you, and you can talk to me any time: press Alt Shift T, or tap the microphone."
+    },
+    {
+      "id": "mode.listening.confirm",
+      "lang": "ar",
+      "kind": "script",
+      "text": "تمام، هنسافر بالصوت. هوصفلك كل حاجة، وتقدر تكلمني في أي وقت: دوس ألت شيفت تي، أو المس المايك."
+    },
+    {
+      "id": "mode.visual.confirm",
+      "lang": "en",
+      "kind": "script",
+      "text": "Great. Captions are on, and the sound is yours to control."
+    },
+    {
+      "id": "mode.visual.confirm",
+      "lang": "ar",
+      "kind": "script",
+      "text": "حلو. الترجمة شغالة، والصوت تحت إيدك."
+    },
+    {
+      "id": "mode.default_listening",
+      "lang": "en",
+      "kind": "script",
+      "text": "I'll start with sound and captions. You can say \"visual mode\" any time."
+    },
+    {
+      "id": "mode.default_listening",
+      "lang": "ar",
+      "kind": "script",
+      "text": "هبدأ بالصوت والترجمة. تقدر تقول \"الوضع المرئي\" في أي وقت."
+    },
+    {
+      "id": "mode.default_visual",
+      "lang": "en",
+      "kind": "script",
+      "text": "I'll start with captions and sound. Say \"listening mode\" any time to travel by ear."
+    },
+    {
+      "id": "mode.default_visual",
+      "lang": "ar",
+      "kind": "script",
+      "text": "هبدأ بالترجمة والصوت. قول \"وضع الاستماع\" في أي وقت عشان تسافر بودانك."
+    },
+    {
+      "id": "err.mic_denied",
+      "lang": "en",
+      "kind": "script",
+      "text": "I can't hear you, because the microphone is off. That's okay: use the keyboard, or type your commands."
+    },
+    {
+      "id": "err.mic_denied",
+      "lang": "ar",
+      "kind": "script",
+      "text": "مش قادر أسمعك، عشان المايك مقفول. مفيش مشكلة: استخدم الكيبورد، أو اكتب أوامرك."
+    },
+    {
+      "id": "err.didnt_catch",
+      "lang": "en",
+      "kind": "script",
+      "text": "Sorry, I didn't catch that. Try again, or say \"help\"."
+    },
+    {
+      "id": "err.didnt_catch",
+      "lang": "ar",
+      "kind": "script",
+      "text": "معلش، ماسمعتش كويس. جرّب تاني، أو قول \"مساعدة\"."
+    },
+    {
+      "id": "lang.switched",
+      "lang": "en",
+      "kind": "script",
+      "text": "Switched to English."
+    },
+    {
+      "id": "lang.switched",
+      "lang": "ar",
+      "kind": "script",
+      "text": "حوّلنا للعربي."
+    },
+    {
+      "id": "intro.l1",
+      "lang": "en",
+      "kind": "script",
+      "text": "Every day, Earth experiences countless changes around us."
+    },
+    {
+      "id": "intro.l1",
+      "lang": "ar",
+      "kind": "script",
+      "text": "كل يوم، الأرض بتشهد تغيّرات كتير حوالينا."
+    },
+    {
+      "id": "intro.l2",
+      "lang": "en",
+      "kind": "script",
+      "text": "Temperatures rise and fall, forests are affected, and storms begin to form."
+    },
+    {
+      "id": "intro.l2",
+      "lang": "ar",
+      "kind": "script",
+      "text": "درجات الحرارة بتتغير، الغابات بتتأثر، والعواصف بتتكوّن."
+    },
+    {
+      "id": "intro.l3",
+      "lang": "en",
+      "kind": "script",
+      "text": "With Earth Listens, you can discover these phenomena through sounds generated from real scientific data."
+    },
+    {
+      "id": "intro.l3",
+      "lang": "ar",
+      "kind": "script",
+      "text": "مع Earth Listens، تقدر تكتشف الظواهر دي من خلال أصوات ناتجة عن البيانات العلمية الحقيقية."
+    },
+    {
+      "id": "intro.l4",
+      "lang": "en",
+      "kind": "script",
+      "text": "Each phenomenon has its own unique sound, helping you better understand what's happening on our planet."
+    },
+    {
+      "id": "intro.l4",
+      "lang": "ar",
+      "kind": "script",
+      "text": "كل ظاهرة ليها صوت مختلف، وكل صوت بيساعدك تفهم أكتر إيه اللي بيحصل على كوكبنا."
+    },
+    {
+      "id": "intro.l5",
+      "lang": "en",
+      "kind": "script",
+      "text": "Discover the world not just with your eyes, but with your ears."
+    },
+    {
+      "id": "intro.l5",
+      "lang": "ar",
+      "kind": "script",
+      "text": "اكتشف العالم مش بس بعينيك، لكن كمان بودانك."
+    },
+    {
+      "id": "intro.l6",
+      "lang": "en",
+      "kind": "script",
+      "text": "Earth Listens – Listen to the Earth's story."
+    },
+    {
+      "id": "intro.l6",
+      "lang": "ar",
+      "kind": "script",
+      "text": "Earth Listens – Listen to the Earth's story."
+    },
+    {
+      "id": "intro.l7",
+      "lang": "en",
+      "kind": "script",
+      "text": "Open the application and start your journey!"
+    },
+    {
+      "id": "intro.l7",
+      "lang": "ar",
+      "kind": "script",
+      "text": "افتح التطبيق وابدأ رحلتك!"
+    },
+    {
+      "id": "intro.l7_alt",
+      "lang": "en",
+      "kind": "script",
+      "text": "Let's begin your journey!"
+    },
+    {
+      "id": "intro.l7_alt",
+      "lang": "ar",
+      "kind": "script",
+      "text": "يلا نبدأ رحلتك!"
+    },
+    {
+      "id": "menu.main",
+      "lang": "en",
+      "kind": "script",
+      "text": "Where would you like to go? One: explore the Earth. Two: a quick tutorial. Three: how the sounds work. Four: the quiz. Say it, or press its number."
+    },
+    {
+      "id": "menu.main",
+      "lang": "ar",
+      "kind": "script",
+      "text": "تحب تروح فين؟ واحد: استكشف الأرض. اتنين: درس سريع. تلاتة: إزاي الأصوات بتشتغل. أربعة: الاختبار. قولها، أو دوس رقمها."
+    },
+    {
+      "id": "menu.reprompt",
+      "lang": "en",
+      "kind": "script",
+      "text": "Take your time. Say explore, tutorial, sounds, or quiz."
+    },
+    {
+      "id": "menu.reprompt",
+      "lang": "ar",
+      "kind": "script",
+      "text": "خد وقتك. قول استكشف، أو الدرس، أو الأصوات، أو الاختبار."
+    },
+    {
+      "id": "view.temperature",
+      "lang": "en",
+      "kind": "script",
+      "text": "Warm lead. Higher means warmer."
+    },
+    {
+      "id": "view.temperature",
+      "lang": "ar",
+      "kind": "script",
+      "text": "لحن دافي. كل ما يعلى يبقى أسخن."
+    },
+    {
+      "id": "view.wildfire",
+      "lang": "en",
+      "kind": "script",
+      "text": "Crackle. Louder means a stronger fire."
+    },
+    {
+      "id": "view.wildfire",
+      "lang": "ar",
+      "kind": "script",
+      "text": "طقطقة. كل ما تعلى تبقى النار أقوى."
+    },
+    {
+      "id": "view.sea_ice",
+      "lang": "en",
+      "kind": "script",
+      "text": "Glass bells. Higher means more ice."
+    },
+    {
+      "id": "view.sea_ice",
+      "lang": "ar",
+      "kind": "script",
+      "text": "أجراس زجاج. كل ما تعلى يبقى الجليد أكتر."
+    },
+    {
+      "id": "view.co2",
+      "lang": "en",
+      "kind": "script",
+      "text": "Low beating drone. Higher means more carbon dioxide."
+    },
+    {
+      "id": "view.co2",
+      "lang": "ar",
+      "kind": "script",
+      "text": "دندنة منخفضة. كل ما تعلى يبقى الكربون أكتر."
+    },
+    {
+      "id": "view.night_lights",
+      "lang": "en",
+      "kind": "script",
+      "text": "Bright chime. Higher means brighter nights."
+    },
+    {
+      "id": "view.night_lights",
+      "lang": "ar",
+      "kind": "script",
+      "text": "رنة منورة. كل ما تعلى يبقى الليل أنور."
+    },
+    {
+      "id": "view.ocean_sst",
+      "lang": "en",
+      "kind": "script",
+      "text": "Slow swell. Higher means warmer water."
+    },
+    {
+      "id": "view.ocean_sst",
+      "lang": "ar",
+      "kind": "script",
+      "text": "موج بطيء. كل ما يعلى يبقى المية أسخن."
+    },
+    {
+      "id": "view.ocean_currents",
+      "lang": "en",
+      "kind": "script",
+      "text": "A sweep that follows the current."
+    },
+    {
+      "id": "view.ocean_currents",
+      "lang": "ar",
+      "kind": "script",
+      "text": "سريان ماشي مع التيار."
+    },
+    {
+      "id": "view.aerosols",
+      "lang": "en",
+      "kind": "script",
+      "text": "Hazy pad. Louder means thicker air."
+    },
+    {
+      "id": "view.aerosols",
+      "lang": "ar",
+      "kind": "script",
+      "text": "طبقة ضباب. كل ما تعلى يبقى الهوا أتقل."
+    },
+    {
+      "id": "view.air_quality",
+      "lang": "en",
+      "kind": "script",
+      "text": "Tight pulse. Higher means dirtier air."
+    },
+    {
+      "id": "view.air_quality",
+      "lang": "ar",
+      "kind": "script",
+      "text": "نبض ضيق. كل ما يعلى يبقى الهوا أوسخ."
+    },
+    {
+      "id": "view.lightning",
+      "lang": "en",
+      "kind": "script",
+      "text": "Sharp cracks. More hits mean more lightning."
+    },
+    {
+      "id": "view.lightning",
+      "lang": "ar",
+      "kind": "script",
+      "text": "طرقعات حادة. كل ما تكتر يبقى البرق أكتر."
+    },
+    {
+      "id": "view.forest",
+      "lang": "en",
+      "kind": "script",
+      "text": "Soft woodwind. Higher means a taller canopy."
+    },
+    {
+      "id": "view.forest",
+      "lang": "ar",
+      "kind": "script",
+      "text": "ناي هادي. كل ما يعلى يبقى الشجر أطول."
+    },
+    {
+      "id": "view.precipitation",
+      "lang": "en",
+      "kind": "script",
+      "text": "Rain ticks. Faster means more rain."
+    },
+    {
+      "id": "view.precipitation",
+      "lang": "ar",
+      "kind": "script",
+      "text": "تكات مطر. كل ما تسرع يبقى المطر أكتر."
+    },
+    {
+      "id": "view.events",
+      "lang": "en",
+      "kind": "script",
+      "text": "A short ping for each NASA EONET event."
+    },
+    {
+      "id": "view.events",
+      "lang": "ar",
+      "kind": "script",
+      "text": "نبرة قصيرة لكل حدث من ناسا."
+    },
+    {
       "id": "temperature.short",
       "lang": "en",
       "kind": "explanation",

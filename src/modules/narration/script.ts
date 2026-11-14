@@ -74,6 +74,138 @@ export const SCRIPTS: Record<NarrationId, { en: string; ar: string }> = {
     en: 'Say play temperature, stop, go to 1990, compare 1900 and 2020, or help.',
     ar: 'قول شغّل الحرارة، وقّف، روح لسنة ١٩٩٠، قارن ١٩٠٠ و٢٠٢٠، أو مساعدة.',
   },
+  'gate.prompt': {
+    en: 'Hi, welcome to Earth Listens. To travel with sound, press Space, or just say "Listen". To look around, pick a language on the screen.',
+    ar: 'أهلًا بيك في Earth Listens. لو حابب تسافر بالصوت، دوس مسافة، أو قول "اسمع". ولو حابب تتفرّج، اختار اللغة من على الشاشة.',
+  },
+  'gate.reprompt': {
+    en: 'Still with me? Press Space, or say "Listen", and we\'ll start the journey together.',
+    ar: 'لسه معايا؟ دوس مسافة، أو قول "اسمع"، ونبدأ الرحلة سوا.',
+  },
+  'gate.welcome_back': {
+    en: "Welcome back. The Earth is still talking. Let's listen.",
+    ar: 'أهلًا بيك تاني. الأرض لسه بتحكي، يلا نسمع.',
+  },
+  'mode.listening.confirm': {
+    en: "Perfect, we'll travel with sound. I'll describe everything for you, and you can talk to me any time: press Alt Shift T, or tap the microphone.",
+    ar: 'تمام، هنسافر بالصوت. هوصفلك كل حاجة، وتقدر تكلمني في أي وقت: دوس ألت شيفت تي، أو المس المايك.',
+  },
+  'mode.visual.confirm': {
+    en: 'Great. Captions are on, and the sound is yours to control.',
+    ar: 'حلو. الترجمة شغالة، والصوت تحت إيدك.',
+  },
+  'mode.default_listening': {
+    en: 'I\'ll start with sound and captions. You can say "visual mode" any time.',
+    ar: 'هبدأ بالصوت والترجمة. تقدر تقول "الوضع المرئي" في أي وقت.',
+  },
+  'mode.default_visual': {
+    en: 'I\'ll start with captions and sound. Say "listening mode" any time to travel by ear.',
+    ar: 'هبدأ بالترجمة والصوت. قول "وضع الاستماع" في أي وقت عشان تسافر بودانك.',
+  },
+  'err.mic_denied': {
+    en: "I can't hear you, because the microphone is off. That's okay: use the keyboard, or type your commands.",
+    ar: 'مش قادر أسمعك، عشان المايك مقفول. مفيش مشكلة: استخدم الكيبورد، أو اكتب أوامرك.',
+  },
+  'err.didnt_catch': {
+    en: 'Sorry, I didn\'t catch that. Try again, or say "help".',
+    ar: 'معلش، ماسمعتش كويس. جرّب تاني، أو قول "مساعدة".',
+  },
+  'lang.switched': {
+    en: 'Switched to English.',
+    ar: 'حوّلنا للعربي.',
+  },
+  'intro.l1': {
+    en: 'Every day, Earth experiences countless changes around us.',
+    ar: 'كل يوم، الأرض بتشهد تغيّرات كتير حوالينا.',
+  },
+  'intro.l2': {
+    en: 'Temperatures rise and fall, forests are affected, and storms begin to form.',
+    ar: 'درجات الحرارة بتتغير، الغابات بتتأثر، والعواصف بتتكوّن.',
+  },
+  'intro.l3': {
+    en: 'With Earth Listens, you can discover these phenomena through sounds generated from real scientific data.',
+    ar: 'مع Earth Listens، تقدر تكتشف الظواهر دي من خلال أصوات ناتجة عن البيانات العلمية الحقيقية.',
+  },
+  'intro.l4': {
+    en: "Each phenomenon has its own unique sound, helping you better understand what's happening on our planet.",
+    ar: 'كل ظاهرة ليها صوت مختلف، وكل صوت بيساعدك تفهم أكتر إيه اللي بيحصل على كوكبنا.',
+  },
+  'intro.l5': {
+    en: 'Discover the world not just with your eyes, but with your ears.',
+    ar: 'اكتشف العالم مش بس بعينيك، لكن كمان بودانك.',
+  },
+  'intro.l6': {
+    en: "Earth Listens – Listen to the Earth's story.",
+    ar: "Earth Listens – Listen to the Earth's story.",
+  },
+  'intro.l7': {
+    en: 'Open the application and start your journey!',
+    ar: 'افتح التطبيق وابدأ رحلتك!',
+  },
+  'intro.l7_alt': {
+    en: "Let's begin your journey!",
+    ar: 'يلا نبدأ رحلتك!',
+  },
+  'menu.main': {
+    en: 'Where would you like to go? One: explore the Earth. Two: a quick tutorial. Three: how the sounds work. Four: the quiz. Say it, or press its number.',
+    ar: 'تحب تروح فين؟ واحد: استكشف الأرض. اتنين: درس سريع. تلاتة: إزاي الأصوات بتشتغل. أربعة: الاختبار. قولها، أو دوس رقمها.',
+  },
+  'menu.reprompt': {
+    en: 'Take your time. Say explore, tutorial, sounds, or quiz.',
+    ar: 'خد وقتك. قول استكشف، أو الدرس، أو الأصوات، أو الاختبار.',
+  },
+  'view.temperature': {
+    en: 'Warm lead. Higher means warmer.',
+    ar: 'لحن دافي. كل ما يعلى يبقى أسخن.',
+  },
+  'view.sea_ice': {
+    en: 'Glass bells. Higher means more ice.',
+    ar: 'أجراس زجاج. كل ما تعلى يبقى الجليد أكتر.',
+  },
+  'view.forest': {
+    en: 'Soft woodwind. Higher means a taller canopy.',
+    ar: 'ناي هادي. كل ما يعلى يبقى الشجر أطول.',
+  },
+  'view.precipitation': {
+    en: 'Rain ticks. Faster means more rain.',
+    ar: 'تكات مطر. كل ما تسرع يبقى المطر أكتر.',
+  },
+  'view.co2': {
+    en: 'Low beating drone. Higher means more carbon dioxide.',
+    ar: 'دندنة منخفضة. كل ما تعلى يبقى الكربون أكتر.',
+  },
+  'view.aerosols': {
+    en: 'Hazy pad. Louder means thicker air.',
+    ar: 'طبقة ضباب. كل ما تعلى يبقى الهوا أتقل.',
+  },
+  'view.lightning': {
+    en: 'Sharp cracks. More hits mean more lightning.',
+    ar: 'طرقعات حادة. كل ما تكتر يبقى البرق أكتر.',
+  },
+  'view.events': {
+    en: 'A short ping for each NASA EONET event.',
+    ar: 'نبرة قصيرة لكل حدث من ناسا.',
+  },
+  'view.air_quality': {
+    en: 'Tight pulse. Higher means dirtier air.',
+    ar: 'نبض ضيق. كل ما يعلى يبقى الهوا أوسخ.',
+  },
+  'view.wildfire': {
+    en: 'Crackle. Louder means a stronger fire.',
+    ar: 'طقطقة. كل ما تعلى تبقى النار أقوى.',
+  },
+  'view.ocean_sst': {
+    en: 'Slow swell. Higher means warmer water.',
+    ar: 'موج بطيء. كل ما يعلى يبقى المية أسخن.',
+  },
+  'view.ocean_currents': {
+    en: 'A sweep that follows the current.',
+    ar: 'سريان ماشي مع التيار.',
+  },
+  'view.night_lights': {
+    en: 'Bright chime. Higher means brighter nights.',
+    ar: 'رنة منورة. كل ما تعلى يبقى الليل أنور.',
+  },
 };
 
 export function narrationText(id: NarrationId): { en: string; ar: string } {

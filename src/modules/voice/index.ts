@@ -1,7 +1,9 @@
 import type { Lang } from '@/core/actions';
 import { findNarrationClip } from './clips';
+import { resolveHeardLanguage } from './language';
 
 export { narrationKey, preloadNarrationClips, resetNarrationClipsForTests } from './clips';
+export { resolveHeardLanguage };
 
 interface WebSpeech {
   lang: string;
@@ -36,10 +38,29 @@ export const groqWhisperStt: SttEngine = {
     body.set('lang', lang);
     const response = await fetch('/api/stt', { method: 'POST', body, signal });
     if (!response.ok) throw new Error('stt failed');
-    const json = (await response.json()) as { text?: string };
+    const json = (await response.json()) as { text?: string; language?: string };
     return json.text ?? '';
   },
 };
+
+/** Groq Whisper with the selected language forced. Switches when the words are the other language. */
+export async function transcribeClip(
+  audio: Blob,
+  lang: Lang,
+  signal: AbortSignal,
+): Promise<{ text: string; language: Lang }> {
+  const body = new FormData();
+  body.set('file', audio, 'speech.webm');
+  body.set('lang', lang);
+  const response = await fetch('/api/stt', { method: 'POST', body, signal });
+  if (!response.ok) throw new Error('stt failed');
+  const json = (await response.json()) as { text?: string; language?: Lang };
+  const text = json.text ?? '';
+  return {
+    text,
+    language: resolveHeardLanguage({ text, reported: json.language, forced: lang }),
+  };
+}
 
 export const webSpeechStt: SttEngine = {
   id: 'web-speech',

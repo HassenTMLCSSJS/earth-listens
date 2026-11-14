@@ -1,4 +1,4 @@
-import type { LayerId, QuizAnswer, RegionId, Speed } from '@/core/actions';
+import type { LayerId, NavHref, QuizAnswer, RegionId, Speed } from '@/core/actions';
 import { normalizeUtterance } from './normalize';
 
 export interface LexiconEntry {
@@ -75,7 +75,8 @@ export const REGION_LEXICON: { id: RegionId; phrases: string[] }[] = [
 ];
 
 export const PLAY_WORDS = normList(['play', 'listen', 'start', 'شغّل', 'اسمع', 'ابدأ']);
-export const STOP_WORDS = normList(['stop', 'pause', 'quiet', 'وقّف', 'بس', 'اسكت']);
+export const STOP_WORDS = normList(['stop', 'quiet', 'وقّف', 'بس', 'اسكت']);
+export const PAUSE_WORDS = normList(['pause', 'استنى', 'استني']);
 export const ADD_WORDS = normList(['add', 'ضيف', 'زود']);
 export const SYMPHONY_WORDS = normList(['everything', 'all', 'symphony', 'السيمفونية', 'كله']);
 export const GO_WORDS = normList(['go to', 'jump to', 'روح', 'اذهب']);
@@ -87,12 +88,33 @@ export const NEXT_WORDS = normList(['next', 'التالي']);
 export const BACK_WORDS = normList(['back', 'رجوع']);
 export const QUIZ_WORDS = normList(['quiz me', 'quiz', 'اختبرني']);
 export const DESCRIBE_WORDS = normList(['describe', 'وصف', 'وصفلي']);
-export const AUDIO_MODE = normList(['audio mode', 'audio-first', 'وضع الصوت']);
+export const AUDIO_MODE = normList([
+  'audio mode',
+  'audio-first',
+  'listening mode',
+  'وضع الصوت',
+  'وضع الاستماع',
+]);
 export const VISUAL_MODE = normList(['visual mode', 'الوضع المرئي']);
 export const ENGLISH_WORDS = normList(['english', 'انجليزي']);
 export const ARABIC_WORDS = normList(['arabic', 'عربي']);
 export const SLOWER_WORDS = normList(['slower', 'أبطأ']);
 export const FASTER_WORDS = normList(['faster', 'أسرع']);
+
+export const NAV_LEXICON: { href: NavHref; phrases: string[] }[] = [
+  { href: '/tutorial', phrases: normList(['tutorial', 'teach me', 'الشرح', 'علّمني', 'الدرس']) },
+  {
+    href: '/how-it-sounds',
+    phrases: normList(['how it sounds', 'how the sounds work', 'الأصوات', 'إزاي بتشتغل']),
+  },
+  { href: '/settings', phrases: normList(['open settings', 'الإعدادات']) },
+  { href: '/guide', phrases: normList(['open the guide', 'الدليل']) },
+  { href: '/data', phrases: normList(['data page', 'صفحة البيانات']) },
+  { href: '/symphony', phrases: normList(['open the symphony', 'سيمفونية الأرض']) },
+  { href: '/quiz', phrases: normList(['open the quiz', 'افتح الاختبار']) },
+  { href: '/listen', phrases: normList(['explore', 'استكشف', 'الخريطة']) },
+  { href: '/', phrases: normList(['go home', 'الحكاية']) },
+];
 
 export const QUIZ_ANSWER_LEXICON: { answer: QuizAnswer; phrases: string[] }[] = [
   { answer: 'unchanged', phrases: normList(['unchanged', 'same', 'زي ما هو']) },
@@ -108,7 +130,13 @@ export const SPEED_WORDS: { speed: Speed; phrases: string[] }[] = [
 /** Rendered by the Guide so the command list cannot drift from the parser. */
 export const COMMAND_TABLE: LexiconEntry[] = [
   { id: 'play', en: ['play', 'listen', 'start'], ar: ['شغّل', 'اسمع', 'ابدأ'] },
-  { id: 'stop', en: ['stop', 'pause', 'quiet'], ar: ['وقّف', 'بس', 'اسكت'] },
+  { id: 'stop', en: ['stop', 'quiet'], ar: ['وقّف', 'بس', 'اسكت'] },
+  { id: 'pause', en: ['pause'], ar: ['استنى'] },
+  {
+    id: 'explore',
+    en: ['explore', 'teach me', 'how it sounds'],
+    ar: ['استكشف', 'الدرس', 'الأصوات'],
+  },
   { id: 'add', en: ['add'], ar: ['ضيف', 'زود'] },
   { id: 'symphony', en: ['everything', 'all', 'symphony'], ar: ['السيمفونية', 'كله'] },
   { id: 'go', en: ['go to', 'jump to'], ar: ['روح', 'اذهب'] },

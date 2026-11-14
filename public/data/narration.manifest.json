@@ -263,6 +263,28 @@
       "watermark": "resemble-perth"
     },
     {
+      "hash": "4fddeccab938de818dc3f8e4a79cb79f122c790c02c8ee99d9bbbe8ffdb82426",
+      "lang": "ar",
+      "url": "/audio/narration/ar/4fddeccab938de818dc3f8e4a79cb79f122c790c02c8ee99d9bbbe8ffdb82426.mp3",
+      "duration": 3.92,
+      "bytes": 24069,
+      "id": "err.didnt_catch",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "1909e6ef404d9766a12ddc8db0aef7cfd4e9ddd79bff38b62bd30e2f0e12184f",
+      "lang": "ar",
+      "url": "/audio/narration/ar/1909e6ef404d9766a12ddc8db0aef7cfd4e9ddd79bff38b62bd30e2f0e12184f.mp3",
+      "duration": 6.04,
+      "bytes": 44589,
+      "id": "err.mic_denied",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
       "hash": "03d3a9de40813e88572ec600c7e554b3e68e67492689b3444ec6de04fe28cd1c",
       "lang": "ar",
       "url": "/audio/narration/ar/03d3a9de40813e88572ec600c7e554b3e68e67492689b3444ec6de04fe28cd1c.mp3",
@@ -307,12 +329,133 @@
       "watermark": "resemble-perth"
     },
     {
+      "hash": "11e075027202f4289c0684de8f34d1930b36fab06f3f22717cbb6527af5d3609",
+      "lang": "ar",
+      "url": "/audio/narration/ar/11e075027202f4289c0684de8f34d1930b36fab06f3f22717cbb6527af5d3609.mp3",
+      "duration": 8.48,
+      "bytes": 59253,
+      "id": "gate.prompt",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "cdfc6292bf3ced4742e05d07324a1da236c8fbeda818512c60f87b86bebeb9a9",
+      "lang": "ar",
+      "url": "/audio/narration/ar/cdfc6292bf3ced4742e05d07324a1da236c8fbeda818512c60f87b86bebeb9a9.mp3",
+      "duration": 4.6,
+      "bytes": 31509,
+      "id": "gate.reprompt",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "5368407787c78beab2dc7a163e404aa1692aa720faa7246e3726ffc28b14b54e",
+      "lang": "ar",
+      "url": "/audio/narration/ar/5368407787c78beab2dc7a163e404aa1692aa720faa7246e3726ffc28b14b54e.mp3",
+      "duration": 3.48,
+      "bytes": 21381,
+      "id": "gate.welcome_back",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
       "hash": "ceb6985b53a6ce5674989a0f0d2461dc8d67e34fded4f9bb34b1a7952503093d",
       "lang": "ar",
       "url": "/audio/narration/ar/ceb6985b53a6ce5674989a0f0d2461dc8d67e34fded4f9bb34b1a7952503093d.mp3",
       "duration": 12.92,
       "bytes": 92757,
       "id": "help.commands",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "44d6cc83c2c6b1f130882259036847602c990e18b60369e6cbfec60515a6bc2c",
+      "lang": "ar",
+      "url": "/audio/narration/ar/44d6cc83c2c6b1f130882259036847602c990e18b60369e6cbfec60515a6bc2c.mp3",
+      "duration": 3.8,
+      "bytes": 24333,
+      "id": "intro.l1",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "7b640bc4dbd21b37c1c7cd22afa20cce97e00c017ba13555af9f7ec02d7c1d54",
+      "lang": "ar",
+      "url": "/audio/narration/ar/7b640bc4dbd21b37c1c7cd22afa20cce97e00c017ba13555af9f7ec02d7c1d54.mp3",
+      "duration": 4.92,
+      "bytes": 32901,
+      "id": "intro.l2",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "7a8d050c97a595b510faf4ab90a72da5469238be50da1664ffbdb7992c35a3c4",
+      "lang": "ar",
+      "url": "/audio/narration/ar/7a8d050c97a595b510faf4ab90a72da5469238be50da1664ffbdb7992c35a3c4.mp3",
+      "duration": 6.44,
+      "bytes": 46269,
+      "id": "intro.l3",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "0659a62abf8857d083d9ab4e33771df055f488a346621d8b298f5450175ec6b0",
+      "lang": "ar",
+      "url": "/audio/narration/ar/0659a62abf8857d083d9ab4e33771df055f488a346621d8b298f5450175ec6b0.mp3",
+      "duration": 5.6,
+      "bytes": 40533,
+      "id": "intro.l4",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "de832ad73089a6540cd6e6d6e43580e95d4e79329f82e76399eacf98cd37bce9",
+      "lang": "ar",
+      "url": "/audio/narration/ar/de832ad73089a6540cd6e6d6e43580e95d4e79329f82e76399eacf98cd37bce9.mp3",
+      "duration": 3.88,
+      "bytes": 25845,
+      "id": "intro.l5",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "e5a6cc656585eebec76a7c6c0e7d1cf5bf25e761bc199dacaaa6b275a95416b7",
+      "lang": "ar",
+      "url": "/audio/narration/ar/e5a6cc656585eebec76a7c6c0e7d1cf5bf25e761bc199dacaaa6b275a95416b7.mp3",
+      "duration": 2.64,
+      "bytes": 16821,
+      "id": "intro.l6",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "c40d643f0a849601ebd29c6460f6a93a3ef7095938c8336c55358381c0bcc15d",
+      "lang": "ar",
+      "url": "/audio/narration/ar/c40d643f0a849601ebd29c6460f6a93a3ef7095938c8336c55358381c0bcc15d.mp3",
+      "duration": 2.48,
+      "bytes": 14205,
+      "id": "intro.l7",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "cc73e71d0ed9a6882b4a18a5096eeda5d86a5f988b8ab23b80d26fdf9d585f88",
+      "lang": "ar",
+      "url": "/audio/narration/ar/cc73e71d0ed9a6882b4a18a5096eeda5d86a5f988b8ab23b80d26fdf9d585f88.mp3",
+      "duration": 1.64,
+      "bytes": 9021,
+      "id": "intro.l7_alt",
       "kind": "script",
       "engine": "chatterbox-multilingual-v3",
       "watermark": "resemble-perth"
@@ -340,6 +483,17 @@
       "watermark": "resemble-perth"
     },
     {
+      "hash": "0eb6b4f721926d4da0ae6a5ecf7520bc847a84c75a4d9b70ce8ce407d8cd1532",
+      "lang": "ar",
+      "url": "/audio/narration/ar/0eb6b4f721926d4da0ae6a5ecf7520bc847a84c75a4d9b70ce8ce407d8cd1532.mp3",
+      "duration": 1.64,
+      "bytes": 9501,
+      "id": "lang.switched",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
       "hash": "92098143ffb69ad42b4d5a60a8b55aed46b333c0cad202af365afe1682e11c48",
       "lang": "ar",
       "url": "/audio/narration/ar/92098143ffb69ad42b4d5a60a8b55aed46b333c0cad202af365afe1682e11c48.mp3",
@@ -358,6 +512,72 @@
       "bytes": 121845,
       "id": "lightning.short",
       "kind": "explanation",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "7a3337870f6374918b7eec592ec9bb01b7f40332763f3c0e4c7dc5e30f60be5c",
+      "lang": "ar",
+      "url": "/audio/narration/ar/7a3337870f6374918b7eec592ec9bb01b7f40332763f3c0e4c7dc5e30f60be5c.mp3",
+      "duration": 9.12,
+      "bytes": 64149,
+      "id": "menu.main",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "11bafa3603678594791c125222502d75510d26eaafc414bd9968d1c483dab608",
+      "lang": "ar",
+      "url": "/audio/narration/ar/11bafa3603678594791c125222502d75510d26eaafc414bd9968d1c483dab608.mp3",
+      "duration": 4.84,
+      "bytes": 30117,
+      "id": "menu.reprompt",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "fd58eefa5ff24f23b3fda365ce5dde335fe19c7208e2ad6d719a77276e69b6cc",
+      "lang": "ar",
+      "url": "/audio/narration/ar/fd58eefa5ff24f23b3fda365ce5dde335fe19c7208e2ad6d719a77276e69b6cc.mp3",
+      "duration": 4.48,
+      "bytes": 29277,
+      "id": "mode.default_listening",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "6f694ac0e2dbc85ca9216de6ebe4bb97b7625a807dbae20c312689b0c5522ba2",
+      "lang": "ar",
+      "url": "/audio/narration/ar/6f694ac0e2dbc85ca9216de6ebe4bb97b7625a807dbae20c312689b0c5522ba2.mp3",
+      "duration": 5.36,
+      "bytes": 38013,
+      "id": "mode.default_visual",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "110a443a91ac908f2647cbb3f177f4d9f493df67b57bc066255dbdbf386acf89",
+      "lang": "ar",
+      "url": "/audio/narration/ar/110a443a91ac908f2647cbb3f177f4d9f493df67b57bc066255dbdbf386acf89.mp3",
+      "duration": 7.68,
+      "bytes": 53085,
+      "id": "mode.listening.confirm",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "790b1eb05052178107817a288d092710a79d57f07ffccf8d602886515330b2d7",
+      "lang": "ar",
+      "url": "/audio/narration/ar/790b1eb05052178107817a288d092710a79d57f07ffccf8d602886515330b2d7.mp3",
+      "duration": 3.52,
+      "bytes": 21285,
+      "id": "mode.visual.confirm",
+      "kind": "script",
       "engine": "chatterbox-multilingual-v3",
       "watermark": "resemble-perth"
     },
@@ -791,6 +1011,149 @@
       "watermark": "resemble-perth"
     },
     {
+      "hash": "541125c86df9493067c454d39f00bb3c0eb45e1643771b28365c5923549df776",
+      "lang": "ar",
+      "url": "/audio/narration/ar/541125c86df9493067c454d39f00bb3c0eb45e1643771b28365c5923549df776.mp3",
+      "duration": 3.56,
+      "bytes": 22149,
+      "id": "view.aerosols",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "134aa7c7b40f0b87e4f0d86ca42d6f78d14138621703a354e35d13ee80dfbf17",
+      "lang": "ar",
+      "url": "/audio/narration/ar/134aa7c7b40f0b87e4f0d86ca42d6f78d14138621703a354e35d13ee80dfbf17.mp3",
+      "duration": 3.4,
+      "bytes": 19509,
+      "id": "view.air_quality",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "eccee100b677fb7c9154ff9571d348b1bed4537ec67189d376780e128cf3152a",
+      "lang": "ar",
+      "url": "/audio/narration/ar/eccee100b677fb7c9154ff9571d348b1bed4537ec67189d376780e128cf3152a.mp3",
+      "duration": 3.72,
+      "bytes": 24573,
+      "id": "view.co2",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "a0e4d308ce4550246b3ae02a7fdbfd6df8dbc9d45cf617188162b40ffd020a52",
+      "lang": "ar",
+      "url": "/audio/narration/ar/a0e4d308ce4550246b3ae02a7fdbfd6df8dbc9d45cf617188162b40ffd020a52.mp3",
+      "duration": 2.84,
+      "bytes": 18069,
+      "id": "view.events",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "b9fbe2eac960f0bb6d37c40ad986ffa5c87ec1f716c17527afa090770335187d",
+      "lang": "ar",
+      "url": "/audio/narration/ar/b9fbe2eac960f0bb6d37c40ad986ffa5c87ec1f716c17527afa090770335187d.mp3",
+      "duration": 3.04,
+      "bytes": 19149,
+      "id": "view.forest",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "50de6390eb7a8e29d5455b3739e08a3ed74dd215ddff1331c4f32dc0b10295a4",
+      "lang": "ar",
+      "url": "/audio/narration/ar/50de6390eb7a8e29d5455b3739e08a3ed74dd215ddff1331c4f32dc0b10295a4.mp3",
+      "duration": 3.32,
+      "bytes": 20253,
+      "id": "view.lightning",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "0d7df6eeb6ea161197675943745fd63d471a00f7d90016853cd8b407496fbfd7",
+      "lang": "ar",
+      "url": "/audio/narration/ar/0d7df6eeb6ea161197675943745fd63d471a00f7d90016853cd8b407496fbfd7.mp3",
+      "duration": 3.24,
+      "bytes": 22173,
+      "id": "view.night_lights",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "5b4948acf274e9b4dd248c0fcb4e8bc6662a5316f175a7687cc69e214b80cd38",
+      "lang": "ar",
+      "url": "/audio/narration/ar/5b4948acf274e9b4dd248c0fcb4e8bc6662a5316f175a7687cc69e214b80cd38.mp3",
+      "duration": 1.96,
+      "bytes": 12837,
+      "id": "view.ocean_currents",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "64952e0755f96f7245c646ea3c8702ca9ab812e6fcda16eb349f60264ac09d40",
+      "lang": "ar",
+      "url": "/audio/narration/ar/64952e0755f96f7245c646ea3c8702ca9ab812e6fcda16eb349f60264ac09d40.mp3",
+      "duration": 3.08,
+      "bytes": 18861,
+      "id": "view.ocean_sst",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "e398b499a11e171ef83d9c855abc56e86c0ba8eb65fcc6db35545c95d7801f62",
+      "lang": "ar",
+      "url": "/audio/narration/ar/e398b499a11e171ef83d9c855abc56e86c0ba8eb65fcc6db35545c95d7801f62.mp3",
+      "duration": 3.56,
+      "bytes": 23205,
+      "id": "view.precipitation",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "20298e2f7b3faa93fb70325de93ea17d3f1a1c5999657592a164b494f31dd15c",
+      "lang": "ar",
+      "url": "/audio/narration/ar/20298e2f7b3faa93fb70325de93ea17d3f1a1c5999657592a164b494f31dd15c.mp3",
+      "duration": 3.48,
+      "bytes": 22917,
+      "id": "view.sea_ice",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "85f07608298e72d1fe36b8e246ac58e5a2b62e5a86f33445f6ff4124eba9d1e8",
+      "lang": "ar",
+      "url": "/audio/narration/ar/85f07608298e72d1fe36b8e246ac58e5a2b62e5a86f33445f6ff4124eba9d1e8.mp3",
+      "duration": 3.12,
+      "bytes": 18957,
+      "id": "view.temperature",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "d9609ae378c36b6dff9cf84a326700054a486c28461e7f029d5d39048ecd3242",
+      "lang": "ar",
+      "url": "/audio/narration/ar/d9609ae378c36b6dff9cf84a326700054a486c28461e7f029d5d39048ecd3242.mp3",
+      "duration": 3.12,
+      "bytes": 18909,
+      "id": "view.wildfire",
+      "kind": "script",
+      "engine": "chatterbox-multilingual-v3",
+      "watermark": "resemble-perth"
+    },
+    {
       "hash": "d561e664fcbd9600f361893db53206c7730c4b32d5ba6f007412d871b5d73b6c",
       "lang": "ar",
       "url": "/audio/narration/ar/d561e664fcbd9600f361893db53206c7730c4b32d5ba6f007412d871b5d73b6c.mp3",
@@ -1066,6 +1429,28 @@
       "watermark": "resemble-perth"
     },
     {
+      "hash": "f89e95a57b0dcbcdc2ca081534d81301c5df05e52aec6bc738bc5d488868b461",
+      "lang": "en",
+      "url": "/audio/narration/en/f89e95a57b0dcbcdc2ca081534d81301c5df05e52aec6bc738bc5d488868b461.mp3",
+      "duration": 3.0,
+      "bytes": 20469,
+      "id": "err.didnt_catch",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "dfc24a0721f29736fbd23eb22a5cdbbaffb43a3504d13d3eb1a259159a29cc03",
+      "lang": "en",
+      "url": "/audio/narration/en/dfc24a0721f29736fbd23eb22a5cdbbaffb43a3504d13d3eb1a259159a29cc03.mp3",
+      "duration": 6.52,
+      "bytes": 41661,
+      "id": "err.mic_denied",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
       "hash": "2563d5cb46c11115185d1252279bb726a2d75740c79732ae8e2c95ee70505580",
       "lang": "en",
       "url": "/audio/narration/en/2563d5cb46c11115185d1252279bb726a2d75740c79732ae8e2c95ee70505580.mp3",
@@ -1110,12 +1495,133 @@
       "watermark": "resemble-perth"
     },
     {
+      "hash": "d93bde736991c086539df6cd5fd6a4d4c61722513b67812c2534e46591136b10",
+      "lang": "en",
+      "url": "/audio/narration/en/d93bde736991c086539df6cd5fd6a4d4c61722513b67812c2534e46591136b10.mp3",
+      "duration": 7.92,
+      "bytes": 51981,
+      "id": "gate.prompt",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "507545e004a7f341de82d8375bb4bd0790d28b514a1b2d7fb6071082ba67bc78",
+      "lang": "en",
+      "url": "/audio/narration/en/507545e004a7f341de82d8375bb4bd0790d28b514a1b2d7fb6071082ba67bc78.mp3",
+      "duration": 4.8,
+      "bytes": 30837,
+      "id": "gate.reprompt",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "89338ca7cd07687651b61879f3a74267a343a83e20118e0058d499bad6574b31",
+      "lang": "en",
+      "url": "/audio/narration/en/89338ca7cd07687651b61879f3a74267a343a83e20118e0058d499bad6574b31.mp3",
+      "duration": 3.28,
+      "bytes": 20085,
+      "id": "gate.welcome_back",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
       "hash": "a55a288870e65a61cfc5ad39df01ad76643ffe14dc1233f53807eab6cb574415",
       "lang": "en",
       "url": "/audio/narration/en/a55a288870e65a61cfc5ad39df01ad76643ffe14dc1233f53807eab6cb574415.mp3",
       "duration": 5.48,
       "bytes": 38061,
       "id": "help.commands",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "0a1868805f5253ef6b55db49b8ca5795bc3da3ce5627713119ea177ce2a5464b",
+      "lang": "en",
+      "url": "/audio/narration/en/0a1868805f5253ef6b55db49b8ca5795bc3da3ce5627713119ea177ce2a5464b.mp3",
+      "duration": 3.4,
+      "bytes": 23637,
+      "id": "intro.l1",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "ccd23be5c8b579b0ed68f79519f557935e4fe19d2acfa4c9d93986c2d4849ae8",
+      "lang": "en",
+      "url": "/audio/narration/en/ccd23be5c8b579b0ed68f79519f557935e4fe19d2acfa4c9d93986c2d4849ae8.mp3",
+      "duration": 5.12,
+      "bytes": 34701,
+      "id": "intro.l2",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "ede95f9f1c0f4291fd67e48a29605339e62a96a38a1ab084919fde0d3b70f513",
+      "lang": "en",
+      "url": "/audio/narration/en/ede95f9f1c0f4291fd67e48a29605339e62a96a38a1ab084919fde0d3b70f513.mp3",
+      "duration": 5.64,
+      "bytes": 39477,
+      "id": "intro.l3",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "e50210e57e3aa64c8c893919d6dfe7301ec69b5661078b8f6f74390cba831788",
+      "lang": "en",
+      "url": "/audio/narration/en/e50210e57e3aa64c8c893919d6dfe7301ec69b5661078b8f6f74390cba831788.mp3",
+      "duration": 4.88,
+      "bytes": 33645,
+      "id": "intro.l4",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "e9cc30438f5087c198f43bbdc3561faa0f374b5917ba9951baf6da4407dcf90a",
+      "lang": "en",
+      "url": "/audio/narration/en/e9cc30438f5087c198f43bbdc3561faa0f374b5917ba9951baf6da4407dcf90a.mp3",
+      "duration": 2.88,
+      "bytes": 20013,
+      "id": "intro.l5",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "cef603aae4caabbb0a225c4272a45b4ee9b4dcd89a79e4a44d52ec3fbcc23271",
+      "lang": "en",
+      "url": "/audio/narration/en/cef603aae4caabbb0a225c4272a45b4ee9b4dcd89a79e4a44d52ec3fbcc23271.mp3",
+      "duration": 2.72,
+      "bytes": 17805,
+      "id": "intro.l6",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "429d88ef8ac767f3678191ab81fc1ac510f46eacefa8d362b13a92a2c9d43231",
+      "lang": "en",
+      "url": "/audio/narration/en/429d88ef8ac767f3678191ab81fc1ac510f46eacefa8d362b13a92a2c9d43231.mp3",
+      "duration": 2.28,
+      "bytes": 14277,
+      "id": "intro.l7",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "700f69d1b7219b096bec73a5aed14525b58b4afbc9a579961dbdbb6be1a48850",
+      "lang": "en",
+      "url": "/audio/narration/en/700f69d1b7219b096bec73a5aed14525b58b4afbc9a579961dbdbb6be1a48850.mp3",
+      "duration": 1.4,
+      "bytes": 9093,
+      "id": "intro.l7_alt",
       "kind": "script",
       "engine": "chatterbox-nano",
       "watermark": "resemble-perth"
@@ -1143,6 +1649,17 @@
       "watermark": "resemble-perth"
     },
     {
+      "hash": "10226a0d4efd0a50266d4fc7eb3d49643451dfe00d28d19c51376f5870711b55",
+      "lang": "en",
+      "url": "/audio/narration/en/10226a0d4efd0a50266d4fc7eb3d49643451dfe00d28d19c51376f5870711b55.mp3",
+      "duration": 1.32,
+      "bytes": 9117,
+      "id": "lang.switched",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
       "hash": "9b3c2759b61455e9e280052b4339e65137116006611dc6665df86a5e89c6d9dd",
       "lang": "en",
       "url": "/audio/narration/en/9b3c2759b61455e9e280052b4339e65137116006611dc6665df86a5e89c6d9dd.mp3",
@@ -1161,6 +1678,72 @@
       "bytes": 59997,
       "id": "lightning.short",
       "kind": "explanation",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "ac3c54ad87cfaa96f801a36866b69105c13f7561e041ec6e4844398daa2bc628",
+      "lang": "en",
+      "url": "/audio/narration/en/ac3c54ad87cfaa96f801a36866b69105c13f7561e041ec6e4844398daa2bc628.mp3",
+      "duration": 10.36,
+      "bytes": 56349,
+      "id": "menu.main",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "547c2a460a50c4f9a960a16686689dc742d1346cfebce67f4b052502d50ce64b",
+      "lang": "en",
+      "url": "/audio/narration/en/547c2a460a50c4f9a960a16686689dc742d1346cfebce67f4b052502d50ce64b.mp3",
+      "duration": 3.92,
+      "bytes": 25245,
+      "id": "menu.reprompt",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "1cc755d28a556384eb2c8af3c16812fd5712e5cbd553c30ce1c64fd6eb3e2751",
+      "lang": "en",
+      "url": "/audio/narration/en/1cc755d28a556384eb2c8af3c16812fd5712e5cbd553c30ce1c64fd6eb3e2751.mp3",
+      "duration": 4.76,
+      "bytes": 30093,
+      "id": "mode.default_listening",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "1e0475ffa62c8fff9b7fb1e81539a642839924f99f3beed3dd326a3398ab2edd",
+      "lang": "en",
+      "url": "/audio/narration/en/1e0475ffa62c8fff9b7fb1e81539a642839924f99f3beed3dd326a3398ab2edd.mp3",
+      "duration": 5.16,
+      "bytes": 32061,
+      "id": "mode.default_visual",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "0ba5c84f565984ebf4a520aafcc0c3b479d9f640294e1e3285f14b9f58d7ebe9",
+      "lang": "en",
+      "url": "/audio/narration/en/0ba5c84f565984ebf4a520aafcc0c3b479d9f640294e1e3285f14b9f58d7ebe9.mp3",
+      "duration": 7.84,
+      "bytes": 52725,
+      "id": "mode.listening.confirm",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "1093c08c825b6b48673ef93ba7e82e5e7c9e8851c68cc5f951c9e71d06e249a0",
+      "lang": "en",
+      "url": "/audio/narration/en/1093c08c825b6b48673ef93ba7e82e5e7c9e8851c68cc5f951c9e71d06e249a0.mp3",
+      "duration": 3.88,
+      "bytes": 25029,
+      "id": "mode.visual.confirm",
+      "kind": "script",
       "engine": "chatterbox-nano",
       "watermark": "resemble-perth"
     },
@@ -1589,6 +2172,149 @@
       "duration": 1.12,
       "bytes": 8085,
       "id": "tutorial.step7",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "5c6acba8cefc33ce1d88263c46dc0ab7bdec485533048f4366c55b38ba4528c4",
+      "lang": "en",
+      "url": "/audio/narration/en/5c6acba8cefc33ce1d88263c46dc0ab7bdec485533048f4366c55b38ba4528c4.mp3",
+      "duration": 2.92,
+      "bytes": 17829,
+      "id": "view.aerosols",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "ee8ab477251b24ba1170744d8dcb1833b108ecb65662e53f01314f5e6bfe909c",
+      "lang": "en",
+      "url": "/audio/narration/en/ee8ab477251b24ba1170744d8dcb1833b108ecb65662e53f01314f5e6bfe909c.mp3",
+      "duration": 2.32,
+      "bytes": 14973,
+      "id": "view.air_quality",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "09dd92862223189dcf8a309ce38f8a64f24a7d3e4c675b9aff837c7531f80eab",
+      "lang": "en",
+      "url": "/audio/narration/en/09dd92862223189dcf8a309ce38f8a64f24a7d3e4c675b9aff837c7531f80eab.mp3",
+      "duration": 3.36,
+      "bytes": 21477,
+      "id": "view.co2",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "c8405ab1461102c667613113e84b39f612717014c5e89f5eb866d371bc5d6bdd",
+      "lang": "en",
+      "url": "/audio/narration/en/c8405ab1461102c667613113e84b39f612717014c5e89f5eb866d371bc5d6bdd.mp3",
+      "duration": 2.92,
+      "bytes": 18861,
+      "id": "view.events",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "b88192f58abb260edef0674f03f4ce9844bd175b3fb11c282a15fcd1d7643e32",
+      "lang": "en",
+      "url": "/audio/narration/en/b88192f58abb260edef0674f03f4ce9844bd175b3fb11c282a15fcd1d7643e32.mp3",
+      "duration": 2.96,
+      "bytes": 19101,
+      "id": "view.forest",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "e4fff8a63e373fe0129ebf26c722485da84ec3add91c25e2251933960a938775",
+      "lang": "en",
+      "url": "/audio/narration/en/e4fff8a63e373fe0129ebf26c722485da84ec3add91c25e2251933960a938775.mp3",
+      "duration": 3.16,
+      "bytes": 18237,
+      "id": "view.lightning",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "5decae36677edd8c70e1ca304e1e4a3cc8de27fb518eb58e1341cd576b4a48a5",
+      "lang": "en",
+      "url": "/audio/narration/en/5decae36677edd8c70e1ca304e1e4a3cc8de27fb518eb58e1341cd576b4a48a5.mp3",
+      "duration": 2.56,
+      "bytes": 16845,
+      "id": "view.night_lights",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "8af32bdab6522605a5029d3088066d79c878d251e92190ea000576dd1ef60faa",
+      "lang": "en",
+      "url": "/audio/narration/en/8af32bdab6522605a5029d3088066d79c878d251e92190ea000576dd1ef60faa.mp3",
+      "duration": 1.96,
+      "bytes": 12573,
+      "id": "view.ocean_currents",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "88b739fc4b3e154f794752362a91c0cc326cb7e25c1d1b3b9deb4f1004817b91",
+      "lang": "en",
+      "url": "/audio/narration/en/88b739fc4b3e154f794752362a91c0cc326cb7e25c1d1b3b9deb4f1004817b91.mp3",
+      "duration": 2.64,
+      "bytes": 16605,
+      "id": "view.ocean_sst",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "09a421472360ce82aaffb4579c09e0e13615405167bcb10a9ecc8f9baceb8091",
+      "lang": "en",
+      "url": "/audio/narration/en/09a421472360ce82aaffb4579c09e0e13615405167bcb10a9ecc8f9baceb8091.mp3",
+      "duration": 2.48,
+      "bytes": 15429,
+      "id": "view.precipitation",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "b3c486729a60436ed438d1cc8bbf132088fcce46328403d702632922ec683d84",
+      "lang": "en",
+      "url": "/audio/narration/en/b3c486729a60436ed438d1cc8bbf132088fcce46328403d702632922ec683d84.mp3",
+      "duration": 2.6,
+      "bytes": 17085,
+      "id": "view.sea_ice",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "cee28339cddc71125b63670b8511927af523d0a2e4cbfc24606bea921ed3c17f",
+      "lang": "en",
+      "url": "/audio/narration/en/cee28339cddc71125b63670b8511927af523d0a2e4cbfc24606bea921ed3c17f.mp3",
+      "duration": 2.12,
+      "bytes": 13149,
+      "id": "view.temperature",
+      "kind": "script",
+      "engine": "chatterbox-nano",
+      "watermark": "resemble-perth"
+    },
+    {
+      "hash": "1befe0d4c89e35545fe1b6b8e5d610d85f35dd4cc943023a80f33a9cc59bcb57",
+      "lang": "en",
+      "url": "/audio/narration/en/1befe0d4c89e35545fe1b6b8e5d610d85f35dd4cc943023a80f33a9cc59bcb57.mp3",
+      "duration": 2.8,
+      "bytes": 18045,
+      "id": "view.wildfire",
       "kind": "script",
       "engine": "chatterbox-nano",
       "watermark": "resemble-perth"

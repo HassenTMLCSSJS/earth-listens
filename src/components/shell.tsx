@@ -6,6 +6,7 @@ import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { isDemoFlag } from '@/core/demo';
 import { useAppStore } from '@/core/store';
 import { useContent } from '@/core/catalog';
+import { subscribe } from '@/core/bus';
 import { isTypingTarget, SHORTCUTS } from '@/modules/a11y';
 import { announce } from '@/modules/narration';
 import { getPlayer, unlockAudio } from '@/modules/sonification';
@@ -17,6 +18,7 @@ import { LiveRegion } from '@/components/ui/live-region';
 import { CommandBox } from '@/components/command-box';
 import { PlaybackBridge } from '@/components/playback-bridge';
 import { QuizPanel } from '@/components/quiz-panel';
+import { TalkButton } from '@/components/talk-button';
 import * as Dialog from '@radix-ui/react-dialog';
 
 function warmTone(): Promise<void> {
@@ -43,6 +45,7 @@ const LINKS = [
   ['/quiz', 'nav.quiz'],
   ['/tutorial', 'nav.tutorial'],
   ['/how-it-sounds', 'nav.sounds'],
+  ['/symphony', 'nav.symphony'],
   ['/guide', 'nav.guide'],
   ['/data', 'nav.data'],
   ['/settings', 'nav.settings'],
@@ -96,7 +99,11 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
     // The catalog has to be ready for the first command, including the offline demo.
     void load();
     // Voice and Tone wait for idle or the first gesture so Listen and Tutorial
-    // are not blocked on the speech and synthesis chunks.
+    // are not blocked on the speech and synthesis chunks. Demo mode cannot wait
+    // for idle: the Arabic listen page keeps the main thread busy with the globe
+    // and Arabic text, so requestIdleCallback does not run until its 4s timeout.
+    // That is after the network has gone quiet, and going offline then fails the
+    // Tone worker (turbopack-worker-*.js and the tone chunk).
     let warmed = false;
     const warm = () => {
       if (warmed) return;
@@ -104,19 +111,39 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
       void import('@/modules/voice');
       if (demoOn && typeof Worker !== 'undefined') void warmTone();
     };
-    const schedule = () => {
-      if (typeof window.requestIdleCallback === 'function') {
-        window.requestIdleCallback(() => warm(), { timeout: 4000 });
-      } else window.setTimeout(warm, 1);
-    };
-    if (document.readyState === 'complete') schedule();
-    else window.addEventListener('load', schedule, { once: true });
-    window.addEventListener('pointerdown', warm, { once: true });
-    window.addEventListener('keydown', warm, { once: true });
+    if (demoOn) {
+      warm();
+    } else {
+      const schedule = () => {
+        if (typeof window.requestIdleCallback === 'function') {
+          window.requestIdleCallback(() => warm(), { timeout: 4000 });
+        } else window.setTimeout(warm, 1);
+      };
+      if (document.readyState === 'complete') schedule();
+      else window.addEventListener('load', schedule, { once: true });
+      window.addEventListener('pointerdown', warm, { once: true });
+      window.addEventListener('keydown', warm, { once: true });
+    }
     if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
       void navigator.serviceWorker.register('/sw.js').catch(() => undefined);
     }
   }, [load]);
+
+  useEffect(() => {
+    const unlisten = subscribe('navigate', (action) => {
+      if (action.type !== 'navigate') return;
+      router.push(action.href);
+    });
+    const unlang = subscribe('set_language', (action) => {
+      if (action.type !== 'set_language' || action.lang === locale) return;
+      const query = window.location.search.replace(/^\?/, '');
+      router.replace(query ? `${pathname}?${query}` : pathname, { locale: action.lang });
+    });
+    return () => {
+      unlisten();
+      unlang();
+    };
+  }, [locale, pathname, router]);
 
   const skipFocus = useRef(true);
   useEffect(() => {
@@ -210,12 +237,7 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
               </Link>
             ))}
           </nav>
-          <IconButton
-            aria-label={t('header.talk')}
-            onClick={() => document.getElementById('command')?.focus()}
-          >
-            {t('header.talk')}
-          </IconButton>
+          <TalkButton />
           <IconButton
             aria-label={t('header.stop')}
             onClick={() => {
@@ -260,11 +282,7 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
           <button
             type="button"
             className="min-h-11 px-3"
-            onClick={() => {
-              dispatch({ type: 'set_language', lang: other }, 'pointer');
-              const query = window.location.search.replace(/^\?/, '');
-              router.replace(query ? `${pathname}?${query}` : pathname, { locale: other });
-            }}
+            onClick={() => dispatch({ type: 'set_language', lang: other }, 'pointer')}
           >
             {t('header.language')}
           </button>
@@ -288,6 +306,7 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
           className="min-h-11 w-fit rounded-full border border-white/20 px-4"
           onClick={() => {
             useAppStore.getState().markIntroSeen(false);
+            sessionStorage.setItem('el.replay', '1');
             router.push('/');
           }}
         >

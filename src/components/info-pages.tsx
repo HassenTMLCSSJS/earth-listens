@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { LAYER_IDS, SCALE_IDS } from '@/core/actions';
 import { useAppStore } from '@/core/store';
 import { COMMAND_TABLE } from '@/modules/agent';
 import { SHORTCUTS } from '@/modules/a11y';
+import { LAYER_SOUND } from '@/modules/globe';
 import { EARCONS, getPlayer, unlockAudio } from '@/modules/sonification';
 import { SettingSwitch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
@@ -25,6 +26,7 @@ const STEPS = [
 
 export function SoundsPage() {
   const t = useTranslations();
+  const locale = useLocale();
   const dispatch = useAppStore((state) => state.dispatch);
   const catalog = useAppStore((state) => state.catalog);
   const rows = useMemo(() => {
@@ -35,6 +37,14 @@ export function SoundsPage() {
     <article className="mx-auto grid max-w-3xl gap-4 px-4 py-8">
       <h1 className="display text-5xl">{t('sounds.title')}</h1>
       <p>{t('sounds.lead')}</p>
+      <ul className="grid gap-2">
+        {LAYER_IDS.map((id) => (
+          <li key={id}>
+            <strong>{t(`layers.${id}`)}. </strong>
+            {locale === 'ar' ? LAYER_SOUND[id].ar : LAYER_SOUND[id].en}
+          </li>
+        ))}
+      </ul>
       <svg
         viewBox="0 0 200 80"
         role="img"

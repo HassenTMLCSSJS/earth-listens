@@ -221,12 +221,31 @@ html[data-motion='reduce'] .story-chapter:not([data-active='true']) {
   animation: settle 280ms var(--ease-cinematic) both;
 }
 
-@keyframes settle {
+[data-intro-cue] {
+  animation: intro-line 1.1s var(--ease-cinematic) both;
+}
+
+html[data-motion='reduce'] [data-intro-cue] {
+  animation-duration: 200ms;
+}
+
+@keyframes intro-line {
   from {
-    transform: translateY(8px);
+    opacity: 0;
+    transform: translateY(12px);
   }
   to {
+    opacity: 1;
     transform: none;
+  }
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 

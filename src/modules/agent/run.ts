@@ -7,7 +7,7 @@ const FALLBACK: AgentResponse = {
   actions: [],
   say: {
     en: "I didn't catch that, say help",
-    ar: 'مش فاهم، قول مساعدة',
+    ar: 'معلش، ماسمعتش كويس. جرّب تاني، أو قول "مساعدة".',
   },
   provider: 'none',
 };
@@ -107,7 +107,7 @@ function httpProvider(id: string, base: string, model: string, key: string): Llm
 }
 
 export async function runAgent(req: AgentRequest): Promise<AgentResponse> {
-  if (promptBudget() > 1600) return FALLBACK;
+  if (promptBudget() > 3600) return FALLBACK;
   for (const provider of providers()) {
     try {
       return await provider.complete(req, AbortSignal.timeout(4000));

@@ -49,7 +49,10 @@ export function CommandBox() {
         /* Offline or blocked. The typed box remains the interface. */
       }
     }
-    announce({ en: "I didn't catch that, say help", ar: 'مش فاهم، قول مساعدة' });
+    announce({
+      en: 'Sorry, I didn\'t catch that. Try again, or say "help".',
+      ar: 'معلش، ماسمعتش كويس. جرّب تاني، أو قول "مساعدة".',
+    });
   }
 
   return (

@@ -7,20 +7,14 @@ import {
   useMemo,
   useState,
   useSyncExternalStore,
-  type ComponentType,
   type KeyboardEvent,
 } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { formatNumber } from '@/core/format';
 import { useAppStore } from '@/core/store';
+import { viewForLayer, LAYER_SOUND } from '@/modules/globe';
 import { spatialize } from '@/modules/sonification';
-
-type PosterGlobeProps = {
-  globeImageUrl: string;
-  backgroundColor: string;
-  width: number;
-  height: number;
-};
+import { speakNarration, type NarrationId } from '@/modules/narration';
 
 const EarthCanvas = dynamic(
   () =>
@@ -32,6 +26,11 @@ const EarthCanvas = dynamic(
             return null;
           },
       ),
+  { ssr: false },
+);
+
+const EarthGlobe = dynamic(
+  () => import('@/components/globe/earth-globe').then((mod) => mod.EarthGlobe),
   { ssr: false },
 );
 
@@ -61,9 +60,7 @@ export function GlobeStage() {
     () => null,
   );
   const forceClassic = globeQuery === 'gl';
-  // `?globe=react` only mounts react-globe.gl. Zain owns the real visuals.
-  const forceReact = globeQuery === 'react';
-  const [PosterGlobe, setPosterGlobe] = useState<ComponentType<PosterGlobeProps> | null>(null);
+  const forceR3f = globeQuery === 'r3f';
   const view = useAppStore((state) => state.view);
   const dispatch = useAppStore((state) => state.dispatch);
   const mode = useAppStore((state) => state.mode);
@@ -81,6 +78,12 @@ export function GlobeStage() {
     () => webglAvailable(),
     () => false,
   );
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    // Mount the globe only after hydration so the server poster matches the client.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
   const online = useSyncExternalStore(
     (onStoreChange) => {
       window.addEventListener('online', onStoreChange);
@@ -95,6 +98,7 @@ export function GlobeStage() {
   );
   const [failed, setFailed] = useState(false);
   const [engaged, setEngaged] = useState(false);
+  const [globeReady, setGlobeReady] = useState(false);
   const playing = useAppStore((state) => state.playback.status) === 'playing';
   const visual = useAppStore((state) => state.visual);
   const cursor = useAppStore((state) => state.time.cursor);
@@ -122,19 +126,17 @@ export function GlobeStage() {
     return all.filter((cell) => cell.t === '2025-08-04').slice(0, 24);
   }, [catalog.events, catalog.wildfire, layers]);
 
-  useEffect(() => {
-    if (!forceReact) return;
-    let cancelled = false;
-    void import('react-globe.gl')
-      .then((mod) => {
-        if (cancelled) return;
-        setPosterGlobe(() => mod.default as ComponentType<PosterGlobeProps>);
-      })
-      .catch(() => setFailed(true));
-    return () => {
-      cancelled = true;
-    };
-  }, [forceReact]);
+  const globeView = useMemo(() => {
+    const data = activeLayer?.data;
+    return viewForLayer({
+      id: active,
+      cursor,
+      series: data?.series ?? {},
+      ...(data?.markers ? { markers: data.markers } : {}),
+      ...(data?.cells ? { cells: data.cells } : {}),
+      focus: view,
+    });
+  }, [active, activeLayer, cursor, view]);
 
   useEffect(() => {
     if (!forceClassic || !webgl) return;
@@ -158,13 +160,9 @@ export function GlobeStage() {
     };
   }, [forceClassic, webgl]);
 
-  if (mode === 'audio_first') {
-    return (
-      <p className="sr-only" data-testid="globe" data-pan={spatial.pan.toFixed(6)}>
-        {t('summary')}
-      </p>
-    );
-  }
+  useEffect(() => {
+    void speakNarration(`view.${active}` as NarrationId, locale === 'ar' ? 'ar' : 'en');
+  }, [active, locale]);
 
   function onKey(event: KeyboardEvent<HTMLDivElement>) {
     if (event.key === 'ArrowLeft')
@@ -180,10 +178,11 @@ export function GlobeStage() {
     event.preventDefault();
   }
 
-  // Playback opens the shader only while online. An offline demo must not
-  // request the Three.js chunk after the network is gone.
-  const showCanvas =
-    webgl && !failed && !forceClassic && !forceReact && (engaged || (playing && online));
+  // The react-globe.gl instance mounts as soon as WebGL exists. The poster
+  // covers it until the first frame, and stays up when WebGL is missing.
+  const showR3f = webgl && !failed && forceR3f && (engaged || (playing && online));
+  const showReact = mounted && webgl && !failed && !forceClassic && !forceR3f;
+  const posterVisible = !showR3f && (!showReact || !globeReady);
   const label = `${t('globe')}. ${formatNumber(view.lat, lang, { maximumFractionDigits: 1 })}°, ${formatNumber(view.lon, lang, { maximumFractionDigits: 1 })}°`;
 
   return (
@@ -197,16 +196,24 @@ export function GlobeStage() {
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
       tabIndex={0}
       data-pan={spatial.pan.toFixed(6)}
+      data-mode={mode}
       onKeyDown={onKey}
       onPointerEnter={() => setEngaged(true)}
       onFocus={() => setEngaged(true)}
       className="bg-space-950 relative h-[420px] overflow-hidden rounded-[2rem] border border-white/10 outline-none"
     >
-      {forceReact && PosterGlobe ? (
-        <div data-testid="react-globe" className="absolute inset-0">
-          <PosterGlobe globeImageUrl={POSTER} backgroundColor="#05070d" width={640} height={420} />
-        </div>
-      ) : showCanvas ? (
+      {showReact ? (
+        <EarthGlobe
+          lat={view.lat}
+          lon={view.lon}
+          points={globeView.points}
+          arcs={globeView.arcs}
+          reducedMotion={motion === 'reduce'}
+          framing="stage"
+          playing={playing}
+          onReady={() => setGlobeReady(true)}
+        />
+      ) : showR3f ? (
         <Suspense fallback={<p className="p-6 text-sm">{t('summary')}</p>}>
           <EarthCanvas
             texture="/textures/earth-day.webp"
@@ -231,16 +238,17 @@ export function GlobeStage() {
             motion={motion ?? 'full'}
           />
         </Suspense>
-      ) : (
+      ) : null}
+      {posterVisible ? (
         <img
           src={POSTER}
-          alt={label}
+          alt={showReact ? '' : label}
           width={960}
           height={420}
           fetchPriority="high"
-          className="h-full w-full object-cover"
+          className="pointer-events-none absolute inset-0 z-10 h-full w-full object-cover"
         />
-      )}
+      ) : null}
       {chosen ? (
         <img
           src={chosen.src}
@@ -251,12 +259,13 @@ export function GlobeStage() {
         />
       ) : null}
       <div id="globe-classic" className="absolute inset-0" hidden={!forceClassic} />
-      <p className="bg-space-950/80 absolute inset-x-0 bottom-0 grid gap-1 p-3 text-sm">
-        <span>{t('summary')}</span>
+      <div className="bg-space-950/80 absolute inset-x-0 bottom-0 z-20 grid gap-1 p-3 text-sm">
+        <p className="sr-only">{t('summary')}</p>
         <span data-testid="layer-legend">
           {activeLayer?.config.title[locale === 'ar' ? 'ar' : 'en']} ·{' '}
           {activeLayer?.config.unit[locale === 'ar' ? 'ar' : 'en']}
         </span>
+        <span>{locale === 'ar' ? LAYER_SOUND[active].ar : LAYER_SOUND[active].en}</span>
         {noMap ? (
           <span>{locale === 'ar' ? 'لا توجد خريطة لهذه السنة.' : 'No map for this year.'}</span>
         ) : null}
@@ -268,7 +277,7 @@ export function GlobeStage() {
           </span>
         ) : null}
         <span>{t('standIn')}</span>
-      </p>
+      </div>
     </div>
   );
 }

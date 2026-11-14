@@ -6,3 +6,7 @@ export {
   pickSmokeKtx2,
 } from './ktx2';
 export type { TextureAsset, TextureManifest } from './ktx2';
+export { createGlobeController, getGlobeController, registerGlobeController } from './controller';
+export type { GlobeController, GlobeFraming, GlobeHandle } from './controller';
+export { LAYER_COLOR, LAYER_SOUND, viewForLayer } from './views';
+export type { GlobePoint, GlobeArc, GlobeView, ViewInput } from './views';
