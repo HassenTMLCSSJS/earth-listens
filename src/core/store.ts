@@ -198,6 +198,10 @@ export function reduceApp(state: AppData, action: Action): AppData {
     }
     case 'stop':
       return { ...state, playback: { status: 'idle', speed: state.playback.speed, mode: 'idle' } };
+    case 'pause':
+      return { ...state, playback: { ...state.playback, status: 'paused' } };
+    case 'navigate':
+      return state;
     case 'set_mode':
       return { ...state, mode: action.mode };
     case 'set_language':

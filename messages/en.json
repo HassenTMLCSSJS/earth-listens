@@ -14,6 +14,7 @@
     "guide": "Guide",
     "data": "Data",
     "settings": "Settings",
+    "symphony": "Symphony",
     "label": "Primary"
   },
   "banner": {
@@ -41,11 +42,30 @@
     "headphones": "Headphones recommended",
     "begin": "Begin"
   },
+  "entry": {
+    "sound": "Begin with sound. Press Space or Enter."
+  },
+  "hub": {
+    "title": "Where would you like to go?",
+    "explore": "Explore the Earth",
+    "tutorial": "Quick tutorial",
+    "sounds": "How the sounds work",
+    "quiz": "Quiz",
+    "symphony": "Play the Earth's symphony"
+  },
   "intro": {
     "skip": "Skip",
     "replay": "Replay intro",
     "line1": "Earth is always making a sound.",
-    "line2": "Can you hear the change?"
+    "line2": "Can you hear the change?",
+    "l1": "Every day, Earth experiences countless changes around us.",
+    "l2": "Temperatures rise and fall, forests are affected, and storms begin to form.",
+    "l3": "With Earth Listens, you can discover these phenomena through sounds generated from real scientific data.",
+    "l4": "Each phenomenon has its own unique sound, helping you better understand what's happening on our planet.",
+    "l5": "Discover the world not just with your eyes, but with your ears.",
+    "l6": "Earth Listens – Listen to the Earth's story.",
+    "l7": "Open the application and start your journey!",
+    "l7_alt": "Let's begin your journey!"
   },
   "story": {
     "next": "Next chapter",
@@ -82,7 +102,8 @@
     "globe": "Interactive globe",
     "standIn": "NASA Blue Marble and ETOPO relief. Night brightness is an image-derived index, not calibrated radiance.",
     "compare": "Compare",
-    "summary": "A text view of the planet. West is left, east is right, relative to the view centre."
+    "summary": "A text view of the planet. West is left, east is right, relative to the view centre.",
+    "year": "Year"
   },
   "layers": {
     "temperature": "Temperature",
@@ -155,7 +176,8 @@
     "progress": "Step {step} of {total}",
     "skip": "Skip",
     "back": "Back",
-    "hint": "Hint"
+    "hint": "Hint",
+    "done": "You can talk to me now. Say play temperature, or open the symphony."
   },
   "settings": {
     "title": "Settings",
@@ -194,6 +216,11 @@
     "lead": "Every number in the app right now is SAMPLE data from a seeded formula. Real NASA and NOAA files plug in through the pipeline, without changing the engine.",
     "steps": "Pipeline",
     "validation": "Validation plots appear here after the real data is fetched."
+  },
+  "symphony": {
+    "title": "The Earth's symphony",
+    "lead": "Four voices together: temperature, wildfire, sea ice, and carbon dioxide. The pictures are stand-ins until the finished models arrive.",
+    "play": "Play the symphony"
   },
   "footer": {
     "credit": "Team Ctrl+Earth · NASA Space Apps Cairo 2026",

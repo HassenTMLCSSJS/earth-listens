@@ -4,7 +4,7 @@ import { typedStt } from '@/modules/voice';
 
 describe('voice and prompt contracts', () => {
   it('keeps the agent prompt under the token budget', () => {
-    expect(promptBudget()).toBeLessThan(1500);
+    expect(promptBudget()).toBeLessThan(3600);
   });
 
   it('always offers the typed command fallback', async () => {

@@ -10,6 +10,7 @@ const routes = [
   '/guide',
   '/data',
   '/settings',
+  '/symphony',
 ];
 
 async function command(page: Page, text: string) {
@@ -53,15 +54,15 @@ test('a failed live feed shows a cached snapshot', async ({ page }) => {
 
 test('keyboard intro reaches listen', async ({ page }) => {
   await page.goto('/en');
-  const begin = page.getByRole('button', { name: 'Begin' });
+  const begin = page.getByRole('button', { name: 'Begin with sound. Press Space or Enter.' });
   await expect(begin).toBeFocused();
   await page.keyboard.press('Enter');
-  await expect(page.getByText('Earth is always making a sound.')).toBeVisible();
+  await expect(page.getByTestId('entry-state')).toHaveAttribute('data-state', 'listen1');
+  await page.keyboard.press('Space');
+  await expect(page.getByTestId('intro-stage')).toBeVisible();
   await page.keyboard.press('Escape');
-  for (let step = 0; step < 5; step += 1) {
-    await page.getByRole('button', { name: 'Next chapter' }).click();
-  }
-  await page.getByRole('link', { name: 'Start listening' }).click();
+  await expect(page.getByTestId('choice-hub')).toBeVisible();
+  await page.keyboard.press('1');
   await expect(page).toHaveURL(/\/en\/listen/);
 });
 
@@ -106,16 +107,17 @@ test('arabic renders rtl', async ({ page }) => {
   await page.goto('/ar');
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
   await expect(page.locator('html')).toHaveAttribute('lang', 'ar');
-  await expect(page.getByRole('button', { name: 'ابدأ' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'عربي' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'English' })).toBeVisible();
 });
 
 test('reduced motion disables gsap transforms', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/en');
   await expect(page.locator('html')).toHaveAttribute('data-gsap-disabled', 'true');
-  await page.getByRole('button', { name: 'Begin' }).click();
+  await page.getByRole('button', { name: 'English' }).click();
   const duration = await page
-    .locator('[data-intro-line="1"]')
+    .locator('[data-intro-cue="C1"]')
     .evaluate((element) => getComputedStyle(element).animationDuration);
   const milliseconds = duration.endsWith('ms')
     ? Number.parseFloat(duration)

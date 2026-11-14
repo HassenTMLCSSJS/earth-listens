@@ -6,6 +6,7 @@ import { parseIntent } from '@/modules/agent';
 import { announce } from '@/modules/narration';
 import { unlockAudio } from '@/modules/sonification';
 import { useAppStore } from '@/core/store';
+import { useLocale } from 'next-intl';
 
 export function CommandBox() {
   const t = useTranslations('command');
@@ -16,6 +17,7 @@ export function CommandBox() {
   const quiz = useAppStore((state) => state.quiz);
   const demo = useAppStore((state) => state.demo);
   const lang = useAppStore((state) => state.lang);
+  const locale = useLocale() === 'ar' ? 'ar' : 'en';
 
   async function submit() {
     const text = value.trim();
@@ -23,6 +25,7 @@ export function CommandBox() {
     unlockAudio();
     const parsed = parseIntent(text, { layers, region, inQuiz: Boolean(quiz?.open) });
     if (parsed.matched) {
+      if (parsed.lang !== locale) dispatch({ type: 'set_language', lang: parsed.lang }, 'keyboard');
       for (const action of parsed.actions) dispatch(action, 'keyboard');
       setValue('');
       return;
@@ -49,7 +52,10 @@ export function CommandBox() {
         /* Offline or blocked. The typed box remains the interface. */
       }
     }
-    announce({ en: "I didn't catch that, say help", ar: 'مش فاهم، قول مساعدة' });
+    announce({
+      en: 'Sorry, I didn\'t catch that. Try again, or say "help".',
+      ar: 'معلش، ماسمعتش كويس. جرّب تاني، أو قول "مساعدة".',
+    });
   }
 
   return (

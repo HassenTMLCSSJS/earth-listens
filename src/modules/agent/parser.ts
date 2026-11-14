@@ -3,6 +3,7 @@ import {
   type Action,
   type Lang,
   type LayerId,
+  type NavHref,
   type RegionId,
 } from '@/core/actions';
 import {
@@ -17,6 +18,8 @@ import {
   HELP_WORDS,
   LAYER_LEXICON,
   NEXT_WORDS,
+  NAV_LEXICON,
+  PAUSE_WORDS,
   PLAY_WORDS,
   QUIZ_ANSWER_LEXICON,
   QUIZ_WORDS,
@@ -92,6 +95,19 @@ function matchCompare(normalized: string): [number, number] | null {
   return [Number(match[1]), Number(match[2])];
 }
 
+function findNav(normalized: string): NavHref | null {
+  const phrases = NAV_LEXICON.flatMap((entry) =>
+    entry.phrases.map((phrase) => ({ phrase, href: entry.href })),
+  ).sort((a, b) => b.phrase.length - a.phrase.length);
+  for (const entry of phrases) {
+    const hit = entry.phrase.includes(' ')
+      ? normalized.includes(entry.phrase)
+      : tokensOf(normalized).some((token) => tokenMatches(token, entry.phrase));
+    if (hit) return entry.href;
+  }
+  return null;
+}
+
 function matchRange(normalized: string): [number, number] | null {
   const english = /\bfrom\s+(\d{4})\s+to\s+(\d{4})\b/.exec(normalized);
   const arabic = /من\s+(\d{4})\s+(?:لحد|الي|الى|ل)\s+(\d{4})/.exec(normalized);
@@ -111,7 +127,8 @@ export function parseIntent(text: string, ctx: ParseContext): ParseResult {
   const range = matchRange(normalized);
   const symphony = hasPhrase(normalized, SYMPHONY_WORDS);
   const stop = hasPhrase(normalized, STOP_WORDS);
-  const play = hasPhrase(normalized, PLAY_WORDS) && !stop;
+  const pause = hasPhrase(normalized, PAUSE_WORDS) && !stop;
+  const play = hasPhrase(normalized, PLAY_WORDS) && !stop && !pause;
   const add = hasPhrase(normalized, ADD_WORDS);
   const speed = SPEED_WORDS.find((entry) => hasPhrase(normalized, entry.phrases))?.speed;
   const mode = hasPhrase(normalized, AUDIO_MODE)
@@ -142,6 +159,8 @@ export function parseIntent(text: string, ctx: ParseContext): ParseResult {
     ),
   );
   const years = yearsIn(normalized);
+  const nav = findNav(normalized);
+  const navigating = nav !== null && layerHit.ids.length === 0 && !compare && !range;
   const go = hasPhrase(normalized, GO_WORDS) || hasPhrase(normalized, YEAR_WORDS);
   const yearGo = !compare && !range && years.length === 1 && go ? years[0] : undefined;
 
@@ -169,14 +188,16 @@ export function parseIntent(text: string, ctx: ParseContext): ParseResult {
   if (describe && !explain) actions.push({ type: 'describe_frame' });
   if (quizAnswer && !explain) actions.push({ type: 'quiz_answer', answer: quizAnswer });
   if (startQuiz) actions.push({ type: 'start_quiz' });
+  if (navigating && nav) actions.push({ type: 'navigate', href: nav });
   if (help) actions.push({ type: 'help' });
   if (skip) actions.push({ type: 'skip' });
   if (next && !range) actions.push({ type: 'next' });
   if (back) actions.push({ type: 'back' });
 
   if (stop) actions.push({ type: 'stop' });
+  else if (pause) actions.push({ type: 'pause' });
   else if (speed) actions.push({ type: 'play', speed });
-  else if (play || symphony || compare || range) actions.push({ type: 'play' });
+  else if (!navigating && (play || symphony || compare || range)) actions.push({ type: 'play' });
 
   return {
     matched: actions.length > 0,

@@ -39,6 +39,19 @@ describe('parseIntent', () => {
     ['كلمني بالعربي', [{ type: 'set_language', lang: 'ar' }]],
     ['help', [{ type: 'help' }]],
     ['تخطّي', [{ type: 'skip' }]],
+    ['pause', [{ type: 'pause' }]],
+    ['explore', [{ type: 'navigate', href: '/listen' }]],
+    ['استكشف', [{ type: 'navigate', href: '/listen' }]],
+    ['teach me', [{ type: 'navigate', href: '/tutorial' }]],
+    ['how it sounds', [{ type: 'navigate', href: '/how-it-sounds' }]],
+    [
+      'open the symphony',
+      [
+        { type: 'combine_layers', ids: ['temperature', 'wildfire', 'sea_ice', 'co2'] },
+        { type: 'navigate', href: '/symphony' },
+      ],
+    ],
+    ['listening mode', [{ type: 'set_mode', mode: 'audio_first' }]],
   ];
 
   it.each(cases)('%s', (input, actions) => {

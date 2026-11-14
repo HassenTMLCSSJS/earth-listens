@@ -1,4 +1,5 @@
 import { readServerEnv } from '@/core/env';
+import { resolveHeardLanguage } from '@/modules/voice';
 
 export async function POST(request: Request): Promise<Response> {
   const env = readServerEnv();
@@ -11,7 +12,9 @@ export async function POST(request: Request): Promise<Response> {
   const body = new FormData();
   body.set('file', file, file.name || 'speech.webm');
   body.set('model', env.GROQ_STT_MODEL);
+  // Force the selected UI language, and still read Whisper's language tag.
   body.set('language', lang);
+  body.set('response_format', 'verbose_json');
   const response = await fetch('https://api.groq.com/openai/v1/audio/transcriptions', {
     method: 'POST',
     headers: { authorization: `Bearer ${env.GROQ_API_KEY}` },
@@ -19,6 +22,10 @@ export async function POST(request: Request): Promise<Response> {
     signal: AbortSignal.timeout(6000),
   });
   if (!response.ok) return Response.json({ error: 'stt failed' }, { status: 502 });
-  const json = (await response.json()) as { text?: string };
-  return Response.json({ text: json.text ?? '' });
+  const json = (await response.json()) as { text?: string; language?: string };
+  const text = json.text ?? '';
+  return Response.json({
+    text,
+    language: resolveHeardLanguage({ text, reported: json.language, forced: lang }),
+  });
 }
