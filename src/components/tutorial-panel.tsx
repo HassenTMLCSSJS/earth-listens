@@ -45,6 +45,7 @@ export function TutorialPanel() {
       <section className="mx-auto max-w-3xl px-4 py-8">
         <h1 className="display text-5xl">{t('title')}</h1>
         <p>{t('progress', { step: TUTORIAL_STEPS.length, total: TUTORIAL_STEPS.length })}</p>
+        <p>{t('done')}</p>
       </section>
     );
   }

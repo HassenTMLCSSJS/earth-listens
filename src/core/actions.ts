@@ -41,6 +41,17 @@ export const SCALE_IDS = [
 export const TUNINGS = ['microtonal', 'twelve_tet'] as const;
 export const QUIZ_ANSWERS = ['increased', 'decreased', 'unchanged'] as const;
 export const ORIGINS = ['voice', 'keyboard', 'pointer', 'agent', 'tutorial', 'system'] as const;
+export const NAV_HREFS = [
+  '/',
+  '/listen',
+  '/tutorial',
+  '/how-it-sounds',
+  '/quiz',
+  '/symphony',
+  '/guide',
+  '/data',
+  '/settings',
+] as const;
 
 export type LayerId = (typeof LAYER_IDS)[number];
 export type RegionId = (typeof REGION_IDS)[number];
@@ -51,6 +62,7 @@ export type ScaleId = (typeof SCALE_IDS)[number];
 export type TuningMode = (typeof TUNINGS)[number];
 export type QuizAnswer = (typeof QUIZ_ANSWERS)[number];
 export type Origin = (typeof ORIGINS)[number];
+export type NavHref = (typeof NAV_HREFS)[number];
 
 export interface Settings {
   speechRate: number;
@@ -82,6 +94,8 @@ export type Action =
   | { type: 'rotate_view'; dLon: number; dLat: number }
   | { type: 'set_view'; lat: number; lon: number }
   | { type: 'help' }
+  | { type: 'pause' }
+  | { type: 'navigate'; href: NavHref }
   | { type: 'skip' }
   | { type: 'next' }
   | { type: 'back' }
@@ -124,6 +138,8 @@ export const ActionSchema = z.discriminatedUnion('type', [
     lon: z.number().min(-180).max(180),
   }),
   z.object({ type: z.literal('help') }),
+  z.object({ type: z.literal('pause') }),
+  z.object({ type: z.literal('navigate'), href: z.enum(NAV_HREFS) }),
   z.object({ type: z.literal('skip') }),
   z.object({ type: z.literal('next') }),
   z.object({ type: z.literal('back') }),
@@ -159,6 +175,8 @@ export const AGENT_TOOL_NAMES = [
   'start_quiz',
   'describe_frame',
   'set_language',
+  'pause',
+  'navigate',
 ] as const;
 
 export type AgentToolName = (typeof AGENT_TOOL_NAMES)[number];

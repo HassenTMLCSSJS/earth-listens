@@ -7,20 +7,13 @@ import {
   useMemo,
   useState,
   useSyncExternalStore,
-  type ComponentType,
   type KeyboardEvent,
 } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { formatNumber } from '@/core/format';
 import { useAppStore } from '@/core/store';
+import { viewForLayer, LAYER_SOUND } from '@/modules/globe';
 import { spatialize } from '@/modules/sonification';
-
-type PosterGlobeProps = {
-  globeImageUrl: string;
-  backgroundColor: string;
-  width: number;
-  height: number;
-};
 
 const EarthCanvas = dynamic(
   () =>
@@ -32,6 +25,11 @@ const EarthCanvas = dynamic(
             return null;
           },
       ),
+  { ssr: false },
+);
+
+const EarthGlobe = dynamic(
+  () => import('@/components/globe/earth-globe').then((mod) => mod.EarthGlobe),
   { ssr: false },
 );
 
@@ -61,9 +59,7 @@ export function GlobeStage() {
     () => null,
   );
   const forceClassic = globeQuery === 'gl';
-  // `?globe=react` only mounts react-globe.gl. Zain owns the real visuals.
-  const forceReact = globeQuery === 'react';
-  const [PosterGlobe, setPosterGlobe] = useState<ComponentType<PosterGlobeProps> | null>(null);
+  const forceR3f = globeQuery === 'r3f';
   const view = useAppStore((state) => state.view);
   const dispatch = useAppStore((state) => state.dispatch);
   const mode = useAppStore((state) => state.mode);
@@ -122,19 +118,17 @@ export function GlobeStage() {
     return all.filter((cell) => cell.t === '2025-08-04').slice(0, 24);
   }, [catalog.events, catalog.wildfire, layers]);
 
-  useEffect(() => {
-    if (!forceReact) return;
-    let cancelled = false;
-    void import('react-globe.gl')
-      .then((mod) => {
-        if (cancelled) return;
-        setPosterGlobe(() => mod.default as ComponentType<PosterGlobeProps>);
-      })
-      .catch(() => setFailed(true));
-    return () => {
-      cancelled = true;
-    };
-  }, [forceReact]);
+  const globeView = useMemo(() => {
+    const data = activeLayer?.data;
+    return viewForLayer({
+      id: active,
+      cursor,
+      series: data?.series ?? {},
+      ...(data?.markers ? { markers: data.markers } : {}),
+      ...(data?.cells ? { cells: data.cells } : {}),
+      focus: view,
+    });
+  }, [active, activeLayer, cursor, view]);
 
   useEffect(() => {
     if (!forceClassic || !webgl) return;
@@ -182,8 +176,9 @@ export function GlobeStage() {
 
   // Playback opens the shader only while online. An offline demo must not
   // request the Three.js chunk after the network is gone.
-  const showCanvas =
-    webgl && !failed && !forceClassic && !forceReact && (engaged || (playing && online));
+  const showR3f = webgl && !failed && forceR3f && (engaged || (playing && online));
+  const showReact =
+    webgl && !failed && !forceClassic && !forceR3f && online && (engaged || playing);
   const label = `${t('globe')}. ${formatNumber(view.lat, lang, { maximumFractionDigits: 1 })}°, ${formatNumber(view.lon, lang, { maximumFractionDigits: 1 })}°`;
 
   return (
@@ -202,11 +197,17 @@ export function GlobeStage() {
       onFocus={() => setEngaged(true)}
       className="bg-space-950 relative h-[420px] overflow-hidden rounded-[2rem] border border-white/10 outline-none"
     >
-      {forceReact && PosterGlobe ? (
-        <div data-testid="react-globe" className="absolute inset-0">
-          <PosterGlobe globeImageUrl={POSTER} backgroundColor="#05070d" width={640} height={420} />
-        </div>
-      ) : showCanvas ? (
+      {showReact ? (
+        <EarthGlobe
+          lat={view.lat}
+          lon={view.lon}
+          points={globeView.points}
+          arcs={globeView.arcs}
+          reducedMotion={motion === 'reduce'}
+          framing="stage"
+          playing={playing}
+        />
+      ) : showR3f ? (
         <Suspense fallback={<p className="p-6 text-sm">{t('summary')}</p>}>
           <EarthCanvas
             texture="/textures/earth-day.webp"
@@ -257,6 +258,7 @@ export function GlobeStage() {
           {activeLayer?.config.title[locale === 'ar' ? 'ar' : 'en']} ·{' '}
           {activeLayer?.config.unit[locale === 'ar' ? 'ar' : 'en']}
         </span>
+        <span>{locale === 'ar' ? LAYER_SOUND[active].ar : LAYER_SOUND[active].en}</span>
         {noMap ? (
           <span>{locale === 'ar' ? 'لا توجد خريطة لهذه السنة.' : 'No map for this year.'}</span>
         ) : null}

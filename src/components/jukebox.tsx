@@ -203,6 +203,30 @@ export function Jukebox({ embedded = false }: { embedded?: boolean }) {
                 className="bg-warm block h-6 w-6 rounded-full"
               />
             </Slider.Root>
+            <label className="mt-4 block">
+              {t('listen.year')}
+              <Slider.Root
+                className="relative mt-2 flex h-11 items-center"
+                min={bounds.min}
+                max={Math.max(bounds.min + 1, bounds.max)}
+                step={1}
+                value={[Math.round(time.cursor)]}
+                onValueChange={(value) => {
+                  const year = value[0];
+                  if (year === undefined) return;
+                  dispatch({ type: 'set_time', from: year }, 'pointer');
+                  setPreviewYear(year);
+                }}
+              >
+                <Slider.Track className="relative h-2 grow rounded-full bg-white/15">
+                  <Slider.Range className="bg-warm absolute h-full rounded-full" />
+                </Slider.Track>
+                <Slider.Thumb
+                  aria-label={t('listen.year')}
+                  className="bg-focus block h-6 w-6 rounded-full"
+                />
+              </Slider.Root>
+            </label>
           </div>
           <div className="flex flex-wrap gap-3">
             <Button
