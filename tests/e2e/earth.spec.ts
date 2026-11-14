@@ -266,6 +266,9 @@ test('live region announcements stay hidden and never repeat back to back', asyn
 });
 
 test('captions render in one styled bar above the command dock', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.localStorage.setItem('el.settings.v1', JSON.stringify({ captions: true }));
+  });
   await page.goto('/en/listen?demo=1');
   await command(page, 'play forest');
   const bar = page.getByTestId('caption-bar');

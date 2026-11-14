@@ -15,8 +15,9 @@ import {
   type EntryState,
 } from '@/modules/entry';
 import { narrationSafetyMs, speakNarration } from '@/modules/narration';
-import { unlockNarrationAudio } from '@/lib/audio/narration-queue';
+import { narrationQueue, unlockNarrationAudio } from '@/lib/audio/narration-queue';
 import { getPlayer, unlockAudio } from '@/modules/sonification';
+import { preloadInstrumentModels } from '@/modules/models';
 import { ChoiceHub } from '@/components/entry/choice-hub';
 import { IntroStage } from '@/components/entry/intro-stage';
 import { ListeningPrompt } from '@/components/entry/listening-prompt';
@@ -117,6 +118,7 @@ export function HomeExperience() {
   useEffect(() => {
     return subscribe('skip', () => {
       if (entryRef.current.phase === 'hub') return;
+      narrationQueue.stop();
       send({ type: 'skip' });
     });
   }, [send]);
@@ -289,6 +291,7 @@ export function HomeExperience() {
     (gesture: 'key' | 'pointer') => {
       unlockAudio();
       unlockNarrationAudio();
+      preloadInstrumentModels();
       void getPlayer()
         .init()
         .then(() => getPlayer().earcon('start'))
