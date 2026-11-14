@@ -19,7 +19,7 @@ export function ChapterNav({
           key={index}
           type="button"
           aria-current={index === current ? 'true' : undefined}
-          className={`min-h-11 min-w-11 rounded-full border px-3 ${index === current ? 'border-accent bg-accent text-space-950' : 'border-white/20'}`}
+          className={`min-h-11 min-w-11 rounded-full border px-3 ${index === current ? 'border-data bg-data text-space-950' : 'border-white/20'}`}
           onClick={() => onSelect(index)}
         >
           {index + 1}

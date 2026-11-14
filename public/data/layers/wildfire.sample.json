@@ -3,11 +3,11 @@
   "sample": true,
   "title": {
     "en": "Wildfire",
-    "ar": "الحرايق"
+    "ar": "تاريخ الحرايق"
   },
   "unit": {
     "en": "detections per 5° cell per day",
-    "ar": "detections per 5° cell per day"
+    "ar": "حرايق مرصودة في اليوم"
   },
   "source": {
     "name": "SAMPLE — shaped like FIRMS VIIRS",
@@ -17536,6 +17536,6 @@
   ],
   "description": {
     "en": "SAMPLE fire counts. Not a FIRMS measurement.",
-    "ar": "أعداد حرائق تجريبية. ليست قياسات FIRMS."
+    "ar": "أعداد حرايق تجريبية. مش قياسات FIRMS."
   }
 }

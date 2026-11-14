@@ -3,11 +3,11 @@
   "sample": false,
   "title": {
     "en": "Forest height",
-    "ar": "ارتفاع الغابات"
+    "ar": "طول الغابات"
   },
   "unit": {
     "en": "canopy height, m",
-    "ar": "ارتفاع الغطاء، م"
+    "ar": "طول الشجر، متر"
   },
   "source": {
     "name": "GEDI L3 canopy height and L4B biomass, via GIBS",
@@ -90,7 +90,7 @@
   "events": [],
   "description": {
     "en": "GEDI L3 mean canopy height (RH100), cumulative April 2019–March 2023. One map, not a trend. Standard deviation and biomass are global means of the matching GIBS layers. Coverage grew over the mission; this file does not split that growth into years.",
-    "ar": "متوسط ارتفاع الغطاء من GEDI L3، تراكمي من أبريل 2019 إلى مارس 2023. خريطة واحدة وليست اتجاهًا. الانحراف المعياري والكتلة الحيوية متوسطان عالميان من طبقتي GIBS المقابلتين."
+    "ar": "متوسط طول الغطاء النباتي من GEDI L3، تراكمي من أبريل 2019 لحد مارس 2023. خريطة واحدة مش اتجاه. الانحراف المعياري والكتلة الحيوية متوسطات عالمية من طبقتي GIBS المقابلين. التغطية كبرت مع البعثة؛ الملف ده مش بيقسّم النمو على السنين."
   },
   "variables": {
     "stddev": [

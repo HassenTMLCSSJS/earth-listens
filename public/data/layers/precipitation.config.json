@@ -3,11 +3,11 @@
   "category": "weather",
   "title": {
     "en": "Precipitation",
-    "ar": "هطول الأمطار"
+    "ar": "المطر"
   },
   "unit": {
     "en": "precipitation rate, mm/day",
-    "ar": "معدل الهطول، مم/يوم"
+    "ar": "مم في اليوم"
   },
   "timeKind": "year",
   "eic": {

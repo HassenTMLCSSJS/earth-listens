@@ -7,7 +7,7 @@
   },
   "unit": {
     "en": "ISS LIS flash count (image scale)",
-    "ar": "عدد ومضات LIS (مقياس الصورة)"
+    "ar": "مؤشر الومضات"
   },
   "source": {
     "name": "ISS LIS flash count, via GIBS",
@@ -247,7 +247,7 @@
       },
       {
         "t": 2019.1,
-        "v": 2.0,
+        "v": 2,
         "q": "ok"
       },
       {
@@ -508,7 +508,7 @@
       },
       {
         "t": 2018.3,
-        "v": 15.0,
+        "v": 15,
         "q": "ok"
       },
       {
@@ -689,6 +689,6 @@
   "events": [],
   "description": {
     "en": "ISS LIS daily flash count, one day from each of 18 seasons (2017–2021). Missing days in the 10-day window are not filled. There is no live lightning feed.",
-    "ar": "عدد ومضات LIS من المحطة الدولية، يوم واحد من كل موسم من 18 موسمًا (2017–2021). أيام النافذة الناقصة لا تُملأ. لا يوجد بث برق مباشر."
+    "ar": "عدد ومضات LIS من محطة الفضا الدولية، يوم واحد من كل موسم من 18 موسم (2017–2021). الأيام الناقصة في نافذة الـ10 أيام مش بتتعوّض. مفيش بث برق مباشر."
   }
 }

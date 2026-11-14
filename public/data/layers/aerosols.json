@@ -3,11 +3,11 @@
   "sample": false,
   "title": {
     "en": "Aerosols",
-    "ar": "الهباء الجوي"
+    "ar": "الغبار والدخان"
   },
   "unit": {
     "en": "AOD at 550 nm",
-    "ar": "AOD عند 550 نانومتر"
+    "ar": "كثافة الغبار في الجو (AOD)"
   },
   "source": {
     "name": "NASA GMAO MERRA-2 aerosol optical depth, monthly, via GIBS",
@@ -21,8 +21,8 @@
     "license": "NASA media guidelines; credit required; no implied endorsement"
   },
   "range": {
-    "min": 1980.0,
-    "max": 2025.0
+    "min": 1980,
+    "max": 2025
   },
   "series": {
     "global": [
@@ -2232,6 +2232,6 @@
   "events": [],
   "description": {
     "en": "MERRA-2 monthly AOD at 550 nm, decoded from GIBS. The sounded series is each August. 2025 also has a frame per month. This is a model analysis, not a station measurement.",
-    "ar": "العمق البصري للأهباء من MERRA-2 عبر GIBS. السلسلة المسموعة هي شهر أغسطس من كل سنة. 2025 فيها إطار لكل شهر. هذا تحليل نموذج وليس قياس محطة."
+    "ar": "العمق البصري للغبار من MERRA-2 عند ٥٥٠ نانومتر، متحوّل من GIBS. السلسلة اللي بتتسمع هي شهر أغسطس من كل سنة. ٢٠٢٥ كمان فيها إطار لكل شهر. ده تحليل موديل، مش قياس محطة."
   }
 }

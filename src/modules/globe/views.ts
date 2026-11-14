@@ -43,11 +43,11 @@ export const LAYER_SOUND: Record<LayerId, { en: string; ar: string }> = {
   temperature: { en: 'Warm lead. Higher means warmer.', ar: 'لحن دافي. كل ما يعلى يبقى أسخن.' },
   sea_ice: {
     en: 'Glass bells. Higher means more ice.',
-    ar: 'أجراس زجاج. كل ما تعلى يبقى الجليد أكتر.',
+    ar: 'أجراس إزاز. كل ما تعلى يبقى الجليد أكتر.',
   },
   forest: {
     en: 'Soft woodwind. Higher means a taller canopy.',
-    ar: 'ناي هادي. كل ما يعلى يبقى الشجر أطول.',
+    ar: 'نفخ هادي. كل ما يعلى يبقى الشجر أطول.',
   },
   precipitation: {
     en: 'Rain ticks. Faster means more rain.',
@@ -55,7 +55,7 @@ export const LAYER_SOUND: Record<LayerId, { en: string; ar: string }> = {
   },
   co2: {
     en: 'Low beating drone. Higher means more carbon dioxide.',
-    ar: 'دندنة منخفضة. كل ما تعلى يبقى الكربون أكتر.',
+    ar: 'همهمة واطية بتنبض. كل ما تعلى يبقى الكربون أكتر.',
   },
   aerosols: {
     en: 'Hazy pad. Louder means thicker air.',
@@ -66,8 +66,8 @@ export const LAYER_SOUND: Record<LayerId, { en: string; ar: string }> = {
     ar: 'طرقعات حادة. كل ما تكتر يبقى البرق أكتر.',
   },
   events: {
-    en: 'A short ping for each NASA EONET event.',
-    ar: 'نبرة قصيرة لكل حدث من ناسا.',
+    en: 'A short ping for each NASA EONET event, from where it happens.',
+    ar: 'نبرة قصيرة لكل حدث من EONET بتاع ناسا، من مكانه.',
   },
   air_quality: {
     en: 'Tight pulse. Higher means dirtier air.',
@@ -79,7 +79,7 @@ export const LAYER_SOUND: Record<LayerId, { en: string; ar: string }> = {
   },
   ocean_sst: {
     en: 'Slow swell. Higher means warmer water.',
-    ar: 'موج بطيء. كل ما يعلى يبقى المية أسخن.',
+    ar: 'موج بطيء. كل ما يعلى تبقى المية أسخن.',
   },
   ocean_currents: { en: 'A sweep that follows the current.', ar: 'سريان ماشي مع التيار.' },
   night_lights: {

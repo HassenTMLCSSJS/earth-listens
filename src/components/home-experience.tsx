@@ -43,6 +43,7 @@ export function HomeExperience() {
   const dispatch = useAppStore((state) => state.dispatch);
   const markIntroSeen = useAppStore((state) => state.markIntroSeen);
   const demo = useAppStore((state) => state.demo);
+  const setHub = useAppStore((state) => state.setHub);
   const [entry, setEntry] = useState<EntryState>(() => initialEntry(locale));
   const entryRef = useRef(entry);
   const send = useCallback((event: EntryEvent) => {
@@ -52,6 +53,13 @@ export function HomeExperience() {
   useEffect(() => {
     entryRef.current = entry;
   }, [entry]);
+
+  // The chrome only appears once the visitor reaches the hub: no header over
+  // the gate or the intro, exactly like the mockups.
+  useEffect(() => {
+    setHub(entry.phase === 'hub');
+    return () => setHub(false);
+  }, [entry.phase, setHub]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {

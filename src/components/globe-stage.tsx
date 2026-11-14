@@ -191,7 +191,7 @@ export function GlobeStage() {
     <div
       data-testid="globe"
       role="application"
-      aria-roledescription="interactive globe"
+      aria-roledescription={locale === 'ar' ? 'كرة أرضية تفاعلية' : 'interactive globe'}
       aria-label={label}
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
       tabIndex={0}
@@ -267,12 +267,14 @@ export function GlobeStage() {
         </span>
         <span>{locale === 'ar' ? LAYER_SOUND[active].ar : LAYER_SOUND[active].en}</span>
         {noMap ? (
-          <span>{locale === 'ar' ? 'لا توجد خريطة لهذه السنة.' : 'No map for this year.'}</span>
+          <span>
+            {locale === 'ar' ? 'مفيش خريطة للسنة دي. بس الصوت شغّال.' : 'No map for this year.'}
+          </span>
         ) : null}
         {active === 'air_quality' ? (
           <span>
             {locale === 'ar'
-              ? 'محطات OpenAQ تحتاج مفتاحًا. نموذج القاهرة من Open-Meteo. GEOS-CF نموذج وليس مؤشر جودة هواء.'
+              ? 'محطات OpenAQ محتاجة مفتاح. موديل القاهرة من Open-Meteo. GEOS-CF موديل مش مؤشر جودة هوا.'
               : 'OpenAQ stations need a key. Cairo’s live model is Open-Meteo. GEOS-CF is a model, not an AQI.'}
           </span>
         ) : null}

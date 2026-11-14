@@ -203,7 +203,7 @@ describe('fallback, freshness and budgets', () => {
     });
     expect(describeFreshness(body, 'en')).toContain('Cairo time');
     expect(describeFreshness({ ...body, status: 'snapshot' }, 'en')).toContain('Cached snapshot');
-    expect(describeFreshness({ ...body, status: 'recent' }, 'ar')).toContain('48');
+    expect(describeFreshness({ ...body, status: 'recent' }, 'ar')).toContain('٤٨');
     expect(describeFreshness({ ...body, status: 'demo' }, 'en')).toBe('Demo data');
     expect(await snapshotIdOf({ b: 1, a: 2 })).toBe(await snapshotIdOf({ a: 2, b: 1 }));
     expect(statusForAge(1000, 5000)).toBe('live');

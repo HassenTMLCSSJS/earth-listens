@@ -3,11 +3,11 @@
   "category": "biosphere",
   "title": {
     "en": "Forest height",
-    "ar": "ارتفاع الغابات"
+    "ar": "طول الغابات"
   },
   "unit": {
     "en": "canopy height, m",
-    "ar": "ارتفاع الغطاء، م"
+    "ar": "طول الشجر، متر"
   },
   "timeKind": "year",
   "eic": {

@@ -3,11 +3,11 @@
   "category": "atmosphere",
   "title": {
     "en": "Aerosols",
-    "ar": "الهباء الجوي"
+    "ar": "الغبار والدخان"
   },
   "unit": {
     "en": "AOD",
-    "ar": "AOD"
+    "ar": "كثافة الغبار في الجو (AOD)"
   },
   "timeKind": "year",
   "eic": {

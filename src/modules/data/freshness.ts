@@ -31,13 +31,13 @@ export function describeFreshness(
   const updated = cairoParts(envelope.fetchedAt, lang);
   if (envelope.status === 'demo') return lang === 'ar' ? 'بيانات تجريبية' : 'Demo data';
   if (envelope.status === 'snapshot') {
-    return lang === 'ar' ? `لقطة محفوظة من ${data.date}` : `Cached snapshot from ${data.date}`;
+    return lang === 'ar' ? `نسخة محفوظة من ${data.date}` : `Cached snapshot from ${data.date}`;
   }
   if (envelope.status === 'recent') {
-    return lang === 'ar' ? `حديث (≤ 48 ساعة) · ${data.date}` : `Recent (≤ 48 h) · ${data.date}`;
+    return lang === 'ar' ? `جديدة (≤ ٤٨ ساعة) · ${data.date}` : `Recent (≤ 48 h) · ${data.date}`;
   }
   return lang === 'ar'
-    ? `مباشر · بيانات ${data.date} · محدّث ${updated.time} بتوقيت القاهرة`
+    ? `مباشر · بيانات ${data.date} · آخر تحديث ${updated.time} بتوقيت القاهرة`
     : `Live · data ${data.date} · updated ${updated.time} Cairo time`;
 }
 

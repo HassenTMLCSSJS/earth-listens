@@ -7,7 +7,7 @@
   },
   "unit": {
     "en": "ppm",
-    "ar": "ppm"
+    "ar": "جزء في المليون"
   },
   "source": [
     {
@@ -441,6 +441,6 @@
   "events": [],
   "description": {
     "en": "NOAA GML Mauna Loa monthly CO₂. Maps are AIRS mid-troposphere July fields, 2003–2011. Outside 2002–2012 there is no AIRS map. The map is not the Mauna Loa number.",
-    "ar": "ثاني أكسيد الكربون الشهري من ماونا لوا. الخرائط حقول يوليو من AIRS لمنتصف التروبوسفير 2003–2011. خارج 2002–2012 لا توجد خريطة AIRS. الخريطة ليست رقم ماونا لوا."
+    "ar": "ثاني أكسيد الكربون الشهري من ماونا لوا التابع لـ NOAA. الخرايط هي حقول يوليو من AIRS لمنتصف التروبوسفير، 2003–2011. برّه 2002–2012 مفيش خريطة AIRS. الخريطة مش رقم ماونا لوا."
   }
 }

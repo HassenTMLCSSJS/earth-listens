@@ -48,7 +48,7 @@ export function collectNarrationLines(input: {
     const [lat, lon] = region.centre;
     pushBoth(lines, `region.${region.id}`, 'region', {
       en: `${region.label.en}. Centre ${lat} degrees latitude, ${lon} degrees longitude.`,
-      ar: `${region.label.ar}. المركز ${lat} درجة عرضًا و${lon} درجة طولًا.`,
+      ar: `${region.label.ar}. مركزها عند خط عرض ${lat} وخط طول ${lon}.`,
     });
   }
   for (const [id, text] of Object.entries(EARCON_LABELS) as [

@@ -1,15 +1,32 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { LAYER_IDS, SCALE_IDS } from '@/core/actions';
-import { useAppStore } from '@/core/store';
-import { COMMAND_TABLE } from '@/modules/agent';
+import { Eye, Globe2, Play, RotateCcw, Search, Volume2, Wrench } from 'lucide-react';
+import { toast } from 'sonner';
+import { LAYER_IDS, type LayerId, type SettingKey, type Settings } from '@/core/actions';
+import { DEFAULT_SETTINGS, scoreFor, useAppStore } from '@/core/store';
+import { useRouter } from '@/i18n/navigation';
 import { SHORTCUTS } from '@/modules/a11y';
-import { LAYER_SOUND } from '@/modules/globe';
-import { EARCONS, getPlayer, unlockAudio } from '@/modules/sonification';
-import { SettingSwitch } from '@/components/ui/switch';
+import { GUIDE_LAYERS, LAYER_SOUND, LAYER_SOURCE } from '@/modules/globe';
+import { getPlayer, unlockAudio } from '@/modules/sonification';
+import { LangToggle } from '@/components/site-header/lang-toggle';
+import { SettingSwitch } from '@/components/setting-switch';
 import { Button } from '@/components/ui/button';
+import { Kbd } from '@/components/ui/kbd';
+import { LayerSwatch } from '@/components/ui/layer-swatch';
+import { Slider } from '@/components/ui/slider';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 
 const STEPS = [
   'Set FIRMS_MAP_KEY and run python -m earth_pipeline.fetch --layer <id>. Files land in pipeline/raw/ with raw/manifest.json.',
@@ -101,66 +118,163 @@ export function SoundsPage() {
 export function GuidePage() {
   const t = useTranslations();
   const locale = useAppStore((state) => state.lang);
-  return (
-    <article className="mx-auto grid max-w-3xl gap-6 px-4 py-8">
-      <h1 className="display text-5xl">{t('guide.title')}</h1>
-      <p>{t('guide.esl')}</p>
-      <h2>{t('guide.commands')}</h2>
-      <ul className="grid gap-2">
-        {COMMAND_TABLE.map((entry) => (
-          <li key={entry.id}>
-            <strong>{entry.id}</strong> — {entry.en.join(', ')} / {entry.ar.join('، ')}
-          </li>
-        ))}
-      </ul>
-      <h2>{t('guide.shortcuts')}</h2>
-      <ul className="grid gap-2">
-        {SHORTCUTS.map((item) => (
-          <li key={item.id}>
-            <kbd>{item.keys}</kbd> {locale === 'ar' ? item.ar : item.en}
-          </li>
-        ))}
-      </ul>
-      <h2>{t('guide.legend')}</h2>
-      <div className="flex flex-wrap gap-2">
-        {Object.values(EARCONS).map((earcon) => (
-          <button
-            key={earcon.id}
-            type="button"
-            className="min-h-11 rounded-full border border-white/20 px-4"
-            onClick={() => {
-              unlockAudio();
-              void getPlayer()
-                .init()
-                .then(() => getPlayer().earcon(earcon.id));
-            }}
-          >
-            {earcon.id}
-          </button>
-        ))}
-      </div>
-      <h2>{t('guide.sources')}</h2>
-      <ul>
-        <li>
-          <a href="https://earth.gov/sealevel/vital-signs/global-temperature/">
-            Global temperature
-          </a>
-        </li>
-        <li>
-          <a href="https://earth.gov/sealevel/vital-signs/carbon-dioxide/">Carbon dioxide</a>
-        </li>
-        <li>
-          <a href="https://earth.gov/themes/wildfires">Wildfires</a>
-        </li>
-        <li>
-          <a href="https://svs.gsfc.nasa.gov/5113/">NASA SVS 5113</a>
-        </li>
-      </ul>
-      <p>
-        {LAYER_IDS.join(', ')} · {SCALE_IDS.length}
-      </p>
-    </article>
+  const [query, setQuery] = useState('');
+  const searchRef = useRef<HTMLInputElement>(null);
+  const needle = query.trim().toLowerCase();
+
+  const commands = useMemo(
+    () =>
+      [1, 2, 3, 4, 5, 6, 7].map((step, index) => ({
+        key: ['Space', '→', 'C', '2', '← →', '?', 'Q'][index] ?? '',
+        say: t(`tutorial.s${step}.say`),
+      })),
+    [t],
   );
+
+  const legend = useMemo(() => GUIDE_LAYERS.map((id) => ({ id, label: t(`layers.${id}`) })), [t]);
+
+  const sources = useMemo(
+    () => GUIDE_LAYERS.map((id) => ({ id, label: t(`layers.${id}`), source: LAYER_SOURCE[id] })),
+    [t],
+  );
+
+  const match = (value: string) => !needle || value.toLowerCase().includes(needle);
+  const shownCommands = commands.filter((row) => match(row.say));
+  const shownShortcuts = SHORTCUTS.filter(
+    (item) => match(item.en) || match(item.ar) || match(item.keys),
+  );
+  const shownLegend = legend.filter((row) => match(row.label) || match(t(`instrument.${row.id}`)));
+  const shownSources = sources.filter((row) => match(row.label) || match(row.source));
+
+  return (
+    <main
+      id="content"
+      className="relative mx-auto max-w-[1320px] px-[clamp(20px,3.4vw,48px)] pt-[clamp(72px,10vw,130px)] pb-24"
+    >
+      <div className="relative z-10">
+        <span className="v5-eyebrow">{t('nav.learn')}</span>
+        <h1 className="v5-h2 text-display mt-2.5">{t('guide.title')}</h1>
+        <p className="v5-lead mt-2.5">{t('guide.lead')}</p>
+        <label className="panel text-ink-subtle mt-5 flex h-[52px] max-w-[520px] items-center gap-2.5 rounded-full px-[18px]">
+          <Search className="size-[18px]" strokeWidth={1.75} aria-hidden="true" />
+          <span className="sr-only">{t('guide.search')}</span>
+          <input
+            ref={searchRef}
+            id="guide-search"
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder={t('guide.search')}
+            className="text-ink placeholder:text-ink-subtle min-w-0 flex-1 bg-transparent text-[0.9375rem] outline-none"
+          />
+          <Kbd className="border-line-strong text-ink-muted bg-white/[0.03] font-mono">/</Kbd>
+        </label>
+      </div>
+
+      <p className="border-gold relative z-10 mt-[18px] rounded-[var(--radius-card)] border-s-[3px] bg-[rgb(242_196_109/.06)] px-[22px] py-[18px] text-[1.0625rem]">
+        {t('guide.esl')}
+      </p>
+
+      <div className="relative z-10 mt-4 grid gap-3.5 lg:grid-cols-2">
+        <section className="v5-card px-5 pb-2">
+          <h2 className="v5-h3 py-4">{t('guide.commands')}</h2>
+          {shownCommands.map((row) => (
+            <div
+              key={row.say}
+              className="border-line flex min-h-12 items-center justify-between gap-4 border-t text-[0.9375rem]"
+            >
+              <q className="text-gold-hi">“{row.say}”</q>
+              <Kbd className="border-line-strong text-ink-muted bg-white/[0.03] font-mono">
+                {row.key}
+              </Kbd>
+            </div>
+          ))}
+        </section>
+
+        <section className="v5-card px-5 pb-2">
+          <h2 className="v5-h3 py-4">{t('guide.shortcuts')}</h2>
+          {shownShortcuts.map((item) => (
+            <div
+              key={item.id}
+              className="border-line flex min-h-12 items-center justify-between gap-4 border-t text-[0.9375rem]"
+            >
+              <span>{locale === 'ar' ? item.ar : item.en}</span>
+              <Kbd
+                dir="ltr"
+                className="border-line-strong text-ink-muted bg-white/[0.03] font-mono"
+              >
+                {item.keys}
+              </Kbd>
+            </div>
+          ))}
+        </section>
+
+        <section className="v5-card px-5 pb-2">
+          <h2 className="v5-h3 py-4">{t('guide.legend')}</h2>
+          {shownLegend.map((row) => (
+            <div
+              key={row.id}
+              className="border-line flex min-h-12 items-center justify-between gap-4 border-t text-[0.9375rem]"
+            >
+              <span className="flex items-center gap-2.5">
+                <LayerSwatch id={row.id} size="sm" />
+                <span>{row.label}</span>
+              </span>
+              <span className="flex items-center gap-3">
+                <span className="text-ink-subtle text-[0.8125rem]">
+                  {t(`instrument.${row.id}`)}
+                </span>
+                <button
+                  type="button"
+                  aria-label={`${t('guide.playEarcon')}: ${row.label}`}
+                  onClick={() => playLayerSample(row.id)}
+                  className="border-line-strong text-ink-muted hover:bg-space-700 hover:text-gold grid size-8 place-items-center rounded-full border transition-colors"
+                >
+                  <Play className="size-3.5" strokeWidth={2} aria-hidden="true" />
+                </button>
+              </span>
+            </div>
+          ))}
+        </section>
+
+        <section className="v5-card px-5 pb-2">
+          <h2 className="v5-h3 py-4">{t('guide.sources')}</h2>
+          {shownSources.map((row) => (
+            <div
+              key={row.id}
+              className="border-line flex min-h-12 items-center justify-between gap-4 border-t text-[0.9375rem]"
+            >
+              <span>{row.label}</span>
+              <span className="text-ink-subtle text-end text-[0.8125rem]">{row.source}</span>
+            </div>
+          ))}
+        </section>
+      </div>
+    </main>
+  );
+}
+
+function playLayerSample(id: LayerId) {
+  unlockAudio();
+  const state = useAppStore.getState();
+  const score = scoreFor({
+    ...state,
+    layers: [id],
+    playback: { ...state.playback, status: 'playing', mode: 'dwell' },
+  });
+  const player = getPlayer();
+  if (!score || score.events.length === 0) {
+    void player.init().then(() => player.earcon('layer_added'));
+    return;
+  }
+  const short = {
+    ...score,
+    mode: 'dwell' as const,
+    events: score.events.slice(0, 3).map((event) => ({ ...event, dur: 0.28 })),
+    earcons: [],
+    duration: 1,
+  };
+  void player.init().then(() => player.play(short));
 }
 
 export function DataPage() {
@@ -228,112 +342,308 @@ export function DataPage() {
   );
 }
 
+function Seg<T extends string>({
+  label,
+  value,
+  options,
+  onChange,
+  compact = false,
+}: {
+  label: string;
+  value: T;
+  options: readonly { value: T; label: string; className?: string }[];
+  onChange: (value: T) => void;
+  compact?: boolean;
+}) {
+  return (
+    <div
+      role="group"
+      aria-label={label}
+      className="border-line inline-flex items-center gap-0.5 rounded-full border bg-white/[0.03] p-[3px]"
+    >
+      {options.map((option) => (
+        <button
+          key={option.value}
+          type="button"
+          aria-pressed={option.value === value}
+          onClick={() => onChange(option.value)}
+          className={`aria-pressed:bg-ink aria-pressed:text-space-950 text-ink-muted hover:text-ink inline-flex h-8 items-center justify-center rounded-full font-medium transition-colors ${
+            compact ? 'min-w-9 px-2' : 'px-3 text-[0.8125rem]'
+          } ${option.className ?? ''}`}
+        >
+          {option.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function Row({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="border-line flex min-h-16 flex-wrap items-center justify-between gap-x-5 gap-y-2 border-t py-2.5">
+      <span className="text-ink text-[0.9375rem]">{label}</span>
+      {children}
+    </div>
+  );
+}
+
+const GROUPS = [
+  { id: 'Language', label: 'settings.groupLanguage', Icon: Globe2 },
+  { id: 'Sound', label: 'settings.groupSound', Icon: Volume2 },
+  { id: 'Visual', label: 'settings.groupVisual', Icon: Eye },
+  { id: 'Advanced', label: 'settings.groupAdvanced', Icon: Wrench },
+] as const;
+
 export function SettingsPage() {
   const t = useTranslations('settings');
+  const common = useTranslations();
+  const router = useRouter();
   const settings = useAppStore((state) => state.settings);
+  const mode = useAppStore((state) => state.mode);
+  const scale = useAppStore((state) => state.scale);
+  const tuning = useAppStore((state) => state.tuning);
   const dispatch = useAppStore((state) => state.dispatch);
   const markIntroSeen = useAppStore((state) => state.markIntroSeen);
+
+  const set = <K extends SettingKey>(key: K, value: Settings[K]) =>
+    dispatch({ type: 'set_setting', key, value }, 'pointer');
+  const save = <K extends SettingKey>(key: K, value: Settings[K]) => {
+    set(key, value);
+    toast.success(t('saved'), { id: 'settings-saved', duration: 1400 });
+  };
+
+  const resetAll = () => {
+    useAppStore.setState({ settings: DEFAULT_SETTINGS, tuning: 'microtonal' });
+    localStorage.setItem('el.settings.v1', JSON.stringify(DEFAULT_SETTINGS));
+    toast.success(t('saved'), { id: 'settings-saved', duration: 1400 });
+  };
+
   return (
-    <article className="mx-auto grid max-w-xl gap-4 px-4 py-8">
-      <h1 className="display text-5xl">{t('title')}</h1>
-      <label>
-        {t('rate')}
-        <input
-          className="w-full"
-          type="range"
-          min={0.75}
-          max={1.5}
-          step={0.05}
-          value={settings.speechRate}
-          onChange={(event) =>
-            dispatch(
-              { type: 'set_setting', key: 'speechRate', value: Number(event.target.value) },
-              'pointer',
-            )
-          }
-        />
-      </label>
-      <label>
-        {t('volume')}
-        <input
-          className="w-full"
-          type="range"
-          min={-40}
-          max={0}
-          step={1}
-          value={settings.masterVolumeDb}
-          onChange={(event) =>
-            dispatch(
-              { type: 'set_setting', key: 'masterVolumeDb', value: Number(event.target.value) },
-              'pointer',
-            )
-          }
-        />
-      </label>
-      <SettingSwitch
-        label={t('contrast')}
-        checked={settings.highContrast}
-        onCheckedChange={(value) =>
-          dispatch({ type: 'set_setting', key: 'highContrast', value }, 'pointer')
-        }
-      />
-      <label>
-        {t('motion')}
-        <select
-          className="bg-space-950 mt-1 min-h-11 w-full rounded-full border border-white/20 px-4"
-          value={settings.reducedMotion}
-          onChange={(event) =>
-            dispatch(
-              {
-                type: 'set_setting',
-                key: 'reducedMotion',
-                value: event.target.value as 'system' | 'on' | 'off',
-              },
-              'pointer',
-            )
-          }
-        >
-          <option value="system">{t('system')}</option>
-          <option value="on">{t('on')}</option>
-          <option value="off">{t('off')}</option>
-        </select>
-      </label>
-      <label>
-        {t('texture')}
-        <select
-          className="bg-space-950 mt-1 min-h-11 w-full rounded-full border border-white/20 px-4"
-          value={settings.textureQuality}
-          onChange={(event) =>
-            dispatch(
-              {
-                type: 'set_setting',
-                key: 'textureQuality',
-                value: event.target.value as 'auto' | '4k' | '8k',
-              },
-              'pointer',
-            )
-          }
-        >
-          <option value="auto">{t('textureAuto')}</option>
-          <option value="4k">{t('texture4k')}</option>
-          <option value="8k">{t('texture8k')}</option>
-        </select>
-      </label>
-      <SettingSwitch
-        label={t('sr')}
-        checked={settings.screenReaderMode}
-        onCheckedChange={(value) =>
-          dispatch({ type: 'set_setting', key: 'screenReaderMode', value }, 'pointer')
-        }
-      />
-      <SettingSwitch
-        label={t('captions')}
-        checked={settings.captions}
-        onCheckedChange={(value) =>
-          dispatch({ type: 'set_setting', key: 'captions', value }, 'pointer')
-        }
-      />
-      <Button onClick={() => markIntroSeen(false)}>{t('replay')}</Button>
-    </article>
+    <main
+      id="content"
+      className="relative mx-auto max-w-[1320px] px-[clamp(20px,3.4vw,48px)] pt-[clamp(72px,10vw,130px)] pb-24"
+    >
+      <div className="relative z-10">
+        <h1 className="display">{t('title')}</h1>
+        <p className="v5-lead mt-2.5">{t('lead')}</p>
+      </div>
+
+      <div className="relative z-10 mt-10 grid gap-8 lg:grid-cols-[220px_minmax(0,1fr)]">
+        <nav aria-label={t('title')} className="hidden self-start lg:sticky lg:top-[100px] lg:grid">
+          {GROUPS.map(({ id, label, Icon }, index) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              aria-current={index === 0 ? 'true' : undefined}
+              className="aria-[current=true]:bg-space-700 text-ink-muted hover:text-ink aria-[current=true]:text-ink flex min-h-11 items-center gap-2.5 rounded-xl px-3.5 transition-colors"
+            >
+              <Icon className="size-[18px]" strokeWidth={1.75} aria-hidden="true" />
+              <span>{t(label.replace('settings.', ''))}</span>
+            </a>
+          ))}
+        </nav>
+
+        <div className="grid gap-3.5">
+          <section id="Language" className="v5-card scroll-mt-28 px-[22px] pb-2">
+            <h2 className="font-display pt-4 pb-1 text-lg font-semibold">{t('groupLanguage')}</h2>
+            <Row label={t('language')}>
+              <LangToggle full />
+            </Row>
+            <Row label={t('mode')}>
+              <Seg
+                label={t('mode')}
+                value={mode}
+                onChange={(value) => {
+                  dispatch({ type: 'set_mode', mode: value }, 'pointer');
+                  toast.success(t('saved'), { id: 'settings-saved', duration: 1400 });
+                }}
+                options={[
+                  { value: 'audio_first', label: t('modeListening') },
+                  { value: 'visual', label: t('modeVisual') },
+                ]}
+              />
+            </Row>
+          </section>
+
+          <section id="Sound" className="v5-card scroll-mt-28 px-[22px] pb-2">
+            <h2 className="font-display pt-4 pb-1 text-lg font-semibold">{t('groupSound')}</h2>
+            <Row label={t('volume')}>
+              <span className="flex w-[min(260px,48vw)] items-center gap-3">
+                <Slider
+                  aria-label={t('volume')}
+                  min={-40}
+                  max={0}
+                  step={1}
+                  value={[settings.masterVolumeDb]}
+                  onValueChange={([value]) => {
+                    if (typeof value === 'number') set('masterVolumeDb', value);
+                  }}
+                  onValueCommit={() =>
+                    toast.success(t('saved'), { id: 'settings-saved', duration: 1400 })
+                  }
+                />
+                <span className="text-ink-subtle w-14 text-end font-mono text-xs">
+                  {settings.masterVolumeDb} dB
+                </span>
+              </span>
+            </Row>
+            <Row label={t('rate')}>
+              <span className="flex w-[min(260px,48vw)] items-center gap-3">
+                <Slider
+                  aria-label={t('rate')}
+                  min={0.7}
+                  max={1.4}
+                  step={0.05}
+                  value={[settings.speechRate]}
+                  onValueChange={([value]) => {
+                    if (typeof value === 'number') set('speechRate', Number(value.toFixed(2)));
+                  }}
+                  onValueCommit={() =>
+                    toast.success(t('saved'), { id: 'settings-saved', duration: 1400 })
+                  }
+                />
+                <span className="text-ink-subtle w-14 text-end font-mono text-xs">
+                  {settings.speechRate.toFixed(2)}×
+                </span>
+              </span>
+            </Row>
+            <SettingSwitch
+              label={t('earcons')}
+              checked={settings.earcons}
+              onCheckedChange={(value) => save('earcons', value)}
+            />
+            <SettingSwitch
+              label={t('captions')}
+              checked={settings.captions}
+              onCheckedChange={(value) => save('captions', value)}
+            />
+            <SettingSwitch
+              label={t('haptics')}
+              checked={settings.haptics}
+              onCheckedChange={(value) => save('haptics', value)}
+            />
+            <SettingSwitch
+              label={t('spaceToTalk')}
+              checked={settings.spaceToTalk}
+              onCheckedChange={(value) => save('spaceToTalk', value)}
+            />
+          </section>
+
+          <section id="Visual" className="v5-card scroll-mt-28 px-[22px] pb-2">
+            <h2 className="font-display pt-4 pb-1 text-lg font-semibold">{t('groupVisual')}</h2>
+            <SettingSwitch
+              label={t('contrast')}
+              checked={settings.highContrast}
+              onCheckedChange={(value) => save('highContrast', value)}
+            />
+            <Row label={t('motion')}>
+              <Seg
+                label={t('motion')}
+                value={settings.reducedMotion}
+                onChange={(value) => save('reducedMotion', value)}
+                options={[
+                  { value: 'system', label: t('system') },
+                  { value: 'on', label: t('on') },
+                  { value: 'off', label: t('off') },
+                ]}
+              />
+            </Row>
+            <Row label={t('captionSize')}>
+              <Seg
+                label={t('captionSize')}
+                compact
+                value={settings.captionSize}
+                onChange={(value) => save('captionSize', value)}
+                options={[
+                  { value: 'sm', label: 'A', className: 'text-[0.75rem]' },
+                  { value: 'md', label: 'A', className: 'text-[0.9375rem]' },
+                  { value: 'lg', label: 'A', className: 'text-[1.125rem]' },
+                ]}
+              />
+            </Row>
+            <Row label={t('texture')}>
+              <Seg
+                label={t('texture')}
+                value={settings.textureQuality}
+                onChange={(value) => save('textureQuality', value)}
+                options={[
+                  { value: 'auto', label: t('textureAuto') },
+                  { value: '4k', label: t('texture4k') },
+                  { value: '8k', label: t('texture8k') },
+                ]}
+              />
+            </Row>
+          </section>
+
+          <section id="Advanced" className="v5-card scroll-mt-28 px-[22px] pb-4">
+            <h2 className="font-display pt-4 pb-1 text-lg font-semibold">{t('groupAdvanced')}</h2>
+            <SettingSwitch
+              label={t('sr')}
+              checked={settings.screenReaderMode}
+              onCheckedChange={(value) => save('screenReaderMode', value)}
+            />
+            <Row label={common('listen.tuning')}>
+              <Seg
+                label={common('listen.tuning')}
+                value={tuning}
+                onChange={(value) => {
+                  dispatch({ type: 'set_scale', scale, tuning: value }, 'pointer');
+                  toast.success(t('saved'), { id: 'settings-saved', duration: 1400 });
+                }}
+                options={[
+                  { value: 'microtonal', label: common('listen.tuningMicro') },
+                  { value: 'twelve_tet', label: common('listen.tuningTet') },
+                ]}
+              />
+            </Row>
+            <div className="border-line flex flex-wrap items-center gap-2.5 border-t pt-4">
+              <Button
+                variant="outline"
+                className="border-line-strong h-11 rounded-full bg-white/[0.04] px-5"
+                onClick={() => {
+                  markIntroSeen(false);
+                  sessionStorage.setItem('el.replay', '1');
+                  router.push('/');
+                }}
+              >
+                <RotateCcw className="size-[18px]" strokeWidth={1.75} aria-hidden="true" />
+                {t('replay')}
+              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="text-danger hover:bg-danger/10 hover:text-danger h-11 rounded-full px-5"
+                  >
+                    {t('reset')}
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent className="border-line bg-space-900 p-6">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="font-display text-xl">
+                      {t('reset')}
+                    </AlertDialogTitle>
+                    <AlertDialogDescription className="text-ink-muted">
+                      {t('lead')}
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel className="border-line-strong h-11 rounded-full">
+                      {common('help.close')}
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                      className="bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-full"
+                      onClick={resetAll}
+                    >
+                      {t('reset')}
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
   );
 }
