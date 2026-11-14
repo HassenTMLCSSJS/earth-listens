@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { narrationSafetyMs, narrationSeconds } from '@/modules/narration';
 import { initialEntry, reduceEntry } from './machine';
 
 const pre = initialEntry('en');
@@ -70,6 +71,48 @@ describe('entry machine', () => {
     expect(visual).toMatchObject({ mode: 'visual', modeSource: 'fallback' });
     const keyed = reduceEntry({ ...second, gesture: 'key' }, { type: 'silence' });
     expect(keyed.mode).toBe('audio_first');
+  });
+
+  it('turns a language choice from listening into the visual intro', () => {
+    const prompt = reduceEntry(pre, { type: 'sound', gesture: 'key' });
+    const listen = reduceEntry(prompt, { type: 'prompt_done' });
+    const chosen = reduceEntry(listen, { type: 'language', lang: 'ar' });
+    expect(chosen).toMatchObject({
+      phase: 'intro',
+      lang: 'ar',
+      mode: 'visual',
+      modeSource: 'click',
+      line: 'mode.visual.confirm',
+    });
+  });
+
+  it('switches the language when the visitor speaks Arabic', () => {
+    const listen = { ...pre, lang: 'en' as const, phase: 'listen1' as const };
+    const spoken = reduceEntry(listen, { type: 'speech', text: 'اسمع', lang: 'ar' });
+    expect(spoken).toMatchObject({ lang: 'ar', mode: 'audio_first', modeSource: 'voice' });
+  });
+
+  it('falls back from pointer gestures only after the second silence', () => {
+    const first = reduceEntry(
+      { ...pre, phase: 'listen1', gesture: 'pointer' },
+      { type: 'silence' },
+    );
+    expect(first.phase).toBe('reprompt');
+    const second = reduceEntry(first, { type: 'reprompt_done' });
+    expect(second.phase).toBe('listen2');
+    const fallback = reduceEntry(second, { type: 'silence' });
+    expect(fallback).toMatchObject({
+      phase: 'intro',
+      mode: 'visual',
+      modeSource: 'fallback',
+      line: 'mode.default_visual',
+    });
+  });
+
+  it('keeps prompt safety timeouts tied to the real clip lengths', () => {
+    expect(narrationSeconds('gate.prompt')).toBe(9);
+    expect(narrationSafetyMs('gate.prompt')).toBe(10500);
+    expect(narrationSeconds('gate.reprompt')).toBe(5);
   });
 
   it('keeps the keys working when the mic is denied', () => {
