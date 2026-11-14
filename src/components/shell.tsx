@@ -99,7 +99,11 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
     // The catalog has to be ready for the first command, including the offline demo.
     void load();
     // Voice and Tone wait for idle or the first gesture so Listen and Tutorial
-    // are not blocked on the speech and synthesis chunks.
+    // are not blocked on the speech and synthesis chunks. Demo mode cannot wait
+    // for idle: the Arabic listen page keeps the main thread busy with the globe
+    // and Arabic text, so requestIdleCallback does not run until its 4s timeout.
+    // That is after the network has gone quiet, and going offline then fails the
+    // Tone worker (turbopack-worker-*.js and the tone chunk).
     let warmed = false;
     const warm = () => {
       if (warmed) return;
@@ -107,15 +111,19 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
       void import('@/modules/voice');
       if (demoOn && typeof Worker !== 'undefined') void warmTone();
     };
-    const schedule = () => {
-      if (typeof window.requestIdleCallback === 'function') {
-        window.requestIdleCallback(() => warm(), { timeout: 4000 });
-      } else window.setTimeout(warm, 1);
-    };
-    if (document.readyState === 'complete') schedule();
-    else window.addEventListener('load', schedule, { once: true });
-    window.addEventListener('pointerdown', warm, { once: true });
-    window.addEventListener('keydown', warm, { once: true });
+    if (demoOn) {
+      warm();
+    } else {
+      const schedule = () => {
+        if (typeof window.requestIdleCallback === 'function') {
+          window.requestIdleCallback(() => warm(), { timeout: 4000 });
+        } else window.setTimeout(warm, 1);
+      };
+      if (document.readyState === 'complete') schedule();
+      else window.addEventListener('load', schedule, { once: true });
+      window.addEventListener('pointerdown', warm, { once: true });
+      window.addEventListener('keydown', warm, { once: true });
+    }
     if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
       void navigator.serviceWorker.register('/sw.js').catch(() => undefined);
     }
