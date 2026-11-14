@@ -179,6 +179,97 @@ test('mobile menu lists eight destinations and closes on Escape', async ({ page 
   await expect(page.getByRole('dialog')).toBeHidden();
 });
 
+test('live region announcements stay hidden and never repeat back to back', async ({ page }) => {
+  await page.goto('/en/listen?demo=1');
+  await command(page, 'play forest');
+  await command(page, 'play forest');
+  await expect
+    .poll(async () => page.evaluate(() => (window.__elAnnounce ?? []).length))
+    .toBeGreaterThan(1);
+  const result = await page.evaluate(() => {
+    const announcements = window.__elAnnounce ?? [];
+    const repeats = announcements.some(
+      (line, index) => index > 0 && line === announcements[index - 1],
+    );
+    const visible = Array.from(document.querySelectorAll('[data-testid^="live-"]')).some((node) => {
+      const rect = node.getBoundingClientRect();
+      return rect.width > 1 || rect.height > 1;
+    });
+    return { repeats, visible };
+  });
+  expect(result.repeats).toBe(false);
+  expect(result.visible).toBe(false);
+});
+
+test('captions render in one styled bar above the command dock', async ({ page }) => {
+  await page.goto('/en/listen?demo=1');
+  await command(page, 'play forest');
+  const bar = page.getByTestId('caption-bar');
+  await expect(bar).toBeVisible();
+  const [caption, dock] = await Promise.all([
+    bar.boundingBox(),
+    page.getByTestId('command-dock').boundingBox(),
+  ]);
+  expect(caption).not.toBeNull();
+  expect(dock).not.toBeNull();
+  expect(caption!.y + caption!.height).toBeLessThanOrEqual(dock!.y);
+  const clamp = await bar
+    .locator('p')
+    .evaluate((element) => getComputedStyle(element).webkitLineClamp);
+  expect(clamp).toBe('2');
+});
+
+for (const size of [
+  { width: 1440, height: 900 },
+  { width: 390, height: 844 },
+]) {
+  test(`hero starts below the header at ${size.width}x${size.height}`, async ({ page }) => {
+    await page.setViewportSize(size);
+    await page.goto('/en/listen?demo=1');
+    const header = await page.getByRole('banner').boundingBox();
+    const heading = await page.locator('main h1').first().boundingBox();
+    expect(header).not.toBeNull();
+    expect(heading).not.toBeNull();
+    expect(heading!.y).toBeGreaterThanOrEqual(header!.y + header!.height);
+  });
+}
+
+test('the command dock never covers footer content', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/en/about');
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  const credit = page.locator('footer .border-t').last();
+  const [creditBox, dockBox] = await Promise.all([
+    credit.boundingBox(),
+    page.getByTestId('command-dock').boundingBox(),
+  ]);
+  expect(creditBox).not.toBeNull();
+  expect(dockBox).not.toBeNull();
+  expect(creditBox!.y + creditBox!.height).toBeLessThanOrEqual(dockBox!.y);
+});
+
+for (const locale of ['en', 'ar']) {
+  test(`language toggle shows both labels at equal widths (${locale})`, async ({ page }) => {
+    await page.goto(`/${locale}/settings`);
+    const group = page
+      .getByRole('banner')
+      .getByRole('group', { name: locale === 'ar' ? 'اللغة' : 'Language' });
+    const buttons = group.getByRole('button');
+    await expect(buttons.nth(0)).toHaveText('EN');
+    await expect(buttons.nth(1)).toHaveText('عربي');
+    await expect(buttons.nth(1)).toBeVisible();
+    const boxes = await buttons.evaluateAll((nodes) =>
+      nodes.map((node) => ({
+        width: node.getBoundingClientRect().width,
+        clipped: node.scrollWidth - node.clientWidth,
+      })),
+    );
+    expect(boxes).toHaveLength(2);
+    expect(Math.abs(boxes[0]!.width - boxes[1]!.width)).toBeLessThan(1);
+    expect(boxes.every((box) => box.clipped <= 1)).toBe(true);
+  });
+}
+
 test('about and 404 speak the right language', async ({ page }) => {
   await page.goto('/ar/about');
   await expect(page.getByRole('heading', { name: 'فريق Ctrl+Earth' })).toBeVisible();

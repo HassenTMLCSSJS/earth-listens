@@ -10,7 +10,7 @@ export function SiteFooter() {
   const router = useRouter();
   const markIntroSeen = useAppStore((state) => state.markIntroSeen);
   return (
-    <footer className="border-line relative z-10 mt-24 overflow-hidden border-t bg-[linear-gradient(180deg,transparent,rgb(11_16_32/.9))] px-[clamp(20px,3.4vw,48px)] pt-24 pb-10">
+    <footer className="border-line relative z-10 mt-24 overflow-hidden border-t bg-[linear-gradient(180deg,transparent,rgb(11_16_32/.9))] px-[clamp(20px,3.4vw,48px)] pt-24 pb-[calc(7rem+env(safe-area-inset-bottom))]">
       <div aria-hidden="true" className="nebula opacity-60" />
       <div className="relative mx-auto max-w-[1320px]">
         <p className="font-display text-ink mb-16 max-w-[14ch] text-[clamp(2.5rem,8vw,8.5rem)] leading-[0.95] tracking-[-0.03em] rtl:leading-[1.15] rtl:tracking-normal">

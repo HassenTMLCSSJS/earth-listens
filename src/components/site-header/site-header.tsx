@@ -35,10 +35,12 @@ export function SiteHeader() {
           className="font-display hover:bg-space-700 flex h-11 items-center gap-2.5 rounded-full px-1.5 pe-3.5 text-[1.0625rem] font-semibold whitespace-nowrap transition-colors"
         >
           <LogoMark />
-          <span lang="en" dir="ltr" className="hidden sm:inline">
+          <span lang="en" dir="ltr" className="inline">
             Earth Listens
           </span>
         </Link>
+
+        <div aria-hidden="true" className="flex-1 min-[1100px]:hidden" />
 
         <nav
           aria-label={t('nav.label')}
@@ -98,6 +100,7 @@ export function SiteHeader() {
           <Link
             href="/settings"
             aria-label={t('nav.settings')}
+            title={t('nav.settings')}
             className="text-ink-muted hover:bg-space-700 hover:text-ink hidden size-11 items-center justify-center rounded-full transition-colors sm:inline-flex"
           >
             <Settings className="size-[19px]" strokeWidth={1.75} aria-hidden="true" />
@@ -105,6 +108,7 @@ export function SiteHeader() {
           <button
             type="button"
             aria-label={t('nav.menu')}
+            title={t('nav.menu')}
             aria-expanded={menu}
             aria-controls="mobile-menu"
             onClick={() => setMenu(true)}

@@ -10,10 +10,12 @@ type Listener = (item: Announcement) => void;
 
 const listeners = new Set<Listener>();
 const history: Announcement[] = [];
-let queue: Announcement[] = [];
+let pending: Announcement | null = null;
 let timer: ReturnType<typeof setTimeout> | null = null;
 let lastText = '';
-let lastAt = 0;
+
+/** Polite updates coalesce so a burst of state changes reads as one message. */
+export const POLITE_DEBOUNCE_MS = 400;
 
 export function subscribeAnnouncements(listener: Listener): () => void {
   listeners.add(listener);
@@ -25,20 +27,18 @@ export function announcementLog(): readonly Announcement[] {
 }
 
 export function resetAnnouncements(): void {
-  queue = [];
+  pending = null;
   history.length = 0;
   lastText = '';
-  lastAt = 0;
   if (timer) clearTimeout(timer);
   timer = null;
 }
 
 function deliver(item: Announcement): void {
   const key = `${item.en}|${item.ar}`;
-  const now = Date.now();
-  if (key === lastText && now - lastAt < 2000) return;
+  // Never repeat the same line back to back; screen readers would stutter.
+  if (key === lastText) return;
   lastText = key;
-  lastAt = now;
   history.push(item);
   if (typeof window !== 'undefined') {
     window.__elAnnounce = window.__elAnnounce ?? [];
@@ -47,21 +47,9 @@ function deliver(item: Announcement): void {
   for (const listener of listeners) listener(item);
 }
 
-function flush(): void {
-  if (timer || queue.length === 0) return;
-  timer = setTimeout(() => {
-    const item = queue[queue.length - 1];
-    queue = [];
-    timer = null;
-    if (item) deliver(item);
-    if (queue.length > 0) flush();
-    else {
-      timer = setTimeout(() => {
-        timer = null;
-        flush();
-      }, 1000);
-    }
-  }, 30);
+function clearTimer(): void {
+  if (timer) clearTimeout(timer);
+  timer = null;
 }
 
 export function announce(
@@ -75,7 +63,21 @@ export function announce(
     speak: opts?.speak ?? true,
     ...(opts?.narrationId ? { narrationId: opts.narrationId } : {}),
   };
-  if (queue.length > 0 && item.priority === 'polite') queue[queue.length - 1] = item;
-  else queue.push(item);
-  flush();
+
+  if (item.priority === 'assertive') {
+    // Assertive interrupts the pending polite chatter and lands immediately.
+    clearTimer();
+    pending = null;
+    deliver(item);
+    return;
+  }
+
+  pending = item;
+  clearTimer();
+  timer = setTimeout(() => {
+    timer = null;
+    const next = pending;
+    pending = null;
+    if (next) deliver(next);
+  }, POLITE_DEBOUNCE_MS);
 }
