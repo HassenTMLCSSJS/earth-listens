@@ -9,7 +9,7 @@ describe('settings action schema', () => {
     ['highContrast', true],
     ['reducedMotion', 'off'],
     ['screenReaderMode', false],
-    ['captions', true],
+    ['captions', false],
     ['captionSize', 'lg'],
     ['earcons', false],
     ['haptics', false],
@@ -35,7 +35,7 @@ describe('settings action schema', () => {
 });
 
 describe('settings reducer', () => {
-  it('starts at the PRD defaults: −12 dB, interface sounds on, captions medium', () => {
+  it('starts at the PRD defaults: −12 dB, interface sounds on, captions off', () => {
     expect(DEFAULT_SETTINGS.masterVolumeDb).toBe(-12);
     expect(DEFAULT_SETTINGS.earcons).toBe(true);
     expect(DEFAULT_SETTINGS.haptics).toBe(true);

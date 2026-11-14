@@ -70,7 +70,7 @@ export const DEFAULT_SETTINGS: Settings = {
   highContrast: false,
   reducedMotion: 'system',
   screenReaderMode: false,
-  captions: true,
+  captions: false,
   earcons: true,
   haptics: true,
   spaceToTalk: false,

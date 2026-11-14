@@ -250,7 +250,7 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
             <Banner sample={sample} demo={demo} frameSample={frameSample} />
             {!online ? (
               <p
-                role="status"
+                role="note"
                 className="border-line bg-glass text-ink-muted mx-auto mt-2 w-fit rounded-full border px-4 py-1.5 text-sm backdrop-blur"
               >
                 {t('header.offline')}

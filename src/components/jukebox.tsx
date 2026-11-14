@@ -58,7 +58,7 @@ function FreshnessChip({ demo }: { demo: boolean }) {
       : describeFreshness(envelope, lang)
     : fallback;
   return (
-    <p data-testid="freshness" aria-live="polite">
+    <p data-testid="freshness">
       {demo ? 'Demo data' : text || (lang === 'ar' ? 'بيانات حقيقية' : 'Real data')}
     </p>
   );

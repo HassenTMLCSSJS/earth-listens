@@ -436,7 +436,7 @@ export function DataPage() {
           {sourcesStatus === 'loading' ? (
             <tr>
               <td colSpan={3}>
-                <p role="status">{t('data.loadingSources')}</p>
+                <p role="note">{t('data.loadingSources')}</p>
               </td>
             </tr>
           ) : null}
@@ -450,7 +450,7 @@ export function DataPage() {
           {sourcesStatus === 'ready' && sources.length === 0 ? (
             <tr>
               <td colSpan={3}>
-                <p role="status">{t('data.sourcesEmpty')}</p>
+                <p role="note">{t('data.sourcesEmpty')}</p>
               </td>
             </tr>
           ) : null}

@@ -15,7 +15,7 @@ export function NowPlaying({ className }: { className?: string }) {
   return (
     <Link
       href="/listen"
-      role="status"
+      role="note"
       className={cn(
         'text-gold inline-flex h-9 items-center gap-2 rounded-full border border-[rgb(242_196_109/.35)] bg-[rgb(242_196_109/.10)] px-3 text-[0.8125rem] font-semibold',
         className,
