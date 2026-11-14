@@ -7,6 +7,7 @@ import { DEFAULT_ASSET_BASE } from '@/core/assets';
 import {
   BASIS_TRANSCODER_PATH,
   configureKtx2Loader,
+  pickTextureAsset,
   pickSmokeKtx2,
   type TextureAsset,
 } from '@/modules/globe';
@@ -57,6 +58,35 @@ describe('KTX2 manifest selection', () => {
 
   it('refuses a manifest with no KTX2 texture', () => {
     expect(() => pickSmokeKtx2({ assets: [] })).toThrow(/no KTX2/);
+  });
+
+  it('selects the requested role and tier, then falls back to the closest smaller tier', () => {
+    const assets: TextureAsset[] = [
+      {
+        url: `${DEFAULT_ASSET_BASE}/v1/textures/earth-day/4k.webp`,
+        bytes: 400,
+        format: 'webp',
+        role: 'earth-day',
+        tier: '4k',
+      },
+      {
+        url: `${DEFAULT_ASSET_BASE}/v1/textures/earth-day/1k.webp`,
+        bytes: 100,
+        format: 'webp',
+        role: 'earth-day',
+        tier: '1k',
+      },
+      {
+        url: `${DEFAULT_ASSET_BASE}/v1/textures/earth-night/2k.ktx2`,
+        bytes: 200,
+        format: 'ktx2',
+        role: 'earth-night',
+        tier: '2k',
+      },
+    ];
+
+    expect(pickTextureAsset({ assets }, 'earth-day', '2k', ['webp'])?.tier).toBe('1k');
+    expect(pickTextureAsset({ assets }, 'earth-night', '2k', ['ktx2'])?.role).toBe('earth-night');
   });
 
   it('points the loader at /basis/', () => {

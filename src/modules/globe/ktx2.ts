@@ -18,6 +18,35 @@ export interface TextureManifest {
   assets?: TextureAsset[];
 }
 
+const TEXTURE_TIERS = ['1k', '2k', '4k', '8k'] as const;
+
+/** Find the closest available public texture without selecting oversized tile assets. */
+export function pickTextureAsset(
+  manifest: TextureManifest,
+  role: string,
+  tier: (typeof TEXTURE_TIERS)[number],
+  formats: string[],
+): TextureAsset | undefined {
+  const tierIndex = TEXTURE_TIERS.indexOf(tier);
+  const candidates = (manifest.assets ?? []).filter(
+    (asset) =>
+      asset.role === role &&
+      TEXTURE_TIERS.includes(asset.tier as (typeof TEXTURE_TIERS)[number]) &&
+      formats.includes(asset.format) &&
+      asset.url.startsWith(`${DEFAULT_ASSET_BASE}/`) &&
+      Number.isFinite(asset.bytes) &&
+      asset.bytes > 0,
+  );
+
+  return candidates.sort((a, b) => {
+    const aIndex = TEXTURE_TIERS.indexOf(a.tier as (typeof TEXTURE_TIERS)[number]);
+    const bIndex = TEXTURE_TIERS.indexOf(b.tier as (typeof TEXTURE_TIERS)[number]);
+    const distance = Math.abs(aIndex - tierIndex) - Math.abs(bIndex - tierIndex);
+    if (distance !== 0) return distance;
+    return aIndex - bIndex;
+  })[0];
+}
+
 /** Smallest KTX2 on the R2 manifest. The smoke test uses it so the download stays small. */
 export function pickSmokeKtx2(manifest: TextureManifest): TextureAsset {
   const files = (manifest.assets ?? []).filter(
