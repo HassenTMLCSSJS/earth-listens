@@ -1,26 +1,14 @@
-# Earth Listens models
+# 3D Models
 
-Procedural stand-ins live in `src/modules/models/registry.ts`. Zain replaces `file: null` with a GLB and points `Component` at the loaded model. `StandIn` stays as the fallback. Props are `playing`, `intensity`, `focused`, `reducedMotion`.
+| Model     | URL                                                                         | Size    | Source    | License                                           |
+| --------- | --------------------------------------------------------------------------- | ------- | --------- | ------------------------------------------------- |
+| Guitar    | https://pub-f4844155e9804bb5adcb0c121896e82b.r2.dev/v1/models/guitar.glb    | 12.4 MB | R2 / Zain | Provided by Zain for this project; see CREDITS.md |
+| Satellite | https://pub-f4844155e9804bb5adcb0c121896e82b.r2.dev/v1/models/satellite.glb | 11.4 MB | R2 / Zain | Provided by Zain for this project; see CREDITS.md |
 
-| id           | placement | layer         | status   |
-| ------------ | --------- | ------------- | -------- |
-| inst_oud     | overlay   | temperature   | stand-in |
-| inst_kamanja | overlay   | forest        | stand-in |
-| inst_ney     | overlay   | precipitation | stand-in |
-| inst_darbuka | overlay   | wildfire      | stand-in |
-| inst_riq     | overlay   | lightning     | stand-in |
-| inst_qanun   | overlay   | sea_ice       | stand-in |
-| inst_chimes  | overlay   | air_quality   | stand-in |
-| inst_bowl    | overlay   | co2           | stand-in |
-| note_field   | globe     |               | stand-in |
-| jukebox_ring | globe     |               | stand-in |
-| music_box    | overlay   |               | stand-in |
-| satellite    | globe     | events        | stand-in |
-| headphones   | overlay   |               | stand-in |
-| sada         | overlay   |               | stand-in |
-| cairo_marker | globe     |               | stand-in |
-| layer_icon   | overlay   |               | stand-in |
-| focus_ring   | overlay   |               | stand-in |
-| stage_disc   | overlay   |               | stand-in |
+Both are single-mesh, single-material GLBs with WebP textures (`EXT_texture_webp`, natively supported by three.js). No Draco or KTX2 compression. No animation clips — motion is applied in code (`useFrame`).
 
-The intro timeline is `startIntro({ locale, mode })` in `src/modules/intro/timeline.ts`. Scenes are DOM placeholders until the cinematic scenes land. The globe controller is `src/modules/globe/controller.ts`.
+- Guitar: ~0.49w × 1.0h × 0.26d, upright on Y.
+- Satellite: ~1.0w × 0.31h × 0.84d, flat on XZ.
+- Scale start: `globeRadius * 0.25` (tuned in `src/modules/models/GlbModel.tsx` via `baseScale` prop, default 0.25).
+
+Override the host with `NEXT_PUBLIC_ASSET_BASE_URL` (see `.env.example`). CSP already allows the R2 host in `connect-src` and `img-src`/`media-src` (see `src/core/csp.ts`).

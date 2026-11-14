@@ -1,4 +1,7 @@
 import type { ReactNode } from 'react';
+import { useGLTF } from '@react-three/drei';
+import { assetUrl } from '@/core/assets';
+import { GlbModel } from './GlbModel';
 import type { LayerId } from '@/core/actions';
 
 export interface ModelProps {
@@ -67,8 +70,59 @@ function entry(
   };
 }
 
+const SATELLITE_URL = assetUrl('/v1/models/satellite.glb');
+const GUITAR_URL = assetUrl('/v1/models/guitar.glb');
+
+/** Preload both instrument GLBs. Call from the entry gate after the user's first click. */
+export function preloadInstrumentModels() {
+  useGLTF.preload(SATELLITE_URL);
+  useGLTF.preload(GUITAR_URL);
+}
+
 /** Every model from the Z brief, as a procedural stand-in until the GLB arrives. */
+function glbEntry(
+  id: string,
+  shape: string,
+  placement: 'globe' | 'overlay',
+  label: { en: string; ar: string },
+  url: string,
+  motion: 'orbit' | 'spin',
+  baseScale: number,
+  layer?: LayerId,
+): ModelEntry {
+  const StandIn = standIn(shape);
+  const Component = (props: ModelProps) => (
+    <GlbModel
+      {...props}
+      url={url}
+      motion={motion}
+      baseScale={baseScale}
+      fallback={<StandIn {...props} />}
+    />
+  );
+  return {
+    id,
+    file: url,
+    StandIn,
+    Component,
+    clips: [],
+    ...(layer ? { layer } : {}),
+    placement,
+    label,
+  };
+}
+
 export const MODELS: ModelEntry[] = [
+  glbEntry(
+    'inst_guitar',
+    'oud',
+    'overlay',
+    { en: 'Guitar', ar: 'جيتار' },
+    GUITAR_URL,
+    'spin',
+    0.25,
+    'temperature',
+  ),
   entry('inst_oud', 'oud', 'overlay', { en: 'Oud', ar: 'عود' }, 'temperature'),
   entry('inst_kamanja', 'kamanja', 'overlay', { en: 'Kamanja', ar: 'كمنجة' }, 'forest'),
   entry('inst_ney', 'ney', 'overlay', { en: 'Ney', ar: 'ناي' }, 'precipitation'),
@@ -80,7 +134,16 @@ export const MODELS: ModelEntry[] = [
   entry('note_field', 'notes', 'globe', { en: 'Notes', ar: 'نغمات' }),
   entry('jukebox_ring', 'ring', 'globe', { en: 'Jukebox ring', ar: 'حلقة الجوك بوكس' }),
   entry('music_box', 'box', 'overlay', { en: 'Music box', ar: 'صندوق موسيقى' }),
-  entry('satellite', 'satellite', 'globe', { en: 'Satellite', ar: 'قمر صناعي' }, 'events'),
+  glbEntry(
+    'satellite',
+    'satellite',
+    'globe',
+    { en: 'Satellite', ar: 'قمر صناعي' },
+    SATELLITE_URL,
+    'orbit',
+    0.25,
+    'events',
+  ),
   entry('headphones', 'phones', 'overlay', { en: 'Headphones', ar: 'سماعات' }),
   entry('sada', 'sada', 'overlay', { en: 'Sada', ar: 'سادة' }),
   entry('cairo_marker', 'cairo', 'globe', { en: 'Cairo', ar: 'القاهرة' }),

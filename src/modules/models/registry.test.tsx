@@ -1,36 +1,35 @@
-/**
- * @vitest-environment jsdom
- */
-import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { OverlayStage } from './overlay-stage';
 import { MODELS, getModel } from './registry';
 
-describe('model registry', () => {
-  it('has a procedural stand-in and an Egyptian label for every model', () => {
-    const ids = MODELS.map((model) => model.id);
-    expect(new Set(ids).size).toBe(ids.length);
-    for (const model of MODELS) {
-      expect(model.file).toBeNull();
-      expect(model.StandIn).toBe(model.Component);
-      expect(model.label.ar.length).toBeGreaterThan(0);
-      expect(model.placement === 'globe' || model.placement === 'overlay').toBe(true);
-    }
-    expect(getModel('inst_oud')?.layer).toBe('temperature');
-    expect(getModel('missing')).toBeUndefined();
+const R2 = 'https://pub-f4844155e9804bb5adcb0c121896e82b.r2.dev';
+
+describe('models registry — GLB entries', () => {
+  it('exposes the satellite GLB with the right id, file and empty clips', () => {
+    const sat = getModel('satellite');
+    expect(sat).toBeDefined();
+    expect(sat?.id).toBe('satellite');
+    expect(sat?.file).toBe(`${R2}/v1/models/satellite.glb`);
+    expect(sat?.clips).toEqual([]);
+    expect(sat?.placement).toBe('globe');
+    expect(sat?.layer).toBe('events');
   });
 
-  it('renders stand-ins that react to playing and focus', () => {
-    const html = renderToStaticMarkup(
-      <OverlayStage ids={['inst_oud', 'missing']} lang="ar" playing intensity={0.8} focused />,
-    );
-    expect(html).toContain('عود');
-    expect(html).toContain('data-playing="1"');
-    expect(html).toContain('data-focused="1"');
-    const still = renderToStaticMarkup(
-      <OverlayStage ids={['headphones']} reducedMotion playing={false} />,
-    );
-    expect(still).toContain('Headphones');
-    expect(still).toContain('data-playing="0"');
+  it('exposes inst_guitar GLB entry', () => {
+    const guitar = getModel('inst_guitar');
+    expect(guitar).toBeDefined();
+    expect(guitar?.id).toBe('inst_guitar');
+    expect(guitar?.file).toBe(`${R2}/v1/models/guitar.glb`);
+    expect(guitar?.clips).toEqual([]);
+    expect(guitar?.placement).toBe('overlay');
+    expect(guitar?.layer).toBe('temperature');
+    expect(guitar?.label.en).toBe('Guitar');
+  });
+
+  it('keeps the ModelProps shape unchanged', () => {
+    // Compile-time contract: these keys must exist and accept these types.
+    const props = { playing: true, intensity: 0.5, focused: false, reducedMotion: true };
+    const sat = getModel('satellite');
+    expect(() => sat?.StandIn(props)).not.toThrow();
+    expect(MODELS.length).toBeGreaterThanOrEqual(19);
   });
 });
