@@ -42,37 +42,49 @@ export function TutorialPanel() {
 
   if (!step) {
     return (
-      <section className="mx-auto max-w-3xl px-4 py-8">
-        <h1 className="display text-5xl">{t('title')}</h1>
-        <p>{t('progress', { step: TUTORIAL_STEPS.length, total: TUTORIAL_STEPS.length })}</p>
-        <p>{t('done')}</p>
+      <section className="mx-auto grid w-full max-w-3xl gap-3 px-4 py-8">
+        <span className="v5-eyebrow">{t('title')}</span>
+        <h1 className="display text-5xl">{t('doneTitle')}</h1>
+        <p className="text-ink-muted">
+          {t('progress', { step: TUTORIAL_STEPS.length, total: TUTORIAL_STEPS.length })}
+        </p>
+        <p className="v5-lead">{t('done')}</p>
       </section>
     );
   }
 
   return (
-    <section className="mx-auto grid max-w-6xl gap-6 px-4 py-8">
-      <h1 ref={heading} tabIndex={-1} className="display text-5xl">
+    <section className="mx-auto grid w-full max-w-6xl gap-5 px-4 py-8">
+      <span className="v5-eyebrow">{t('title')}</span>
+      <h1 ref={heading} tabIndex={-1} className="display text-5xl outline-none">
         {t('title')}
       </h1>
-      <p>{t('progress', { step: index + 1, total: TUTORIAL_STEPS.length })}</p>
-      <h2>{lang === 'ar' ? step.text.ar : step.text.en}</h2>
-      {hint ? <p>{lang === 'ar' ? step.hint.ar : step.hint.en}</p> : null}
-      <div className="flex gap-2">
-        <button
-          type="button"
-          className="min-h-11 rounded-full border border-white/20 px-4"
-          onClick={() => setIndex((value) => Math.max(0, value - 1))}
-        >
-          {t('back')}
-        </button>
-        <button
-          type="button"
-          className="min-h-11 rounded-full border border-white/20 px-4"
-          onClick={() => setIndex((value) => value + 1)}
-        >
-          {t('skip')}
-        </button>
+      <div className="v5-card grid gap-4 p-6">
+        <p className="text-ink-subtle text-sm">
+          {t('progress', { step: index + 1, total: TUTORIAL_STEPS.length })}
+        </p>
+        <h2 className="v5-h2">{lang === 'ar' ? step.text.ar : step.text.en}</h2>
+        {hint ? (
+          <p className="border-s-gold border-s-2 ps-3 text-sm">
+            {lang === 'ar' ? step.hint.ar : step.hint.en}
+          </p>
+        ) : null}
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            className="focus-visible:ring-ring/50 min-h-11 rounded-full border border-white/20 px-4 outline-none hover:border-white/40 focus-visible:ring-[3px]"
+            onClick={() => setIndex((value) => Math.max(0, value - 1))}
+          >
+            {t('back')}
+          </button>
+          <button
+            type="button"
+            className="focus-visible:ring-ring/50 min-h-11 rounded-full border border-white/20 px-4 outline-none hover:border-white/40 focus-visible:ring-[3px]"
+            onClick={() => setIndex((value) => value + 1)}
+          >
+            {t('skip')}
+          </button>
+        </div>
       </div>
       <Jukebox embedded />
     </section>

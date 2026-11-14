@@ -200,66 +200,70 @@ export function GlobeStage() {
       onKeyDown={onKey}
       onPointerEnter={() => setEngaged(true)}
       onFocus={() => setEngaged(true)}
-      className="bg-space-950 relative h-[420px] overflow-hidden rounded-[2rem] border border-white/10 outline-none"
+      className="bg-space-950 relative flex flex-col overflow-hidden rounded-[2rem] border border-white/10 outline-none"
     >
-      {showReact ? (
-        <EarthGlobe
-          lat={view.lat}
-          lon={view.lon}
-          points={globeView.points}
-          arcs={globeView.arcs}
-          reducedMotion={motion === 'reduce'}
-          framing="stage"
-          playing={playing}
-          onReady={() => setGlobeReady(true)}
-        />
-      ) : showR3f ? (
-        <Suspense fallback={<p className="p-6 text-sm">{t('summary')}</p>}>
-          <EarthCanvas
-            texture="/textures/earth-day.webp"
-            night="/textures/earth-night.webp"
-            height="/textures/earth-height.png"
-            {...(active === 'ocean_sst'
-              ? {
-                  water: '/textures/earth-water-mask.png',
-                  overlay: chosen?.value ?? '/frames/ocean_sst/2024-08-15.value.png',
-                  ramp: '/ramps/sst.png',
-                }
-              : chosen?.value
-                ? { overlay: chosen.value }
-                : {})}
+      <div className="relative h-[min(60svh,420px)] w-full shrink-0">
+        {showReact ? (
+          <EarthGlobe
             lat={view.lat}
             lon={view.lon}
-            playheadLon={visual.playheadLon}
-            cells={cells}
-            level={visual.level}
-            pulseId={visual.pulse}
-            layerId={active}
-            motion={motion ?? 'full'}
+            points={globeView.points}
+            arcs={globeView.arcs}
+            reducedMotion={motion === 'reduce'}
+            framing="stage"
+            playing={playing}
+            onReady={() => setGlobeReady(true)}
           />
-        </Suspense>
-      ) : null}
-      {posterVisible ? (
-        <img
-          src={POSTER}
-          alt={showReact ? '' : label}
-          width={960}
-          height={420}
-          fetchPriority="high"
-          className="pointer-events-none absolute inset-0 z-10 h-full w-full object-cover"
-        />
-      ) : null}
-      {chosen ? (
-        <img
-          src={chosen.src}
-          alt=""
-          width={960}
-          height={420}
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40 mix-blend-screen"
-        />
-      ) : null}
-      <div id="globe-classic" className="absolute inset-0" hidden={!forceClassic} />
-      <div className="bg-space-950/80 absolute inset-x-0 bottom-0 z-20 grid gap-1 p-3 text-sm">
+        ) : showR3f ? (
+          <Suspense fallback={<p className="p-6 text-sm">{t('summary')}</p>}>
+            <EarthCanvas
+              texture="/textures/earth-day.webp"
+              night="/textures/earth-night.webp"
+              height="/textures/earth-height.png"
+              {...(active === 'ocean_sst'
+                ? {
+                    water: '/textures/earth-water-mask.png',
+                    overlay: chosen?.value ?? '/frames/ocean_sst/2024-08-15.value.png',
+                    ramp: '/ramps/sst.png',
+                  }
+                : chosen?.value
+                  ? { overlay: chosen.value }
+                  : {})}
+              lat={view.lat}
+              lon={view.lon}
+              playheadLon={visual.playheadLon}
+              cells={cells}
+              level={visual.level}
+              pulseId={visual.pulse}
+              layerId={active}
+              motion={motion ?? 'full'}
+            />
+          </Suspense>
+        ) : null}
+        {posterVisible ? (
+          <img
+            src={POSTER}
+            alt={showReact ? '' : label}
+            width={960}
+            height={420}
+            fetchPriority="high"
+            className="pointer-events-none absolute inset-0 z-10 h-full w-full object-cover"
+          />
+        ) : null}
+        {chosen ? (
+          <img
+            src={chosen.src}
+            alt=""
+            width={960}
+            height={420}
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40 mix-blend-screen"
+          />
+        ) : null}
+        <div id="globe-classic" className="absolute inset-0" hidden={!forceClassic} />
+      </div>
+      {/* Below 640 px the legend sits after the canvas so it never covers the
+          globe; from 640 px up it overlays the bottom of the stage. */}
+      <div className="sm:bg-space-950/80 grid gap-1 border-t border-white/10 p-3 text-sm sm:absolute sm:inset-x-0 sm:bottom-0 sm:z-20 sm:border-t-0">
         <p className="sr-only">{t('summary')}</p>
         <span data-testid="layer-legend">
           {activeLayer?.config.title[locale === 'ar' ? 'ar' : 'en']} ·{' '}

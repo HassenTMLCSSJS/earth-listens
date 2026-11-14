@@ -17,54 +17,67 @@ export async function narrationKey(lang: Lang, text: string): Promise<string> {
 }
 
 let clips: Map<string, NarrationClip> | null = null;
-let loading: Promise<void> | null = null;
+let manifestLoad: Promise<Map<string, NarrationClip>> | null = null;
+let preloading: Promise<void> | null = null;
+
+/**
+ * Load only the manifest, never the audio bodies. The first spoken line must
+ * find its recorded MP3 before a fallback voice can ever be considered.
+ */
+function loadManifest(): Promise<Map<string, NarrationClip>> {
+  if (clips) return Promise.resolve(clips);
+  manifestLoad ??= (async () => {
+    const map = new Map<string, NarrationClip>();
+    try {
+      const response = await fetch(MANIFEST_URL);
+      if (response.ok) {
+        const body = (await response.json()) as { items?: NarrationClip[] };
+        for (const item of body.items ?? []) {
+          if ((item.lang !== 'en' && item.lang !== 'ar') || !item.hash || !item.url) continue;
+          map.set(`${item.lang}:${item.hash}`, { ...item });
+        }
+      }
+    } catch {
+      /* No clips. Captions still carry the line. */
+    }
+    clips = map;
+    return map;
+  })();
+  return manifestLoad;
+}
 
 /**
  * Fetch the manifest and same-origin MP3s into memory.
  * Called from the catalog load so a later offline page does not request them again.
  */
 export function preloadNarrationClips(): Promise<void> {
-  if (clips) return Promise.resolve();
-  loading ??= (async () => {
-    const map = new Map<string, NarrationClip>();
-    try {
-      const response = await fetch(MANIFEST_URL);
-      if (!response.ok) {
-        clips = map;
-        return;
-      }
-      const body = (await response.json()) as { items?: NarrationClip[] };
-      await Promise.all(
-        (body.items ?? []).map(async (item) => {
-          if ((item.lang !== 'en' && item.lang !== 'ar') || !item.hash || !item.url) return;
-          const stored: NarrationClip = { ...item };
-          if (item.url.startsWith('/')) {
-            try {
-              const file = await fetch(item.url);
-              if (file.ok) stored.url = URL.createObjectURL(await file.blob());
-            } catch {
-              /* Keep the path. Playback falls through if it fails. */
-            }
-          }
-          map.set(`${item.lang}:${item.hash}`, stored);
-        }),
-      );
-    } catch {
-      /* No clips. The live chain still speaks. */
-    }
-    clips = map;
+  if (preloading) return preloading;
+  preloading = (async () => {
+    const map = await loadManifest();
+    await Promise.all(
+      [...map.entries()].map(async ([key, stored]) => {
+        if (!stored.url.startsWith('/')) return;
+        try {
+          const file = await fetch(stored.url);
+          if (file.ok) map.set(key, { ...stored, url: URL.createObjectURL(await file.blob()) });
+        } catch {
+          /* Keep the path. Playback can still stream it. */
+        }
+      }),
+    );
   })();
-  return loading;
+  return preloading;
 }
 
 export async function findNarrationClip(lang: Lang, text: string): Promise<NarrationClip | null> {
-  if (!clips) return null;
+  const map = await loadManifest();
   const key = await narrationKey(lang, text);
-  return clips.get(`${lang}:${key}`) ?? null;
+  return map.get(`${lang}:${key}`) ?? null;
 }
 
 /** Test hook. Production code uses preloadNarrationClips. */
 export function resetNarrationClipsForTests(): void {
   clips = null;
-  loading = null;
+  manifestLoad = null;
+  preloading = null;
 }

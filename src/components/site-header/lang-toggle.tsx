@@ -5,8 +5,8 @@ import { useAppStore } from '@/core/store';
 import { cn } from '@/lib/utils';
 
 /**
- * Segmented EN | ع. It dispatches `set_language`; the shell keeps the current
- * path and query and swaps the locale for us.
+ * Segmented EN | عربي. It dispatches `set_language`; the shell keeps the
+ * current path and query and swaps the locale for us.
  */
 export function LangToggle({ full = false, className }: { full?: boolean; className?: string }) {
   const t = useTranslations('settings');
@@ -17,6 +17,9 @@ export function LangToggle({ full = false, className }: { full?: boolean; classN
     if (next === locale) return;
     dispatch({ type: 'set_language', lang: next }, 'pointer');
   };
+  const width = full ? 'w-[5.75rem]' : 'w-[3.5rem]';
+  const base =
+    'inline-flex h-9 items-center justify-center rounded-full px-0 text-center text-sm leading-none transition-colors';
   return (
     <div
       role="group"
@@ -30,8 +33,13 @@ export function LangToggle({ full = false, className }: { full?: boolean; classN
         type="button"
         lang="en"
         aria-pressed={locale === 'en'}
+        title="English"
         onClick={() => choose('en')}
-        className="aria-pressed:bg-ink aria-pressed:text-space-950 text-ink-subtle hover:text-ink inline-flex h-9 min-w-10 items-center justify-center rounded-full px-2.5 text-sm font-semibold transition-colors"
+        className={cn(
+          base,
+          width,
+          'aria-pressed:bg-ink aria-pressed:text-space-950 text-ink-subtle hover:text-ink font-semibold',
+        )}
       >
         {full ? 'English' : 'EN'}
       </button>
@@ -39,10 +47,15 @@ export function LangToggle({ full = false, className }: { full?: boolean; classN
         type="button"
         lang="ar"
         aria-pressed={locale === 'ar'}
+        title="عربي"
         onClick={() => choose('ar')}
-        className="font-ar-display aria-pressed:bg-ink aria-pressed:text-space-950 text-ink-subtle hover:text-ink inline-flex h-9 min-w-10 items-center justify-center rounded-full px-2.5 text-sm font-medium transition-colors"
+        className={cn(
+          base,
+          width,
+          'font-ar-display aria-pressed:bg-ink aria-pressed:text-space-950 text-ink-subtle hover:text-ink text-[0.9375rem] font-medium',
+        )}
       >
-        {full ? 'عربي' : 'ع'}
+        عربي
       </button>
     </div>
   );

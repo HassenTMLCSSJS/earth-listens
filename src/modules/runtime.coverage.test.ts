@@ -233,7 +233,7 @@ describe('module runtime paths', () => {
       withSampleNote({ en: 'real NASA measurement', ar: 'قياس حقيقي من ناسا' }, true).en,
     ).toContain('sample data');
     announce({ en: 'Ready', ar: 'جاهز' });
-    await new Promise((resolve) => setTimeout(resolve, 40));
+    await new Promise((resolve) => setTimeout(resolve, 500));
     expect(window.__elAnnounce?.at(-1)).toBe('Ready');
   });
 

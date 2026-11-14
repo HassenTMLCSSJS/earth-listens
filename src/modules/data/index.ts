@@ -8,6 +8,7 @@ export {
   PointSchema,
   ViewSchema,
   FeedEnvelopeSchema,
+  FreshnessStatus,
   AssetManifestSchema,
   SourceCatalogSchema,
   TIMBRE_IDS,
@@ -51,6 +52,22 @@ export {
   stableStringify,
 } from './envelope';
 export { chooseFeed, loadFeedChain } from './fallback';
+export {
+  FEED_FOR_LAYER,
+  LIVE_FEEDS,
+  clearCachedFeed,
+  demoFeedEnvelope,
+  feedForEntry,
+  feedForLayer,
+  fetchJsonAttempt,
+  httpLoader,
+  isLiveFeed,
+  loadLiveEnvelope,
+  readCachedFeed,
+  writeCachedFeed,
+} from './live';
+export type { LiveFeed, LiveLoadOptions } from './live';
+export { fractionalYear, mergeFeedEnvelope, upsertPoint } from './live-merge';
 export { NIGHT_BRIGHTNESS_LABEL, cairoParts, describeFreshness, statusForAge } from './freshness';
 export { FEED_TTL, cacheControl } from './cache/policy';
 export { createLru } from './cache/memory';

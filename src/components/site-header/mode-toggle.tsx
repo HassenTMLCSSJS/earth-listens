@@ -21,7 +21,7 @@ export function ModeToggle({
     <button
       type="button"
       aria-pressed={listening}
-      aria-label={`${t('mode')}: ${listening ? t('audio') : t('visual')}`}
+      aria-label={`${t('mode')}: ${listening ? t('modeListeningOn') : t('modeVisualOn')}`}
       title={listening ? t('modeListeningOn') : t('modeVisualOn')}
       onClick={() => {
         dispatch({ type: 'set_mode', mode: listening ? 'visual' : 'audio_first' }, 'pointer');

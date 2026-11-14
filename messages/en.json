@@ -383,7 +383,17 @@
     "step2": "Check and clean it",
     "step3": "Map numbers to notes",
     "step4": "Play it, with the source shown",
-    "licence": "Licence and credit"
+    "licence": "Licence and credit",
+    "attributionTitle": "Attribution",
+    "attributionBody": "We acknowledge the use of data and imagery from LANCE FIRMS operated by NASA's Earth Science Data and Information System (ESDIS) with funding provided by NASA Headquarters.",
+    "attributionBody2": "GISTEMP Team, NASA Goddard Institute for Space Studies. NOAA GML Mauna Loa: Lan, Tans and Thoning. NSIDC Sea Ice Index v4 (Fetterer et al.; verify the DOI before citing it). NASA SVS 5113. The globe day texture is NASA Blue Marble Next Generation from GIBS. Relief is NOAA ETOPO 2022. Night brightness is an image-derived index, not calibrated radiance.",
+    "sourcesTitle": "Sources",
+    "sourcesCaption": "Every source used or kept for this build, with its license.",
+    "colUsedFor": "Used for",
+    "colKey": "Key",
+    "loadingSources": "Loading the source list…",
+    "sourcesEmpty": "No sources to show yet.",
+    "sourcesError": "The source list didn't load. The data itself is unaffected. Reload the page to try again."
   },
   "symphony": {
     "title": "The Earth's symphony",

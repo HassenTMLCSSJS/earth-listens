@@ -241,7 +241,9 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
       <main
         id="content"
         key={pathname}
-        className={showChrome ? 'route-fade relative z-10 pt-[86px]' : 'relative z-10'}
+        className={
+          showChrome ? 'route-fade relative z-10 scroll-mt-28 pt-24 pb-[8.5rem]' : 'relative z-10'
+        }
       >
         {showChrome ? (
           <div className="relative z-30">
@@ -261,12 +263,15 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
       </main>
       {showFooter ? <SiteFooter /> : null}
       {showChrome ? (
-        <div className="border-line bg-glass fixed end-4 bottom-4 z-40 flex w-[min(440px,calc(100vw-2rem))] items-center gap-2 rounded-full border p-2 shadow-[var(--shadow-float)] backdrop-blur-[18px]">
+        <div
+          data-testid="command-dock"
+          className="border-line bg-glass fixed end-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-40 flex w-[min(440px,calc(100vw-2rem))] items-center gap-2 rounded-full border p-2 shadow-[var(--shadow-float)] backdrop-blur-[18px]"
+        >
           <TalkButton />
           <CommandBox />
         </div>
       ) : null}
-      <CaptionStrip />
+      {showChrome ? <CaptionStrip /> : null}
       <Toaster position="top-center" />
       <Dialog open={help} onOpenChange={setHelp}>
         <DialogContent className="panel max-w-lg p-6">

@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { Eye, Globe2, Play, RotateCcw, Search, Volume2, Wrench } from 'lucide-react';
 import { toast } from 'sonner';
 import { LAYER_IDS, type LayerId, type SettingKey, type Settings } from '@/core/actions';
 import { DEFAULT_SETTINGS, scoreFor, useAppStore } from '@/core/store';
 import { useRouter } from '@/i18n/navigation';
 import { SHORTCUTS } from '@/modules/a11y';
-import { GUIDE_LAYERS, LAYER_SOUND, LAYER_SOURCE } from '@/modules/globe';
+import { GUIDE_LAYERS, LAYER_SOURCE } from '@/modules/globe';
 import { getPlayer, unlockAudio } from '@/modules/sonification';
 import { LangToggle } from '@/components/site-header/lang-toggle';
 import { SettingSwitch } from '@/components/setting-switch';
@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import { Kbd } from '@/components/ui/kbd';
 import { LayerSwatch } from '@/components/ui/layer-swatch';
 import { Slider } from '@/components/ui/slider';
+import { StatusBadge } from '@/components/ui/status-badge';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -41,76 +42,132 @@ const STEPS = [
   'Add narration MP3s and set status to recorded in public/audio/narration/manifest.json.',
 ];
 
+const RULES = [
+  { id: 'pitch', title: 'sounds.rulePitch', body: 'sounds.rulePitchBody', layer: 'temperature' },
+  { id: 'volume', title: 'sounds.ruleVolume', body: 'sounds.ruleVolumeBody', layer: 'wildfire' },
+  { id: 'rhythm', title: 'sounds.ruleRhythm', body: 'sounds.ruleRhythmBody', layer: 'sea_ice' },
+  { id: 'pan', title: 'sounds.rulePan', body: 'sounds.rulePanBody', layer: 'temperature' },
+  { id: 'timbre', title: 'sounds.ruleTimbre', body: 'sounds.ruleTimbreBody', layer: 'co2' },
+] as const;
+
 export function SoundsPage() {
   const t = useTranslations();
-  const locale = useLocale();
   const dispatch = useAppStore((state) => state.dispatch);
   const catalog = useAppStore((state) => state.catalog);
-  const rows = useMemo(() => {
-    const series = catalog.temperature?.data.series.global ?? [];
-    return series.filter((point) => typeof point.t === 'number' && Number(point.t) % 20 === 0);
-  }, [catalog.temperature]);
+  const [playing, setPlaying] = useState<string | null>(null);
+  const timer = useRef<number | null>(null);
+
+  useEffect(
+    () => () => {
+      if (timer.current !== null) window.clearTimeout(timer.current);
+    },
+    [],
+  );
+
+  const hear = (key: string, id: LayerId) => {
+    playLayerSample(id);
+    setPlaying(key);
+    if (timer.current !== null) window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setPlaying(null), 1400);
+  };
+
   return (
-    <article className="mx-auto grid max-w-3xl gap-4 px-4 py-8">
-      <h1 className="display text-5xl">{t('sounds.title')}</h1>
-      <p>{t('sounds.lead')}</p>
-      <ul className="grid gap-2">
-        {LAYER_IDS.map((id) => (
-          <li key={id}>
-            <strong>{t(`layers.${id}`)}. </strong>
-            {locale === 'ar' ? LAYER_SOUND[id].ar : LAYER_SOUND[id].en}
-          </li>
-        ))}
-      </ul>
-      <svg
-        viewBox="0 0 200 80"
-        role="img"
-        aria-label={t('sounds.table')}
-        className="bg-space-900 w-full rounded-2xl"
-      >
-        {rows.map((point, index) => (
-          <rect
-            key={String(point.t)}
-            x={index * 24 + 8}
-            y={70 - Math.max(4, ((point.v ?? 0) + 0.6) * 30)}
-            width="12"
-            height={Math.max(4, ((point.v ?? 0) + 0.6) * 30)}
-            fill="#5ad1ff"
-          />
-        ))}
-      </svg>
-      <table className="w-full text-sm">
-        <caption>{t('sounds.table')}</caption>
-        <tbody>
-          {rows.map((point) => (
-            <tr key={String(point.t)}>
-              <th scope="row">{point.t}</th>
-              <td>{point.v ?? '—'}</td>
-            </tr>
+    <article className="relative mx-auto max-w-[1320px] px-[clamp(20px,3.4vw,48px)] pb-24">
+      <header className="relative z-10 max-w-[880px]">
+        <span className="v5-eyebrow">{t('sounds.eyebrow')}</span>
+        <h1 className="v5-h2 text-display mt-2.5">{t('sounds.hero')}</h1>
+        <p className="v5-lead mt-2.5">{t('sounds.lead')}</p>
+      </header>
+
+      <section className="relative z-10 mt-10" aria-labelledby="sound-rules">
+        <h2 id="sound-rules" className="v5-h3">
+          {t('sounds.title')}
+        </h2>
+        <div className="mt-4 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-5">
+          {RULES.map((rule) => (
+            <article key={rule.id} className="v5-card grid content-start gap-3 p-5">
+              <h3 className="font-display text-base font-semibold">{t(rule.title)}</h3>
+              <p className="text-ink-muted text-sm leading-relaxed">{t(rule.body)}</p>
+              <Button
+                variant="outline"
+                className="border-line-strong h-9 self-end px-3 text-[0.8125rem]"
+                aria-pressed={playing === rule.id}
+                onClick={() => hear(rule.id, rule.layer)}
+              >
+                {t('sounds.hear')}
+              </Button>
+            </article>
           ))}
-        </tbody>
-      </table>
-      <div className="flex gap-2">
-        <Button
-          onClick={() => {
-            unlockAudio();
-            dispatch({ type: 'select_phenomenon', id: 'temperature' }, 'pointer');
-            dispatch({ type: 'compare_times', a: 1880, b: 2020 }, 'pointer');
-          }}
-        >
-          {t('sounds.low')}
-        </Button>
-        <Button
-          onClick={() => {
-            unlockAudio();
-            dispatch({ type: 'select_phenomenon', id: 'temperature' }, 'pointer');
-            dispatch({ type: 'set_time', from: 2024 }, 'pointer');
-            dispatch({ type: 'play' }, 'pointer');
-          }}
-        >
-          {t('sounds.high')}
-        </Button>
-      </div>
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Button
+            variant="outline"
+            className="border-line-strong h-10 px-4"
+            onClick={() => {
+              unlockAudio();
+              dispatch({ type: 'select_phenomenon', id: 'temperature' }, 'pointer');
+              dispatch({ type: 'compare_times', a: 1880, b: 2020 }, 'pointer');
+            }}
+          >
+            {t('sounds.low')}
+          </Button>
+          <Button
+            variant="outline"
+            className="border-line-strong h-10 px-4"
+            onClick={() => {
+              unlockAudio();
+              dispatch({ type: 'select_phenomenon', id: 'temperature' }, 'pointer');
+              dispatch({ type: 'set_time', from: 2024 }, 'pointer');
+              dispatch({ type: 'play' }, 'pointer');
+            }}
+          >
+            {t('sounds.high')}
+          </Button>
+        </div>
+      </section>
+
+      <section className="relative z-10" aria-labelledby="sound-voices">
+        <h2 id="sound-voices" className="v5-h2 mt-14">
+          {t('sounds.gridTitle')}
+        </h2>
+        <div className="mt-5 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+          {LAYER_IDS.map((id) => (
+            <article key={id} className="v5-card grid content-start gap-3 p-5">
+              <div className="flex items-center justify-between gap-3">
+                <span className="flex items-center gap-2.5">
+                  <LayerSwatch id={id} size="sm" />
+                  <h3 className="font-display text-base font-semibold">{t(`layers.${id}`)}</h3>
+                </span>
+                {catalog[id]?.isSample ? <StatusBadge status="sample" /> : null}
+              </div>
+              <p className="text-gold-hi text-[0.8125rem]">{t(`instrument.${id}`)}</p>
+              <p className="text-ink-muted text-sm leading-relaxed">{t(`sound.${id}`)}</p>
+              <Button
+                variant="outline"
+                className="border-line-strong h-9 self-end px-3 text-[0.8125rem]"
+                aria-pressed={playing === id}
+                onClick={() => hear(id, id)}
+              >
+                {t('sounds.hear')}
+              </Button>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <details className="v5-card relative z-10 mt-10 p-5">
+        <summary className="cursor-pointer font-semibold">{t('sounds.table')}</summary>
+        <dl className="mt-4 grid gap-3 text-sm">
+          {LAYER_IDS.map((id) => (
+            <div key={id} className="border-line border-t pt-3">
+              <dt className="font-semibold">
+                {t(`layers.${id}`)} — {t(`instrument.${id}`)}
+              </dt>
+              <dd className="text-ink-muted mt-1">{t(`sound.${id}`)}</dd>
+            </div>
+          ))}
+        </dl>
+      </details>
     </article>
   );
 }
@@ -147,10 +204,7 @@ export function GuidePage() {
   const shownSources = sources.filter((row) => match(row.label) || match(row.source));
 
   return (
-    <main
-      id="content"
-      className="relative mx-auto max-w-[1320px] px-[clamp(20px,3.4vw,48px)] pt-[clamp(72px,10vw,130px)] pb-24"
-    >
+    <div className="relative mx-auto max-w-[1320px] px-[clamp(20px,3.4vw,48px)] pb-24">
       <div className="relative z-10">
         <span className="v5-eyebrow">{t('nav.learn')}</span>
         <h1 className="v5-h2 text-display mt-2.5">{t('guide.title')}</h1>
@@ -183,7 +237,7 @@ export function GuidePage() {
               key={row.say}
               className="border-line flex min-h-12 items-center justify-between gap-4 border-t text-[0.9375rem]"
             >
-              <q className="text-gold-hi">“{row.say}”</q>
+              <q className="text-gold-hi">{row.say}</q>
               <Kbd className="border-line-strong text-ink-muted bg-white/[0.03] font-mono">
                 {row.key}
               </Kbd>
@@ -250,7 +304,7 @@ export function GuidePage() {
           ))}
         </section>
       </div>
-    </main>
+    </div>
   );
 }
 
@@ -277,50 +331,129 @@ function playLayerSample(id: LayerId) {
   void player.init().then(() => player.play(short));
 }
 
+interface FeedRow {
+  id: string;
+  status: 'live' | 'recent' | 'snapshot' | 'demo';
+  dataTime: string;
+}
+
 export function DataPage() {
   const t = useTranslations();
   const [sources, setSources] = useState<
     { id: string; name: string; url: string; license: string; usedFor: string; key: string }[]
   >([]);
+  const [sourcesStatus, setSourcesStatus] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [feeds, setFeeds] = useState<FeedRow[]>([]);
   useEffect(() => {
+    let cancel = false;
     void fetch('/data/sources.json')
-      .then((response) => response.json())
-      .then((body: { sources: typeof sources }) => setSources(body.sources))
-      .catch(() => setSources([]));
+      .then((response) => {
+        if (!response.ok) throw new Error(`sources.json ${response.status}`);
+        return response.json() as Promise<{ sources?: typeof sources }>;
+      })
+      .then((body) => {
+        if (cancel) return;
+        setSources(Array.isArray(body.sources) ? body.sources : []);
+        setSourcesStatus('ready');
+      })
+      .catch(() => {
+        if (cancel) return;
+        setSources([]);
+        setSourcesStatus('error');
+      });
+    return () => {
+      cancel = true;
+    };
   }, []);
+  useEffect(() => {
+    let cancel = false;
+    const read = () => {
+      void fetch('/api/health')
+        .then((response) => response.json())
+        .then((body: { feeds?: FeedRow[] }) => {
+          if (!cancel) setFeeds(Array.isArray(body.feeds) ? body.feeds : []);
+        })
+        .catch(() => {
+          if (!cancel) setFeeds([]);
+        });
+    };
+    read();
+    const timer = setInterval(() => {
+      if (document.visibilityState === 'visible') read();
+    }, 60_000);
+    return () => {
+      cancel = true;
+      clearInterval(timer);
+    };
+  }, []);
+  const feedLabel = (status: FeedRow['status']) =>
+    status === 'live' || status === 'recent'
+      ? t('data.feedOk')
+      : status === 'snapshot'
+        ? t('data.feedCached')
+        : t('data.feedFailed');
   return (
-    <article className="mx-auto grid max-w-3xl gap-4 px-4 py-8">
+    <article className="mx-auto grid max-w-3xl gap-4 px-4 pb-24">
       <h1 className="display text-5xl">{t('data.title')}</h1>
       <p>{t('data.lead')}</p>
       <p>{t('banner.sample')}</p>
+      {feeds.length > 0 ? (
+        <section aria-labelledby="feeds-heading">
+          <h2 id="feeds-heading">{t('data.liveFeeds')}</h2>
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {feeds.map((feed) => (
+              <li
+                key={feed.id}
+                className="flex items-center justify-between gap-3 rounded-lg border border-white/15 px-3 py-2"
+              >
+                <code className="font-mono text-sm">{feed.id}</code>
+                <span data-status={feed.status}>{feedLabel(feed.status)}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
       <h2>{t('data.steps')}</h2>
       <ol className="grid list-decimal gap-2 ps-5">
         {STEPS.map((step) => (
           <li key={step}>{step}</li>
         ))}
       </ol>
-      <h2>Attribution</h2>
-      <p>
-        We acknowledge the use of data and imagery from LANCE FIRMS operated by NASA&apos;s Earth
-        Science Data and Information System (ESDIS) with funding provided by NASA Headquarters.
-      </p>
-      <p>
-        GISTEMP Team, NASA Goddard Institute for Space Studies. NOAA GML Mauna Loa: Lan, Tans and
-        Thoning. NSIDC Sea Ice Index v4 (Fetterer et al.; verify the DOI before citing it). NASA SVS
-        5113. The globe day texture is NASA Blue Marble Next Generation from GIBS. Relief is NOAA
-        ETOPO 2022. Night brightness is an image-derived index, not calibrated radiance.
-      </p>
-      <h2>Sources</h2>
-      <table className="w-full text-sm">
-        <caption>Every source used or kept for this build, with its license.</caption>
+      <h2>{t('data.attributionTitle')}</h2>
+      <p>{t('data.attributionBody')}</p>
+      <p>{t('data.attributionBody2')}</p>
+      <h2>{t('data.sourcesTitle')}</h2>
+      <table className="w-full text-sm" aria-busy={sourcesStatus === 'loading'}>
+        <caption>{t('data.sourcesCaption')}</caption>
         <thead>
           <tr>
-            <th scope="col">Source</th>
-            <th scope="col">Used for</th>
-            <th scope="col">Key</th>
+            <th scope="col">{t('data.colSource')}</th>
+            <th scope="col">{t('data.colUsedFor')}</th>
+            <th scope="col">{t('data.colKey')}</th>
           </tr>
         </thead>
         <tbody>
+          {sourcesStatus === 'loading' ? (
+            <tr>
+              <td colSpan={3}>
+                <p role="status">{t('data.loadingSources')}</p>
+              </td>
+            </tr>
+          ) : null}
+          {sourcesStatus === 'error' ? (
+            <tr>
+              <td colSpan={3}>
+                <p role="alert">{t('data.sourcesError')}</p>
+              </td>
+            </tr>
+          ) : null}
+          {sourcesStatus === 'ready' && sources.length === 0 ? (
+            <tr>
+              <td colSpan={3}>
+                <p role="status">{t('data.sourcesEmpty')}</p>
+              </td>
+            </tr>
+          ) : null}
           {sources.map((source) => (
             <tr key={source.id}>
               <td>
@@ -419,10 +552,7 @@ export function SettingsPage() {
   };
 
   return (
-    <main
-      id="content"
-      className="relative mx-auto max-w-[1320px] px-[clamp(20px,3.4vw,48px)] pt-[clamp(72px,10vw,130px)] pb-24"
-    >
+    <div className="relative mx-auto max-w-[1320px] px-[clamp(20px,3.4vw,48px)] pb-24">
       <div className="relative z-10">
         <h1 className="display">{t('title')}</h1>
         <p className="v5-lead mt-2.5">{t('lead')}</p>
@@ -430,12 +560,11 @@ export function SettingsPage() {
 
       <div className="relative z-10 mt-10 grid gap-8 lg:grid-cols-[220px_minmax(0,1fr)]">
         <nav aria-label={t('title')} className="hidden self-start lg:sticky lg:top-[100px] lg:grid">
-          {GROUPS.map(({ id, label, Icon }, index) => (
+          {GROUPS.map(({ id, label, Icon }) => (
             <a
               key={id}
               href={`#${id}`}
-              aria-current={index === 0 ? 'true' : undefined}
-              className="aria-[current=true]:bg-space-700 text-ink-muted hover:text-ink aria-[current=true]:text-ink flex min-h-11 items-center gap-2.5 rounded-xl px-3.5 transition-colors"
+              className="text-ink-muted hover:text-ink flex min-h-11 items-center gap-2.5 rounded-xl px-3.5 transition-colors"
             >
               <Icon className="size-[18px]" strokeWidth={1.75} aria-hidden="true" />
               <span>{t(label.replace('settings.', ''))}</span>
@@ -483,7 +612,9 @@ export function SettingsPage() {
                   }
                 />
                 <span className="text-ink-subtle w-14 text-end font-mono text-xs">
-                  {settings.masterVolumeDb} dB
+                  <bdi dir="ltr" className="tabular-nums">
+                    {settings.masterVolumeDb} dB
+                  </bdi>
                 </span>
               </span>
             </Row>
@@ -503,7 +634,9 @@ export function SettingsPage() {
                   }
                 />
                 <span className="text-ink-subtle w-14 text-end font-mono text-xs">
-                  {settings.speechRate.toFixed(2)}×
+                  <bdi dir="ltr" className="tabular-nums">
+                    {settings.speechRate.toFixed(2)}×
+                  </bdi>
                 </span>
               </span>
             </Row>
@@ -644,6 +777,6 @@ export function SettingsPage() {
           </section>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

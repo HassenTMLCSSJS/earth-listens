@@ -5,6 +5,8 @@ export type FeedAttempt = { ok: true; body: unknown } | { ok: false; status: num
 export interface FallbackInput {
   demo: boolean;
   live: FeedAttempt | null;
+  /** A previous successful response kept on the device. Always relabelled snapshot. */
+  cached?: FeedAttempt | null;
   remote: FeedAttempt | null;
   bundled: FeedAttempt | null;
   demoEnvelope: FeedEnvelope;
@@ -28,6 +30,10 @@ export function chooseFeed(input: FallbackInput): FeedEnvelope {
   if (input.demo) return { ...input.demoEnvelope, status: 'demo' };
   if (input.live?.ok) {
     const parsed = asEnvelope(input.live.body, false);
+    if (parsed) return parsed;
+  }
+  if (input.cached?.ok) {
+    const parsed = asEnvelope(input.cached.body, true);
     if (parsed) return parsed;
   }
   if (input.remote?.ok) {
@@ -54,12 +60,20 @@ export interface FeedLoader {
 
 export async function loadFeedChain(
   feed: string,
-  options: { demo: boolean; assetBase: string; loader: FeedLoader; demoEnvelope: FeedEnvelope },
+  options: {
+    demo: boolean;
+    assetBase: string;
+    loader: FeedLoader;
+    demoEnvelope: FeedEnvelope;
+    /** Older device-cached response, used before a stale bundled snapshot. */
+    cached?: FeedAttempt | null;
+  },
 ): Promise<FeedEnvelope> {
   if (options.demo)
     return chooseFeed({
       demo: true,
       live: null,
+      cached: null,
       remote: null,
       bundled: null,
       demoEnvelope: options.demoEnvelope,
@@ -81,5 +95,12 @@ export async function loadFeedChain(
       status: 0,
       note: 'no bundled snapshot',
     }));
-  return chooseFeed({ demo: false, live, remote, bundled, demoEnvelope: options.demoEnvelope });
+  return chooseFeed({
+    demo: false,
+    live,
+    cached: options.cached ?? null,
+    remote,
+    bundled,
+    demoEnvelope: options.demoEnvelope,
+  });
 }
