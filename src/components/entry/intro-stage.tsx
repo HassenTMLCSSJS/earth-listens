@@ -74,9 +74,12 @@ export function IntroStage({
         .catch(() => undefined);
     }
     const timer = window.setTimeout(() => {
-      void Promise.race([
-        speakNarration(current.line, lang),
-        new Promise((resolve) => window.setTimeout(resolve, 1500)),
+      void Promise.all([
+        Promise.race([
+          speakNarration(current.line, lang),
+          new Promise((resolve) => window.setTimeout(resolve, 1500)),
+        ]),
+        new Promise((resolve) => window.setTimeout(resolve, 700)),
       ]).then(() => {
         if (dead || pausedRef.current) return;
         if (index >= INTRO_CUES.length - 1) onDoneRef.current();

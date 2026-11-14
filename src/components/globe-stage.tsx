@@ -14,6 +14,7 @@ import { formatNumber } from '@/core/format';
 import { useAppStore } from '@/core/store';
 import { viewForLayer, LAYER_SOUND } from '@/modules/globe';
 import { spatialize } from '@/modules/sonification';
+import { speakNarration, type NarrationId } from '@/modules/narration';
 
 const EarthCanvas = dynamic(
   () =>
@@ -77,6 +78,12 @@ export function GlobeStage() {
     () => webglAvailable(),
     () => false,
   );
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    // Mount the globe only after hydration so the server poster matches the client.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
   const online = useSyncExternalStore(
     (onStoreChange) => {
       window.addEventListener('online', onStoreChange);
@@ -91,6 +98,7 @@ export function GlobeStage() {
   );
   const [failed, setFailed] = useState(false);
   const [engaged, setEngaged] = useState(false);
+  const [globeReady, setGlobeReady] = useState(false);
   const playing = useAppStore((state) => state.playback.status) === 'playing';
   const visual = useAppStore((state) => state.visual);
   const cursor = useAppStore((state) => state.time.cursor);
@@ -152,13 +160,9 @@ export function GlobeStage() {
     };
   }, [forceClassic, webgl]);
 
-  if (mode === 'audio_first') {
-    return (
-      <p className="sr-only" data-testid="globe" data-pan={spatial.pan.toFixed(6)}>
-        {t('summary')}
-      </p>
-    );
-  }
+  useEffect(() => {
+    void speakNarration(`view.${active}` as NarrationId, locale === 'ar' ? 'ar' : 'en');
+  }, [active, locale]);
 
   function onKey(event: KeyboardEvent<HTMLDivElement>) {
     if (event.key === 'ArrowLeft')
@@ -174,11 +178,11 @@ export function GlobeStage() {
     event.preventDefault();
   }
 
-  // Playback opens the shader only while online. An offline demo must not
-  // request the Three.js chunk after the network is gone.
+  // The react-globe.gl instance mounts as soon as WebGL exists. The poster
+  // covers it until the first frame, and stays up when WebGL is missing.
   const showR3f = webgl && !failed && forceR3f && (engaged || (playing && online));
-  const showReact =
-    webgl && !failed && !forceClassic && !forceR3f && online && (engaged || playing);
+  const showReact = mounted && webgl && !failed && !forceClassic && !forceR3f;
+  const posterVisible = !showR3f && (!showReact || !globeReady);
   const label = `${t('globe')}. ${formatNumber(view.lat, lang, { maximumFractionDigits: 1 })}°, ${formatNumber(view.lon, lang, { maximumFractionDigits: 1 })}°`;
 
   return (
@@ -192,6 +196,7 @@ export function GlobeStage() {
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
       tabIndex={0}
       data-pan={spatial.pan.toFixed(6)}
+      data-mode={mode}
       onKeyDown={onKey}
       onPointerEnter={() => setEngaged(true)}
       onFocus={() => setEngaged(true)}
@@ -206,6 +211,7 @@ export function GlobeStage() {
           reducedMotion={motion === 'reduce'}
           framing="stage"
           playing={playing}
+          onReady={() => setGlobeReady(true)}
         />
       ) : showR3f ? (
         <Suspense fallback={<p className="p-6 text-sm">{t('summary')}</p>}>
@@ -232,16 +238,17 @@ export function GlobeStage() {
             motion={motion ?? 'full'}
           />
         </Suspense>
-      ) : (
+      ) : null}
+      {posterVisible ? (
         <img
           src={POSTER}
-          alt={label}
+          alt={showReact ? '' : label}
           width={960}
           height={420}
           fetchPriority="high"
-          className="h-full w-full object-cover"
+          className="pointer-events-none absolute inset-0 z-10 h-full w-full object-cover"
         />
-      )}
+      ) : null}
       {chosen ? (
         <img
           src={chosen.src}
@@ -252,8 +259,8 @@ export function GlobeStage() {
         />
       ) : null}
       <div id="globe-classic" className="absolute inset-0" hidden={!forceClassic} />
-      <p className="bg-space-950/80 absolute inset-x-0 bottom-0 grid gap-1 p-3 text-sm">
-        <span>{t('summary')}</span>
+      <div className="bg-space-950/80 absolute inset-x-0 bottom-0 z-20 grid gap-1 p-3 text-sm">
+        <p className="sr-only">{t('summary')}</p>
         <span data-testid="layer-legend">
           {activeLayer?.config.title[locale === 'ar' ? 'ar' : 'en']} ·{' '}
           {activeLayer?.config.unit[locale === 'ar' ? 'ar' : 'en']}
@@ -270,7 +277,7 @@ export function GlobeStage() {
           </span>
         ) : null}
         <span>{t('standIn')}</span>
-      </p>
+      </div>
     </div>
   );
 }

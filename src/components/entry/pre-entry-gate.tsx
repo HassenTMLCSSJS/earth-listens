@@ -30,7 +30,7 @@ export function PreEntryGate({
   const order: Array<'en' | 'ar'> = preferred === 'ar' ? ['ar', 'en'] : ['en', 'ar'];
 
   return (
-    <section className="fixed inset-0 z-40 grid place-items-center overflow-hidden bg-[#05070d]">
+    <section className="fixed inset-0 z-[80] grid place-items-center overflow-hidden bg-[#05070d]">
       <h1 className="sr-only">Earth Listens</h1>
       <img
         src="/textures/earth-day.jpg"
@@ -65,7 +65,7 @@ export function PreEntryGate({
               data-preferred={highlighted ? 'true' : 'false'}
               className={`min-h-14 min-w-28 rounded-full border bg-[#05070d] px-6 text-xl ${
                 highlighted
-                  ? 'border-[#ffd34d] text-[#ffd34d] ring-4 ring-[#ffd34d]/70 motion-safe:animate-pulse'
+                  ? 'border-[#ffd34d] text-[#ffd34d] ring-4 ring-[#ffd34d]'
                   : 'border-white/30 text-[#e8eefc]'
               }`}
               onClick={() => onLanguage(lang)}

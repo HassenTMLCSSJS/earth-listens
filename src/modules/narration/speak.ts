@@ -45,6 +45,19 @@ export const NARRATION_IDS = [
   'intro.l7_alt',
   'menu.main',
   'menu.reprompt',
+  'view.temperature',
+  'view.wildfire',
+  'view.sea_ice',
+  'view.co2',
+  'view.night_lights',
+  'view.ocean_sst',
+  'view.ocean_currents',
+  'view.aerosols',
+  'view.air_quality',
+  'view.lightning',
+  'view.forest',
+  'view.precipitation',
+  'view.events',
 ] as const;
 
 export type NarrationId = (typeof NARRATION_IDS)[number];
