@@ -45,7 +45,15 @@ const SCENES: Record<number, string[]> = {
 
 const SCENE_DRIVE: Record<
   number,
-  { framing: 'hero' | 'hidden'; lat: number; lon: number; alt: number; ms: number; rotate?: boolean; dim?: number }
+  {
+    framing: 'hero' | 'hidden';
+    lat: number;
+    lon: number;
+    alt: number;
+    ms: number;
+    rotate?: boolean;
+    dim?: number;
+  }
 > = {
   1: { framing: 'hidden', lat: 20, lon: 0, alt: 3.0, ms: 1000 },
   2: { framing: 'hero', lat: 20, lon: 10, alt: 2.4, ms: 6000, rotate: true },
@@ -85,9 +93,7 @@ const CAIRO = [
 const TICKS = [10, 22, 36, 48, 64, 78, 88];
 
 function IntroGlobeFallback() {
-  return (
-    <div data-testid="intro-globe-loading" className="absolute inset-0 bg-space-950" />
-  );
+  return <div data-testid="intro-globe-loading" className="bg-space-950 absolute inset-0" />;
 }
 
 export function IntroStage({
@@ -202,7 +208,8 @@ export function IntroStage({
     setIndex(target);
   };
 
-  const stepName = (n: number) => t(`intro.scene${n}` as `intro.scene${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}`);
+  const stepName = (n: number) =>
+    t(`intro.scene${n}` as `intro.scene${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}`);
 
   const copyForScene = () => {
     if (scene === 1) {
@@ -227,14 +234,19 @@ export function IntroStage({
         <div className="intro-copy">
           <span className="v5-eyebrow">08 · {stepName(8)}</span>
           <p className="display-xl" style={{ fontSize: 'clamp(2.4rem,5.6vw,5.5rem)' }}>
-            <span lang="en" dir="ltr">Earth Listens</span>
+            <span lang="en" dir="ltr">
+              Earth Listens
+            </span>
             <br />
             <span className="em" lang="en" dir="ltr" style={{ fontSize: '.62em' }}>
               Listen to the Earth&apos;s story.
             </span>
           </p>
           {step.id === 'C7' ? (
-            <p className="v5-lead" style={{ fontSize: 'clamp(1.25rem,2vw,1.75rem)', color: 'var(--color-ink)' }}>
+            <p
+              className="v5-lead"
+              style={{ fontSize: 'clamp(1.25rem,2vw,1.75rem)', color: 'var(--color-ink)' }}
+            >
               {t('intro.l7')}
             </p>
           ) : null}
@@ -249,16 +261,33 @@ export function IntroStage({
             {t('intro.l4')}
           </p>
           <div className="legend4">
-            <span><b className="text-gold">↑</b>{t('intro.legendPitch')}</span>
-            <span><b className="text-gold">♩♩♩</b>{t('intro.legendRhythm')}</span>
-            <span><b className="text-gold">L·R</b>{t('intro.legendPan')}</span>
-            <span><b className="text-gold">◢</b>{t('intro.legendLoud')}</span>
+            <span>
+              <b className="text-gold">↑</b>
+              {t('intro.legendPitch')}
+            </span>
+            <span>
+              <b className="text-gold">♩♩♩</b>
+              {t('intro.legendRhythm')}
+            </span>
+            <span>
+              <b className="text-gold">L·R</b>
+              {t('intro.legendPan')}
+            </span>
+            <span>
+              <b className="text-gold">◢</b>
+              {t('intro.legendLoud')}
+            </span>
           </div>
         </div>
       );
     }
     const id = step.id as 'C2' | 'C3' | 'C4';
-    const lines: Record<string, string> = { C2: t('intro.l1'), C3: t('intro.l2'), C4: t('intro.l3'), C5: t('intro.l4') };
+    const lines: Record<string, string> = {
+      C2: t('intro.l1'),
+      C3: t('intro.l2'),
+      C4: t('intro.l3'),
+      C5: t('intro.l4'),
+    };
     if (scene === 5) {
       return (
         <div className="intro-copy" style={{ maxWidth: 'min(520px,40vw)' }}>
@@ -284,7 +313,9 @@ export function IntroStage({
         <span className="v5-eyebrow">
           {String(scene).padStart(2, '0')} · {stepName(scene)}
         </span>
-        <p className="display">{step.id === 'C1' ? t('intro.l1') : step.id === 'C2' ? t('intro.l2') : t('intro.l3')}</p>
+        <p className="display">
+          {step.id === 'C1' ? t('intro.l1') : step.id === 'C2' ? t('intro.l2') : t('intro.l3')}
+        </p>
       </div>
     );
   };
@@ -347,8 +378,16 @@ export function IntroStage({
 
       {scene === 4 ? (
         <>
-          <div className="intro-orbit" aria-hidden="true" style={{ width: '56vmin', height: '56vmin', left: '36%', top: '18%' }} />
-          <div className="intro-orbit" aria-hidden="true" style={{ width: '76vmin', height: '76vmin', left: '24%', top: '6%', opacity: 0.6 }} />
+          <div
+            className="intro-orbit"
+            aria-hidden="true"
+            style={{ width: '56vmin', height: '56vmin', left: '36%', top: '18%' }}
+          />
+          <div
+            className="intro-orbit"
+            aria-hidden="true"
+            style={{ width: '76vmin', height: '76vmin', left: '24%', top: '6%', opacity: 0.6 }}
+          />
           <IntroInstrument id="satellite" playing={!paused} reducedMotion={reduced} />
         </>
       ) : null}
@@ -378,11 +417,7 @@ export function IntroStage({
       ) : null}
 
       {scene === 8 ? (
-        <div
-          className="intro-cairo"
-          aria-hidden="true"
-          style={{ left: '58%', top: '38%' }}
-        >
+        <div className="intro-cairo" aria-hidden="true" style={{ left: '58%', top: '38%' }}>
           Cairo · 30.04, 31.24
         </div>
       ) : null}
@@ -411,7 +446,7 @@ export function IntroStage({
         </span>
         <button
           type="button"
-          className="hidden min-h-11 items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 text-sm font-medium backdrop-blur-md transition-colors hover:bg-space-700 sm:inline-flex"
+          className="hover:bg-space-700 hidden min-h-11 items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 text-sm font-medium backdrop-blur-md transition-colors sm:inline-flex"
           onClick={() => setPaused((value) => !value)}
           aria-pressed={paused}
         >
@@ -419,7 +454,7 @@ export function IntroStage({
         </button>
         <button
           type="button"
-          className="inline-flex min-h-11 items-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 text-sm font-medium backdrop-blur-md transition-colors hover:bg-space-700"
+          className="hover:bg-space-700 inline-flex min-h-11 items-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 text-sm font-medium backdrop-blur-md transition-colors"
           onClick={skipIntro}
         >
           {t('intro.skip')}
