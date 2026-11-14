@@ -53,12 +53,52 @@ test('a failed live feed shows a cached snapshot', async ({ page }) => {
   await expect(page.getByTestId('freshness')).toHaveText('Cached snapshot', { timeout: 15000 });
 });
 
+test('the gate is textless apart from the two languages', async ({ page }) => {
+  await page.goto('/en');
+  const gate = page.getByTestId('pre-entry-gate');
+  await expect(gate.getByRole('button', { name: 'English' })).toHaveAttribute(
+    'data-preferred',
+    'true',
+  );
+  await expect(gate.getByRole('button', { name: 'عربي' })).toBeVisible();
+  await expect(gate.locator('button').filter({ hasText: /^(English|عربي)$/ })).toHaveCount(2);
+  const extraText = await gate.evaluate((element) => {
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    const found: string[] = [];
+    while (walker.nextNode()) {
+      const node = walker.currentNode as Text;
+      const text = node.textContent?.trim();
+      const parent = node.parentElement;
+      if (!text || !parent) continue;
+      if (parent.closest('.sr-only, noscript')) continue;
+      found.push(text);
+    }
+    return found.filter((text) => text !== 'English' && text !== 'عربي');
+  });
+  expect(extraText).toEqual([]);
+
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'languages', { get: () => ['ar-EG', 'ar'] });
+    Object.defineProperty(navigator, 'language', { get: () => 'ar-EG' });
+  });
+  await page.goto('/en');
+  await expect(
+    page.getByTestId('pre-entry-gate').getByRole('button', { name: 'عربي' }),
+  ).toHaveAttribute('data-preferred', 'true');
+});
+
 test('keyboard intro reaches listen', async ({ page }) => {
   await page.goto('/en');
   const begin = page.getByRole('button', { name: 'Begin with sound. Press Space or Enter.' });
   await expect(begin).toBeFocused();
   await page.keyboard.press('Enter');
-  await expect(page.getByTestId('entry-state')).toHaveAttribute('data-state', 'listen1');
+  const prompt = page.getByTestId('listening-prompt');
+  await expect(prompt).toBeVisible();
+  await expect(prompt).toContainText('Hi, welcome to Earth Listens.');
+  // listen1 only starts when the invitation has finished.
+  await expect(page.getByTestId('entry-state')).toHaveAttribute('data-state', 'listen1', {
+    timeout: 15000,
+  });
   await page.keyboard.press('Space');
   await expect(page.getByTestId('intro-stage')).toBeVisible();
   await page.keyboard.press('Escape');
@@ -74,6 +114,30 @@ test('keyboard intro reaches listen', async ({ page }) => {
     }
   });
   if (hasWebgl) await expect(page.getByTestId('react-globe')).toBeVisible();
+});
+
+test('a denied microphone explains itself and keys still travel', async ({ page }) => {
+  await page.goto('/en');
+  await page.keyboard.press('Enter');
+  await expect(page.getByTestId('entry-state')).toHaveAttribute('data-state', 'listen1', {
+    timeout: 15000,
+  });
+  await expect(page.getByTestId('listening-prompt')).toContainText("I can't hear you");
+  await expect(page.getByTestId('voice-orb')).toHaveAttribute('data-orb-state', 'idle');
+  await page.keyboard.press('Space');
+  await expect(page.getByTestId('entry-state')).toHaveAttribute('data-state', 'intro');
+  await expect(page.getByTestId('intro-stage')).toBeVisible();
+});
+
+test('returning visitors see the sting and land on the hub', async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('el.prefs.v1', JSON.stringify({ lang: 'en', mode: 'visual' }));
+    localStorage.setItem('el.introSeen', '1');
+  });
+  await page.goto('/en');
+  await expect(page.getByTestId('returning-sting')).toBeVisible();
+  await expect(page.getByTestId('choice-hub')).toBeVisible({ timeout: 5000 });
+  await expect(page.getByTestId('returning-sting')).toHaveCount(0, { timeout: 5000 });
 });
 
 test('mobile gate reaches listen and symphony', async ({ page }) => {
