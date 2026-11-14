@@ -11,10 +11,11 @@ const routes = [
   '/data',
   '/settings',
   '/symphony',
+  '/about',
 ];
 
 async function command(page: Page, text: string) {
-  const box = page.getByLabel('Command').first();
+  const box = page.locator('#command');
   await box.fill(text);
   await box.press('Enter');
 }
@@ -41,8 +42,8 @@ test('demo listen survives a blocked network', async ({ page, context }) => {
   });
   await page.goto('/en/listen?demo=1');
   await expect(page.getByTestId('freshness')).toHaveText('Demo data');
-  await page.getByLabel('Command').first().fill('play temperature');
-  await page.getByLabel('Command').first().press('Enter');
+  await page.locator('#command').fill('play temperature');
+  await page.locator('#command').press('Enter');
   await expect(page.getByTestId('score-events')).not.toHaveText('0');
 });
 
@@ -93,7 +94,7 @@ test('mobile gate reaches listen and symphony', async ({ page }) => {
   });
   if (hasWebgl) await expect(page.getByTestId('react-globe')).toBeVisible();
   await page.goto('/en/symphony?demo=1');
-  await page.getByRole('button', { name: 'Play the symphony' }).click();
+  await page.getByRole('button', { name: "Play the Earth's story" }).click();
   await expect(page.getByTestId('playback-mode')).toHaveText('symphony');
 });
 
@@ -158,9 +159,41 @@ test('reduced motion disables gsap transforms', async ({ page }) => {
   expect(milliseconds).toBeLessThanOrEqual(300);
 });
 
+test('header and Learn menu navigate without losing the page', async ({ page }) => {
+  await page.goto('/en/settings');
+  const banner = page.getByRole('banner');
+  await expect(banner).toBeVisible();
+  await expect(banner.getByRole('link', { name: 'Explore' })).toBeVisible();
+  await banner.getByRole('button', { name: 'Learn' }).hover();
+  await banner.getByRole('link', { name: 'Quiz' }).click();
+  await expect(page).toHaveURL(/\/en\/quiz$/);
+});
+
+test('mobile menu lists eight destinations and closes on Escape', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/en/settings');
+  await page.getByRole('button', { name: 'Menu' }).click();
+  const sheet = page.getByRole('dialog');
+  await expect(sheet.getByRole('navigation').getByRole('link')).toHaveCount(8);
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog')).toBeHidden();
+});
+
+test('about and 404 speak the right language', async ({ page }) => {
+  await page.goto('/ar/about');
+  await expect(page.getByRole('heading', { name: 'فريق Ctrl+Earth' })).toBeVisible();
+  const response = await page.goto('/en/does-not-exist');
+  expect(response?.status()).toBe(404);
+  await expect(page.getByRole('heading', { name: 'This place is silent.' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Back home' })).toBeVisible();
+});
+
 for (const locale of ['en', 'ar']) {
   for (const route of routes) {
     test(`axe ${locale} ${route}`, async ({ page }) => {
+      // Audit the settled colours: entrance animations fade the whole page in,
+      // so an early scan reads half-opacity text as a contrast failure.
+      await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.goto(`/${locale}${route === '/' ? '' : route}`);
       const results = await new AxeBuilder({ page }).analyze();
       const blocking = results.violations.filter(
@@ -185,8 +218,7 @@ for (const locale of ['en', 'ar']) {
     await page.goto(`/${locale}/listen?demo=1`);
     await page.waitForLoadState('networkidle');
     await context.setOffline(true);
-    const label = locale === 'ar' ? 'أمر' : 'Command';
-    const box = page.getByLabel(label).first();
+    const box = page.locator('#command');
     await box.fill('play temperature');
     await box.press('Enter');
     await expect(page.getByTestId('score-events')).not.toHaveText('0');

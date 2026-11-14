@@ -14,11 +14,11 @@ function normList(values: string[]): string[] {
 export const LAYER_LEXICON: { id: LayerId; phrases: string[] }[] = [
   {
     id: 'forest',
-    phrases: normList(['forest height', 'canopy', 'forest', 'غابة', 'ارتفاع الغابة']),
+    phrases: normList(['forest height', 'canopy', 'forest', 'غابة', 'طول الغابات']),
   },
   {
     id: 'precipitation',
-    phrases: normList(['precipitation', 'rainfall', 'rain', 'مطر', 'أمطار']),
+    phrases: normList(['precipitation', 'rainfall', 'rain', 'مطر', 'شتا']),
   },
   {
     id: 'events',
@@ -38,7 +38,7 @@ export const LAYER_LEXICON: { id: LayerId; phrases: string[] }[] = [
   },
   {
     id: 'air_quality',
-    phrases: normList(['air quality', 'pollution', 'جودة الهواء', 'التلوث']),
+    phrases: normList(['air quality', 'pollution', 'جودة الهوا', 'التلوث']),
   },
   {
     id: 'lightning',
@@ -46,32 +46,32 @@ export const LAYER_LEXICON: { id: LayerId; phrases: string[] }[] = [
   },
   {
     id: 'aerosols',
-    phrases: normList(['aerosols', 'aerosol', 'الهباء', 'الهباء الجوي']),
+    phrases: normList(['aerosols', 'aerosol', 'الغبار', 'الدخان', 'الغبار والدخان']),
   },
   {
     id: 'co2',
     phrases: normList(['carbon dioxide', 'co2', 'carbon', 'ثاني أكسيد الكربون', 'كربون']),
   },
-  { id: 'sea_ice', phrases: normList(['arctic ice', 'sea ice', 'ice', 'جليد', 'ثلج']) },
+  { id: 'sea_ice', phrases: normList(['arctic ice', 'sea ice', 'ice', 'جليد', 'الجليد البحري']) },
   {
     id: 'wildfire',
-    phrases: normList(['wildfires', 'wildfire', 'fires', 'fire', 'حرايق', 'حريق', 'نار']),
+    phrases: normList(['wildfires', 'wildfire', 'fires', 'fire', 'حرايق', 'حريقة', 'نار']),
   },
   {
     id: 'temperature',
-    phrases: normList(['temperature', 'temp', 'heat', 'warming', 'درجة الحرارة', 'حرارة']),
+    phrases: normList(['temperature', 'temp', 'heat', 'warming', 'حرارة', 'الحرارة']),
   },
 ];
 
 export const REGION_LEXICON: { id: RegionId; phrases: string[] }[] = [
   { id: 'arctic', phrases: normList(['arctic', 'القطب الشمالي', 'القطب']) },
-  { id: 'americas', phrases: normList(['americas', 'america', 'أمريكا', 'الامريكتين']) },
+  { id: 'americas', phrases: normList(['americas', 'america', 'أمريكا', 'الأمريكتين']) },
   { id: 'oceania', phrases: normList(['oceania', 'australia', 'أستراليا', 'أوقيانوسيا']) },
   { id: 'africa', phrases: normList(['africa', 'أفريقيا']) },
   { id: 'europe', phrases: normList(['europe', 'أوروبا']) },
   { id: 'egypt', phrases: normList(['egypt', 'مصر']) },
   { id: 'asia', phrases: normList(['asia', 'آسيا']) },
-  { id: 'global', phrases: normList(['world', 'earth', 'globe', 'العالم', 'الأرض']) },
+  { id: 'global', phrases: normList(['world', 'earth', 'globe', 'العالم', 'الأرض', 'الكوكب كله']) },
 ];
 
 export const PLAY_WORDS = normList(['play', 'listen', 'start', 'شغّل', 'اسمع', 'ابدأ']);
@@ -79,12 +79,12 @@ export const STOP_WORDS = normList(['stop', 'quiet', 'وقّف', 'بس', 'اسك
 export const PAUSE_WORDS = normList(['pause', 'استنى', 'استني']);
 export const ADD_WORDS = normList(['add', 'ضيف', 'زود']);
 export const SYMPHONY_WORDS = normList(['everything', 'all', 'symphony', 'السيمفونية', 'كله']);
-export const GO_WORDS = normList(['go to', 'jump to', 'روح', 'اذهب']);
-export const YEAR_WORDS = normList(['سنة', 'عام', 'year']);
+export const GO_WORDS = normList(['go to', 'jump to', 'روح', 'روح لـ']);
+export const YEAR_WORDS = normList(['سنة', 'year']);
 export const EXPLAIN_PHRASES = normList(['what am i hearing', 'explain', 'أنا بسمع إيه', 'اشرح']);
 export const HELP_WORDS = normList(['help', 'مساعدة']);
-export const SKIP_WORDS = normList(['skip', 'تخطّي']);
-export const NEXT_WORDS = normList(['next', 'التالي']);
+export const SKIP_WORDS = normList(['skip', 'عدّي']);
+export const NEXT_WORDS = normList(['next', 'اللي بعده']);
 export const BACK_WORDS = normList(['back', 'رجوع']);
 export const QUIZ_WORDS = normList(['quiz me', 'quiz', 'اختبرني']);
 export const DESCRIBE_WORDS = normList(['describe', 'وصف', 'وصفلي']);
@@ -102,7 +102,7 @@ export const SLOWER_WORDS = normList(['slower', 'أبطأ']);
 export const FASTER_WORDS = normList(['faster', 'أسرع']);
 
 export const NAV_LEXICON: { href: NavHref; phrases: string[] }[] = [
-  { href: '/tutorial', phrases: normList(['tutorial', 'teach me', 'الشرح', 'علّمني', 'الدرس']) },
+  { href: '/tutorial', phrases: normList(['tutorial', 'teach me', 'علّمني', 'الدرس']) },
   {
     href: '/how-it-sounds',
     phrases: normList(['how it sounds', 'how the sounds work', 'الأصوات', 'إزاي بتشتغل']),
@@ -112,7 +112,7 @@ export const NAV_LEXICON: { href: NavHref; phrases: string[] }[] = [
   { href: '/data', phrases: normList(['data page', 'صفحة البيانات']) },
   { href: '/symphony', phrases: normList(['open the symphony', 'سيمفونية الأرض']) },
   { href: '/quiz', phrases: normList(['open the quiz', 'افتح الاختبار']) },
-  { href: '/listen', phrases: normList(['explore', 'استكشف', 'الخريطة']) },
+  { href: '/listen', phrases: normList(['explore', 'استكشف', 'الكرة']) },
   { href: '/', phrases: normList(['go home', 'الحكاية']) },
 ];
 
@@ -139,9 +139,9 @@ export const COMMAND_TABLE: LexiconEntry[] = [
   },
   { id: 'add', en: ['add'], ar: ['ضيف', 'زود'] },
   { id: 'symphony', en: ['everything', 'all', 'symphony'], ar: ['السيمفونية', 'كله'] },
-  { id: 'go', en: ['go to', 'jump to'], ar: ['روح', 'اذهب'] },
+  { id: 'go', en: ['go to', 'jump to'], ar: ['روح', 'روح لـ'] },
   { id: 'compare', en: ['compare X and Y'], ar: ['قارن X و Y'] },
-  { id: 'range', en: ['from X to Y'], ar: ['من X لـ Y', 'من X الى Y', 'من X لحد Y'] },
+  { id: 'range', en: ['from X to Y'], ar: ['من X لـ Y', 'من X لحد Y'] },
   { id: 'slower', en: ['slower'], ar: ['أبطأ'] },
   { id: 'faster', en: ['faster'], ar: ['أسرع'] },
   { id: 'explain', en: ['what am I hearing', 'explain'], ar: ['أنا بسمع إيه', 'اشرح'] },
@@ -152,8 +152,8 @@ export const COMMAND_TABLE: LexiconEntry[] = [
   { id: 'english', en: ['english'], ar: ['انجليزي'] },
   { id: 'arabic', en: ['arabic'], ar: ['عربي'] },
   { id: 'help', en: ['help'], ar: ['مساعدة'] },
-  { id: 'skip', en: ['skip'], ar: ['تخطّي'] },
-  { id: 'next', en: ['next'], ar: ['التالي'] },
+  { id: 'skip', en: ['skip'], ar: ['عدّي'] },
+  { id: 'next', en: ['next'], ar: ['اللي بعده'] },
   { id: 'back', en: ['back'], ar: ['رجوع'] },
   { id: 'increased', en: ['increased'], ar: ['زاد'] },
   { id: 'decreased', en: ['decreased'], ar: ['قل'] },

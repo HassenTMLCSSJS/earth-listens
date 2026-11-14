@@ -55,6 +55,8 @@ export interface AppData {
   settings: Settings;
   introSeen: boolean;
   introNonce: number;
+  /** True once the entry experience reaches the hub, so the chrome can appear. */
+  hub: boolean;
   sample: boolean;
   catalog: Partial<Record<LayerId, LoadedLayer>>;
   lastScore: Score | null;
@@ -62,13 +64,17 @@ export interface AppData {
   visual: { level: number; pulse: number; layerId: LayerId; playheadLon: number };
 }
 
-const DEFAULT_SETTINGS: Settings = {
+export const DEFAULT_SETTINGS: Settings = {
   speechRate: 1,
-  masterVolumeDb: -6,
+  masterVolumeDb: -12,
   highContrast: false,
   reducedMotion: 'system',
   screenReaderMode: false,
   captions: true,
+  earcons: true,
+  haptics: true,
+  spaceToTalk: false,
+  captionSize: 'md',
   textureQuality: 'auto',
 };
 
@@ -89,6 +95,7 @@ export const initialAppData = (): AppData => ({
   settings: DEFAULT_SETTINGS,
   introSeen: false,
   introNonce: 0,
+  hub: false,
   sample: true,
   catalog: {},
   lastScore: null,
@@ -128,7 +135,7 @@ function applySetting(
   value: Settings[keyof Settings],
 ): Settings {
   if (key === 'speechRate' && typeof value === 'number')
-    return { ...settings, speechRate: clamp(value, 0.75, 1.5) };
+    return { ...settings, speechRate: clamp(value, 0.7, 1.4) };
   if (key === 'masterVolumeDb' && typeof value === 'number')
     return { ...settings, masterVolumeDb: clampMasterDb(value) };
   if (key === 'highContrast' && typeof value === 'boolean')
@@ -138,6 +145,12 @@ function applySetting(
   if (key === 'screenReaderMode' && typeof value === 'boolean')
     return { ...settings, screenReaderMode: value };
   if (key === 'captions' && typeof value === 'boolean') return { ...settings, captions: value };
+  if (key === 'earcons' && typeof value === 'boolean') return { ...settings, earcons: value };
+  if (key === 'haptics' && typeof value === 'boolean') return { ...settings, haptics: value };
+  if (key === 'spaceToTalk' && typeof value === 'boolean')
+    return { ...settings, spaceToTalk: value };
+  if (key === 'captionSize' && (value === 'sm' || value === 'md' || value === 'lg'))
+    return { ...settings, captionSize: value };
   if (key === 'textureQuality' && (value === 'auto' || value === '4k' || value === '8k')) {
     return { ...settings, textureQuality: value };
   }
@@ -229,17 +242,17 @@ export function reduceApp(state: AppData, action: Action): AppData {
 
 const LAYER_NAME: Record<LayerId, { en: string; ar: string }> = {
   temperature: { en: 'Temperature', ar: 'الحرارة' },
-  wildfire: { en: 'Wildfire', ar: 'الحرايق' },
-  sea_ice: { en: 'Sea ice', ar: 'الجليد' },
+  wildfire: { en: 'Fire history', ar: 'تاريخ الحرايق' },
+  sea_ice: { en: 'Sea ice', ar: 'الجليد البحري' },
   co2: { en: 'Carbon dioxide', ar: 'ثاني أكسيد الكربون' },
-  night_lights: { en: 'Night lights', ar: 'أضواء الليل' },
-  ocean_sst: { en: 'Ocean temperature', ar: 'حرارة المحيط' },
+  night_lights: { en: 'Night lights', ar: 'أنوار الليل' },
+  ocean_sst: { en: 'Ocean', ar: 'حرارة المحيط' },
   ocean_currents: { en: 'Ocean currents', ar: 'تيارات المحيط' },
-  aerosols: { en: 'Aerosols', ar: 'الهباء الجوي' },
-  air_quality: { en: 'Air quality', ar: 'جودة الهواء' },
+  aerosols: { en: 'Aerosols', ar: 'الغبار والدخان' },
+  air_quality: { en: 'Air quality', ar: 'جودة الهوا' },
   lightning: { en: 'Lightning', ar: 'البرق' },
-  forest: { en: 'Forest height', ar: 'ارتفاع الغابات' },
-  precipitation: { en: 'Precipitation', ar: 'هطول الأمطار' },
+  forest: { en: 'Forest height', ar: 'طول الغابات' },
+  precipitation: { en: 'Rainfall', ar: 'المطر' },
   events: { en: 'Natural events', ar: 'أحداث طبيعية' },
 };
 
@@ -262,7 +275,7 @@ export function summarize(state: AppData): { en: string; ar: string } {
   const active = state.catalog[state.layers[0] ?? 'temperature'];
   const noRegion = active ? !active.data.series[state.region] : false;
   const noteEn = noRegion ? ', no regional series for this layer' : '';
-  const noteAr = noRegion ? '، لا توجد سلسلة لهذه المنطقة في هذه الطبقة' : '';
+  const noteAr = noRegion ? '، مفيش سلسلة للمنطقة دي في الطبقة دي' : '';
   return {
     en: `${namesEn}, ${regionEn}, ${whenEn}${noteEn}`,
     ar: `${namesAr}، ${regionAr}، ${whenAr}${noteAr}`,
@@ -365,6 +378,7 @@ interface AppStore extends AppData {
   setCatalog: (catalog: Partial<Record<LayerId, LoadedLayer>>) => void;
   setDemo: (demo: boolean, debug: boolean) => void;
   markIntroSeen: (seen: boolean) => void;
+  setHub: (hub: boolean) => void;
   setTutorialIndex: (index: number) => void;
   closeQuiz: () => void;
   setVisual: (visual: AppData['visual']) => void;
@@ -391,7 +405,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
         ar: 'قول شغّل الحرارة، أو وقّف، أو مساعدة.',
       });
     } else if (parsed.type === 'stop') {
-      announce({ en: 'Stopped.', ar: 'وقف.' });
+      announce({ en: 'Stopped.', ar: 'وقّفت.' });
     } else {
       announce(summarize(scored));
     }
@@ -412,6 +426,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
     set({ introSeen: seen, introNonce: seen ? get().introNonce : get().introNonce + 1 });
     if (typeof window !== 'undefined') localStorage.setItem('el.introSeen', seen ? '1' : '0');
   },
+  setHub: (hub) => set({ hub }),
   setTutorialIndex: (index) => set({ tutorial: { index, stepId: null } }),
   closeQuiz: () => set({ quiz: null }),
   setVisual: (visual) => set({ visual }),

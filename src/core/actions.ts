@@ -51,6 +51,7 @@ export const NAV_HREFS = [
   '/guide',
   '/data',
   '/settings',
+  '/about',
 ] as const;
 
 export type LayerId = (typeof LAYER_IDS)[number];
@@ -64,6 +65,10 @@ export type QuizAnswer = (typeof QUIZ_ANSWERS)[number];
 export type Origin = (typeof ORIGINS)[number];
 export type NavHref = (typeof NAV_HREFS)[number];
 
+export const CAPTION_SIZES = ['sm', 'md', 'lg'] as const;
+
+export type CaptionSize = (typeof CAPTION_SIZES)[number];
+
 export interface Settings {
   speechRate: number;
   masterVolumeDb: number;
@@ -71,6 +76,10 @@ export interface Settings {
   reducedMotion: 'system' | 'on' | 'off';
   screenReaderMode: boolean;
   captions: boolean;
+  captionSize: CaptionSize;
+  earcons: boolean;
+  haptics: boolean;
+  spaceToTalk: boolean;
   textureQuality: TextureQuality;
 }
 
@@ -152,12 +161,17 @@ export const ActionSchema = z.discriminatedUnion('type', [
       'reducedMotion',
       'screenReaderMode',
       'captions',
+      'captionSize',
+      'earcons',
+      'haptics',
+      'spaceToTalk',
       'textureQuality',
     ]),
     value: z.union([
       z.number(),
       z.boolean(),
       z.enum(['system', 'on', 'off']),
+      z.enum(CAPTION_SIZES),
       z.enum(TEXTURE_QUALITIES),
     ]),
   }),
@@ -202,6 +216,11 @@ export function parseAction(input: unknown): Action | null {
         (data.value === 'system' || data.value === 'on' || data.value === 'off')) ||
       (data.key === 'screenReaderMode' && typeof data.value === 'boolean') ||
       (data.key === 'captions' && typeof data.value === 'boolean') ||
+      (data.key === 'captionSize' &&
+        (data.value === 'sm' || data.value === 'md' || data.value === 'lg')) ||
+      (data.key === 'earcons' && typeof data.value === 'boolean') ||
+      (data.key === 'haptics' && typeof data.value === 'boolean') ||
+      (data.key === 'spaceToTalk' && typeof data.value === 'boolean') ||
       (data.key === 'textureQuality' &&
         (data.value === 'auto' || data.value === '4k' || data.value === '8k'));
     if (!ok) return null;

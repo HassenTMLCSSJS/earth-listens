@@ -13,7 +13,10 @@
   "cameras": [
     {
       "id": "overview",
-      "label": { "en": "Overview", "ar": "نظرة عامة" },
+      "label": {
+        "en": "Overview",
+        "ar": "نظرة من بعيد"
+      },
       "lat": 10,
       "lon": 20,
       "alt": 2.2

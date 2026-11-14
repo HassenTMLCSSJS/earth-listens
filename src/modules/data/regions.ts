@@ -6,7 +6,7 @@ export const REGIONS: Region[] = [
     id: 'global',
     bbox: [-180, -90, 180, 90],
     centre: [0, 0],
-    label: { en: 'Global', ar: 'العالم' },
+    label: { en: 'Global', ar: 'الكوكب كله' },
   },
   {
     id: 'egypt',
@@ -37,7 +37,7 @@ export const REGIONS: Region[] = [
     id: 'americas',
     bbox: [-170, -56, -30, 72],
     centre: [10, -80],
-    label: { en: 'Americas', ar: 'الأمريكتان' },
+    label: { en: 'Americas', ar: 'الأمريكتين' },
   },
   {
     id: 'oceania',

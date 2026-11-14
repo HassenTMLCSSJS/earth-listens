@@ -3,11 +3,11 @@
   "sample": true,
   "title": {
     "en": "Aerosols",
-    "ar": "الهباء الجوي"
+    "ar": "الغبار والدخان"
   },
   "unit": {
     "en": "AOD",
-    "ar": "AOD"
+    "ar": "كثافة الغبار في الجو (AOD)"
   },
   "source": {
     "name": "SAMPLE Aerosols",
@@ -174,6 +174,6 @@
   "events": [],
   "description": {
     "en": "SAMPLE Aerosols. Not a measurement. The globe may still show a real NASA texture beside this series.",
-    "ar": "بيانات تجريبية لـ الهباء الجوي. ليست قياسًا."
+    "ar": "بيانات تجريبية للغبار والدخان. مش قياس. الكرة ممكن تفضل تعرض صورة حقيقية من ناسا جنب السلسلة دي."
   }
 }

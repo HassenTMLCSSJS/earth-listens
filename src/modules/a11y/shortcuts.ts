@@ -6,15 +6,15 @@ export interface Shortcut {
 }
 
 export const SHORTCUTS: Shortcut[] = [
-  { keys: 'Alt+Shift+T', id: 'talk', en: 'Talk', ar: 'تكلم' },
-  { keys: 'Alt+Shift+S', id: 'stop', en: 'Stop audio', ar: 'وقف الصوت' },
+  { keys: 'Alt+Shift+T', id: 'talk', en: 'Talk', ar: 'اتكلم' },
+  { keys: 'Alt+Shift+S', id: 'stop', en: 'Stop audio', ar: 'وقّف الصوت' },
   { keys: '?', id: 'help', en: 'Help', ar: 'مساعدة' },
-  { keys: '/', id: 'command', en: 'Focus the command box', ar: 'ركّز على صندوق الأوامر' },
+  { keys: '/', id: 'command', en: 'Focus the command box', ar: 'روّح على صندوق الأوامر' },
   {
     keys: 'Escape',
     id: 'escape',
     en: 'Skip the intro or close a dialog',
-    ar: 'تخطّ المقدمة أو اقفل النافذة',
+    ar: 'عدّي المقدمة أو اقفل النافذة',
   },
   {
     keys: '1 / 2 / 3',
@@ -26,13 +26,13 @@ export const SHORTCUTS: Shortcut[] = [
     keys: 'PageDown / PageUp',
     id: 'chapters',
     en: 'Next or previous story chapter',
-    ar: 'الفصل التالي أو السابق',
+    ar: 'الفصل اللي بعده أو اللي قبله',
   },
   {
     keys: 'Arrow keys',
     id: 'globe',
     en: 'Rotate the globe when it is focused',
-    ar: 'لف الكرة وهي مركّزة',
+    ar: 'لف الكرة لما تكون مختارة',
   },
   { keys: 'Home', id: 'home', en: 'Reset the globe view', ar: 'ارجع لمكان الكرة الأصلي' },
 ];

@@ -25,7 +25,7 @@ export function Banner({
       ) : null}
       {demo ? (
         <span
-          className="bg-warm text-space-950 rounded-full px-2 py-1 text-xs font-semibold"
+          className="text-space-950 rounded-full bg-[var(--color-layer-temperature)] px-2 py-1 text-xs font-semibold"
           lang="en"
         >
           {DEMO_BADGE}

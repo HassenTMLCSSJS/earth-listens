@@ -3,11 +3,11 @@
   "sample": false,
   "title": {
     "en": "Sea ice",
-    "ar": "الجليد"
+    "ar": "الجليد البحري"
   },
   "unit": {
     "en": "million km²",
-    "ar": "million km²"
+    "ar": "مليون كم² (سبتمبر)"
   },
   "source": [
     {
@@ -244,7 +244,7 @@
       },
       {
         "t": 2020,
-        "v": 4.0,
+        "v": 4,
         "q": "ok"
       },
       {
@@ -449,6 +449,6 @@
   "events": [],
   "description": {
     "en": "NSIDC Sea Ice Index September extent, Arctic only. Concentration maps are AMSR2 via GIBS for March and September, 2012–2025. There is no concentration map before July 2012.",
-    "ar": "امتداد جليد سبتمبر من NSIDC للقطب فقط. خرائط التركيز من AMSR2 عبر GIBS لشهري مارس وسبتمبر 2012–2025. لا توجد خريطة تركيز قبل يوليو 2012."
+    "ar": "امتداد جليد سبتمبر من NSIDC للقطب الشمالي بس. خرايط التركيز من AMSR2 عبر GIBS لشهر مارس وسبتمبر، 2012–2025. مفيش خريطة تركيز قبل يوليو 2012."
   }
 }

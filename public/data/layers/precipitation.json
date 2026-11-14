@@ -3,11 +3,11 @@
   "sample": false,
   "title": {
     "en": "Precipitation",
-    "ar": "هطول الأمطار"
+    "ar": "المطر"
   },
   "unit": {
     "en": "precipitation rate, mm/day",
-    "ar": "معدل الهطول، مم/يوم"
+    "ar": "مم في اليوم"
   },
   "source": {
     "name": "NASA GPM IMERG precipitation rate, daily, via GIBS",
@@ -1877,6 +1877,6 @@
   "events": [],
   "description": {
     "en": "IMERG daily precipitation rate from GIBS. 2024 contributes the 15th of each month, which is one day, not a monthly mean. A further 30 days end on 2026-11-12. Zero rain is silence.",
-    "ar": "معدل الهطول اليومي من IMERG عبر GIBS. 2024 فيها يوم 15 من كل شهر، وهو يوم واحد وليس متوسط الشهر. ثم 30 يومًا تنتهي في 2026-11-12. المطر الصفري صمت."
+    "ar": "معدل مطر يومي من IMERG عبر GIBS. 2024 بتساهم بيوم 15 من كل شهر، وده يوم واحد مش متوسط الشهر. وكمان 30 يوم بينتهوا في 2026-11-12. المطر الصفر يعني سكوت."
   }
 }

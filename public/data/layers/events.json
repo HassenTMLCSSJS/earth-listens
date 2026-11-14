@@ -7,7 +7,7 @@
   },
   "unit": {
     "en": "open events",
-    "ar": "أحداث مفتوحة"
+    "ar": "حدث مفتوح"
   },
   "source": {
     "name": "NASA EONET v3 open events",
@@ -39,7 +39,7 @@
   "events": [],
   "description": {
     "en": "NASA EONET open events for the 30 days before 2026-11-13: 41 events with coordinates. This is not a yearly history. Earcons fire as the playhead passes each longitude.",
-    "ar": "أحداث EONET المفتوحة خلال 30 يومًا قبل 2026-11-13: 41 حدثًا بإحداثيات. هذه ليست سلسلة سنوية. الإشارات تُسمع حين يمر المؤشر على خط طول الحدث."
+    "ar": "أحداث EONET المفتوحة في الـ30 يوم اللي قبل 2026-11-13: 41 حدث بإحداثيات. دي مش سلسلة سنوية. الإشارات بتتسمع لما المؤشر يعدّي على خط طول الحدث."
   },
   "markers": [
     {

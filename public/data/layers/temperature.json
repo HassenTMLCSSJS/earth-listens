@@ -7,7 +7,7 @@
   },
   "unit": {
     "en": "°C anomaly vs 1951–1980",
-    "ar": "°C anomaly vs 1951–1980"
+    "ar": "°م فوق متوسط ١٩٥١–١٩٨٠"
   },
   "source": [
     {
@@ -329,7 +329,7 @@
       },
       {
         "t": 1938,
-        "v": 0.0,
+        "v": 0,
         "q": "ok"
       },
       {
@@ -1053,6 +1053,6 @@
   "events": [],
   "description": {
     "en": "GISTEMP v4 annual global mean anomaly versus 1951–1980. No regional series. Globe maps are MERRA-2 July 2 m air temperature, 1980–2025, decoded from GIBS. There is no map before 1980. A July field is not the annual mean.",
-    "ar": "شذوذ GISTEMP v4 السنوي مقارنة بـ 1951–1980. لا توجد سلسلة إقليمية. خرائط الكرة هي حرارة الهواء على مترين من MERRA-2 لشهر يوليو 1980–2025 من GIBS. لا توجد خريطة قبل 1980. حقل يوليو ليس المتوسط السنوي."
+    "ar": "شذوذ GISTEMP v4 السنوي العالمي مقارنة بـ1951–1980. مفيش سلسلة إقليمية. خرايط الكرة هي حرارة الهوا على مترين من MERRA-2 لشهر يوليو 1980–2025، متحوّلة من GIBS. مفيش خريطة قبل 1980. حقل يوليو مش المتوسط السنوي."
   }
 }

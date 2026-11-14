@@ -1,4 +1,11 @@
-import { IBM_Plex_Sans_Arabic, Inter, Space_Grotesk } from 'next/font/google';
+import {
+  Alexandria,
+  IBM_Plex_Mono,
+  IBM_Plex_Sans_Arabic,
+  Instrument_Serif,
+  Inter,
+  Space_Grotesk,
+} from 'next/font/google';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -7,24 +14,46 @@ import { routing } from '@/i18n/routing';
 import { Shell } from '@/components/shell';
 import '@/styles/globals.css';
 
-const display = Space_Grotesk({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  variable: '--font-display',
-  weight: '500',
+  weight: ['400', '500', '600'],
+  variable: '--font-space-grotesk',
   display: 'swap',
   preload: false,
 });
-const sans = Inter({
+const instrumentSerif = Instrument_Serif({
   subsets: ['latin'],
-  variable: '--font-sans',
   weight: '400',
+  style: ['italic', 'normal'],
+  variable: '--font-instrument-serif',
   display: 'swap',
   preload: false,
 });
-const arabic = IBM_Plex_Sans_Arabic({
-  subsets: ['arabic'],
-  variable: '--font-arabic',
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-inter',
+  display: 'swap',
+  preload: false,
+});
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
   weight: ['400', '500'],
+  variable: '--font-plex-mono',
+  display: 'swap',
+  preload: false,
+});
+const alexandria = Alexandria({
+  subsets: ['arabic', 'latin'],
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-alexandria',
+  display: 'swap',
+  preload: false,
+});
+const plexArabic = IBM_Plex_Sans_Arabic({
+  subsets: ['arabic'],
+  weight: ['400', '500', '600'],
+  variable: '--font-plex-arabic',
   display: 'swap',
   preload: false,
 });
@@ -51,16 +80,16 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
   const messages = await getMessages();
   const dir = locale === 'ar' ? 'rtl' : 'ltr';
+  const fonts = [
+    spaceGrotesk.variable,
+    instrumentSerif.variable,
+    inter.variable,
+    plexMono.variable,
+    alexandria.variable,
+    plexArabic.variable,
+  ].join(' ');
   return (
-    <html
-      lang={locale}
-      dir={dir}
-      className={
-        locale === 'ar'
-          ? `${arabic.variable} ${display.variable}`
-          : `${display.variable} ${sans.variable}`
-      }
-    >
+    <html lang={locale} dir={dir} className={fonts}>
       <body>
         <NextIntlClientProvider messages={messages}>
           <Shell locale={locale}>{children}</Shell>

@@ -7,7 +7,7 @@
   },
   "unit": {
     "en": "°C anomaly vs 1951–1980",
-    "ar": "°C anomaly vs 1951–1980"
+    "ar": "°م فوق متوسط ١٩٥١–١٩٨٠"
   },
   "source": {
     "name": "SAMPLE — shaped like GISTEMP v4",
@@ -6010,12 +6010,12 @@
       "t": 2024,
       "label": {
         "en": "SAMPLE out-of-range year",
-        "ar": "سنة تجريبية خارج المدى"
+        "ar": "سنة تجريبية برّه المدى"
       }
     }
   ],
   "description": {
     "en": "SAMPLE temperature anomaly. Not a NASA measurement.",
-    "ar": "عينة تجريبية لشذوذ الحرارة. ليست قياسًا من ناسا."
+    "ar": "عينة تجريبية لشذوذ الحرارة. مش قياس من ناسا."
   }
 }

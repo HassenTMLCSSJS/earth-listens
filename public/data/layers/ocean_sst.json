@@ -3,11 +3,11 @@
   "sample": false,
   "title": {
     "en": "Sea surface temperature",
-    "ar": "حرارة سطح البحر"
+    "ar": "حرارة المحيط"
   },
   "unit": {
     "en": "°C",
-    "ar": "°C"
+    "ar": "°م على سطح البحر"
   },
   "source": {
     "name": "GHRSST MUR L4 sea surface temperature, via GIBS",
@@ -1614,6 +1614,6 @@
   "events": [],
   "description": {
     "en": "MUR sea-surface temperature decoded from GIBS. The series is the field mean of each downloaded day (15 August 2003–2025, and the other mid-month days of 2024). It is not an annual mean.",
-    "ar": "حرارة سطح البحر من MUR عبر GIBS. السلسلة متوسط كل يوم محمّل (15 أغسطس 2003–2025، وأيام منتصف الشهور الأخرى في 2024). ليست متوسطًا سنويًا."
+    "ar": "حرارة سطح البحر من MUR متحوّلة من GIBS. السلسلة هي متوسط المجال لكل يوم محمّل (15 أغسطس 2003–2025، وباقي أيام نص الشهر في 2024). دي مش متوسط سنوي."
   }
 }

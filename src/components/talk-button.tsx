@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { Mic } from 'lucide-react';
 import { useAppStore } from '@/core/store';
 import { parseIntent } from '@/modules/agent';
 import { announce } from '@/modules/narration';
 import { unlockAudio } from '@/modules/sonification';
-import { IconButton } from '@/components/ui/icon-button';
 
 export function TalkButton() {
   const t = useTranslations();
@@ -72,8 +72,19 @@ export function TalkButton() {
   }
 
   return (
-    <IconButton aria-label={t('header.talk')} aria-pressed={busy} onClick={() => void talk()}>
-      {t('header.talk')}
-    </IconButton>
+    <button
+      type="button"
+      aria-label={t('header.talk')}
+      aria-pressed={busy}
+      title={t('header.talk')}
+      onClick={() => void talk()}
+      className="group text-on-gold relative size-12 shrink-0 rounded-full shadow-[0_0_0_1px_rgb(255_217_138/.5),0_0_32px_rgb(242_196_109/.35)] transition-transform duration-200 outline-none [background:radial-gradient(circle_at_35%_30%,#fff3d1,#ffd98a_30%,#f2a93b_62%,#7a4a10_100%)] hover:scale-105 focus-visible:scale-105 active:scale-95 aria-pressed:animate-pulse"
+    >
+      <Mic
+        className="pointer-events-none absolute start-1/2 top-1/2 -ms-2.5 -mt-2.5 size-5"
+        strokeWidth={1.75}
+        aria-hidden="true"
+      />
+    </button>
   );
 }

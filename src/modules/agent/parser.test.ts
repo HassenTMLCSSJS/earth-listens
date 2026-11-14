@@ -38,7 +38,7 @@ describe('parseIntent', () => {
     ['وضع الصوت', [{ type: 'set_mode', mode: 'audio_first' }]],
     ['كلمني بالعربي', [{ type: 'set_language', lang: 'ar' }]],
     ['help', [{ type: 'help' }]],
-    ['تخطّي', [{ type: 'skip' }]],
+    ['عدّي', [{ type: 'skip' }]],
     ['pause', [{ type: 'pause' }]],
     ['explore', [{ type: 'navigate', href: '/listen' }]],
     ['استكشف', [{ type: 'navigate', href: '/listen' }]],
