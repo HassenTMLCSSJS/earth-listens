@@ -134,7 +134,7 @@ export function Jukebox({ embedded = false }: { embedded?: boolean }) {
                 <ToggleGroup.Item
                   key={id}
                   value={id}
-                  className="data-[state=on]:bg-accent data-[state=on]:text-space-950 min-h-11 rounded-full border border-white/20 px-4"
+                  className="data-[state=on]:bg-data data-[state=on]:text-space-950 min-h-11 rounded-full border border-white/20 px-4"
                 >
                   {t(`layers.${id}`)}
                 </ToggleGroup.Item>
@@ -190,7 +190,7 @@ export function Jukebox({ embedded = false }: { embedded?: boolean }) {
               }}
             >
               <Slider.Track className="relative h-2 grow rounded-full bg-white/15">
-                <Slider.Range className="bg-accent absolute h-full rounded-full" />
+                <Slider.Range className="bg-data absolute h-full rounded-full" />
               </Slider.Track>
               <Slider.Thumb
                 aria-label={t('listen.when')}
@@ -200,7 +200,7 @@ export function Jukebox({ embedded = false }: { embedded?: boolean }) {
               <Slider.Thumb
                 aria-label={t('listen.when')}
                 aria-describedby="when-value"
-                className="bg-warm block h-6 w-6 rounded-full"
+                className="block h-6 w-6 rounded-full bg-[var(--color-layer-temperature)]"
               />
             </Slider.Root>
             <label className="mt-4 block">
@@ -219,7 +219,7 @@ export function Jukebox({ embedded = false }: { embedded?: boolean }) {
                 }}
               >
                 <Slider.Track className="relative h-2 grow rounded-full bg-white/15">
-                  <Slider.Range className="bg-warm absolute h-full rounded-full" />
+                  <Slider.Range className="absolute h-full rounded-full bg-[var(--color-layer-temperature)]" />
                 </Slider.Track>
                 <Slider.Thumb
                   aria-label={t('listen.year')}

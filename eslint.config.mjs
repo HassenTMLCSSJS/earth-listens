@@ -17,6 +17,7 @@ export default defineConfig([
     'node_modules/**',
     'pipeline/**',
     'public/**',
+    'src/components/react-bits/**',
     'next-env.d.ts',
     'playwright-report/**',
     'test-results/**',

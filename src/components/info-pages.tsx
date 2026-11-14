@@ -8,7 +8,7 @@ import { COMMAND_TABLE } from '@/modules/agent';
 import { SHORTCUTS } from '@/modules/a11y';
 import { LAYER_SOUND } from '@/modules/globe';
 import { EARCONS, getPlayer, unlockAudio } from '@/modules/sonification';
-import { SettingSwitch } from '@/components/ui/switch';
+import { SettingSwitch } from '@/components/setting-switch';
 import { Button } from '@/components/ui/button';
 
 const STEPS = [
