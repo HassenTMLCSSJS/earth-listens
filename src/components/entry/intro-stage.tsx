@@ -17,11 +17,16 @@ const EarthGlobe = dynamic(
   { ssr: false, loading: () => <IntroGlobeFallback /> },
 );
 
+const IntroInstrument = dynamic(
+  () => import('@/components/entry/intro-instrument').then((module) => module.IntroInstrument),
+  { ssr: false },
+);
+
 const SCENES: Record<number, string[]> = {
   1: ['headphones', 'focus_ring'],
   2: ['sada', 'focus_ring'],
   3: ['note_field'],
-  4: ['satellite'],
+  4: [],
   5: [
     'inst_oud',
     'inst_kamanja',
@@ -178,6 +183,13 @@ export function IntroStage({
       />
 
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_60%,transparent_35%,rgb(5_7_13/.82)_92%)]" />
+
+      {scene === 4 ? (
+        <IntroInstrument id="satellite" playing={!paused} reducedMotion={reduced} />
+      ) : null}
+      {scene === 6 ? (
+        <IntroInstrument id="inst_guitar" playing={!paused} reducedMotion={reduced} />
+      ) : null}
 
       <AnimatePresence mode="sync">
         <motion.div
