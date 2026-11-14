@@ -315,3 +315,255 @@ html[data-motion='full'] .chapter {
     transform: none;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   v5 chrome surfaces: stars, nebula, threads, layer patterns, chrome motion
+   --------------------------------------------------------------------------- */
+
+.stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.8;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, #fff8 50%, transparent 51%),
+    radial-gradient(1px 1px at 72% 12%, #fff6 50%, transparent 51%),
+    radial-gradient(1.4px 1.4px at 38% 72%, #fff7 50%, transparent 51%),
+    radial-gradient(1px 1px at 88% 64%, #fff5 50%, transparent 51%),
+    radial-gradient(1px 1px at 22% 88%, #fff5 50%, transparent 51%),
+    radial-gradient(1px 1px at 56% 34%, #fff4 50%, transparent 51%),
+    radial-gradient(1.2px 1.2px at 94% 30%, #fff6 50%, transparent 51%),
+    radial-gradient(1px 1px at 6% 52%, #fff5 50%, transparent 51%);
+  background-size: 420px 420px;
+}
+
+.nebula {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 35% at 70% 30%, rgb(90 209 255 / 0.1), transparent 70%),
+    radial-gradient(35% 30% at 20% 80%, rgb(180 140 255 / 0.08), transparent 70%),
+    radial-gradient(30% 25% at 85% 85%, rgb(242 196 109 / 0.07), transparent 70%);
+}
+
+.threads-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background: repeating-radial-gradient(
+    ellipse 120% 60% at 0% 120%,
+    transparent 0 22px,
+    rgb(242 196 109 / 0.07) 22px 23px
+  );
+}
+
+/* Colour plus pattern: every layer stays readable with no colour vision. */
+.pat {
+  background-color: transparent;
+}
+
+.pat-temperature {
+  background: repeating-linear-gradient(45deg, var(--c) 0 3px, transparent 3px 6px);
+}
+.pat-sea_ice {
+  background: repeating-linear-gradient(0deg, var(--c) 0 2px, transparent 2px 5px);
+}
+.pat-forest {
+  background: repeating-linear-gradient(90deg, var(--c) 0 2px, transparent 2px 5px);
+}
+.pat-precipitation {
+  background: repeating-linear-gradient(100deg, var(--c) 0 1.5px, transparent 1.5px 5px);
+}
+.pat-co2 {
+  background:
+    repeating-linear-gradient(45deg, var(--c) 0 1.5px, transparent 1.5px 5px),
+    repeating-linear-gradient(-45deg, var(--c) 0 1.5px, transparent 1.5px 5px);
+}
+.pat-aerosols {
+  background: radial-gradient(var(--c) 1px, transparent 1.2px) 0 0 / 4px 4px;
+}
+.pat-lightning {
+  background: linear-gradient(135deg, transparent 40%, var(--c) 40% 55%, transparent 55%);
+}
+.pat-events {
+  background: conic-gradient(from 150deg at 50% 30%, var(--c) 0 60deg, transparent 60deg);
+}
+.pat-air_quality {
+  background: radial-gradient(circle, transparent 2px, var(--c) 2.5px 3.5px, transparent 4px);
+}
+.pat-wildfire {
+  background: radial-gradient(var(--c) 1.4px, transparent 1.6px) 0 0 / 5px 5px;
+}
+.pat-ocean_sst {
+  background: repeating-linear-gradient(-30deg, var(--c) 0 2px, transparent 2px 6px);
+}
+.pat-ocean_currents {
+  background: repeating-linear-gradient(20deg, var(--c) 0 1.5px, transparent 1.5px 6px);
+}
+.pat-night_lights {
+  background: radial-gradient(circle, var(--c) 1px, transparent 1.4px) 0 0 / 6px 6px;
+}
+
+/* Header "now playing" bars. */
+.now-bars {
+  display: inline-flex;
+  height: 14px;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.now-bars i {
+  display: block;
+  width: 3px;
+  border-radius: 2px;
+  background: currentColor;
+  transform-origin: bottom;
+  animation: bar 900ms ease-in-out infinite;
+}
+
+.now-bars i:nth-child(1) {
+  height: 40%;
+}
+.now-bars i:nth-child(2) {
+  height: 100%;
+  animation-delay: -300ms;
+}
+.now-bars i:nth-child(3) {
+  height: 65%;
+  animation-delay: -600ms;
+}
+.now-bars i:nth-child(4) {
+  height: 85%;
+  animation-delay: -150ms;
+}
+
+@keyframes bar {
+  50% {
+    transform: scaleY(0.35);
+  }
+}
+
+/* Type scale helpers shared by About, Settings and Guide. */
+.display-xl {
+  font-family: var(--font-display);
+  font-size: var(--text-display-xl);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+html[lang='ar'] .display-xl {
+  font-family: var(--font-ar-display);
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.v5-h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+html[lang='ar'] .v5-h2 {
+  font-family: var(--font-ar-display);
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.v5-h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+html[lang='ar'] .v5-h3 {
+  font-family: var(--font-ar-display);
+  line-height: 1.4;
+}
+
+.v5-lead {
+  max-width: 56ch;
+  font-size: var(--text-body-lg);
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+}
+
+.v5-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.v5-eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+html[lang='ar'] .v5-eyebrow {
+  font-family: var(--font-ar);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.v5-card {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  background: var(--color-space-800);
+  box-shadow: var(--shadow-hairline);
+}
+
+html[data-motion='full'] .route-fade {
+  animation: rise 480ms var(--ease-cinematic) both;
+}
+
+html[data-motion='full'] .site-header {
+  animation: header-in 520ms var(--ease-cinematic) both;
+}
+
+html[data-motion='full'] .bloom > * {
+  animation: bloom 400ms var(--ease-cinematic) both;
+}
+html[data-motion='full'] .bloom > *:nth-child(2) {
+  animation-delay: 60ms;
+}
+html[data-motion='full'] .bloom > *:nth-child(3) {
+  animation-delay: 120ms;
+}
+html[data-motion='full'] .bloom > *:nth-child(4) {
+  animation-delay: 180ms;
+}
+html[data-motion='full'] .bloom > *:nth-child(5) {
+  animation-delay: 240ms;
+}
+
+@keyframes header-in {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .now-bars i {
+    animation: none;
+  }
+}

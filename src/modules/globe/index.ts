@@ -10,3 +10,5 @@ export { createGlobeController, getGlobeController, registerGlobeController } fr
 export type { GlobeController, GlobeFraming, GlobeHandle } from './controller';
 export { LAYER_COLOR, LAYER_SOUND, viewForLayer } from './views';
 export type { GlobePoint, GlobeArc, GlobeView, ViewInput } from './views';
+export { GUIDE_LAYERS, LAYER_SOURCE } from './sources';
+export type { GuideLayer } from './sources';

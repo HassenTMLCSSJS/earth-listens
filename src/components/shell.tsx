@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
-import { Link, usePathname, useRouter } from '@/i18n/navigation';
+import { usePathname, useRouter } from '@/i18n/navigation';
 import { isDemoFlag } from '@/core/demo';
 import { useAppStore } from '@/core/store';
 import { useContent } from '@/core/catalog';
@@ -12,14 +12,17 @@ import { announce } from '@/modules/narration';
 import { getPlayer, unlockAudio } from '@/modules/sonification';
 import { Banner } from '@/components/ui/banner';
 import { CaptionStrip } from '@/components/ui/caption-strip';
-import { IconButton } from '@/components/ui/icon-button';
 import { KeyHint } from '@/components/ui/key-hint';
 import { LiveRegion } from '@/components/ui/live-region';
 import { CommandBox } from '@/components/command-box';
 import { PlaybackBridge } from '@/components/playback-bridge';
 import { QuizPanel } from '@/components/quiz-panel';
 import { TalkButton } from '@/components/talk-button';
-import * as Dialog from '@radix-ui/react-dialog';
+import { Toaster } from '@/components/ui/sonner';
+import { SpaceBackdrop } from '@/components/backgrounds/space-backdrop';
+import { SiteHeader } from '@/components/site-header/site-header';
+import { SiteFooter } from '@/components/site-footer';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 
 function warmTone(): Promise<void> {
   return new Promise((resolve) => {
@@ -39,24 +42,11 @@ function warmTone(): Promise<void> {
   });
 }
 
-const LINKS = [
-  ['/', 'nav.home'],
-  ['/listen', 'nav.listen'],
-  ['/quiz', 'nav.quiz'],
-  ['/tutorial', 'nav.tutorial'],
-  ['/how-it-sounds', 'nav.sounds'],
-  ['/symphony', 'nav.symphony'],
-  ['/guide', 'nav.guide'],
-  ['/data', 'nav.data'],
-  ['/settings', 'nav.settings'],
-] as const;
-
 export function Shell({ children, locale }: { children: ReactNode; locale: string }) {
   const t = useTranslations();
   const pathname = usePathname();
   const router = useRouter();
   const dispatch = useAppStore((state) => state.dispatch);
-  const mode = useAppStore((state) => state.mode);
   const sample = useAppStore((state) => state.sample);
   const frameSample = useAppStore((state) =>
     state.layers.some((id) => {
@@ -69,11 +59,19 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
     }),
   );
   const demo = useAppStore((state) => state.demo);
+  const hub = useAppStore((state) => state.hub);
   const quiz = useAppStore((state) => state.quiz);
   const settings = useAppStore((state) => state.settings);
   const load = useContent((state) => state.load);
   const [help, setHelp] = useState(false);
-  const other = locale === 'ar' ? 'en' : 'ar';
+  const [online, setOnline] = useState(true);
+
+  // The route is the source of truth for the language, so a direct link to
+  // /ar/... reads and speaks Arabic immediately.
+  useEffect(() => {
+    if (useAppStore.getState().lang !== locale)
+      useAppStore.setState({ lang: locale as 'ar' | 'en' });
+  }, [locale]);
 
   useEffect(() => {
     const search = new URLSearchParams(window.location.search);
@@ -145,6 +143,17 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
     };
   }, [locale, pathname, router]);
 
+  useEffect(() => {
+    const update = () => setOnline(navigator.onLine);
+    update();
+    window.addEventListener('online', update);
+    window.addEventListener('offline', update);
+    return () => {
+      window.removeEventListener('online', update);
+      window.removeEventListener('offline', update);
+    };
+  }, []);
+
   const skipFocus = useRef(true);
   useEffect(() => {
     if (skipFocus.current) {
@@ -199,7 +208,9 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
         setHelp(true);
       } else if (event.key === '/') {
         event.preventDefault();
-        document.getElementById('command')?.focus();
+        const guideSearch = document.getElementById('guide-search');
+        if (guideSearch instanceof HTMLElement) guideSearch.focus();
+        else document.getElementById('command')?.focus();
       } else if (
         (pathname.includes('/quiz') || useAppStore.getState().quiz?.open) &&
         (event.key === '1' || event.key === '2' || event.key === '3')
@@ -214,128 +225,60 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
   }, [dispatch, pathname]);
 
   const onQuiz = pathname.endsWith('/quiz');
+  const onEntry = pathname === '/';
+  const showChrome = !onEntry || hub || demo;
+  const showFooter = showChrome && pathname !== '/listen';
 
   return (
     <>
       <a className="skip-link" href="#content">
         {t('skip')}
       </a>
+      <SpaceBackdrop threads={showChrome && pathname !== '/listen'} />
       <LiveRegion />
       <PlaybackBridge />
-      <header className="bg-space-950/90 sticky top-0 z-30 border-b border-white/10 backdrop-blur">
-        <div className="flex flex-wrap items-center gap-3 px-4 py-3">
-          <p className="font-semibold">{t('meta.title')}</p>
-          <nav aria-label={t('nav.label')} className="flex flex-wrap gap-2">
-            {LINKS.map(([href, key]) => (
-              <Link
-                key={href}
-                href={href}
-                prefetch={false}
-                className="inline-flex min-h-11 items-center px-2"
+      {showChrome ? <SiteHeader /> : null}
+      <main
+        id="content"
+        key={pathname}
+        className={showChrome ? 'route-fade relative z-10 pt-[86px]' : 'relative z-10'}
+      >
+        {showChrome ? (
+          <div className="relative z-30">
+            <Banner sample={sample} demo={demo} frameSample={frameSample} />
+            {!online ? (
+              <p
+                role="status"
+                className="border-line bg-glass text-ink-muted mx-auto mt-2 w-fit rounded-full border px-4 py-1.5 text-sm backdrop-blur"
               >
-                {t(key)}
-              </Link>
-            ))}
-          </nav>
-          <TalkButton />
-          <IconButton
-            aria-label={t('header.stop')}
-            onClick={() => {
-              getPlayer().stop();
-              dispatch({ type: 'stop' }, 'pointer');
-            }}
-          >
-            {t('header.stop')}
-          </IconButton>
-          <IconButton
-            aria-pressed={mode === 'audio_first'}
-            aria-label={mode === 'audio_first' ? t('header.visual') : t('header.audio')}
-            onClick={() =>
-              dispatch(
-                { type: 'set_mode', mode: mode === 'audio_first' ? 'visual' : 'audio_first' },
-                'pointer',
-              )
-            }
-          >
-            {mode === 'audio_first' ? t('header.visual') : t('header.audio')}
-          </IconButton>
-          <IconButton
-            data-testid="pause-animations"
-            aria-pressed={settings.reducedMotion === 'on'}
-            aria-label={settings.reducedMotion === 'on' ? t('header.resume') : t('header.pause')}
-            onClick={() =>
-              dispatch(
-                {
-                  type: 'set_setting',
-                  key: 'reducedMotion',
-                  value: settings.reducedMotion === 'on' ? 'off' : 'on',
-                },
-                'pointer',
-              )
-            }
-          >
-            {settings.reducedMotion === 'on' ? t('header.resume') : t('header.pause')}
-          </IconButton>
-          <IconButton aria-label={t('header.help')} onClick={() => setHelp(true)}>
-            {t('header.help')}
-          </IconButton>
-          <button
-            type="button"
-            className="min-h-11 px-3"
-            onClick={() => dispatch({ type: 'set_language', lang: other }, 'pointer')}
-          >
-            {t('header.language')}
-          </button>
-        </div>
-        <div className="px-4 pb-3">
-          <CommandBox />
-        </div>
-      </header>
-      <Banner sample={sample} demo={demo} frameSample={frameSample} />
-      <main id="content" key={pathname} className="route-fade">
+                {t('header.offline')}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
         {children}
         {quiz?.open && !onQuiz ? <QuizPanel /> : null}
       </main>
+      {showFooter ? <SiteFooter /> : null}
+      {showChrome ? (
+        <div className="border-line bg-glass fixed end-4 bottom-4 z-40 flex w-[min(440px,calc(100vw-2rem))] items-center gap-2 rounded-full border p-2 shadow-[var(--shadow-float)] backdrop-blur-[18px]">
+          <TalkButton />
+          <CommandBox />
+        </div>
+      ) : null}
       <CaptionStrip />
-      <footer className="grid gap-2 px-4 py-8 text-sm">
-        <p>{t('footer.credit')}</p>
-        <p lang="en">{t('banner.nasa')}</p>
-        <p>{t('footer.license')}</p>
-        <button
-          type="button"
-          className="min-h-11 w-fit rounded-full border border-white/20 px-4"
-          onClick={() => {
-            useAppStore.getState().markIntroSeen(false);
-            sessionStorage.setItem('el.replay', '1');
-            router.push('/');
-          }}
-        >
-          {t('intro.replay')}
-        </button>
-      </footer>
-      <Dialog.Root open={help} onOpenChange={setHelp}>
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 bg-black/60" />
-          <Dialog.Content
-            className="panel fixed inset-x-4 top-16 z-50 mx-auto max-w-lg p-6"
-            aria-describedby={undefined}
-          >
-            <Dialog.Title className="text-2xl">{t('help.title')}</Dialog.Title>
-            <div className="mt-4 grid gap-3">
-              {SHORTCUTS.map((item) => (
-                <KeyHint
-                  key={item.id}
-                  keys={item.keys}
-                  label={locale === 'ar' ? item.ar : item.en}
-                />
-              ))}
-            </div>
-            <Dialog.Close className="mt-6 min-h-11 rounded-full border border-white/20 px-4">
-              {t('help.close')}
-            </Dialog.Close>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
+      <Toaster position="top-center" />
+      <Dialog open={help} onOpenChange={setHelp}>
+        <DialogContent className="panel max-w-lg p-6">
+          <DialogTitle className="font-display text-2xl">{t('help.title')}</DialogTitle>
+          <DialogDescription className="sr-only">{t('help.title')}</DialogDescription>
+          <div className="mt-4 grid gap-3">
+            {SHORTCUTS.map((item) => (
+              <KeyHint key={item.id} keys={item.keys} label={locale === 'ar' ? item.ar : item.en} />
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

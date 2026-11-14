@@ -57,25 +57,34 @@ export function CommandBox() {
 
   return (
     <form
-      className="flex min-w-0 flex-1 items-end gap-2"
+      className="flex min-w-0 flex-1 items-center"
       onSubmit={(event) => {
         event.preventDefault();
         void submit();
       }}
     >
-      <label className="flex min-w-0 flex-1 flex-col text-sm" htmlFor="command">
+      <label htmlFor="command" className="sr-only">
         {t('label')}
+      </label>
+      <span className="relative flex min-w-0 flex-1 items-center">
         <input
           id="command"
           name="command"
+          aria-label={t('label')}
           value={value}
           onChange={(event) => setValue(event.target.value)}
           placeholder={t('placeholder')}
           autoComplete="off"
-          className="bg-space-950 text-ink mt-1 min-h-11 rounded-full border border-white/20 px-4 text-base"
+          className="border-line text-ink placeholder:text-ink-subtle focus-visible:border-line-strong h-12 w-full min-w-0 rounded-full border bg-white/[0.04] px-4 pe-10 text-base transition-colors outline-none"
         />
-      </label>
-      <button type="submit" className="min-h-11 rounded-full border border-white/20 px-4">
+        <kbd
+          aria-hidden="true"
+          className="border-line-strong text-ink-muted pointer-events-none absolute end-3 rounded-[7px] border border-b-2 bg-white/[0.03] px-1.5 py-0.5 font-mono text-[11px]"
+        >
+          /
+        </kbd>
+      </span>
+      <button type="submit" className="sr-only">
         {t('label')}
       </button>
     </form>
