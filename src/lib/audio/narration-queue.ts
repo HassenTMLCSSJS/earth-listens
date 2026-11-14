@@ -15,9 +15,7 @@ interface QueueItem extends SayOptions {
 }
 
 const synth = (): SpeechSynthesis | null =>
-  typeof window !== 'undefined' && 'speechSynthesis' in window
-    ? window.speechSynthesis
-    : null;
+  typeof window !== 'undefined' && 'speechSynthesis' in window ? window.speechSynthesis : null;
 
 class NarrationQueue {
   private audio: HTMLAudioElement | null = null;

@@ -42,7 +42,18 @@ const SCENES: Record<number, string[]> = {
   8: ['cairo_marker', 'sada', 'stage_disc'],
 };
 
-const SCENE_DRIVE: Record<number, { framing: 'hero' | 'hidden'; lat: number; lon: number; alt: number; ms: number; rotate?: boolean; dim?: number }> = {
+const SCENE_DRIVE: Record<
+  number,
+  {
+    framing: 'hero' | 'hidden';
+    lat: number;
+    lon: number;
+    alt: number;
+    ms: number;
+    rotate?: boolean;
+    dim?: number;
+  }
+> = {
   1: { framing: 'hidden', lat: 20, lon: 0, alt: 3.0, ms: 1000 },
   2: { framing: 'hero', lat: 20, lon: 10, alt: 2.4, ms: 6000, rotate: true },
   3: { framing: 'hero', lat: 15, lon: 20, alt: 2.0, ms: 4000, rotate: true },
@@ -56,7 +67,9 @@ const SCENE_DRIVE: Record<number, { framing: 'hero' | 'hidden'; lat: number; lon
 /** Cumulative minimum seconds before each spoken cue may advance. */
 const MIN_HELD_END = [10, 22, 36, 48, 64, 78, 88];
 
-const CAIRO = [{ lat: 30.04, lng: 31.24, altitude: 0.04, color: '#f2c46d', radius: 0.09, label: 'Cairo' }];
+const CAIRO = [
+  { lat: 30.04, lng: 31.24, altitude: 0.04, color: '#f2c46d', radius: 0.09, label: 'Cairo' },
+];
 
 function IntroGlobeFallback() {
   return (
@@ -182,7 +195,10 @@ export function IntroStage({
         onReady={() => setGlobeReady(true)}
       />
 
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_60%,transparent_35%,rgb(5_7_13/.82)_92%)]" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_60%,transparent_35%,rgb(5_7_13/.82)_92%)]"
+      />
 
       {scene === 4 ? (
         <IntroInstrument id="satellite" playing={!paused} reducedMotion={reduced} />
@@ -195,12 +211,8 @@ export function IntroStage({
         <motion.div
           key={index}
           initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 1.06, filter: 'blur(10px)' }}
-          animate={
-            reduced ? { opacity: 1 } : { opacity: 1, scale: 1, filter: 'blur(0px)' }
-          }
-          exit={
-            reduced ? { opacity: 0 } : { opacity: 0, scale: 0.97, filter: 'blur(6px)' }
-          }
+          animate={reduced ? { opacity: 1 } : { opacity: 1, scale: 1, filter: 'blur(0px)' }}
+          exit={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.97, filter: 'blur(6px)' }}
           transition={{ duration: reduced ? 0.25 : 0.95, ease: [0.16, 1, 0.3, 1] }}
           className="pointer-events-none absolute inset-0 grid place-items-center content-end gap-6 p-6"
         >

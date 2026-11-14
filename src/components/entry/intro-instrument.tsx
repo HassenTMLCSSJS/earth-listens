@@ -56,9 +56,7 @@ export function IntroInstrument({
       <ambientLight intensity={0.85} />
       <directionalLight position={[3, 4, 3]} intensity={1.35} />
       <spotLight position={[-3, 2, -2]} intensity={0.6} />
-      <Suspense fallback={null}>
-        {satellite ? <OrbitRig>{scene}</OrbitRig> : scene}
-      </Suspense>
+      <Suspense fallback={null}>{satellite ? <OrbitRig>{scene}</OrbitRig> : scene}</Suspense>
     </Canvas>
   );
 }
