@@ -15,6 +15,7 @@ import {
   type EntryState,
 } from '@/modules/entry';
 import { narrationSafetyMs, speakNarration } from '@/modules/narration';
+import { unlockNarrationAudio } from '@/lib/audio/narration-queue';
 import { getPlayer, unlockAudio } from '@/modules/sonification';
 import { ChoiceHub } from '@/components/entry/choice-hub';
 import { IntroStage } from '@/components/entry/intro-stage';
@@ -287,6 +288,7 @@ export function HomeExperience() {
   const onSound = useCallback(
     (gesture: 'key' | 'pointer') => {
       unlockAudio();
+      unlockNarrationAudio();
       void getPlayer()
         .init()
         .then(() => getPlayer().earcon('start'))

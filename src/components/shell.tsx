@@ -9,6 +9,7 @@ import { useContent } from '@/core/catalog';
 import { subscribe } from '@/core/bus';
 import { isTypingTarget, SHORTCUTS } from '@/modules/a11y';
 import { announce } from '@/modules/narration';
+import { narrationQueue } from '@/lib/audio/narration-queue';
 import { getPlayer, unlockAudio } from '@/modules/sonification';
 import { Banner } from '@/components/ui/banner';
 import { CaptionStrip } from '@/components/ui/caption-strip';
@@ -156,6 +157,7 @@ export function Shell({ children, locale }: { children: ReactNode; locale: strin
 
   const skipFocus = useRef(true);
   useEffect(() => {
+    narrationQueue.stop();
     if (skipFocus.current) {
       skipFocus.current = false;
       return;

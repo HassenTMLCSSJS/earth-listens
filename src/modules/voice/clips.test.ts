@@ -21,8 +21,16 @@ beforeEach(() => {
     class {
       onended: (() => void) | null = null;
       onerror: (() => void) | null = null;
-      constructor(public src: string) {
-        played.push(src);
+      private _src = '';
+      constructor(src?: string) {
+        if (src) this.src = src;
+      }
+      set src(value: string) {
+        this._src = value;
+        played.push(value);
+      }
+      get src() {
+        return this._src;
       }
       play() {
         this.onended?.();

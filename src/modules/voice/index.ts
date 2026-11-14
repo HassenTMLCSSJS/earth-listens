@@ -1,6 +1,6 @@
 import type { Lang } from '@/core/actions';
-import { findNarrationClip } from './clips';
 import { resolveHeardLanguage } from './language';
+import { narrationQueue, playSharedUrl } from '@/lib/audio/narration-queue';
 
 export { narrationKey, preloadNarrationClips, resetNarrationClipsForTests } from './clips';
 export { resolveHeardLanguage };
@@ -111,7 +111,7 @@ export const kokoroTts: TtsEngine = {
       dtype: 'q8',
     });
     const audio = await tts.generate(text, { voice: 'af_heart', speed: opts.rate });
-    await playRaw(audio, opts.signal);
+    if (audio.toBlob) await playSharedUrl(URL.createObjectURL(audio.toBlob()), opts.signal);
   },
 };
 
@@ -130,7 +130,7 @@ export const piperTts: TtsEngine = {
     const keys = Array.isArray(voices) ? voices.map((voice) => voice.key) : Object.keys(voices);
     if (!keys.includes(AR_VOICE)) throw new Error('arabic voice missing');
     const wav = await tts.predict({ text, voiceId: AR_VOICE });
-    await playUrl(URL.createObjectURL(wav), opts.signal);
+    await playSharedUrl(URL.createObjectURL(wav), opts.signal);
   },
 };
 
@@ -141,58 +141,9 @@ export const speechSynthesisTts: TtsEngine = {
     return typeof window !== 'undefined' && 'speechSynthesis' in window;
   },
   async speak(text, lang, opts) {
-    if (!('speechSynthesis' in window)) return;
-    await new Promise<void>((resolve) => {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = lang === 'ar' ? 'ar-EG' : 'en-US';
-      utterance.rate = opts.rate;
-      utterance.onend = () => resolve();
-      utterance.onerror = () => resolve();
-      const onAbort = () => {
-        window.speechSynthesis.cancel();
-        resolve();
-      };
-      opts.signal.addEventListener('abort', onAbort, { once: true });
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(utterance);
-    });
+    await narrationQueue.say(text, { text, lang, rate: opts.rate, signal: opts.signal });
   },
 };
-
-async function playUrl(url: string, signal: AbortSignal): Promise<boolean> {
-  const audio = new Audio(url);
-  return new Promise((resolve) => {
-    let settled = false;
-    const finish = (ok: boolean) => {
-      if (settled) return;
-      settled = true;
-      resolve(ok);
-    };
-    audio.onended = () => finish(true);
-    audio.onerror = () => finish(false);
-    signal.addEventListener(
-      'abort',
-      () => {
-        audio.pause();
-        finish(true);
-      },
-      { once: true },
-    );
-    void audio.play().then(
-      () => undefined,
-      () => finish(false),
-    );
-  });
-}
-
-async function playRaw(
-  audio: { toBlob?: () => Blob; audio?: Float32Array; sampling_rate?: number },
-  signal: AbortSignal,
-): Promise<void> {
-  if (audio.toBlob) {
-    await playUrl(URL.createObjectURL(audio.toBlob()), signal);
-  }
-}
 
 export async function speakText(
   text: string,
@@ -200,26 +151,5 @@ export async function speakText(
   opts: { demo: boolean; rate: number; signal?: AbortSignal; neural?: boolean },
 ): Promise<void> {
   const signal = opts.signal ?? new AbortController().signal;
-  const clip = await findNarrationClip(lang, text);
-  if (clip) {
-    const played = await playUrl(clip.url, signal);
-    if (played || signal.aborted) return;
-  }
-  const chain: TtsEngine[] = [];
-  // Kokoro and Piper stay off the first paint. Callers opt in with neural.
-  if (!opts.demo && opts.neural) {
-    if (lang === 'en') chain.push(kokoroTts);
-    if (lang === 'ar') chain.push(piperTts);
-  }
-  chain.push(speechSynthesisTts);
-  for (const engine of chain) {
-    if (!engine.supports(lang)) continue;
-    try {
-      if (!(await engine.available())) continue;
-      await engine.speak(text, lang, { rate: opts.rate, signal });
-      return;
-    } catch {
-      continue;
-    }
-  }
+  await narrationQueue.say(text, { text, lang, rate: opts.rate, signal });
 }
